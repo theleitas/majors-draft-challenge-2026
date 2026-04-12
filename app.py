@@ -11,7 +11,7 @@ st.title("🏌️‍♂️ 2026 Masters Draft Dashboard")
 st.subheader("Top 3 lowest scores per team wins • Live updates every 5 minutes")
 
 # ====================== REFRESH BUTTON AT THE VERY TOP ======================
-col1, col2 = st.columns([4, 1])
+col1, col2 = st.columns([1, 1])
 with col1:
     st.write("")  # spacing
 with col2:
