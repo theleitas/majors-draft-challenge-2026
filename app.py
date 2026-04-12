@@ -9,27 +9,27 @@ from streamlit_autorefresh import st_autorefresh
 
 st.set_page_config(page_title="Masters Draft 2026", layout="wide", initial_sidebar_state="collapsed")
 
-# ====================== HIGH-CONTRAST DARK THEME ======================
-st.markdown("""
+# Coach Colors
+COACH_COLORS = {
+    "Jayme Leita": "#00cc77",      # Green
+    "Spencer Tidwell": "#bb77ff",  # Purple
+    "Peter Miller": "#cc3344"      # Maroon
+}
+
+st.markdown(f"""
 <style>
-    .stApp { background-color: #0a0a0a; color: #e0e0e0; }
-    .block-container { padding-top: 1rem; padding-bottom: 1rem; }
-    h1 { font-size: 1.85rem !important; color: #00ff9d; margin-bottom: 0.3rem; }
-    h2, h3 { font-size: 1.35rem !important; color: #ffffff; margin: 0.8rem 0 0.4rem 0; }
+    .stApp {{ background-color: #0a0a0a; color: #e0e0e0; }}
+    h1 {{ font-size: 1.9rem !important; color: #00ff9d; }}
+    h2, h3 {{ font-size: 1.4rem !important; color: #ffffff; }}
 
-    .stMarkdown p strong, .stMarkdown p b { font-size: 1.75rem !important; color: #ffffff; font-weight: 700; }
-    .stMarkdown p { font-size: 1.05rem !important; margin-bottom: 0.05rem; }
-    .stMarkdown p strong { font-size: 1.05rem !important; color: #00ff9d; font-weight: 700; }
+    /* Coach-colored Total Boxes */
+    .coach-box-jayme {{ border: 2px solid #00cc77; background-color: #0f2a1f; }}
+    .coach-box-spencer {{ border: 2px solid #bb77ff; background-color: #1f1a2f; }}
+    .coach-box-peter {{ border: 2px solid #cc3344; background-color: #2a1a1f; }}
 
-    .stContainer { border: 2px solid #ffffff !important; border-radius: 10px; background-color: #111111; padding: 14px; }
+    .stMetric div[data-testid="stMetricValue"] {{ font-size: 1.8rem !important; font-weight: bold; }}
 
-    .stMetric { background-color: #1f2a1f; border: 1px solid #00cc77; border-radius: 8px; padding: 10px 14px; }
-    .stMetric label { color: #88ffbb; font-size: 0.85rem; }
-    .stMetric div[data-testid="stMetricValue"] { color: #00ff9d !important; font-size: 1.65rem !important; font-weight: bold; }
-
-    .stDataFrame { font-size: 0.84rem; background-color: #111; }
-
-    .highlight-top3 { background-color: #ffd700 !important; color: #000000 !important; font-weight: bold; }
+    .stDataFrame {{ font-size: 0.88rem; }}
 </style>
 """, unsafe_allow_html=True)
 
@@ -48,7 +48,7 @@ st_autorefresh(interval=300000, limit=None, key="datarefresh")
 # ====================== GITHUB CONFIG ======================
 try:
     GITHUB_TOKEN = st.secrets["GITHUB"]["TOKEN"]
-    REPO_OWNER = "theleitas"          # ← CHANGE TO YOUR USERNAME
+    REPO_OWNER = "YOUR_GITHUB_USERNAME"          # ← CHANGE TO YOUR USERNAME
     REPO_NAME = "masters-draft-2026"
     FILE_PATH = "teams.json"
     BRANCH = "main"
@@ -84,7 +84,7 @@ def fetch_leaderboard():
 
 data = fetch_leaderboard()
 
-# ====================== CURRENT ROUND HOLE PARSER ======================
+# ====================== PLAYER DATA PARSER ======================
 def get_player_data(api_data):
     player_data = {}
     if not api_data:
@@ -99,49 +99,41 @@ def get_player_data(api_data):
             if not name:
                 continue
 
-            # Score to par
             try:
                 score = int(float(comp.get("score"))) if comp.get("score") is not None else None
             except:
                 score = None
 
-            # Current round hole detection
+            # Current round hole
             linescores = comp.get("linescores", [])
             hole = "Not started"
-
             if linescores:
-                current_round = linescores[-1]  # Most recent round
+                current_round = linescores[-1]
                 per_hole = current_round.get("linescores", [])
-
-                played_holes = sum(1 for h in per_hole if h.get("displayValue") is not None and h.get("displayValue") != "")
-
-                if played_holes > 0:
-                    hole = f"Thru {played_holes}"
-                elif current_round.get("displayValue") == "F" or current_round.get("period") == "F":
+                played = sum(1 for h in per_hole if h.get("displayValue"))
+                if played > 0:
+                    hole = f"Thru {played}"
+                elif current_round.get("displayValue") == "F":
                     hole = "Finished"
 
-            # Position
             rank = comp.get("rank") or comp.get("position") or "—"
             if isinstance(rank, (int, float)):
                 rank = str(int(rank))
 
-            player_data[name] = {
-                "score": score,
-                "hole": hole,
-                "rank": rank
-            }
-    except Exception:
-        pass  # Fail gracefully
+            player_data[name] = {"score": score, "hole": hole, "rank": rank}
+    except:
+        pass
 
     return player_data
 
 player_data = get_player_data(data)
 
-# ====================== STANDINGS ======================
+# ====================== STANDINGS WITH COLORED TOTAL BOXES ======================
 st.subheader("Standings")
 
 for coach_id, info in teams_data.items():
     team_name = info.get("team_name", coach_id)
+    color = COACH_COLORS.get(coach_id, "#888888")
     players = info.get("players", [])
     
     player_list = []
@@ -154,19 +146,61 @@ for coach_id, info in teams_data.items():
     top_3 = player_list[:3]
     top_3_sum = sum(s for _, s, _ in top_3)
 
+    # Coach-colored box
+    box_class = f"coach-box-jayme" if coach_id == "Jayme Leita" else \
+                f"coach-box-spencer" if coach_id == "Spencer Tidwell" else "coach-box-peter"
+
     with st.container(border=True):
+        st.markdown(f"<div class='{box_class}' style='padding:12px; border-radius:10px;'>", unsafe_allow_html=True)
+        
         c1, c2 = st.columns([3, 1])
         with c1:
             st.markdown(f"**{team_name}**")
         with c2:
-            st.metric("TOTAL", top_3_sum)
+            st.metric("TOTAL", top_3_sum, label_visibility="hidden")
         
-        st.markdown("**Top 3 Golfers**")
+        st.markdown("**Top 3**")
         if top_3:
             for name, score, hole in top_3:
                 st.markdown(f"  {name} **({score})** — {hole}")
         else:
             st.caption("Waiting for scores...")
+        
+        st.markdown("</div>", unsafe_allow_html=True)
+
+# ====================== TOP 10 LEADERBOARD ======================
+st.subheader("Top 10 Leaderboard")
+
+if player_data:
+    leaderboard = []
+    for name, info in player_data.items():
+        if info.get("score") is not None:
+            leaderboard.append({
+                "Position": info["rank"],
+                "Player": name,
+                "Score": info["score"],
+                "Hole": info["hole"]
+            })
+    
+    df_lb = pd.DataFrame(leaderboard)
+    df_lb = df_lb.sort_values("Score").head(10).reset_index(drop=True)
+    
+    # Color mapping for owned players
+    owner_map = {}
+    for coach_id, info in teams_data.items():
+        color = COACH_COLORS.get(coach_id, "#555555")
+        for player in info.get("players", []):
+            owner_map[player] = color
+
+    def highlight_leaderboard(row):
+        player = row["Player"]
+        color = owner_map.get(player)
+        if color:
+            return [f'background-color: {color}; color: black; font-weight: bold'] * len(row)
+        return [''] * len(row)
+
+    styled_lb = df_lb.style.apply(highlight_leaderboard, axis=1)
+    st.dataframe(styled_lb, use_container_width=True, hide_index=True)
 
 # ====================== $50 SIDE BET ======================
 st.subheader("$50 Leita/Tidwell Side Bet - Burns to Win")
@@ -248,7 +282,7 @@ with st.expander("🔧 Edit Teams & Auto-Save to GitHub", expanded=False):
                 st.cache_data.clear()
                 st.rerun()
             else:
-                st.error("Failed to save to GitHub")
+                st.error("Failed to save")
         except Exception as e:
             st.error(f"Error: {e}")
 
