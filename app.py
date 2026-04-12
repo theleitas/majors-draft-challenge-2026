@@ -16,16 +16,16 @@ st.markdown("""
         color: #e0e0e0;
     }
     .block-container {
-        padding-top: 1rem;
+        padding-top: 2rem;
         padding-bottom: 1rem;
     }
     h1 {
-        font-size: 3rem !important;
+        font-size: 2rem !important;
         color: #00ff9d;
         margin-bottom: 0.2rem;
     }
     h2, h3 {
-        font-size: 3rem !important;
+        font-size: 2rem !important;
         color: #ffffff;
         margin: 0.6rem 0 0.3rem 0;
     }
