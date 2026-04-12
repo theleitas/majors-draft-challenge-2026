@@ -24,7 +24,7 @@ st.markdown("""
         font-weight: 700;
     }
 
-    /* Golfer names and scores in standings */
+    /* Golfer names and scores */
     .stMarkdown p { font-size: 1.05rem !important; margin-bottom: 0.05rem; }
     .stMarkdown p strong {
         font-size: 1.05rem !important;
@@ -67,7 +67,7 @@ st.markdown("""
 
 st.title("🏌️ MASTERS DRAFT 2026")
 
-# Last updated time in EST (12-hour format with AM/PM)
+# Last updated time in EST (12-hour format)
 est_tz = zoneinfo.ZoneInfo("America/New_York")
 last_updated = datetime.now(est_tz).strftime("%I:%M %p EST")
 st.caption(f"Top 3 lowest scores wins • Live updates every 5 minutes • Last updated: {last_updated}")
@@ -138,7 +138,7 @@ def get_player_data(api_data):
             except:
                 score = None
 
-            # Aggressive hole detection
+            # === AGGRESSIVE HOLE DETECTION ===
             status = comp.get("status", {}) or {}
             status_type = status.get("type", {}) or {}
 
@@ -164,7 +164,7 @@ def get_player_data(api_data):
                 raw_upper = hole_raw.upper()
                 if raw_upper in ["F", "FIN", "FINISHED", "COMPLETE"]:
                     hole = "Finished"
-                elif any(char.isdigit() for char in raw_upper):
+                elif any(char.isdigit() for char in raw_upper) or "THRU" in raw_upper:
                     hole = f"Thru {hole_raw.replace('Thru', '').strip()}" if "Thru" not in hole_raw else hole_raw
                 else:
                     hole = hole_raw
@@ -281,6 +281,19 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
         styled_df = df.style.apply(style_top3, axis=1)
         
         st.dataframe(styled_df, use_container_width=True, hide_index=True, height=210)
+
+# ====================== DEBUG SECTION ======================
+st.divider()
+with st.expander("🔍 Debug: Raw Data for Gary Woodland (Click to expand)", expanded=True):
+    if "Gary Woodland" in player_data:
+        woodland = player_data["Gary Woodland"]
+        st.write("**Gary Woodland Parsed Data:**")
+        st.json(woodland)
+    else:
+        st.write("Gary Woodland not found in player_data")
+
+    st.write("**Full Raw API Response (first 500 chars for brevity):**")
+    st.json({k: str(v)[:500] for k, v in data.items()} if data else "No data")
 
 # ====================== EDIT SECTION ======================
 st.divider()
