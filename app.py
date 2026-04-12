@@ -104,7 +104,6 @@ def get_player_data(api_data):
             except:
                 score = None
 
-            # Current round hole
             linescores = comp.get("linescores", [])
             hole = "Not started"
             if linescores:
@@ -152,6 +151,8 @@ for coach_id, info in teams_data.items():
     with st.container():
         st.markdown(f"<div class='{box_class}'>", unsafe_allow_html=True)
         
+        st.markdown(f"**{team_name}**")
+        
         cols = st.columns([1.2, 2.8])
         with cols[0]:
             st.metric("TOTAL", top_3_sum)
@@ -164,15 +165,23 @@ for coach_id, info in teams_data.items():
         
         st.markdown("</div>", unsafe_allow_html=True)
 
-# ====================== TOP 10 LEADERBOARD ======================
+# ====================== TOP 10 LEADERBOARD (S, J, P) ======================
 st.subheader("Top 10 Leaderboard")
 
 if player_data:
     leaderboard = []
     for name, info in player_data.items():
         if info.get("score") is not None:
+            # Determine owner letter
+            owner_letter = "—"
+            for coach_id, info_team in teams_data.items():
+                if name in info_team.get("players", []):
+                    owner_letter = "J" if coach_id == "Jayme Leita" else \
+                                   "S" if coach_id == "Spencer Tidwell" else \
+                                   "P" if coach_id == "Peter Miller" else "—"
+                    break
             leaderboard.append({
-                "Position": info["rank"],
+                "Owner": owner_letter,
                 "Player": name,
                 "Score": info["score"],
                 "Hole": info["hole"]
@@ -181,6 +190,7 @@ if player_data:
     df_lb = pd.DataFrame(leaderboard)
     df_lb = df_lb.sort_values("Score").head(10).reset_index(drop=True)
     
+    # Color mapping
     owner_map = {}
     for coach_id, info in teams_data.items():
         color = COACH_COLORS.get(coach_id, "#555555")
