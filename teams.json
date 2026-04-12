@@ -1,0 +1,44 @@
+{
+  "Peter Miller": {
+    "team_name": "Peter's Putters",
+    "players": [
+      "Ludvig Aberg",
+      "Corey Conners",
+      "Tommy Fleetwood",
+      "Chris Gotterup",
+      "Jon Rahm",
+      "Jordan Spieth",
+      "Scottie Scheffler"
+    ]
+  },
+  "Jayme Leita": {
+    "team_name": "Jayme's Aces",
+    "players": [
+      "Patrick Cantlay",
+      "Matthew Fitzpatrick",
+      "Russell Henley",
+      "Sungjae Im",
+      "Hideki Matsuyama",
+      "Collin Morikawa",
+      "Xander Schauffele",
+      "Adam Scott",
+      "Sepp Straka",
+      "Cameron Young"
+    ]
+  },
+  "Spencer Tidwell": {
+    "team_name": "Spencer's Bombers",
+    "players": [
+      "Bryson DeChambeau",
+      "Rory McIlroy",
+      "Robert MacIntyre",
+      "Justin Rose",
+      "Patrick Reed",
+      "Viktor Hovland",
+      "Min Woo Lee",
+      "Brooks Koepka",
+      "Tyrrell Hatton",
+      "Shane Lowry"
+    ]
+  }
+}
