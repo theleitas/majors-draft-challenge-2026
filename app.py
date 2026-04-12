@@ -84,16 +84,14 @@ def fetch_leaderboard():
 
 data = fetch_leaderboard()
 
-# ====================== FIXED & DEEP HOLE PARSER ======================
+# ====================== FIXED HOLE PARSER (using linescores) ======================
 def get_player_data(api_data):
     player_data = {}
     if not api_data:
         return player_data
 
     try:
-        competitors = (api_data.get("events", [{}])[0]
-                       .get("competitions", [{}])[0]
-                       .get("competitors", []))
+        competitors = api_data.get("events", [{}])[0].get("competitions", [{}])[0].get("competitors", [])
 
         for comp in competitors:
             athlete = comp.get("athlete", {})
@@ -101,51 +99,44 @@ def get_player_data(api_data):
             if not name:
                 continue
 
-            # Score
+            # Score to par
             try:
                 score = int(float(comp.get("score"))) if comp.get("score") is not None else None
             except:
                 score = None
 
-            # === DEEP HOLE DETECTION ===
-            status = comp.get("status", {}) or {}
-            status_type = status.get("type", {}) or {}
+            # === BETTER HOLE DETECTION USING LINESCORES ===
+            linescores = comp.get("linescores", [])
+            current_hole = None
 
-            hole_raw = None
-            candidates = [
-                status.get("thru"),
-                status.get("hole"),
-                status.get("period"),
-                status_type.get("shortDetail"),
-                status_type.get("detail"),
-                status.get("displayValue"),
-                status.get("description"),
-                comp.get("thru"),
-                status_type.get("abbreviation")
-            ]
+            # Find the current round (last round with data)
+            for ls in reversed(linescores):
+                if ls.get("linescores"):   # has per-hole data
+                    hole_list = ls.get("linescores", [])
+                    # Count how many holes have been played
+                    played_holes = sum(1 for h in hole_list if h.get("displayValue") is not None)
+                    if played_holes > 0:
+                        current_hole = played_holes
+                        break
 
-            for c in candidates:
-                if c is not None and str(c).strip() != "":
-                    hole_raw = str(c).strip()
-                    break
-
-            # Final formatting
-            if hole_raw:
-                raw = hole_raw.upper()
-                if raw in ["F", "FIN", "FINISHED", "COMPLETE"]:
-                    hole = "Finished"
-                elif any(ch.isdigit() for ch in raw) or "THRU" in raw:
-                    hole = f"Thru {hole_raw.replace('Thru', '').strip()}" if "Thru" not in hole_raw else hole_raw
-                else:
-                    hole = hole_raw
+            # Format hole
+            if current_hole:
+                hole = f"Thru {current_hole}"
+            elif comp.get("status", {}).get("type", {}).get("shortDetail") == "F":
+                hole = "Finished"
             else:
                 hole = "Not started"
 
+            # Position
             rank = comp.get("rank") or comp.get("position") or "—"
             if isinstance(rank, (int, float)):
                 rank = str(int(rank))
 
-            player_data[name] = {"score": score, "hole": hole, "rank": rank}
+            player_data[name] = {
+                "score": score,
+                "hole": hole,
+                "rank": rank
+            }
     except Exception as e:
         st.warning(f"Parsing error: {e}")
 
@@ -228,18 +219,16 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
         
         st.dataframe(df.style.apply(style_top3, axis=1), use_container_width=True, hide_index=True, height=210)
 
-# ====================== DEBUG SECTION (Gary Woodland) ======================
+# ====================== DEBUG SECTION ======================
 st.divider()
-with st.expander("🔍 DEBUG: Raw Data for Gary Woodland", expanded=True):
+with st.expander("🔍 DEBUG: Gary Woodland Raw Data", expanded=True):
     if data:
-        # Find Gary Woodland in raw data
         competitors = data.get("events", [{}])[0].get("competitions", [{}])[0].get("competitors", [])
         woodland_raw = next((c for c in competitors if "Woodland" in str(c.get("athlete", {}).get("displayName", ""))), None)
-        
         if woodland_raw:
             st.json(woodland_raw)
         else:
-            st.write("Gary Woodland not found in raw API response")
+            st.write("Gary Woodland not found in raw data")
     else:
         st.write("No API data received")
 
@@ -275,9 +264,11 @@ with st.expander("🔧 Edit Teams & Auto-Save to GitHub", expanded=False):
 
             put_resp = requests.put(url, headers=headers, json=payload)
             if put_resp.status_code in [200, 201]:
-                st.success("✅ Saved successfully!")
+                st.success("✅ Changes saved successfully!")
                 st.cache_data.clear()
                 st.rerun()
+            else:
+                st.error("Failed to save to GitHub")
         except Exception as e:
             st.error(f"Error: {e}")
 
