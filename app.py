@@ -16,20 +16,20 @@ COACH_COLORS = {
     "Peter Miller": "#cc3344"      # Maroon
 }
 
-st.markdown(f"""
+st.markdown("""
 <style>
-    .stApp {{ background-color: #0a0a0a; color: #e0e0e0; }}
-    h1 {{ font-size: 1.9rem !important; color: #00ff9d; }}
-    h2, h3 {{ font-size: 1.4rem !important; color: #ffffff; }}
+    .stApp { background-color: #0a0a0a; color: #e0e0e0; }
+    .block-container { padding-top: 1rem; padding-bottom: 1rem; }
+    h1 { font-size: 1.9rem !important; color: #00ff9d; margin-bottom: 0.3rem; }
+    h2, h3 { font-size: 1.4rem !important; color: #ffffff; }
 
-    /* Coach-colored Total Boxes */
-    .coach-box-jayme {{ border: 2px solid #00cc77; background-color: #0f2a1f; }}
-    .coach-box-spencer {{ border: 2px solid #bb77ff; background-color: #1f1a2f; }}
-    .coach-box-peter {{ border: 2px solid #cc3344; background-color: #2a1a1f; }}
+    /* Coach-colored Standings Boxes */
+    .coach-box-jayme { border: 2px solid #00cc77; background-color: #0f2a1f; }
+    .coach-box-spencer { border: 2px solid #bb77ff; background-color: #1f1a2f; }
+    .coach-box-peter { border: 2px solid #cc3344; background-color: #2a1a1f; }
 
-    .stMetric div[data-testid="stMetricValue"] {{ font-size: 1.8rem !important; font-weight: bold; }}
-
-    .stDataFrame {{ font-size: 0.88rem; }}
+    .stMetric div[data-testid="stMetricValue"] { font-size: 1.9rem !important; font-weight: bold; }
+    .stDataFrame { font-size: 0.88rem; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -39,7 +39,7 @@ est_tz = zoneinfo.ZoneInfo("America/New_York")
 last_updated = datetime.now(est_tz).strftime("%I:%M %p EST")
 st.caption(f"Top 3 lowest scores wins • Live updates every 5 minutes • Last updated: {last_updated}")
 
-if st.button("🔄 Refresh Scores Now", type="primary", use_container_width=True):
+if st.button("🔄 Refresh Scores Now", type="primary", use_container_width=True, key="top_refresh"):
     st.cache_data.clear()
     st.rerun()
 
@@ -128,7 +128,7 @@ def get_player_data(api_data):
 
 player_data = get_player_data(data)
 
-# ====================== STANDINGS WITH COLORED TOTAL BOXES ======================
+# ====================== STANDINGS - COLORED BOXES WITH TOTAL LEFT + TOP 3 RIGHT ======================
 st.subheader("Standings")
 
 for coach_id, info in teams_data.items():
@@ -146,25 +146,23 @@ for coach_id, info in teams_data.items():
     top_3 = player_list[:3]
     top_3_sum = sum(s for _, s, _ in top_3)
 
-    # Coach-colored box
-    box_class = f"coach-box-jayme" if coach_id == "Jayme Leita" else \
-                f"coach-box-spencer" if coach_id == "Spencer Tidwell" else "coach-box-peter"
+    box_class = ("coach-box-jayme" if coach_id == "Jayme Leita" else
+                 "coach-box-spencer" if coach_id == "Spencer Tidwell" else
+                 "coach-box-peter")
 
     with st.container(border=True):
-        st.markdown(f"<div class='{box_class}' style='padding:12px; border-radius:10px;'>", unsafe_allow_html=True)
+        st.markdown(f"<div class='{box_class}' style='padding:16px; border-radius:12px;'>", unsafe_allow_html=True)
         
-        c1, c2 = st.columns([3, 1])
-        with c1:
-            st.markdown(f"**{team_name}**")
-        with c2:
-            st.metric("TOTAL", top_3_sum, label_visibility="hidden")
-        
-        st.markdown("**Top 3**")
-        if top_3:
-            for name, score, hole in top_3:
-                st.markdown(f"  {name} **({score})** — {hole}")
-        else:
-            st.caption("Waiting for scores...")
+        cols = st.columns([1.2, 2.8])
+        with cols[0]:
+            st.metric("TOTAL", top_3_sum)
+        with cols[1]:
+            st.markdown("**Top 3 Golfers**")
+            if top_3:
+                for name, score, hole in top_3:
+                    st.markdown(f"  {name} **({score})** — {hole}")
+            else:
+                st.caption("Waiting for scores...")
         
         st.markdown("</div>", unsafe_allow_html=True)
 
@@ -185,21 +183,21 @@ if player_data:
     df_lb = pd.DataFrame(leaderboard)
     df_lb = df_lb.sort_values("Score").head(10).reset_index(drop=True)
     
-    # Color mapping for owned players
+    # Color mapping
     owner_map = {}
     for coach_id, info in teams_data.items():
         color = COACH_COLORS.get(coach_id, "#555555")
         for player in info.get("players", []):
             owner_map[player] = color
 
-    def highlight_leaderboard(row):
+    def highlight_lb(row):
         player = row["Player"]
         color = owner_map.get(player)
         if color:
             return [f'background-color: {color}; color: black; font-weight: bold'] * len(row)
         return [''] * len(row)
 
-    styled_lb = df_lb.style.apply(highlight_leaderboard, axis=1)
+    styled_lb = df_lb.style.apply(highlight_lb, axis=1)
     st.dataframe(styled_lb, use_container_width=True, hide_index=True)
 
 # ====================== $50 SIDE BET ======================
@@ -246,6 +244,12 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
         
         st.dataframe(df.style.apply(style_top3, axis=1), use_container_width=True, hide_index=True, height=210)
 
+# ====================== REFRESH BUTTON (Near Bottom) ======================
+st.divider()
+if st.button("🔄 Refresh Scores Now", type="primary", use_container_width=True, key="bottom_refresh"):
+    st.cache_data.clear()
+    st.rerun()
+
 # ====================== EDIT SECTION ======================
 st.divider()
 with st.expander("🔧 Edit Teams & Auto-Save to GitHub", expanded=False):
@@ -282,7 +286,7 @@ with st.expander("🔧 Edit Teams & Auto-Save to GitHub", expanded=False):
                 st.cache_data.clear()
                 st.rerun()
             else:
-                st.error("Failed to save")
+                st.error("Failed to save to GitHub")
         except Exception as e:
             st.error(f"Error: {e}")
 
