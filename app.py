@@ -32,7 +32,7 @@ st.markdown("""
 
     /* Coach team names - large and bold */
     .stMarkdown p strong, .stMarkdown p b {
-        font-size: 1.75rem !important;     
+        font-size: 1.95rem !important;     
         color: #ffffff;
         font-weight: 700;
     }
