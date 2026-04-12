@@ -4,6 +4,7 @@ import pandas as pd
 import json
 import base64
 from datetime import datetime
+import pytz  # for EST conversion
 from streamlit_autorefresh import st_autorefresh
 
 st.set_page_config(page_title="Masters Draft 2026", layout="wide", initial_sidebar_state="collapsed")
@@ -23,7 +24,7 @@ st.markdown("""
         font-weight: 700;
     }
 
-    /* Golfer names and scores */
+    /* Golfer names and scores in standings */
     .stMarkdown p { font-size: 1.05rem !important; margin-bottom: 0.05rem; }
     .stMarkdown p strong {
         font-size: 1.05rem !important;
@@ -65,7 +66,11 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.title("🏌️ MASTERS DRAFT 2026")
-st.caption("Top 3 lowest scores wins • Live updates every 5 minutes")
+
+# Last updated time in EST (12-hour format)
+est_tz = pytz.timezone('US/Eastern')
+last_updated = datetime.now(est_tz).strftime("%I:%M %p EST")
+st.caption(f"Top 3 lowest scores wins • Live updates every 5 minutes • Last updated: {last_updated}")
 
 if st.button("🔄 Refresh Scores Now", type="primary", use_container_width=True):
     st.cache_data.clear()
@@ -76,7 +81,7 @@ st_autorefresh(interval=300000, limit=None, key="datarefresh")
 # ====================== GITHUB CONFIG ======================
 try:
     GITHUB_TOKEN = st.secrets["GITHUB"]["TOKEN"]
-    REPO_OWNER = "theleitas"          # ← CHANGE TO YOUR USERNAME
+    REPO_OWNER = "YOUR_GITHUB_USERNAME"          # ← CHANGE TO YOUR USERNAME
     REPO_NAME = "masters-draft-2026"             # ← CHANGE IF DIFFERENT
     FILE_PATH = "teams.json"
     BRANCH = "main"
@@ -112,7 +117,7 @@ def fetch_leaderboard():
 
 data = fetch_leaderboard()
 
-# ====================== ROBUST PLAYER DATA PARSER (Fixed Hole Detection) ======================
+# ====================== ROBUST PLAYER DATA PARSER (Improved Hole Detection) ======================
 def get_player_data(api_data):
     player_data = {}
     if not api_data:
@@ -127,45 +132,43 @@ def get_player_data(api_data):
             if not name:
                 continue
 
-            # Score to par
+            # Score
             try:
                 score = int(float(comp.get("score"))) if comp.get("score") is not None else None
             except:
                 score = None
 
-            # === AGGRESSIVE HOLE DETECTION ===
+            # === AGGRESSIVE HOLE DETECTION - Multiple fallback paths ===
             status = comp.get("status", {}) or {}
             status_type = status.get("type", {}) or {}
 
             hole_raw = None
-
-            # Priority order of fields ESPN actually uses
             candidates = [
-                status.get("thru"),                    # Most common
-                status.get("hole"),                    # Sometimes used
-                status_type.get("shortDetail"),        # Very common for "Thru 9"
+                status.get("thru"),
+                status.get("hole"),
+                status.get("period"),
+                status_type.get("shortDetail"),
                 status_type.get("detail"),
                 status.get("displayValue"),
                 status.get("description"),
-                status.get("period")
+                comp.get("thru"),               # sometimes at competitor level
             ]
 
             for c in candidates:
                 if c is not None and str(c).strip() != "":
-                    hole_raw = c
+                    hole_raw = str(c).strip()
                     break
 
             # Format hole
-            if hole_raw is not None:
-                raw = str(hole_raw).strip().upper()
-                if raw in ["F", "FIN", "FINISHED", "COMPLETE"]:
+            if hole_raw:
+                raw_upper = hole_raw.upper()
+                if raw_upper in ["F", "FIN", "FINISHED", "COMPLETE"]:
                     hole = "Finished"
-                elif raw.replace(".", "").replace("-", "").isdigit():
-                    hole = f"Thru {hole_raw}"
+                elif raw_upper.replace(".", "").replace("-", "").isdigit() or raw_upper.startswith("THRU"):
+                    hole = f"Thru {hole_raw.replace('Thru', '').strip()}" if "Thru" not in hole_raw else hole_raw
                 else:
-                    hole = str(hole_raw)
+                    hole = hole_raw
             else:
-                # Last resort: check if they have a tee time or are not started
                 hole = "Not started"
 
             # Position
@@ -179,7 +182,7 @@ def get_player_data(api_data):
                 "rank": rank
             }
     except Exception as e:
-        st.warning(f"Parsing error: {e}")
+        st.warning(f"Error parsing leaderboard data: {e}")
 
     return player_data
 
@@ -216,7 +219,7 @@ for coach_id, info in teams_data.items():
         else:
             st.caption("Waiting for scores...")
 
-# ====================== $50 SIDE BET - SAM BURNS ======================
+# ====================== $50 LEITA/TIDWELL SIDE BET ======================
 st.subheader("$50 Leita/Tidwell Side Bet - Burns to Win")
 
 burns = player_data.get("Sam Burns", {})
