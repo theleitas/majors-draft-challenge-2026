@@ -30,11 +30,24 @@ st.markdown("""
         margin: 0.6rem 0 0.3rem 0;
     }
 
-    /* THIS IS THE IMPORTANT NEW RULE FOR COACH TEAM NAMES */
+    /* Coach team names - large and bold */
     .stMarkdown p strong, .stMarkdown p b {
-        font-size: 1.65rem !important;     /* ← Change this number to make team names bigger */
+        font-size: 1.75rem !important;     
         color: #ffffff;
         font-weight: 700;
+    }
+
+    /* Golfer names and scores in standings - same size */
+    .stMarkdown p {
+        font-size: 1.05rem !important;
+        margin-bottom: 0.1rem;
+    }
+    
+    /* Make the scores in parentheses the SAME size as golfer names */
+    .stMarkdown p strong {
+        font-size: 1.05rem !important;     /* ← This controls the (score) size */
+        font-weight: 700;
+        color: #00ff9d;
     }
 
     /* Bright Total metric */
@@ -46,11 +59,11 @@ st.markdown("""
     }
     .stMetric label {
         color: #88ffbb;
-        font-size: 1.75rem;
+        font-size: 0.85rem;
     }
     .stMetric div[data-testid="stMetricValue"] {
         color: #00ff9d !important;
-        font-size: 1.75rem !important;
+        font-size: 1.65rem !important;
         font-weight: bold;
     }
 
@@ -63,7 +76,7 @@ st.markdown("""
     }
 
     .stDataFrame {
-        font-size: 1rem;
+        font-size: 0.84rem;
         background-color: #111;
     }
     
