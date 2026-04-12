@@ -25,7 +25,7 @@ st.markdown("""
         margin-bottom: 0.2rem;
     }
     h2, h3 {
-        font-size: 1.75rem !important;
+        font-size: 1.85rem !important;
         color: #ffffff;
         margin: 0.6rem 0 0.3rem 0;
     }
