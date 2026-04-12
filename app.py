@@ -13,18 +13,18 @@ st.subheader("Top 3 lowest scores per team wins • Live every 10 minutes")
 # Auto-refresh every 10 minutes
 st_autorefresh(interval=600000, limit=None, key="datarefresh")
 
-# Load GitHub config from secrets
+# ====================== GITHUB CONFIG ======================
 try:
     GITHUB_TOKEN = st.secrets["GITHUB"]["TOKEN"]
-    REPO_OWNER = "theleitas"          # ← CHANGE THIS
-    REPO_NAME = "masters-draft-2026"             # ← CHANGE THIS if different
+    REPO_OWNER = "YOUR_GITHUB_USERNAME"          # ← CHANGE TO YOUR USERNAME
+    REPO_NAME = "masters-draft-2026"             # ← CHANGE IF DIFFERENT
     FILE_PATH = "teams.json"
-    BRANCH = "main"                              # usually "main" or "master"
+    BRANCH = "main"
 except Exception:
-    st.error("GitHub token not found. Please add it in Streamlit Secrets as shown in instructions.")
+    st.error("GitHub token not configured. Please add it in Streamlit Secrets.")
     st.stop()
 
-# Load current teams from GitHub (so we always have the latest)
+# Load teams from GitHub
 @st.cache_data(ttl=60)
 def load_teams_from_github():
     url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/contents/{FILE_PATH}"
@@ -35,18 +35,15 @@ def load_teams_from_github():
             content = resp.json()["content"]
             decoded = base64.b64decode(content).decode("utf-8")
             return json.loads(decoded)
-        else:
-            st.warning("Could not load teams from GitHub. Using fallback.")
-            with open('teams.json') as f:
-                return json.load(f)
     except:
-        st.warning("Fallback to local teams.json")
-        with open('teams.json') as f:
-            return json.load(f)
+        pass
+    # Fallback
+    with open('teams.json') as f:
+        return json.load(f)
 
 teams_data = load_teams_from_github()
 
-# Fetch live scores + hole from ESPN
+# Fetch live scores
 @st.cache_data(ttl=600)
 def fetch_leaderboard():
     url = "https://site.api.espn.com/apis/site/v2/sports/golf/pga/scoreboard"
@@ -95,7 +92,7 @@ def get_player_data(api_data):
 
 player_data = get_player_data(data)
 
-# Calculate standings
+# ====================== STANDINGS ======================
 standings = []
 for coach_id, info in teams_data.items():
     team_name = info.get("team_name", coach_id)
@@ -110,13 +107,21 @@ if standings:
     df_standings = pd.DataFrame(standings).sort_values("Top 3 Sum")
     st.dataframe(df_standings, use_container_width=True, hide_index=True)
 
-# Team Details
-st.subheader("Team Details")
+# ====================== TEAM DETAILS WITH YELLOW HIGHLIGHT ======================
+st.subheader("Team Details (Top 3 highlighted in yellow)")
+
+def highlight_top_3(row):
+    """Highlight entire row yellow if this player is in the top 3 lowest scores"""
+    # This function will be applied per row after we know the ranking
+    return ['background-color: #fff566'] * len(row)   # nice bright yellow
+
 cols = st.columns(3)
+
 for idx, (coach_id, info) in enumerate(teams_data.items()):
     with cols[idx]:
         team_name = info.get("team_name", coach_id)
         players = info.get("players", [])
+        
         st.markdown(f"### {team_name}")
         
         table_data = []
@@ -129,15 +134,33 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
             })
         
         df_team = pd.DataFrame(table_data)
-        df_team = df_team.sort_values(by="Score", ascending=True, na_position="last",
-                                      key=lambda x: pd.to_numeric(x, errors='coerce'))
-        st.dataframe(df_team, use_container_width=True, hide_index=True)
         
+        # Safe numeric sort (handles "—" and None)
+        df_team = df_team.sort_values(
+            by="Score", 
+            ascending=True, 
+            na_position="last",
+            key=lambda x: pd.to_numeric(x, errors='coerce')
+        )
+        
+        # Reset index so we can easily take top 3 rows
+        df_team = df_team.reset_index(drop=True)
+        
+        # Create styled version: highlight first 3 rows (top 3 lowest scores)
+        styled_df = df_team.style.apply(
+            lambda row: ['background-color: #fff566'] * len(row) if row.name < 3 else [''] * len(row),
+            axis=1
+        )
+        
+        st.dataframe(styled_df, use_container_width=True, hide_index=True)
+        
+        # Top 3 sum metric
         numeric_scores = [s for s in df_team["Score"] if isinstance(s, (int, float))]
         numeric_scores.sort()
-        st.metric("Top 3 Sum", sum(numeric_scores[:3]) if numeric_scores else 0)
+        top_3_sum = sum(numeric_scores[:3]) if numeric_scores else 0
+        st.metric("Top 3 Sum", top_3_sum)
 
-# ====================== REAL-TIME EDIT & AUTO-SAVE ======================
+# ====================== EDIT & AUTO-SAVE SECTION ======================
 st.divider()
 st.subheader("🔧 Edit Teams & Auto-Save to GitHub")
 
@@ -152,45 +175,34 @@ for coach_id, info in teams_data.items():
     new_teams[coach_id] = {"team_name": new_team_name, "players": new_players}
 
 if st.button("💾 Save Changes to GitHub", type="primary"):
-    if not GITHUB_TOKEN or REPO_OWNER == "YOUR_GITHUB_USERNAME":
-        st.error("Please update REPO_OWNER in the code and add your GitHub token in Secrets.")
-    else:
-        try:
-            # Get current file SHA
-            url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/contents/{FILE_PATH}"
-            headers = {"Authorization": f"token {GITHUB_TOKEN}"}
-            resp = requests.get(url, headers=headers)
-            
-            if resp.status_code == 200:
-                sha = resp.json()["sha"]
-            else:
-                sha = None
+    try:
+        url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/contents/{FILE_PATH}"
+        headers = {"Authorization": f"token {GITHUB_TOKEN}"}
+        resp = requests.get(url, headers=headers)
+        
+        sha = resp.json().get("sha") if resp.status_code == 200 else None
 
-            # Prepare new content
-            content_str = json.dumps(new_teams, indent=2)
-            content_b64 = base64.b64encode(content_str.encode("utf-8")).decode("utf-8")
+        content_str = json.dumps(new_teams, indent=2)
+        content_b64 = base64.b64encode(content_str.encode("utf-8")).decode("utf-8")
 
-            payload = {
-                "message": f"Update teams.json via dashboard - {datetime.now().strftime('%Y-%m-%d %H:%M')}",
-                "content": content_b64,
-                "branch": BRANCH
-            }
-            if sha:
-                payload["sha"] = sha
+        payload = {
+            "message": f"Update teams via dashboard - {datetime.now().strftime('%Y-%m-%d %H:%M')}",
+            "content": content_b64,
+            "branch": BRANCH
+        }
+        if sha:
+            payload["sha"] = sha
 
-            # Push update
-            put_resp = requests.put(url, headers=headers, json=payload)
-            
-            if put_resp.status_code in [200, 201]:
-                st.success("✅ Changes saved to GitHub successfully! The dashboard will update for everyone in a few seconds.")
-                st.cache_data.clear()
-                st.rerun()
-            else:
-                st.error(f"Failed to save: {put_resp.status_code} - {put_resp.text}")
-        except Exception as e:
-            st.error(f"Error saving to GitHub: {e}")
-
-st.info("Changes are saved directly to your GitHub repo. Everyone with the link will see the updates shortly after saving.")
+        put_resp = requests.put(url, headers=headers, json=payload)
+        
+        if put_resp.status_code in [200, 201]:
+            st.success("✅ Changes saved successfully! Dashboard updating for everyone...")
+            st.cache_data.clear()
+            st.rerun()
+        else:
+            st.error(f"Save failed: {put_resp.text}")
+    except Exception as e:
+        st.error(f"Error: {e}")
 
 # Footer
 st.caption(f"Last updated: {datetime.now().strftime('%I:%M %p')} • Auto-refresh every 10 minutes")
