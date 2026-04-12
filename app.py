@@ -39,7 +39,7 @@ st.markdown("""
     }
     .stMetric label {
         color: #88ffbb;
-        font-size: 0.85rem;
+        font-size: 2rem;
     }
     .stMetric div[data-testid="stMetricValue"] {
         color: #00ff9d !important;
