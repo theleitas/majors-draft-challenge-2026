@@ -16,7 +16,7 @@ st_autorefresh(interval=300000, limit=None, key="datarefresh")
 # ====================== GITHUB CONFIG ======================
 try:
     GITHUB_TOKEN = st.secrets["GITHUB"]["TOKEN"]
-    REPO_OWNER = "theleitas"          # ← CHANGE TO YOUR USERNAME
+    REPO_OWNER = "YOUR_GITHUB_USERNAME"          # ← CHANGE TO YOUR USERNAME
     REPO_NAME = "masters-draft-2026"             # ← CHANGE IF DIFFERENT
     FILE_PATH = "teams.json"
     BRANCH = "main"
@@ -91,57 +91,38 @@ def get_player_data(api_data):
 
 player_data = get_player_data(data)
 
-# ====================== STANDINGS WITH TOP 3 COLUMN ======================
-standings = []
+# ====================== VERTICAL STANDINGS (Mobile-Friendly) ======================
+st.subheader("Current Standings")
+
 for coach_id, info in teams_data.items():
     team_name = info.get("team_name", coach_id)
     players = info.get("players", [])
     
+    # Collect players with scores
     player_list = []
     for player in players:
         p_info = player_data.get(player)
         if p_info and p_info["score"] is not None:
             player_list.append((player, p_info["score"]))
     
-    player_list.sort(key=lambda x: x[1])
+    player_list.sort(key=lambda x: x[1])  # lowest score first
     top_3 = player_list[:3]
     top_3_sum = sum(score for _, score in top_3)
     
-    top_3_str = ", ".join([f"{name} ({score})" for name, score in top_3]) if top_3 else "—"
-    
-    standings.append({
-        "Team": team_name,
-        "Top 3 Golfers": top_3_str,
-        "Top 3 Sum": top_3_sum
-    })
+    # Create a nice card for each team
+    with st.container(border=True):
+        st.markdown(f"### {team_name}")
+        st.metric("**Top 3 Total**", top_3_sum)
+        
+        st.markdown("**Top 3 Golfers:**")
+        if top_3:
+            for name, score in top_3:
+                st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;{name} **({score})**")
+        else:
+            st.write("— No scores yet —")
 
-st.subheader("Current Standings")
-if standings:
-    df_standings = pd.DataFrame(standings).sort_values("Top 3 Sum")
-    
-    # Phone-friendly styling with black text
-    styled_standings = df_standings.style.set_properties(**{
-        'text-align': 'left',
-        'background-color': '#d4edda',
-        'color': 'black'
-    }).set_properties(subset=['Top 3 Sum'], **{
-        'font-weight': 'bold',
-        'font-size': '1.15em',
-        'background-color': '#d4edda',
-        'color': 'black'
-    }).set_properties(subset=['Top 3 Golfers'], **{
-        'white-space': 'normal',
-        'word-break': 'break-word',
-        'background-color': '#d4edda',
-        'color': 'black'
-    }).format({
-        "Top 3 Sum": "{:.0f}"   # Force integer, no decimals
-    })
-    
-    st.dataframe(styled_standings, use_container_width=True, hide_index=True)
-
-# ====================== TEAM DETAILS WITH YELLOW + BLACK TEXT ======================
-st.subheader("Team Details (Top 3 highlighted)")
+# ====================== TEAM DETAILS WITH YELLOW HIGHLIGHT ======================
+st.subheader("Team Details (Top 3 highlighted in yellow)")
 
 def highlight_top_3(row):
     if row.name < 3:
@@ -160,7 +141,7 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
         table_data = []
         for player in players:
             p_info = player_data.get(player, {"score": None, "hole": "—"})
-            score_display = int(p_info["score"]) if isinstance(p_info["score"], (int, float)) else "—"
+            score_display = int(p_info["score"]) if isinstance(p_info.get("score"), (int, float)) else "—"
             table_data.append({
                 "Player": player,
                 "Score": score_display,
@@ -176,13 +157,10 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
             key=lambda x: pd.to_numeric(x, errors='coerce')
         ).reset_index(drop=True)
         
-        styled_df = df_team.style.apply(highlight_top_3, axis=1).format({
-            "Score": "{:.0f}" if pd.api.types.is_numeric_dtype(df_team["Score"]) else "{}"
-        })
+        styled_df = df_team.style.apply(highlight_top_3, axis=1)
         
         st.dataframe(styled_df, use_container_width=True, hide_index=True)
         
-        # Top 3 sum (integer)
         numeric_scores = [s for s in df_team["Score"] if isinstance(s, (int, float))]
         numeric_scores.sort()
         top_3_sum = int(sum(numeric_scores[:3])) if numeric_scores else 0
