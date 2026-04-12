@@ -4,7 +4,7 @@ import pandas as pd
 import json
 import base64
 from datetime import datetime
-import pytz  # for EST conversion
+import zoneinfo
 from streamlit_autorefresh import st_autorefresh
 
 st.set_page_config(page_title="Masters Draft 2026", layout="wide", initial_sidebar_state="collapsed")
@@ -67,8 +67,8 @@ st.markdown("""
 
 st.title("🏌️ MASTERS DRAFT 2026")
 
-# Last updated time in EST (12-hour format)
-est_tz = pytz.timezone('US/Eastern')
+# Last updated time in EST (12-hour format with AM/PM)
+est_tz = zoneinfo.ZoneInfo("America/New_York")
 last_updated = datetime.now(est_tz).strftime("%I:%M %p EST")
 st.caption(f"Top 3 lowest scores wins • Live updates every 5 minutes • Last updated: {last_updated}")
 
@@ -117,7 +117,7 @@ def fetch_leaderboard():
 
 data = fetch_leaderboard()
 
-# ====================== ROBUST PLAYER DATA PARSER (Improved Hole Detection) ======================
+# ====================== ROBUST PLAYER DATA PARSER ======================
 def get_player_data(api_data):
     player_data = {}
     if not api_data:
@@ -138,7 +138,7 @@ def get_player_data(api_data):
             except:
                 score = None
 
-            # === AGGRESSIVE HOLE DETECTION - Multiple fallback paths ===
+            # Aggressive hole detection
             status = comp.get("status", {}) or {}
             status_type = status.get("type", {}) or {}
 
@@ -151,7 +151,7 @@ def get_player_data(api_data):
                 status_type.get("detail"),
                 status.get("displayValue"),
                 status.get("description"),
-                comp.get("thru"),               # sometimes at competitor level
+                comp.get("thru")
             ]
 
             for c in candidates:
@@ -164,7 +164,7 @@ def get_player_data(api_data):
                 raw_upper = hole_raw.upper()
                 if raw_upper in ["F", "FIN", "FINISHED", "COMPLETE"]:
                     hole = "Finished"
-                elif raw_upper.replace(".", "").replace("-", "").isdigit() or raw_upper.startswith("THRU"):
+                elif any(char.isdigit() for char in raw_upper):
                     hole = f"Thru {hole_raw.replace('Thru', '').strip()}" if "Thru" not in hole_raw else hole_raw
                 else:
                     hole = hole_raw
@@ -182,7 +182,7 @@ def get_player_data(api_data):
                 "rank": rank
             }
     except Exception as e:
-        st.warning(f"Error parsing leaderboard data: {e}")
+        st.warning(f"Error parsing leaderboard: {e}")
 
     return player_data
 
@@ -219,7 +219,7 @@ for coach_id, info in teams_data.items():
         else:
             st.caption("Waiting for scores...")
 
-# ====================== $50 LEITA/TIDWELL SIDE BET ======================
+# ====================== $50 SIDE BET - SAM BURNS ======================
 st.subheader("$50 Leita/Tidwell Side Bet - Burns to Win")
 
 burns = player_data.get("Sam Burns", {})
