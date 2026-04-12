@@ -122,7 +122,8 @@ if standings:
     # Phone-friendly styling with black text
     styled_standings = df_standings.style.set_properties(**{
         'text-align': 'left',
-        'color': 'white'
+        'background-color': '#d4edda',
+        'color': 'black'
     }).set_properties(subset=['Top 3 Sum'], **{
         'font-weight': 'bold',
         'font-size': '1.15em',
@@ -131,7 +132,8 @@ if standings:
     }).set_properties(subset=['Top 3 Golfers'], **{
         'white-space': 'normal',
         'word-break': 'break-word',
-        'color': 'white'
+        'background-color': '#d4edda',
+        'color': 'black'
     }).format({
         "Top 3 Sum": "{:.0f}"   # Force integer, no decimals
     })
