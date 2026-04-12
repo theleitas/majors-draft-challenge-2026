@@ -84,7 +84,7 @@ def fetch_leaderboard():
 
 data = fetch_leaderboard()
 
-# ====================== IMPROVED CURRENT-ROUND HOLE PARSER ======================
+# ====================== CURRENT ROUND HOLE PARSER ======================
 def get_player_data(api_data):
     player_data = {}
     if not api_data:
@@ -105,27 +105,20 @@ def get_player_data(api_data):
             except:
                 score = None
 
-            # === CURRENT ROUND HOLE DETECTION ===
+            # Current round hole detection
             linescores = comp.get("linescores", [])
             hole = "Not started"
 
             if linescores:
-                # Take the most recent round (last item in linescores)
-                current_round = linescores[-1]
+                current_round = linescores[-1]  # Most recent round
                 per_hole = current_round.get("linescores", [])
 
-                # Count how many holes have been played today
-                played_holes = 0
-                for h in per_hole:
-                    if h.get("displayValue") is not None and h.get("displayValue") != "":
-                        played_holes += 1
+                played_holes = sum(1 for h in per_hole if h.get("displayValue") is not None and h.get("displayValue") != "")
 
                 if played_holes > 0:
                     hole = f"Thru {played_holes}"
                 elif current_round.get("displayValue") == "F" or current_round.get("period") == "F":
                     hole = "Finished"
-                else:
-                    hole = "Not started"
 
             # Position
             rank = comp.get("rank") or comp.get("position") or "—"
@@ -137,8 +130,8 @@ def get_player_data(api_data):
                 "hole": hole,
                 "rank": rank
             }
-    except Exception as e:
-        st.warning(f"Parsing error: {e}")
+    except Exception:
+        pass  # Fail gracefully
 
     return player_data
 
@@ -218,19 +211,6 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
             return ['background-color: #ffd700; color: #000000; font-weight: bold'] * len(row) if row.name < 3 else [''] * len(row)
         
         st.dataframe(df.style.apply(style_top3, axis=1), use_container_width=True, hide_index=True, height=210)
-
-# ====================== DEBUG SECTION ======================
-st.divider()
-with st.expander("🔍 DEBUG: Gary Woodland Raw Data", expanded=False):
-    if data:
-        competitors = data.get("events", [{}])[0].get("competitions", [{}])[0].get("competitors", [])
-        woodland_raw = next((c for c in competitors if "Woodland" in str(c.get("athlete", {}).get("displayName", ""))), None)
-        if woodland_raw:
-            st.json(woodland_raw)
-        else:
-            st.write("Gary Woodland not found")
-    else:
-        st.write("No API data received")
 
 # ====================== EDIT SECTION ======================
 st.divider()
