@@ -32,7 +32,7 @@ st.markdown("""
 
     /* Section Headers (Standings, Team Rosters, etc.) */
     h2, h3 {
-        font-size: 1.55rem !important;
+        font-size: 1.75rem !important;
         color: #ffffff;
         margin: 0.8rem 0 0.4rem 0;
     }
