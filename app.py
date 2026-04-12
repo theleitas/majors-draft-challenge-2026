@@ -131,7 +131,7 @@ if standings:
     }).set_properties(subset=['Top 3 Golfers'], **{
         'white-space': 'normal',
         'word-break': 'break-word'
-        'color': 'white'
+        'color': '#FFFFFF'
     }).format({
         "Top 3 Sum": "{:.0f}"   # Force integer, no decimals
     })
