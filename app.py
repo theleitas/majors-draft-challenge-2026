@@ -49,7 +49,7 @@ st.markdown("""
 
     /* Lighter borders for standings cards */
     .stContainer {
-        border: 2px solid #555555 !important;
+        border: 2px solid #d6d4d4 !important;
         border-radius: 10px;
         background-color: #111111;
         padding: 14px;
