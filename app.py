@@ -22,7 +22,7 @@ st.markdown("""
     h1 { font-size: 1.9rem !important; color: #00ff9d; }
     h2, h3 { font-size: 1.4rem !important; color: #ffffff; }
 
-    .coach-card {
+    .colored-box {
         border-radius: 14px;
         padding: 20px;
         margin-bottom: 1.5rem;
@@ -124,7 +124,7 @@ def get_player_data(api_data):
 
 player_data = get_player_data(data)
 
-# ====================== STANDINGS - FULL COLORED BOXES ======================
+# ====================== STANDINGS - COLORED BOXES ======================
 st.subheader("Standings")
 
 for coach_id, info in teams_data.items():
@@ -145,12 +145,10 @@ for coach_id, info in teams_data.items():
     box_style = f"border: 2px solid {color}; background-color: rgba(20,20,20,0.95); border-radius: 14px; padding: 20px; margin-bottom: 1.5rem;"
 
     st.markdown(f'<div style="{box_style}">', unsafe_allow_html=True)
-
-    # Team Name
+    
     st.markdown(f"**{team_name}**")
-
-    # Total + Top 3 inside the box
-    cols = st.columns([1.3, 2.7])
+    
+    cols = st.columns([1.2, 2.8])
     with cols[0]:
         st.metric("TOTAL", top_3_sum)
     with cols[1]:
@@ -159,7 +157,7 @@ for coach_id, info in teams_data.items():
                 st.markdown(f"**{name}** **({score})** — {hole}")
         else:
             st.caption("Waiting for scores...")
-
+    
     st.markdown('</div>', unsafe_allow_html=True)
 
 # ====================== TOP 10 LEADERBOARD ======================
