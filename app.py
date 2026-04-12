@@ -25,7 +25,7 @@ st.markdown("""
     .coach-card {
         border-radius: 14px;
         padding: 20px;
-        margin-bottom: 1.2rem;
+        margin-bottom: 1.5rem;
         border: 2px solid;
     }
 </style>
@@ -37,7 +37,7 @@ est_tz = zoneinfo.ZoneInfo("America/New_York")
 last_updated = datetime.now(est_tz).strftime("%I:%M %p EST")
 st.caption(f"Top 3 lowest scores wins • Live updates every 5 minutes • Last updated: {last_updated}")
 
-if st.button("🔄 Refresh Scores Now", type="primary", use_container_width=True, key="top_refresh"):
+if st.button("🔄 Refresh Scores Now", type="primary", use_container_width=True):
     st.cache_data.clear()
     st.rerun()
 
@@ -124,7 +124,7 @@ def get_player_data(api_data):
 
 player_data = get_player_data(data)
 
-# ====================== STANDINGS - EVERYTHING INSIDE COLORED BOX ======================
+# ====================== STANDINGS - FULL COLORED BOXES ======================
 st.subheader("Standings")
 
 for coach_id, info in teams_data.items():
@@ -142,13 +142,15 @@ for coach_id, info in teams_data.items():
     top_3_sum = sum(s for _, s, _ in top_3)
 
     color = COACH_COLORS.get(coach_id, "#888888")
-    box_style = f"border: 2px solid {color}; background-color: rgba(15, 15, 15, 0.95); border-radius: 14px; padding: 20px; margin-bottom: 1.2rem;"
+    box_style = f"border: 2px solid {color}; background-color: rgba(20,20,20,0.95); border-radius: 14px; padding: 20px; margin-bottom: 1.5rem;"
 
     st.markdown(f'<div style="{box_style}">', unsafe_allow_html=True)
-    
+
+    # Team Name
     st.markdown(f"**{team_name}**")
-    
-    cols = st.columns([1.2, 2.8])
+
+    # Total + Top 3 inside the box
+    cols = st.columns([1.3, 2.7])
     with cols[0]:
         st.metric("TOTAL", top_3_sum)
     with cols[1]:
@@ -157,7 +159,7 @@ for coach_id, info in teams_data.items():
                 st.markdown(f"**{name}** **({score})** — {hole}")
         else:
             st.caption("Waiting for scores...")
-    
+
     st.markdown('</div>', unsafe_allow_html=True)
 
 # ====================== TOP 10 LEADERBOARD ======================
@@ -181,7 +183,7 @@ if player_data:
     
     df_lb = pd.DataFrame(leaderboard)
     df_lb = df_lb.sort_values("Score").head(10).reset_index(drop=True)
-    
+
     owner_map = {}
     for coach_id, info in teams_data.items():
         color = COACH_COLORS.get(coach_id, "#555555")
