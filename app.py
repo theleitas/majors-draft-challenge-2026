@@ -8,7 +8,7 @@ from streamlit_autorefresh import st_autorefresh
 
 st.set_page_config(page_title="Masters Draft 2026", layout="wide", initial_sidebar_state="collapsed")
 
-# High-contrast dark theme with improved visibility
+# High-contrast dark theme
 st.markdown("""
 <style>
     .stApp {
@@ -16,21 +16,21 @@ st.markdown("""
         color: #e0e0e0;
     }
     .block-container {
-        padding-top: 2.0rem;
+        padding-top: 1rem;
         padding-bottom: 1rem;
     }
     h1 {
-        font-size: 2.0rem !important;
+        font-size: 1.85rem !important;
         color: #00ff9d;
         margin-bottom: 0.2rem;
     }
     h2, h3 {
-        font-size: 2.0rem !important;
+        font-size: 1.35rem !important;
         color: #ffffff;
         margin: 0.6rem 0 0.3rem 0;
     }
     
-    /* Brighter, lighter Total metric */
+    /* Bright Total metric */
     .stMetric {
         background-color: #1f2a1f;
         border: 1px solid #00cc77;
@@ -39,31 +39,31 @@ st.markdown("""
     }
     .stMetric label {
         color: #88ffbb;
-        font-size: 2rem;
+        font-size: 0.85rem;
     }
     .stMetric div[data-testid="stMetricValue"] {
         color: #00ff9d !important;
-        font-size: 1.55rem !important;
+        font-size: 1.65rem !important;
         font-weight: bold;
     }
 
-    /* Lighter borders for standings cards */
+    /* White borders for standings cards - high visibility */
     .stContainer {
-        border: 2px solid #fafafa !important;
+        border: 2px solid #ffffff !important;
         border-radius: 10px;
         background-color: #111111;
         padding: 14px;
     }
 
     .stDataFrame {
-        font-size: 2rem;
+        font-size: 0.84rem;
         background-color: #111;
     }
     
-    /* Top 3 highlight - bright yellow with black text */
+    /* Top 3 highlight */
     .highlight-top3 {
         background-color: #ffd700 !important;
-        color: #fafafa !important;
+        color: #000000 !important;
         font-weight: bold;
     }
 </style>
@@ -149,7 +149,7 @@ def get_player_data(api_data):
 
 player_data = get_player_data(data)
 
-# ====================== STANDINGS ======================
+# ====================== STANDINGS (White borders + Larger team names) ======================
 st.subheader("Standings")
 
 for coach_id, info in teams_data.items():
@@ -169,7 +169,7 @@ for coach_id, info in teams_data.items():
     with st.container(border=True):
         c1, c2 = st.columns([3, 1])
         with c1:
-            st.markdown(f"**{team_name}**")
+            st.markdown(f"**{team_name}**")   # This is now large (matches "Standings" size)
         with c2:
             st.metric("TOTAL", top_3_sum)
         
