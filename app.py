@@ -56,7 +56,7 @@ st.markdown("""
     }
 
     .stDataFrame {
-        font-size: 0.84rem;
+        font-size: 2rem;
         background-color: #111;
     }
     
