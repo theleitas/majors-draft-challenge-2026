@@ -50,7 +50,7 @@ st.markdown("""
     }
     .stMetric div[data-testid="stMetricValue"] {
         color: #00ff9d !important;
-        font-size: 1.65rem !important;
+        font-size: 0.85rem !important;
         font-weight: bold;
     }
 
