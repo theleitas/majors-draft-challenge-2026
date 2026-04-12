@@ -43,8 +43,8 @@ st.markdown("""
         background-color: #111;
     }
     .stContainer {
-        border: 1px solid #333;
-        border-radius: 8px;
+        border: 1px solid #bfbbbb;
+        border-radius: 10px;
         background-color: #111111;
         padding: 12px;
     }
