@@ -17,57 +17,24 @@ st.markdown("""
     h1 { font-size: 1.85rem !important; color: #00ff9d; margin-bottom: 0.3rem; }
     h2, h3 { font-size: 1.35rem !important; color: #ffffff; margin: 0.8rem 0 0.4rem 0; }
 
-    /* Coach Team Names */
-    .stMarkdown p strong, .stMarkdown p b {
-        font-size: 1.75rem !important;
-        color: #ffffff;
-        font-weight: 700;
-    }
-
-    /* Golfer names and scores */
+    .stMarkdown p strong, .stMarkdown p b { font-size: 1.75rem !important; color: #ffffff; font-weight: 700; }
     .stMarkdown p { font-size: 1.05rem !important; margin-bottom: 0.05rem; }
-    .stMarkdown p strong {
-        font-size: 1.05rem !important;
-        color: #00ff9d;
-        font-weight: 700;
-    }
+    .stMarkdown p strong { font-size: 1.05rem !important; color: #00ff9d; font-weight: 700; }
 
-    /* Standings Cards */
-    .stContainer {
-        border: 2px solid #ffffff !important;
-        border-radius: 10px;
-        background-color: #111111;
-        padding: 14px;
-    }
+    .stContainer { border: 2px solid #ffffff !important; border-radius: 10px; background-color: #111111; padding: 14px; }
 
-    /* Total Metric */
-    .stMetric {
-        background-color: #1f2a1f;
-        border: 1px solid #00cc77;
-        border-radius: 8px;
-        padding: 10px 14px;
-    }
+    .stMetric { background-color: #1f2a1f; border: 1px solid #00cc77; border-radius: 8px; padding: 10px 14px; }
     .stMetric label { color: #88ffbb; font-size: 0.85rem; }
-    .stMetric div[data-testid="stMetricValue"] {
-        color: #00ff9d !important;
-        font-size: 1.65rem !important;
-        font-weight: bold;
-    }
+    .stMetric div[data-testid="stMetricValue"] { color: #00ff9d !important; font-size: 1.65rem !important; font-weight: bold; }
 
     .stDataFrame { font-size: 0.84rem; background-color: #111; }
 
-    /* Top 3 highlight */
-    .highlight-top3 {
-        background-color: #ffd700 !important;
-        color: #000000 !important;
-        font-weight: bold;
-    }
+    .highlight-top3 { background-color: #ffd700 !important; color: #000000 !important; font-weight: bold; }
 </style>
 """, unsafe_allow_html=True)
 
 st.title("🏌️ MASTERS DRAFT 2026")
 
-# Last updated time in EST (12-hour format)
 est_tz = zoneinfo.ZoneInfo("America/New_York")
 last_updated = datetime.now(est_tz).strftime("%I:%M %p EST")
 st.caption(f"Top 3 lowest scores wins • Live updates every 5 minutes • Last updated: {last_updated}")
@@ -82,11 +49,11 @@ st_autorefresh(interval=300000, limit=None, key="datarefresh")
 try:
     GITHUB_TOKEN = st.secrets["GITHUB"]["TOKEN"]
     REPO_OWNER = "YOUR_GITHUB_USERNAME"          # ← CHANGE TO YOUR USERNAME
-    REPO_NAME = "masters-draft-2026"             # ← CHANGE IF DIFFERENT
+    REPO_NAME = "masters-draft-2026"
     FILE_PATH = "teams.json"
     BRANCH = "main"
 except Exception:
-    st.error("GitHub token not configured in Streamlit Secrets.")
+    st.error("GitHub token not configured.")
     st.stop()
 
 # Load teams
@@ -117,14 +84,16 @@ def fetch_leaderboard():
 
 data = fetch_leaderboard()
 
-# ====================== ROBUST PLAYER DATA PARSER ======================
+# ====================== FIXED & DEEP HOLE PARSER ======================
 def get_player_data(api_data):
     player_data = {}
     if not api_data:
         return player_data
 
     try:
-        competitors = api_data.get("events", [{}])[0].get("competitions", [{}])[0].get("competitors", [])
+        competitors = (api_data.get("events", [{}])[0]
+                       .get("competitions", [{}])[0]
+                       .get("competitors", []))
 
         for comp in competitors:
             athlete = comp.get("athlete", {})
@@ -138,7 +107,7 @@ def get_player_data(api_data):
             except:
                 score = None
 
-            # === AGGRESSIVE HOLE DETECTION ===
+            # === DEEP HOLE DETECTION ===
             status = comp.get("status", {}) or {}
             status_type = status.get("type", {}) or {}
 
@@ -151,7 +120,8 @@ def get_player_data(api_data):
                 status_type.get("detail"),
                 status.get("displayValue"),
                 status.get("description"),
-                comp.get("thru")
+                comp.get("thru"),
+                status_type.get("abbreviation")
             ]
 
             for c in candidates:
@@ -159,30 +129,25 @@ def get_player_data(api_data):
                     hole_raw = str(c).strip()
                     break
 
-            # Format hole
+            # Final formatting
             if hole_raw:
-                raw_upper = hole_raw.upper()
-                if raw_upper in ["F", "FIN", "FINISHED", "COMPLETE"]:
+                raw = hole_raw.upper()
+                if raw in ["F", "FIN", "FINISHED", "COMPLETE"]:
                     hole = "Finished"
-                elif any(char.isdigit() for char in raw_upper) or "THRU" in raw_upper:
+                elif any(ch.isdigit() for ch in raw) or "THRU" in raw:
                     hole = f"Thru {hole_raw.replace('Thru', '').strip()}" if "Thru" not in hole_raw else hole_raw
                 else:
                     hole = hole_raw
             else:
                 hole = "Not started"
 
-            # Position
             rank = comp.get("rank") or comp.get("position") or "—"
             if isinstance(rank, (int, float)):
                 rank = str(int(rank))
 
-            player_data[name] = {
-                "score": score,
-                "hole": hole,
-                "rank": rank
-            }
+            player_data[name] = {"score": score, "hole": hole, "rank": rank}
     except Exception as e:
-        st.warning(f"Error parsing leaderboard: {e}")
+        st.warning(f"Parsing error: {e}")
 
     return player_data
 
@@ -219,34 +184,19 @@ for coach_id, info in teams_data.items():
         else:
             st.caption("Waiting for scores...")
 
-# ====================== $50 SIDE BET - SAM BURNS ======================
+# ====================== $50 SIDE BET ======================
 st.subheader("$50 Leita/Tidwell Side Bet - Burns to Win")
 
 burns = player_data.get("Sam Burns", {})
-burns_score = burns.get("score")
-burns_hole = burns.get("hole", "—")
-burns_rank = burns.get("rank", "—")
-
-position_text = burns_rank
-if burns_rank != "—" and any(c.isdigit() for c in str(burns_rank)):
-    try:
-        num = int(''.join(filter(str.isdigit, str(burns_rank))))
-        suffix = "st" if num % 10 == 1 and num % 100 != 11 else \
-                 "nd" if num % 10 == 2 and num % 100 != 12 else \
-                 "rd" if num % 10 == 3 and num % 100 != 13 else "th"
-        position_text = f"T{num}{suffix}" if "T" in str(burns_rank).upper() else f"{num}{suffix}"
-    except:
-        pass
-
 with st.container(border=True):
     col1, col2, col3 = st.columns([2.5, 1, 1])
     with col1:
         st.markdown("**Sam Burns**")
     with col2:
-        st.metric("Score", f"{burns_score}" if burns_score is not None else "—")
+        st.metric("Score", f"{burns.get('score')}" if burns.get("score") is not None else "—")
     with col3:
-        st.metric("Position", position_text)
-    st.markdown(f"**Current Hole:** {burns_hole}")
+        st.metric("Position", burns.get("rank", "—"))
+    st.markdown(f"**Current Hole:** {burns.get('hole', '—')}")
 
 # ====================== TEAM ROSTERS ======================
 st.subheader("Team Rosters")
@@ -274,26 +224,24 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
                             key=lambda x: pd.to_numeric(x, errors='coerce')).reset_index(drop=True)
         
         def style_top3(row):
-            if row.name < 3:
-                return ['background-color: #ffd700; color: #000000; font-weight: bold'] * len(row)
-            return [''] * len(row)
+            return ['background-color: #ffd700; color: #000000; font-weight: bold'] * len(row) if row.name < 3 else [''] * len(row)
         
-        styled_df = df.style.apply(style_top3, axis=1)
-        
-        st.dataframe(styled_df, use_container_width=True, hide_index=True, height=210)
+        st.dataframe(df.style.apply(style_top3, axis=1), use_container_width=True, hide_index=True, height=210)
 
-# ====================== DEBUG SECTION ======================
+# ====================== DEBUG SECTION (Gary Woodland) ======================
 st.divider()
-with st.expander("🔍 Debug: Raw Data for Gary Woodland (Click to expand)", expanded=True):
-    if "Gary Woodland" in player_data:
-        woodland = player_data["Gary Woodland"]
-        st.write("**Gary Woodland Parsed Data:**")
-        st.json(woodland)
+with st.expander("🔍 DEBUG: Raw Data for Gary Woodland", expanded=True):
+    if data:
+        # Find Gary Woodland in raw data
+        competitors = data.get("events", [{}])[0].get("competitions", [{}])[0].get("competitors", [])
+        woodland_raw = next((c for c in competitors if "Woodland" in str(c.get("athlete", {}).get("displayName", ""))), None)
+        
+        if woodland_raw:
+            st.json(woodland_raw)
+        else:
+            st.write("Gary Woodland not found in raw API response")
     else:
-        st.write("Gary Woodland not found in player_data")
-
-    st.write("**Full Raw API Response (first 500 chars for brevity):**")
-    st.json({k: str(v)[:500] for k, v in data.items()} if data else "No data")
+        st.write("No API data received")
 
 # ====================== EDIT SECTION ======================
 st.divider()
@@ -327,11 +275,9 @@ with st.expander("🔧 Edit Teams & Auto-Save to GitHub", expanded=False):
 
             put_resp = requests.put(url, headers=headers, json=payload)
             if put_resp.status_code in [200, 201]:
-                st.success("✅ Changes saved successfully!")
+                st.success("✅ Saved successfully!")
                 st.cache_data.clear()
                 st.rerun()
-            else:
-                st.error("Failed to save to GitHub")
         except Exception as e:
             st.error(f"Error: {e}")
 
