@@ -16,21 +16,6 @@ COACH_COLORS = {
     "Peter Miller": "#cc3344"      # Maroon
 }
 
-st.markdown("""
-<style>
-    .stApp { background-color: #0a0a0a; color: #e0e0e0; }
-    h1 { font-size: 1.9rem !important; color: #00ff9d; }
-    h2, h3 { font-size: 1.4rem !important; color: #ffffff; }
-
-    .coach-card {
-        border-radius: 14px;
-        padding: 20px;
-        margin-bottom: 1.5rem;
-        border: 3px solid;
-    }
-</style>
-""", unsafe_allow_html=True)
-
 st.title("🏌️ MASTERS DRAFT 2026")
 
 est_tz = zoneinfo.ZoneInfo("America/New_York")
@@ -124,7 +109,7 @@ def get_player_data(api_data):
 
 player_data = get_player_data(data)
 
-# ====================== STANDINGS - FULL COLORED BOXES ======================
+# ====================== STANDINGS - FULLY CONTAINED COLORED BOXES ======================
 st.subheader("Standings")
 
 for coach_id, info in teams_data.items():
@@ -141,25 +126,29 @@ for coach_id, info in teams_data.items():
     top_3 = player_list[:3]
     top_3_sum = sum(s for _, s, _ in top_3)
 
-    color = COACH_COLORS.get(coach_id)
-    box_style = f"border: 3px solid {color}; background-color: {color}15; border-radius: 14px; padding: 20px; margin-bottom: 1.5rem;"
+    color = COACH_COLORS.get(coach_id, "#888888")
 
-    st.markdown(f'<div style="{box_style}">', unsafe_allow_html=True)
-    
-    # Team name in coach color
-    st.markdown(f"<span style='color:{color}; font-size:1.35rem; font-weight:bold;'>{team_name}</span>", unsafe_allow_html=True)
-    
-    cols = st.columns([1.2, 2.8])
-    with cols[0]:
-        st.metric("TOTAL", top_3_sum)
-    with cols[1]:
-        if top_3:
-            for name, score, hole in top_3:
-                st.markdown(f"**{name}** <span style='color:{color}; font-weight:bold;'>({score})</span> — {hole}")
-        else:
-            st.caption("Waiting for scores...")
-    
-    st.markdown('</div>', unsafe_allow_html=True)
+    # Build the entire card as one HTML block
+    card_html = f"""
+    <div style="border: 3px solid {color}; background-color: rgba(20,20,20,0.95); border-radius: 14px; padding: 20px; margin-bottom: 1.5rem;">
+        <strong style="color:{color}; font-size:1.45rem;">{team_name}</strong><br><br>
+        <div style="display: flex; justify-content: space-between; align-items: start;">
+            <div>
+                <small style="color:#aaa;">TOTAL</small><br>
+                <span style="color:{color}; font-size:2.3rem; font-weight: bold;">{top_3_sum}</span>
+            </div>
+            <div style="flex-grow: 1; padding-left: 50px;">
+    """
+
+    if top_3:
+        for name, score, hole in top_3:
+            card_html += f"<strong>{name}</strong> <span style='color:{color}; font-weight:bold;'>({score})</span> — {hole}<br>"
+    else:
+        card_html += "Waiting for scores...<br>"
+
+    card_html += "</div></div></div>"
+
+    st.markdown(card_html, unsafe_allow_html=True)
 
 # ====================== TOP 10 LEADERBOARD ======================
 st.subheader("Top 10 Leaderboard")
