@@ -10,6 +10,15 @@ st.set_page_config(page_title="2026 Masters Draft", layout="wide")
 st.title("🏌️‍♂️ 2026 Masters Draft Dashboard")
 st.subheader("Top 3 lowest scores per team wins • Live updates every 5 minutes")
 
+# ====================== REFRESH BUTTON AT THE VERY TOP ======================
+col1, col2 = st.columns([4, 1])
+with col1:
+    st.write("")  # spacing
+with col2:
+    if st.button("🔄 Refresh Scores Now", use_container_width=True):
+        st.cache_data.clear()
+        st.rerun()
+
 # Auto-refresh every 5 minutes
 st_autorefresh(interval=300000, limit=None, key="datarefresh")
 
@@ -69,14 +78,12 @@ def get_player_data(api_data):
                     athlete = competitor.get("athlete", {})
                     name = athlete.get("displayName") or athlete.get("shortName")
                     if name:
-                        # Score as integer
                         score_str = competitor.get("score")
                         try:
                             score = int(float(score_str)) if score_str is not None else None
                         except:
                             score = None
 
-                        # Hole / status info
                         status = competitor.get("status", {})
                         hole_raw = (status.get("thru") or 
                                    status.get("period") or 
@@ -104,7 +111,6 @@ for coach_id, info in teams_data.items():
     team_name = info.get("team_name", coach_id)
     players = info.get("players", [])
     
-    # Collect players with scores
     player_list = []
     for player in players:
         p_info = player_data.get(player)
@@ -115,7 +121,6 @@ for coach_id, info in teams_data.items():
     top_3 = player_list[:3]
     top_3_sum = sum(score for _, score, _ in top_3)
     
-    # Create a nice card for each team
     with st.container(border=True):
         st.markdown(f"### {team_name}")
         st.metric("**Top 3 Total**", top_3_sum)
@@ -217,6 +222,3 @@ if st.button("💾 Save Changes to GitHub", type="primary"):
 
 # Footer
 st.caption(f"Last updated: {datetime.now().strftime('%I:%M %p')} • Auto-refresh every 5 minutes")
-if st.button("🔄 Refresh Scores Now"):
-    st.cache_data.clear()
-    st.rerun()
