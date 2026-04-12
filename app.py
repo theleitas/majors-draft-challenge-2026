@@ -23,11 +23,8 @@ st.markdown("""
         font-weight: 700;
     }
 
-    /* Golfer names and scores in standings */
-    .stMarkdown p {
-        font-size: 1.05rem !important;
-        margin-bottom: 0.05rem;
-    }
+    /* Golfer names and scores */
+    .stMarkdown p { font-size: 1.05rem !important; margin-bottom: 0.05rem; }
     .stMarkdown p strong {
         font-size: 1.05rem !important;
         color: #00ff9d;
@@ -79,7 +76,7 @@ st_autorefresh(interval=300000, limit=None, key="datarefresh")
 # ====================== GITHUB CONFIG ======================
 try:
     GITHUB_TOKEN = st.secrets["GITHUB"]["TOKEN"]
-    REPO_OWNER = "theleitas"          # ← CHANGE
+    REPO_OWNER = "theleitas"          # ← CHANGE TO YOUR USERNAME
     REPO_NAME = "masters-draft-2026"             # ← CHANGE IF DIFFERENT
     FILE_PATH = "teams.json"
     BRANCH = "main"
@@ -115,7 +112,7 @@ def fetch_leaderboard():
 
 data = fetch_leaderboard()
 
-# ====================== IMPROVED HOLE PARSER ======================
+# ====================== ROBUST PLAYER DATA PARSER (Fixed Hole Detection) ======================
 def get_player_data(api_data):
     player_data = {}
     if not api_data:
@@ -130,42 +127,45 @@ def get_player_data(api_data):
             if not name:
                 continue
 
-            # Score
+            # Score to par
             try:
                 score = int(float(comp.get("score"))) if comp.get("score") is not None else None
             except:
                 score = None
 
-            # === ROBUST HOLE DETECTION ===
+            # === AGGRESSIVE HOLE DETECTION ===
             status = comp.get("status", {}) or {}
             status_type = status.get("type", {}) or {}
 
-            # Try all possible locations ESPN uses for current hole
             hole_raw = None
+
+            # Priority order of fields ESPN actually uses
             candidates = [
-                status.get("thru"),
-                status.get("period"),
-                status_type.get("shortDetail"),
+                status.get("thru"),                    # Most common
+                status.get("hole"),                    # Sometimes used
+                status_type.get("shortDetail"),        # Very common for "Thru 9"
                 status_type.get("detail"),
                 status.get("displayValue"),
-                status.get("description")
+                status.get("description"),
+                status.get("period")
             ]
 
-            for candidate in candidates:
-                if candidate is not None:
-                    hole_raw = candidate
+            for c in candidates:
+                if c is not None and str(c).strip() != "":
+                    hole_raw = c
                     break
 
-            # Format the hole nicely
+            # Format hole
             if hole_raw is not None:
-                raw_str = str(hole_raw).strip().upper()
-                if raw_str in ["F", "FIN", "FINISHED", "COMPLETE"]:
+                raw = str(hole_raw).strip().upper()
+                if raw in ["F", "FIN", "FINISHED", "COMPLETE"]:
                     hole = "Finished"
-                elif raw_str.isdigit() or (raw_str.replace(".", "").replace("-", "").isdigit()):
+                elif raw.replace(".", "").replace("-", "").isdigit():
                     hole = f"Thru {hole_raw}"
                 else:
                     hole = str(hole_raw)
             else:
+                # Last resort: check if they have a tee time or are not started
                 hole = "Not started"
 
             # Position
@@ -179,7 +179,7 @@ def get_player_data(api_data):
                 "rank": rank
             }
     except Exception as e:
-        st.warning(f"Error parsing data: {e}")
+        st.warning(f"Parsing error: {e}")
 
     return player_data
 
@@ -224,12 +224,10 @@ burns_score = burns.get("score")
 burns_hole = burns.get("hole", "—")
 burns_rank = burns.get("rank", "—")
 
-# Nice position formatting
 position_text = burns_rank
 if burns_rank != "—" and any(c.isdigit() for c in str(burns_rank)):
     try:
-        num_str = ''.join(filter(str.isdigit, str(burns_rank)))
-        num = int(num_str)
+        num = int(''.join(filter(str.isdigit, str(burns_rank))))
         suffix = "st" if num % 10 == 1 and num % 100 != 11 else \
                  "nd" if num % 10 == 2 and num % 100 != 12 else \
                  "rd" if num % 10 == 3 and num % 100 != 13 else "th"
