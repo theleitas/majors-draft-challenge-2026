@@ -11,11 +11,13 @@ st.title("🏌️‍♂️ 2026 Masters Draft Dashboard")
 st.subheader("Top 3 lowest scores per team wins • AUTO updates every 5 minutes")
 
 # ====================== REFRESH BUTTON AT THE VERY TOP ======================
-col1 = st.columns([1, 1])
+col1, col2 = st.columns([1, 1])
 with col1:
-    if st.button("🔄 Refresh Scores Now", use_container_width=True):
+        if st.button("🔄 Refresh Scores Now", use_container_width=True):
         st.cache_data.clear()
         st.rerun()
+with col2:
+st.write("")  # spacing
 
 # Auto-refresh every 5 minutes
 st_autorefresh(interval=300000, limit=None, key="datarefresh")
