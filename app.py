@@ -20,7 +20,7 @@ st.markdown("""
         padding-bottom: 1rem;
     }
     h1 {
-        font-size: 1.85rem !important;
+        font-size: 3rem !important;
         color: #00ff9d;
         margin-bottom: 0.2rem;
     }
