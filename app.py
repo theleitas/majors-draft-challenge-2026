@@ -10,7 +10,7 @@ st.set_page_config(page_title="2026 Masters Draft", layout="wide")
 st.title("🏌️‍♂️ 2026 Masters Draft Dashboard")
 st.subheader("Top 3 lowest scores per team wins • Live updates every 5 minutes")
 
-# Auto-refresh every 5 minutes (300000 ms)
+# Auto-refresh every 5 minutes
 st_autorefresh(interval=300000, limit=None, key="datarefresh")
 
 # ====================== GITHUB CONFIG ======================
@@ -43,7 +43,7 @@ def load_teams_from_github():
 teams_data = load_teams_from_github()
 
 # Fetch live scores
-@st.cache_data(ttl=300)  # 5 minutes cache
+@st.cache_data(ttl=300)
 def fetch_leaderboard():
     url = "https://site.api.espn.com/apis/site/v2/sports/golf/pga/scoreboard"
     try:
@@ -91,7 +91,7 @@ def get_player_data(api_data):
 
 player_data = get_player_data(data)
 
-# ====================== STANDINGS WITH TOP 3 COLUMN ======================
+# ====================== STANDINGS WITH TOP 3 COLUMN (BLACK TEXT ON HIGHLIGHT) ======================
 standings = []
 for coach_id, info in teams_data.items():
     team_name = info.get("team_name", coach_id)
@@ -103,11 +103,10 @@ for coach_id, info in teams_data.items():
         if p_info and p_info["score"] is not None:
             player_list.append((player, p_info["score"]))
     
-    player_list.sort(key=lambda x: x[1])  # sort by lowest score
+    player_list.sort(key=lambda x: x[1])
     top_3 = player_list[:3]
     top_3_sum = sum(score for _, score in top_3)
     
-    # Format Top 3 string for display
     top_3_str = ", ".join([f"{name} ({score})" for name, score in top_3]) if top_3 else "—"
     
     standings.append({
@@ -120,13 +119,18 @@ st.subheader("Current Standings")
 if standings:
     df_standings = pd.DataFrame(standings).sort_values("Top 3 Sum")
     
-    # Phone-friendly styling: bold total, compact
+    # Phone-friendly + black text on highlighted total
     styled_standings = df_standings.style.set_properties(**{
-        'text-align': 'left'
+        'text-align': 'left',
+        'color': 'black'                    # default black text
     }).set_properties(subset=['Top 3 Sum'], **{
         'font-weight': 'bold',
-        'font-size': '1.1em',
-        'background-color': '#e6f7e6'
+        'font-size': '1.15em',
+        'background-color': '#d4edda',      # light green
+        'color': 'black'                    # ← BLACK TEXT HERE
+    }).set_properties(subset=['Top 3 Golfers'], **{
+        'white-space': 'normal',
+        'word-break': 'break-word'
     })
     
     st.dataframe(styled_standings, use_container_width=True, hide_index=True)
@@ -134,10 +138,9 @@ if standings:
 # ====================== TEAM DETAILS WITH YELLOW + BLACK TEXT ======================
 st.subheader("Team Details (Top 3 highlighted)")
 
-def highlight_top_3(row, num_rows=3):
-    """Yellow background with black text for top 3 rows"""
-    if row.name < num_rows:
-        return ['background-color: #fff566; color: black'] * len(row)
+def highlight_top_3(row):
+    if row.name < 3:
+        return ['background-color: #fff566; color: black'] * len(row)   # Yellow bg + black text
     return [''] * len(row)
 
 cols = st.columns(3)
@@ -160,7 +163,6 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
         
         df_team = pd.DataFrame(table_data)
         
-        # Safe sort
         df_team = df_team.sort_values(
             by="Score", 
             ascending=True, 
@@ -168,12 +170,10 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
             key=lambda x: pd.to_numeric(x, errors='coerce')
         ).reset_index(drop=True)
         
-        # Apply yellow highlight with black text
         styled_df = df_team.style.apply(highlight_top_3, axis=1)
         
         st.dataframe(styled_df, use_container_width=True, hide_index=True)
         
-        # Top 3 sum
         numeric_scores = [s for s in df_team["Score"] if isinstance(s, (int, float))]
         numeric_scores.sort()
         top_3_sum = sum(numeric_scores[:3]) if numeric_scores else 0
