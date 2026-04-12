@@ -32,7 +32,7 @@ st.markdown("""
 
     /* THIS IS THE IMPORTANT NEW RULE FOR COACH TEAM NAMES */
     .stMarkdown p strong, .stMarkdown p b {
-        font-size: 1.75rem !important;     /* ← Change this number to make team names bigger */
+        font-size: 1.65rem !important;     /* ← Change this number to make team names bigger */
         color: #ffffff;
         font-weight: 700;
     }
