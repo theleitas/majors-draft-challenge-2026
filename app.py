@@ -13,7 +13,7 @@ st.markdown("""
 <style>
     .stApp {
         background-color: #0a0a0a;
-        color: #bfbbbb;
+        color: #e8e8e8;
     }
     .block-container {
         padding-top: 1rem;
@@ -21,29 +21,29 @@ st.markdown("""
     }
     h1 {
         font-size: 1.85rem !important;
-        color: #bfbbbb;
+        color: #e8e8e8;
         margin-bottom: 0.2rem;
     }
     h2, h3 {
         font-size: 1.15rem !important;
-        color: #bfbbbb;
+        color: #e8e8e8;
         margin: 0.6rem 0 0.3rem 0;
     }
     .stMetric {
         background-color: #1a1a1a;
-        border: 2px solid #bfbbbb;
+        border: 4px solid #e8e8e8;
         border-radius: 8px;
         padding: 10px 14px;
     }
     .stMetric label {
-        color: #bfbbbb;
+        color: #e8e8e8;
     }
     .stDataFrame {
-        font-size: 0.84rem;
+        font-size: 2rem;
         background-color: #111;
     }
     .stContainer {
-        border: 1px solid #bfbbbb;
+        border: 3px solid #e8e8e8;
         border-radius: 10px;
         background-color: #111111;
         padding: 12px;
