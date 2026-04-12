@@ -23,12 +23,33 @@ st.markdown("""
     h1 { font-size: 1.9rem !important; color: #00ff9d; margin-bottom: 0.3rem; }
     h2, h3 { font-size: 1.4rem !important; color: #ffffff; }
 
-    /* Coach-colored Standings Boxes */
-    .coach-box-jayme { border: 2px solid #00cc77; background-color: #0f2a1f; border-radius: 12px; padding: 16px; }
-    .coach-box-spencer { border: 2px solid #bb77ff; background-color: #1f1a2f; border-radius: 12px; padding: 16px; }
-    .coach-box-peter { border: 2px solid #cc3344; background-color: #2a1a1f; border-radius: 12px; padding: 16px; }
+    /* Coach-colored Full Boxes */
+    .coach-box-jayme { 
+        border: 2px solid #00cc77; 
+        background-color: #0f2a1f; 
+        border-radius: 12px; 
+        padding: 18px; 
+        margin-bottom: 1rem;
+    }
+    .coach-box-spencer { 
+        border: 2px solid #bb77ff; 
+        background-color: #1f1a2f; 
+        border-radius: 12px; 
+        padding: 18px; 
+        margin-bottom: 1rem;
+    }
+    .coach-box-peter { 
+        border: 2px solid #cc3344; 
+        background-color: #2a1a1f; 
+        border-radius: 12px; 
+        padding: 18px; 
+        margin-bottom: 1rem;
+    }
 
-    .stMetric div[data-testid="stMetricValue"] { font-size: 1.9rem !important; font-weight: bold; }
+    .stMetric div[data-testid="stMetricValue"] { 
+        font-size: 2rem !important; 
+        font-weight: bold; 
+    }
     .stDataFrame { font-size: 0.88rem; }
 </style>
 """, unsafe_allow_html=True)
@@ -151,8 +172,10 @@ for coach_id, info in teams_data.items():
     with st.container():
         st.markdown(f"<div class='{box_class}'>", unsafe_allow_html=True)
         
+        # Team Name
         st.markdown(f"**{team_name}**")
         
+        # Total + Top 3 inside the box
         cols = st.columns([1.2, 2.8])
         with cols[0]:
             st.metric("TOTAL", top_3_sum)
@@ -172,13 +195,12 @@ if player_data:
     leaderboard = []
     for name, info in player_data.items():
         if info.get("score") is not None:
-            # Determine owner letter
             owner_letter = "—"
-            for coach_id, info_team in teams_data.items():
-                if name in info_team.get("players", []):
-                    owner_letter = "J" if coach_id == "Jayme Leita" else \
-                                   "S" if coach_id == "Spencer Tidwell" else \
-                                   "P" if coach_id == "Peter Miller" else "—"
+            for cid, tinfo in teams_data.items():
+                if name in tinfo.get("players", []):
+                    owner_letter = "J" if cid == "Jayme Leita" else \
+                                   "S" if cid == "Spencer Tidwell" else \
+                                   "P" if cid == "Peter Miller" else "—"
                     break
             leaderboard.append({
                 "Owner": owner_letter,
@@ -190,7 +212,6 @@ if player_data:
     df_lb = pd.DataFrame(leaderboard)
     df_lb = df_lb.sort_values("Score").head(10).reset_index(drop=True)
     
-    # Color mapping
     owner_map = {}
     for coach_id, info in teams_data.items():
         color = COACH_COLORS.get(coach_id, "#555555")
