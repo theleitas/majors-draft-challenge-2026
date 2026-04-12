@@ -19,38 +19,42 @@ st.markdown("""
         padding-top: 1rem;
         padding-bottom: 1rem;
     }
+
+    /* Page Title */
     h1 {
         font-size: 1.85rem !important;
         color: #00ff9d;
         margin-bottom: 0.3rem;
     }
+
+    /* Section Headers */
     h2, h3 {
         font-size: 1.35rem !important;
         color: #ffffff;
         margin: 0.8rem 0 0.4rem 0;
     }
 
-    /* Coach team names - large */
+    /* Coach Team Names - Large */
     .stMarkdown p strong, .stMarkdown p b {
         font-size: 1.75rem !important;
         color: #ffffff;
         font-weight: 700;
     }
 
-    /* Golfer names and scores in standings - same size */
+    /* Golfer names in standings */
     .stMarkdown p {
         font-size: 1.05rem !important;
         margin-bottom: 0.05rem;
     }
-    
-    /* Scores in parentheses */
+
+    /* Scores in parentheses - same size as names, bright green */
     .stMarkdown p strong {
         font-size: 1.05rem !important;
         color: #00ff9d;
         font-weight: 700;
     }
 
-    /* Standings Cards - White borders */
+    /* Standings Cards - White borders for visibility */
     .stContainer {
         border: 2px solid #ffffff !important;
         border-radius: 10px;
@@ -58,7 +62,7 @@ st.markdown("""
         padding: 14px;
     }
 
-    /* Total Score Metric */
+    /* Total Score Metric - Bright green */
     .stMetric {
         background-color: #1f2a1f;
         border: 1px solid #00cc77;
@@ -80,7 +84,7 @@ st.markdown("""
         background-color: #111;
     }
 
-    /* Top 3 highlight in rosters */
+    /* Top 3 highlight in Team Rosters */
     .highlight-top3 {
         background-color: #ffd700 !important;
         color: #000000 !important;
@@ -110,7 +114,7 @@ except Exception:
     st.error("GitHub token not configured in Streamlit Secrets.")
     st.stop()
 
-# Load teams
+# Load teams from GitHub
 @st.cache_data(ttl=60)
 def load_teams_from_github():
     url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/contents/{FILE_PATH}"
@@ -127,7 +131,7 @@ def load_teams_from_github():
 
 teams_data = load_teams_from_github()
 
-# Fetch live scores
+# Fetch live scores from ESPN
 @st.cache_data(ttl=300)
 def fetch_leaderboard():
     try:
@@ -156,10 +160,17 @@ def get_player_data(api_data):
                 status = comp.get("status", {})
                 hole_raw = status.get("thru") or status.get("period") or status.get("type", {}).get("shortDetail")
                 hole = f"Thru {hole_raw}" if str(hole_raw).replace(".", "").replace("-", "").isdigit() else \
-                       "Finished" if str(hole_raw).upper() in ["F", "FINISHED"] else str(hole_raw) or "—"
+                       "Finished" if str(hole_raw).upper() in ["F", "FINISHED", "COMPLETE"] else str(hole_raw) or "—"
 
-                # Get current position if available
-                rank = comp.get("rank") or comp.get("position") or "—"
+                # Improved position extraction
+                rank = comp.get("rank") or comp.get("position") or status.get("type", {}).get("shortDetail") or "—"
+                if isinstance(rank, (int, float)):
+                    rank = str(int(rank))
+                elif isinstance(rank, str):
+                    rank = rank.strip()
+                else:
+                    rank = "—"
+
                 player_data[name] = {"score": score, "hole": hole, "rank": rank}
     except:
         pass
@@ -198,25 +209,38 @@ for coach_id, info in teams_data.items():
         else:
             st.caption("Waiting for scores...")
 
-# ====================== $50 LEITA/TIDWELL SIDE BET ======================
-st.subheader("$50 Leita/Tidwell Side Bet - Burns to Win")
+# ====================== $50 LEITA/TIDWELL SIDE BET - BURNS TO WIN ======================
+st.subheader("$50 Leita/Tidwell Side Bet - Leita has Burns to Win")
 
 burns = player_data.get("Sam Burns", {})
-burns_score = burns.get("score", None)
+burns_score = burns.get("score")
 burns_hole = burns.get("hole", "—")
 burns_rank = burns.get("rank", "—")
 
+# Format position nicely (1st, 2nd, 3rd, T4, etc.)
+if burns_rank != "—":
+    try:
+        rank_num = int(''.join(filter(str.isdigit, str(burns_rank))))
+        suffix = "st" if rank_num % 10 == 1 and rank_num % 100 != 11 else \
+                 "nd" if rank_num % 10 == 2 and rank_num % 100 != 12 else \
+                 "rd" if rank_num % 10 == 3 and rank_num % 100 != 13 else "th"
+        position_text = f"{burns_rank}{suffix}" if not str(burns_rank).startswith("T") else f"T{rank_num}{suffix}"
+    except:
+        position_text = burns_rank
+else:
+    position_text = "—"
+
 with st.container(border=True):
-    col1, col2, col3 = st.columns([2, 1, 1])
+    col1, col2, col3 = st.columns([2.5, 1, 1])
     with col1:
         st.markdown("**Sam Burns**")
     with col2:
         score_display = f"{burns_score}" if burns_score is not None else "—"
         st.metric("Score", score_display)
     with col3:
-        st.metric("Position", burns_rank)
+        st.metric("Position", position_text)
     
-    st.markdown(f"**Hole:** {burns_hole}")
+    st.markdown(f"**Current Hole:** {burns_hole}")
 
 # ====================== TEAM ROSTERS ======================
 st.subheader("Team Rosters")
