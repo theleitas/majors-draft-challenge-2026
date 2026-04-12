@@ -22,18 +22,12 @@ st.markdown("""
     h1 { font-size: 1.9rem !important; color: #00ff9d; }
     h2, h3 { font-size: 1.4rem !important; color: #ffffff; }
 
-    /* Full colored coach card */
     .coach-card {
         border-radius: 14px;
-        padding: 18px;
+        padding: 20px;
         margin-bottom: 1.2rem;
         border: 2px solid;
     }
-    .jayme-card  { border-color: #00cc77; background-color: #0f2a1f; }
-    .spencer-card { border-color: #bb77ff; background-color: #1f1a2f; }
-    .peter-card  { border-color: #cc3344; background-color: #2a1a1f; }
-
-    .big-total { font-size: 2.2rem !important; font-weight: bold; line-height: 1; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -43,7 +37,7 @@ est_tz = zoneinfo.ZoneInfo("America/New_York")
 last_updated = datetime.now(est_tz).strftime("%I:%M %p EST")
 st.caption(f"Top 3 lowest scores wins • Live updates every 5 minutes • Last updated: {last_updated}")
 
-if st.button("🔄 Refresh Scores Now", type="primary", use_container_width=True):
+if st.button("🔄 Refresh Scores Now", type="primary", use_container_width=True, key="top_refresh"):
     st.cache_data.clear()
     st.rerun()
 
@@ -52,7 +46,7 @@ st_autorefresh(interval=300000, limit=None, key="datarefresh")
 # ====================== GITHUB CONFIG ======================
 try:
     GITHUB_TOKEN = st.secrets["GITHUB"]["TOKEN"]
-    REPO_OWNER = "YOUR_GITHUB_USERNAME"
+    REPO_OWNER = "YOUR_GITHUB_USERNAME"          # ← CHANGE TO YOUR USERNAME
     REPO_NAME = "masters-draft-2026"
     FILE_PATH = "teams.json"
     BRANCH = "main"
@@ -147,15 +141,13 @@ for coach_id, info in teams_data.items():
     top_3 = player_list[:3]
     top_3_sum = sum(s for _, s, _ in top_3)
 
-    box_class = ("jayme-card" if coach_id == "Jayme Leita" else
-                 "spencer-card" if coach_id == "Spencer Tidwell" else
-                 "peter-card")
+    color = COACH_COLORS.get(coach_id, "#888888")
+    box_style = f"border: 2px solid {color}; background-color: rgba(15, 15, 15, 0.95); border-radius: 14px; padding: 20px; margin-bottom: 1.2rem;"
 
-    # Full colored box
-    st.markdown(f'<div class="coach-box {box_class}">', unsafe_allow_html=True)
-
+    st.markdown(f'<div style="{box_style}">', unsafe_allow_html=True)
+    
     st.markdown(f"**{team_name}**")
-
+    
     cols = st.columns([1.2, 2.8])
     with cols[0]:
         st.metric("TOTAL", top_3_sum)
@@ -165,7 +157,7 @@ for coach_id, info in teams_data.items():
                 st.markdown(f"**{name}** **({score})** — {hole}")
         else:
             st.caption("Waiting for scores...")
-
+    
     st.markdown('</div>', unsafe_allow_html=True)
 
 # ====================== TOP 10 LEADERBOARD ======================
@@ -189,7 +181,7 @@ if player_data:
     
     df_lb = pd.DataFrame(leaderboard)
     df_lb = df_lb.sort_values("Score").head(10).reset_index(drop=True)
-
+    
     owner_map = {}
     for coach_id, info in teams_data.items():
         color = COACH_COLORS.get(coach_id, "#555555")
@@ -202,7 +194,8 @@ if player_data:
             return [f'background-color: {color}; color: black; font-weight: bold'] * len(row)
         return [''] * len(row)
 
-    st.dataframe(df_lb.style.apply(highlight_lb, axis=1), use_container_width=True, hide_index=True)
+    styled_lb = df_lb.style.apply(highlight_lb, axis=1)
+    st.dataframe(styled_lb, use_container_width=True, hide_index=True)
 
 # ====================== $50 SIDE BET ======================
 st.subheader("$50 Leita/Tidwell Side Bet - Burns to Win")
