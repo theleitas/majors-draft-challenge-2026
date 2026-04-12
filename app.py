@@ -16,8 +16,8 @@ st.markdown("""
         color: #e8e8e8;
     }
     .block-container {
-        padding-top: 1rem;
-        padding-bottom: 1rem;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
     }
     h1 {
         font-size: 1.85rem !important;
@@ -25,7 +25,7 @@ st.markdown("""
         margin-bottom: 0.2rem;
     }
     h2, h3 {
-        font-size: 1.15rem !important;
+        font-size: 2rem !important;
         color: #e8e8e8;
         margin: 0.6rem 0 0.3rem 0;
     }
@@ -48,7 +48,7 @@ st.markdown("""
         background-color: #111111;
         padding: 12px;
     }
-    .css-1d391kg { padding-top: 0.5rem; }
+    .css-1d391kg { padding-top: 1rem; }
     
     /* Top 3 highlight - bright yellow with black text */
     .highlight-top3 {
