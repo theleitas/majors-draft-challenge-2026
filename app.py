@@ -55,21 +55,21 @@ def get_player_data(api_data):
                         status_type = status.get("type", {}) if isinstance(status, dict) else {}
                         hole_raw = status_type.get("shortDetail") or status.get("thru") or status.get("period")
                         
-                        if isinstance(hole_raw, (int, float)) or (isinstance(hole_raw, str) and hole_raw.isdigit()):
+                        if isinstance(hole_raw, (int, float)) or (isinstance(hole_raw, str) and hole_raw.replace(".", "").replace("-", "").isdigit()):
                             hole = f"Thru {hole_raw}"
-                        elif str(hole_raw).upper() == "F" or hole_raw == "Finished":
+                        elif str(hole_raw).upper() in ["F", "FINISHED"]:
                             hole = "Finished"
                         else:
                             hole = str(hole_raw) if hole_raw else "Not started"
                         
                         player_data[name] = {"score": score, "hole": hole}
-    except:
-        pass
+    except Exception as e:
+        st.warning(f"Error parsing API: {e}")
     return player_data
 
 player_data = get_player_data(data)
 
-# Calculate standings (only Team + Top 3 Sum)
+# Calculate standings
 standings = []
 for coach_id, info in teams_data.items():
     team_name = info.get("team_name", coach_id)
@@ -77,12 +77,12 @@ for coach_id, info in teams_data.items():
     
     scores_list = []
     for player in players:
-        info_p = player_data.get(player)
-        if info_p and info_p["score"] is not None:
-            scores_list.append(info_p["score"])
+        p_info = player_data.get(player)
+        if p_info and p_info["score"] is not None:
+            scores_list.append(p_info["score"])
     
     scores_list.sort()
-    top_3_sum = sum(scores_list[:3]) if scores_list else 0
+    top_3_sum = sum(scores_list[:3]) if len(scores_list) >= 3 else sum(scores_list) if scores_list else 0
     
     standings.append({
         "Team": team_name,
@@ -92,14 +92,15 @@ for coach_id, info in teams_data.items():
 # Standings table
 st.subheader("Current Standings")
 if standings:
-    df_standings = pd.DataFrame(standings).sort_values("Top 3 Sum")
+    df_standings = pd.DataFrame(standings).sort_values("Top 3 Sum", ascending=True)
     st.dataframe(df_standings, use_container_width=True, hide_index=True)
 else:
-    st.warning("Tournament has not started yet — come back when the first round begins!")
+    st.warning("Tournament has not started yet — come back when play begins!")
 
 # Team Details — vertical tables with Player | Score | Hole
 st.subheader("Team Details")
 cols = st.columns(3)
+
 for idx, (coach_id, info) in enumerate(teams_data.items()):
     with cols[idx]:
         team_name = info.get("team_name", coach_id)
@@ -117,21 +118,27 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
             })
         
         df_team = pd.DataFrame(table_data)
-        # Sort by lowest score first
-        df_team = df_team.sort_values(by="Score", na_position="last")
+        
+        # FIXED: Safe sorting that handles None / strings
+        df_team = df_team.sort_values(
+            by="Score", 
+            ascending=True, 
+            na_position="last",
+            key=lambda x: pd.to_numeric(x, errors='coerce')   # This is the fix
+        )
+        
         st.dataframe(df_team, use_container_width=True, hide_index=True)
         
-        # Top 3 sum metric
-        scores_list = [row["Score"] for row in table_data if isinstance(row["Score"], (int, float))]
-        scores_list.sort()
-        top_3 = scores_list[:3]
-        top_3_sum = sum(top_3) if top_3 else 0
+        # Top 3 sum
+        numeric_scores = [s for s in df_team["Score"] if isinstance(s, (int, float))]
+        numeric_scores.sort()
+        top_3_sum = sum(numeric_scores[:3]) if numeric_scores else 0
         st.metric("Top 3 Sum", top_3_sum)
 
 # ====================== EDIT TEAMS SECTION ======================
 st.divider()
 with st.expander("🔧 Edit Team Names & Players (anyone can do this)"):
-    st.info("Make changes below → click **Generate Updated JSON** → download the file → replace `teams.json` on GitHub. Dashboard updates in <2 minutes.")
+    st.info("Make changes below → click **Generate Updated JSON** → download → replace `teams.json` on GitHub.")
     
     new_teams = {}
     for coach_id, info in teams_data.items():
@@ -156,7 +163,7 @@ with st.expander("🔧 Edit Team Names & Players (anyone can do this)"):
         }
     
     if st.button("Generate Updated teams.json", type="primary"):
-        st.success("✅ Updated JSON ready below!")
+        st.success("✅ Updated JSON ready!")
         st.json(new_teams)
         
         json_str = json.dumps(new_teams, indent=2)
@@ -167,7 +174,7 @@ with st.expander("🔧 Edit Team Names & Players (anyone can do this)"):
             mime="application/json",
             use_container_width=True
         )
-        st.info("→ Go to your GitHub repo → click teams.json → Edit → paste this entire content → Commit changes. Done!")
+        st.info("→ Go to GitHub → edit teams.json → paste everything → Commit. Dashboard will update automatically.")
 
 # Footer
 st.caption(f"Last updated: {datetime.now().strftime('%I:%M %p')} • Scores & holes auto-refresh every 10 minutes")
@@ -175,6 +182,6 @@ if st.button("🔄 Refresh Scores Now"):
     st.cache_data.clear()
     st.rerun()
 
-# Optional debug
+# Debug (uncheck when not needed)
 if st.checkbox("Show raw API data (debug only)"):
     st.json(data)
