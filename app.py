@@ -11,55 +11,46 @@ st.set_page_config(page_title="Masters Draft 2026", layout="wide", initial_sideb
 # ====================== HIGH-CONTRAST DARK THEME ======================
 st.markdown("""
 <style>
-    /* Main App Background */
     .stApp {
         background-color: #0a0a0a;
         color: #e0e0e0;
     }
-
-    /* Reduce excessive padding */
     .block-container {
         padding-top: 1rem;
         padding-bottom: 1rem;
     }
-
-    /* Page Title */
     h1 {
         font-size: 1.85rem !important;
         color: #00ff9d;
         margin-bottom: 0.3rem;
     }
-
-    /* Section Headers (Standings, Team Rosters, etc.) */
     h2, h3 {
-        font-size: 1.75rem !important;
+        font-size: 1.35rem !important;
         color: #ffffff;
         margin: 0.8rem 0 0.4rem 0;
     }
 
-    /* ====================== STANDINGS SECTION ====================== */
-    
-    /* Coach Team Names - Large and prominent */
+    /* Coach team names - large */
     .stMarkdown p strong, .stMarkdown p b {
-        font-size: 1.95rem !important;
+        font-size: 1.75rem !important;
         color: #ffffff;
         font-weight: 700;
     }
 
-    /* Golfer names and scores in standings cards - same size */
+    /* Golfer names and scores in standings - same size */
     .stMarkdown p {
         font-size: 1.05rem !important;
         margin-bottom: 0.05rem;
     }
-
-    /* Scores in parentheses - same size as golfer names, bright green */
+    
+    /* Scores in parentheses */
     .stMarkdown p strong {
         font-size: 1.05rem !important;
         color: #00ff9d;
         font-weight: 700;
     }
 
-    /* Standings Cards - White borders for high visibility */
+    /* Standings Cards - White borders */
     .stContainer {
         border: 2px solid #ffffff !important;
         border-radius: 10px;
@@ -67,9 +58,7 @@ st.markdown("""
         padding: 14px;
     }
 
-    /* ====================== METRICS & TOTALS ====================== */
-    
-    /* Total Score Metric - Bright and stands out */
+    /* Total Score Metric */
     .stMetric {
         background-color: #1f2a1f;
         border: 1px solid #00cc77;
@@ -86,27 +75,24 @@ st.markdown("""
         font-weight: bold;
     }
 
-    /* ====================== TEAM ROSTERS ====================== */
-    
     .stDataFrame {
         font-size: 0.84rem;
         background-color: #111;
     }
 
-    /* Top 3 golfers highlight in rosters - Yellow with black text */
+    /* Top 3 highlight in rosters */
     .highlight-top3 {
         background-color: #ffd700 !important;
         color: #000000 !important;
         font-weight: bold;
     }
-
 </style>
 """, unsafe_allow_html=True)
 
 st.title("🏌️ MASTERS DRAFT 2026")
 st.caption("Top 3 lowest scores wins • Live updates every 5 minutes")
 
-# Refresh button at top
+# Refresh button
 if st.button("🔄 Refresh Scores Now", type="primary", use_container_width=True):
     st.cache_data.clear()
     st.rerun()
@@ -124,7 +110,7 @@ except Exception:
     st.error("GitHub token not configured in Streamlit Secrets.")
     st.stop()
 
-# Load teams from GitHub
+# Load teams
 @st.cache_data(ttl=60)
 def load_teams_from_github():
     url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/contents/{FILE_PATH}"
@@ -141,7 +127,7 @@ def load_teams_from_github():
 
 teams_data = load_teams_from_github()
 
-# Fetch live scores from ESPN
+# Fetch live scores
 @st.cache_data(ttl=300)
 def fetch_leaderboard():
     try:
@@ -172,7 +158,9 @@ def get_player_data(api_data):
                 hole = f"Thru {hole_raw}" if str(hole_raw).replace(".", "").replace("-", "").isdigit() else \
                        "Finished" if str(hole_raw).upper() in ["F", "FINISHED"] else str(hole_raw) or "—"
 
-                player_data[name] = {"score": score, "hole": hole}
+                # Get current position if available
+                rank = comp.get("rank") or comp.get("position") or "—"
+                player_data[name] = {"score": score, "hole": hole, "rank": rank}
     except:
         pass
     return player_data
@@ -209,6 +197,26 @@ for coach_id, info in teams_data.items():
                 st.markdown(f"  {name} **({score})** — {hole}")
         else:
             st.caption("Waiting for scores...")
+
+# ====================== $50 LEITA/TIDWELL SIDE BET ======================
+st.subheader("$50 Leita/Tidwell Side Bet - Burns to Win")
+
+burns = player_data.get("Sam Burns", {})
+burns_score = burns.get("score", None)
+burns_hole = burns.get("hole", "—")
+burns_rank = burns.get("rank", "—")
+
+with st.container(border=True):
+    col1, col2, col3 = st.columns([2, 1, 1])
+    with col1:
+        st.markdown("**Sam Burns**")
+    with col2:
+        score_display = f"{burns_score}" if burns_score is not None else "—"
+        st.metric("Score", score_display)
+    with col3:
+        st.metric("Position", burns_rank)
+    
+    st.markdown(f"**Hole:** {burns_hole}")
 
 # ====================== TEAM ROSTERS ======================
 st.subheader("Team Rosters")
