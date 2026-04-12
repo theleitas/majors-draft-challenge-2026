@@ -13,7 +13,7 @@ st.set_page_config(page_title="Masters Draft 2026", layout="wide", initial_sideb
 COACH_COLORS = {
     "Jayme Leita": "#00cc77",      # Green
     "Spencer Tidwell": "#bb77ff",  # Purple
-    "Peter Miller": "#2E47DB"      # New Blue for Peter
+    "Peter Miller": "#2E47DB"      # Blue
 }
 
 st.markdown("""
