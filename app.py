@@ -8,46 +8,57 @@ from streamlit_autorefresh import st_autorefresh
 
 st.set_page_config(page_title="Masters Draft 2026", layout="wide", initial_sidebar_state="collapsed")
 
-# High-contrast dark theme (true terminal look)
+# High-contrast dark theme with improved visibility
 st.markdown("""
 <style>
     .stApp {
         background-color: #0a0a0a;
-        color: #e8e8e8;
+        color: #e0e0e0;
     }
     .block-container {
-        padding-top: 2rem;
-        padding-bottom: 2rem;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
     }
     h1 {
         font-size: 1.85rem !important;
-        color: #e8e8e8;
+        color: #00ff9d;
         margin-bottom: 0.2rem;
     }
     h2, h3 {
-        font-size: 2rem !important;
-        color: #e8e8e8;
+        font-size: 1.15rem !important;
+        color: #ffffff;
         margin: 0.6rem 0 0.3rem 0;
     }
+    
+    /* Brighter, lighter Total metric */
     .stMetric {
-        background-color: #1a1a1a;
-        border: 4px solid #e8e8e8;
+        background-color: #1f2a1f;
+        border: 1px solid #00cc77;
         border-radius: 8px;
         padding: 10px 14px;
     }
     .stMetric label {
-        color: #e8e8e8;
+        color: #88ffbb;
+        font-size: 0.85rem;
     }
-    .stDataFrame {
-        font-size: 2rem;
-        background-color: #111;
+    .stMetric div[data-testid="stMetricValue"] {
+        color: #00ff9d !important;
+        font-size: 1.55rem !important;
+        font-weight: bold;
     }
+
+    /* Lighter borders for standings cards */
     .stContainer {
-        border: 3px solid #e8e8e8 !important; /* darker border; use #222/#333/#444 to taste */
+        border: 2px solid #555555 !important;
         border-radius: 10px;
         background-color: #111111;
+        padding: 14px;
     }
-    .css-1d391kg { padding-top: 1rem; }
+
+    .stDataFrame {
+        font-size: 0.84rem;
+        background-color: #111;
+    }
     
     /* Top 3 highlight - bright yellow with black text */
     .highlight-top3 {
@@ -55,46 +66,23 @@ st.markdown("""
         color: #000000 !important;
         font-weight: bold;
     }
-    /* Make metric text (the numeric value) bright/white and slightly larger */
-.stMetric,
-.stMetric * {
-  /* keep existing background/borders you already have */
-}
-.stMetric label { color: #dcdcdc !important; } /* label color (TOTAL) */
-.stMetric .stMetricValue,
-.stMetric .stMetricNumber,
-.stMetric div[class*="value"],
-.stMetric div[class*="number"] {
-  color: #ffffff !important;   /* make the number white/bright */
-  font-weight: 700 !important; /* bolder for contrast */
-  font-size: 1.6rem !important;/* larger so it's easier to read */
-}
-
-/* Darken the container border for "Standings" */
-.stContainer {
-  border: 3px solid #ffffff !important; /* darker border; use #222/#333/#444 to taste */
-  border-radius: 10px;
-  background-color: #111111;
-}
 </style>
 """, unsafe_allow_html=True)
 
 st.title("🏌️ MASTERS DRAFT 2026")
 st.caption("Top 3 lowest scores wins • Live updates every 5 minutes")
 
-# Refresh button (high contrast)
-col_refresh = st.columns([1, 4])[0]
-with col_refresh:
-    if st.button("🔄 Refresh Scores Now", type="primary", use_container_width=True):
-        st.cache_data.clear()
-        st.rerun()
+# Refresh button
+if st.button("🔄 Refresh Scores Now", type="primary", use_container_width=True):
+    st.cache_data.clear()
+    st.rerun()
 
 st_autorefresh(interval=300000, limit=None, key="datarefresh")
 
 # ====================== GITHUB CONFIG ======================
 try:
     GITHUB_TOKEN = st.secrets["GITHUB"]["TOKEN"]
-    REPO_OWNER = "theleitas"          # ← CHANGE TO YOUR USERNAME
+    REPO_OWNER = "YOUR_GITHUB_USERNAME"          # ← CHANGE TO YOUR USERNAME
     REPO_NAME = "masters-draft-2026"             # ← CHANGE IF DIFFERENT
     FILE_PATH = "teams.json"
     BRANCH = "main"
@@ -192,7 +180,7 @@ for coach_id, info in teams_data.items():
         else:
             st.caption("Waiting for scores...")
 
-# ====================== TEAM ROSTERS (Compact + Dark) ======================
+# ====================== TEAM ROSTERS ======================
 st.subheader("Team Rosters")
 
 team_cols = st.columns(3)
@@ -217,7 +205,6 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
         df = df.sort_values(by="Score", ascending=True, na_position="last",
                             key=lambda x: pd.to_numeric(x, errors='coerce')).reset_index(drop=True)
         
-        # Dark theme top 3 highlight
         def style_top3(row):
             if row.name < 3:
                 return ['background-color: #ffd700; color: #000000; font-weight: bold'] * len(row)
