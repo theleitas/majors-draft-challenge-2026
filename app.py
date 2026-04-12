@@ -122,7 +122,7 @@ if standings:
     # Phone-friendly styling with black text
     styled_standings = df_standings.style.set_properties(**{
         'text-align': 'left',
-        'color': 'black'
+        'color': 'white'
     }).set_properties(subset=['Top 3 Sum'], **{
         'font-weight': 'bold',
         'font-size': '1.15em',
