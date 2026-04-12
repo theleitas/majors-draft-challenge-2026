@@ -20,7 +20,7 @@ st.markdown("""
         padding-bottom: 1rem;
     }
     h1 {
-        font-size: 1.85rem !important;
+        font-size: 2rem !important;
         color: #00ff9d;
         margin-bottom: 0.2rem;
     }
@@ -32,7 +32,7 @@ st.markdown("""
 
     /* Coach team names - large and bold */
     .stMarkdown p strong, .stMarkdown p b {
-        font-size: 1.95rem !important;     
+        font-size: 2rem !important;     
         color: #ffffff;
         font-weight: 700;
     }
