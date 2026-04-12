@@ -11,26 +11,12 @@ st.set_page_config(page_title="Masters Draft 2026", layout="wide", initial_sideb
 # ====================== HIGH-CONTRAST DARK THEME ======================
 st.markdown("""
 <style>
-    .stApp {
-        background-color: #0a0a0a;
-        color: #e0e0e0;
-    }
-    .block-container {
-        padding-top: 1rem;
-        padding-bottom: 1rem;
-    }
-    h1 {
-        font-size: 1.85rem !important;
-        color: #00ff9d;
-        margin-bottom: 0.3rem;
-    }
-    h2, h3 {
-        font-size: 1.35rem !important;
-        color: #ffffff;
-        margin: 0.8rem 0 0.4rem 0;
-    }
+    .stApp { background-color: #0a0a0a; color: #e0e0e0; }
+    .block-container { padding-top: 1rem; padding-bottom: 1rem; }
+    h1 { font-size: 1.85rem !important; color: #00ff9d; margin-bottom: 0.3rem; }
+    h2, h3 { font-size: 1.35rem !important; color: #ffffff; margin: 0.8rem 0 0.4rem 0; }
 
-    /* Coach Team Names - Large */
+    /* Coach Team Names */
     .stMarkdown p strong, .stMarkdown p b {
         font-size: 1.75rem !important;
         color: #ffffff;
@@ -48,7 +34,7 @@ st.markdown("""
         font-weight: 700;
     }
 
-    /* Standings Cards - White borders */
+    /* Standings Cards */
     .stContainer {
         border: 2px solid #ffffff !important;
         border-radius: 10px;
@@ -56,27 +42,21 @@ st.markdown("""
         padding: 14px;
     }
 
-    /* Total Score Metric */
+    /* Total Metric */
     .stMetric {
         background-color: #1f2a1f;
         border: 1px solid #00cc77;
         border-radius: 8px;
         padding: 10px 14px;
     }
-    .stMetric label {
-        color: #88ffbb;
-        font-size: 0.85rem;
-    }
+    .stMetric label { color: #88ffbb; font-size: 0.85rem; }
     .stMetric div[data-testid="stMetricValue"] {
         color: #00ff9d !important;
         font-size: 1.65rem !important;
         font-weight: bold;
     }
 
-    .stDataFrame {
-        font-size: 0.84rem;
-        background-color: #111;
-    }
+    .stDataFrame { font-size: 0.84rem; background-color: #111; }
 
     /* Top 3 highlight */
     .highlight-top3 {
@@ -99,7 +79,7 @@ st_autorefresh(interval=300000, limit=None, key="datarefresh")
 # ====================== GITHUB CONFIG ======================
 try:
     GITHUB_TOKEN = st.secrets["GITHUB"]["TOKEN"]
-    REPO_OWNER = "YOUR_GITHUB_USERNAME"          # ← CHANGE TO YOUR USERNAME
+    REPO_OWNER = "theleitas"          # ← CHANGE
     REPO_NAME = "masters-draft-2026"             # ← CHANGE IF DIFFERENT
     FILE_PATH = "teams.json"
     BRANCH = "main"
@@ -135,7 +115,7 @@ def fetch_leaderboard():
 
 data = fetch_leaderboard()
 
-# ====================== IMPROVED PLAYER DATA PARSER ======================
+# ====================== IMPROVED HOLE PARSER ======================
 def get_player_data(api_data):
     player_data = {}
     if not api_data:
@@ -143,47 +123,53 @@ def get_player_data(api_data):
 
     try:
         competitors = api_data.get("events", [{}])[0].get("competitions", [{}])[0].get("competitors", [])
-        
+
         for comp in competitors:
             athlete = comp.get("athlete", {})
             name = athlete.get("displayName") or athlete.get("shortName")
             if not name:
                 continue
 
-            # Score to par
+            # Score
             try:
                 score = int(float(comp.get("score"))) if comp.get("score") is not None else None
             except:
                 score = None
 
-            # === IMPROVED HOLE / STATUS LOGIC ===
+            # === ROBUST HOLE DETECTION ===
             status = comp.get("status", {}) or {}
             status_type = status.get("type", {}) or {}
 
-            # Try multiple possible fields in order of reliability
-            thru = None
-            if status.get("thru") is not None:
-                thru = status.get("thru")
-            elif status_type.get("shortDetail"):
-                thru = status_type.get("shortDetail")
-            elif status.get("period"):
-                thru = status.get("period")
-            elif status.get("displayValue"):
-                thru = status.get("displayValue")
+            # Try all possible locations ESPN uses for current hole
+            hole_raw = None
+            candidates = [
+                status.get("thru"),
+                status.get("period"),
+                status_type.get("shortDetail"),
+                status_type.get("detail"),
+                status.get("displayValue"),
+                status.get("description")
+            ]
 
-            # Format hole status nicely
-            if thru is not None:
-                if str(thru).upper() in ["F", "FIN", "FINISHED", "COMPLETE"]:
+            for candidate in candidates:
+                if candidate is not None:
+                    hole_raw = candidate
+                    break
+
+            # Format the hole nicely
+            if hole_raw is not None:
+                raw_str = str(hole_raw).strip().upper()
+                if raw_str in ["F", "FIN", "FINISHED", "COMPLETE"]:
                     hole = "Finished"
-                elif str(thru).replace(".", "").replace("-", "").isdigit():
-                    hole = f"Thru {thru}"
+                elif raw_str.isdigit() or (raw_str.replace(".", "").replace("-", "").isdigit()):
+                    hole = f"Thru {hole_raw}"
                 else:
-                    hole = str(thru)
+                    hole = str(hole_raw)
             else:
                 hole = "Not started"
 
-            # Position / Rank
-            rank = comp.get("rank") or comp.get("position") or status_type.get("shortDetail") or "—"
+            # Position
+            rank = comp.get("rank") or comp.get("position") or "—"
             if isinstance(rank, (int, float)):
                 rank = str(int(rank))
 
@@ -193,8 +179,8 @@ def get_player_data(api_data):
                 "rank": rank
             }
     except Exception as e:
-        st.warning(f"Error parsing leaderboard: {e}")
-    
+        st.warning(f"Error parsing data: {e}")
+
     return player_data
 
 player_data = get_player_data(data)
@@ -230,7 +216,7 @@ for coach_id, info in teams_data.items():
         else:
             st.caption("Waiting for scores...")
 
-# ====================== $50 LEITA/TIDWELL SIDE BET - BURNS TO WIN ======================
+# ====================== $50 SIDE BET - SAM BURNS ======================
 st.subheader("$50 Leita/Tidwell Side Bet - Burns to Win")
 
 burns = player_data.get("Sam Burns", {})
@@ -240,13 +226,14 @@ burns_rank = burns.get("rank", "—")
 
 # Nice position formatting
 position_text = burns_rank
-if burns_rank != "—" and str(burns_rank).replace("T", "").isdigit():
+if burns_rank != "—" and any(c.isdigit() for c in str(burns_rank)):
     try:
-        num = int(str(burns_rank).replace("T", ""))
+        num_str = ''.join(filter(str.isdigit, str(burns_rank)))
+        num = int(num_str)
         suffix = "st" if num % 10 == 1 and num % 100 != 11 else \
                  "nd" if num % 10 == 2 and num % 100 != 12 else \
                  "rd" if num % 10 == 3 and num % 100 != 13 else "th"
-        position_text = f"T{num}{suffix}" if str(burns_rank).startswith("T") else f"{num}{suffix}"
+        position_text = f"T{num}{suffix}" if "T" in str(burns_rank).upper() else f"{num}{suffix}"
     except:
         pass
 
@@ -258,7 +245,6 @@ with st.container(border=True):
         st.metric("Score", f"{burns_score}" if burns_score is not None else "—")
     with col3:
         st.metric("Position", position_text)
-    
     st.markdown(f"**Current Hole:** {burns_hole}")
 
 # ====================== TEAM ROSTERS ======================
@@ -305,7 +291,6 @@ with st.expander("🔧 Edit Teams & Auto-Save to GitHub", expanded=False):
         players_str = "\n".join(info.get("players", []))
         new_players_str = st.text_area("Players (one per line)", value=players_str, key=f"players_{coach_id}", height=110)
         new_players = [p.strip() for p in new_players_str.split("\n") if p.strip()]
-        
         new_teams[coach_id] = {"team_name": new_name, "players": new_players}
     
     if st.button("💾 Save Changes to GitHub", type="primary"):
@@ -328,7 +313,7 @@ with st.expander("🔧 Edit Teams & Auto-Save to GitHub", expanded=False):
 
             put_resp = requests.put(url, headers=headers, json=payload)
             if put_resp.status_code in [200, 201]:
-                st.success("✅ Changes saved to GitHub successfully!")
+                st.success("✅ Changes saved successfully!")
                 st.cache_data.clear()
                 st.rerun()
             else:
