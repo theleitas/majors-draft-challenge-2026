@@ -36,7 +36,7 @@ st.markdown("""
         padding: 10px 14px;
     }
     .stMetric label {
-        color: #888;
+        color: #bfbbbb;
     }
     .stDataFrame {
         font-size: 0.84rem;
