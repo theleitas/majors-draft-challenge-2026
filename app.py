@@ -8,49 +8,68 @@ from streamlit_autorefresh import st_autorefresh
 
 st.set_page_config(page_title="Masters Draft 2026", layout="wide", initial_sidebar_state="collapsed")
 
-# High-contrast dark theme
+# ====================== HIGH-CONTRAST DARK THEME ======================
 st.markdown("""
 <style>
+    /* Main App Background */
     .stApp {
         background-color: #0a0a0a;
         color: #e0e0e0;
     }
+
+    /* Reduce excessive padding */
     .block-container {
         padding-top: 1rem;
         padding-bottom: 1rem;
     }
+
+    /* Page Title */
     h1 {
-        font-size: 2rem !important;
+        font-size: 1.85rem !important;
         color: #00ff9d;
-        margin-bottom: 0.2rem;
+        margin-bottom: 0.3rem;
     }
+
+    /* Section Headers (Standings, Team Rosters, etc.) */
     h2, h3 {
         font-size: 1.35rem !important;
         color: #ffffff;
-        margin: 0.6rem 0 0.3rem 0;
+        margin: 0.8rem 0 0.4rem 0;
     }
 
-    /* Coach team names - large and bold */
+    /* ====================== STANDINGS SECTION ====================== */
+    
+    /* Coach Team Names - Large and prominent */
     .stMarkdown p strong, .stMarkdown p b {
-        font-size: 2rem !important;     
+        font-size: 1.75rem !important;
         color: #ffffff;
         font-weight: 700;
     }
 
-    /* Golfer names and scores in standings - same size */
+    /* Golfer names and scores in standings cards - same size */
     .stMarkdown p {
         font-size: 1.05rem !important;
-        margin-bottom: 0.1rem;
-    }
-    
-    /* Make the scores in parentheses the SAME size as golfer names */
-    .stMarkdown p strong {
-        font-size: 1.05rem !important;     /* ← This controls the (score) size */
-        font-weight: 700;
-        color: #00ff9d;
+        margin-bottom: 0.05rem;
     }
 
-    /* Bright Total metric */
+    /* Scores in parentheses - same size as golfer names, bright green */
+    .stMarkdown p strong {
+        font-size: 1.05rem !important;
+        color: #00ff9d;
+        font-weight: 700;
+    }
+
+    /* Standings Cards - White borders for high visibility */
+    .stContainer {
+        border: 2px solid #ffffff !important;
+        border-radius: 10px;
+        background-color: #111111;
+        padding: 14px;
+    }
+
+    /* ====================== METRICS & TOTALS ====================== */
+    
+    /* Total Score Metric - Bright and stands out */
     .stMetric {
         background-color: #1f2a1f;
         border: 1px solid #00cc77;
@@ -67,32 +86,27 @@ st.markdown("""
         font-weight: bold;
     }
 
-    /* White borders for standings cards */
-    .stContainer {
-        border: 2px solid #ffffff !important;
-        border-radius: 10px;
-        background-color: #111111;
-        padding: 14px;
-    }
-
+    /* ====================== TEAM ROSTERS ====================== */
+    
     .stDataFrame {
         font-size: 0.84rem;
         background-color: #111;
     }
-    
-    /* Top 3 highlight */
+
+    /* Top 3 golfers highlight in rosters - Yellow with black text */
     .highlight-top3 {
         background-color: #ffd700 !important;
         color: #000000 !important;
         font-weight: bold;
     }
+
 </style>
 """, unsafe_allow_html=True)
 
 st.title("🏌️ MASTERS DRAFT 2026")
 st.caption("Top 3 lowest scores wins • Live updates every 5 minutes")
 
-# Refresh button
+# Refresh button at top
 if st.button("🔄 Refresh Scores Now", type="primary", use_container_width=True):
     st.cache_data.clear()
     st.rerun()
@@ -110,7 +124,7 @@ except Exception:
     st.error("GitHub token not configured in Streamlit Secrets.")
     st.stop()
 
-# Load teams
+# Load teams from GitHub
 @st.cache_data(ttl=60)
 def load_teams_from_github():
     url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/contents/{FILE_PATH}"
@@ -127,7 +141,7 @@ def load_teams_from_github():
 
 teams_data = load_teams_from_github()
 
-# Fetch live scores
+# Fetch live scores from ESPN
 @st.cache_data(ttl=300)
 def fetch_leaderboard():
     try:
@@ -155,13 +169,9 @@ def get_player_data(api_data):
 
                 status = comp.get("status", {})
                 hole_raw = status.get("thru") or status.get("period") or status.get("type", {}).get("shortDetail")
-                if str(hole_raw).replace(".", "").replace("-", "").isdigit():
-                    hole = f"Thru {hole_raw}"
-                elif str(hole_raw).upper() in ["F", "FINISHED", "COMPLETE"]:
-                    hole = "Finished"
-                else:
-                    hole = str(hole_raw) if hole_raw else "—"
-                
+                hole = f"Thru {hole_raw}" if str(hole_raw).replace(".", "").replace("-", "").isdigit() else \
+                       "Finished" if str(hole_raw).upper() in ["F", "FINISHED"] else str(hole_raw) or "—"
+
                 player_data[name] = {"score": score, "hole": hole}
     except:
         pass
@@ -169,7 +179,7 @@ def get_player_data(api_data):
 
 player_data = get_player_data(data)
 
-# ====================== STANDINGS (White borders + Larger team names) ======================
+# ====================== STANDINGS ======================
 st.subheader("Standings")
 
 for coach_id, info in teams_data.items():
@@ -189,7 +199,7 @@ for coach_id, info in teams_data.items():
     with st.container(border=True):
         c1, c2 = st.columns([3, 1])
         with c1:
-            st.markdown(f"**{team_name}**")   # This is now large (matches "Standings" size)
+            st.markdown(f"**{team_name}**")
         with c2:
             st.metric("TOTAL", top_3_sum)
         
