@@ -23,34 +23,17 @@ st.markdown("""
     h1 { font-size: 1.9rem !important; color: #00ff9d; margin-bottom: 0.3rem; }
     h2, h3 { font-size: 1.4rem !important; color: #ffffff; }
 
-    /* Coach-colored Full Boxes */
-    .coach-box-jayme { 
-        border: 2px solid #00cc77; 
-        background-color: #0f2a1f; 
-        border-radius: 12px; 
-        padding: 18px; 
-        margin-bottom: 1rem;
+    /* Full colored coach boxes */
+    .coach-box {
+        border-radius: 12px;
+        padding: 18px;
+        margin-bottom: 1.2rem;
     }
-    .coach-box-spencer { 
-        border: 2px solid #bb77ff; 
-        background-color: #1f1a2f; 
-        border-radius: 12px; 
-        padding: 18px; 
-        margin-bottom: 1rem;
-    }
-    .coach-box-peter { 
-        border: 2px solid #cc3344; 
-        background-color: #2a1a1f; 
-        border-radius: 12px; 
-        padding: 18px; 
-        margin-bottom: 1rem;
-    }
+    .jayme-box { border: 2px solid #00cc77; background-color: #0f2a1f; }
+    .spencer-box { border: 2px solid #bb77ff; background-color: #1f1a2f; }
+    .peter-box { border: 2px solid #cc3344; background-color: #2a1a1f; }
 
-    .stMetric div[data-testid="stMetricValue"] { 
-        font-size: 2rem !important; 
-        font-weight: bold; 
-    }
-    .stDataFrame { font-size: 0.88rem; }
+    .big-total { font-size: 2.1rem !important; font-weight: bold; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -148,7 +131,7 @@ def get_player_data(api_data):
 
 player_data = get_player_data(data)
 
-# ====================== STANDINGS - FULL COLORED BOXES ======================
+# ====================== STANDINGS - EVERYTHING INSIDE COLORED BOX ======================
 st.subheader("Standings")
 
 for coach_id, info in teams_data.items():
@@ -165,18 +148,19 @@ for coach_id, info in teams_data.items():
     top_3 = player_list[:3]
     top_3_sum = sum(s for _, s, _ in top_3)
 
-    box_class = ("coach-box-jayme" if coach_id == "Jayme Leita" else
-                 "coach-box-spencer" if coach_id == "Spencer Tidwell" else
-                 "coach-box-peter")
+    # Choose box style
+    box_class = ("jayme-box" if coach_id == "Jayme Leita" else
+                 "spencer-box" if coach_id == "Spencer Tidwell" else
+                 "peter-box")
 
     with st.container():
-        st.markdown(f"<div class='{box_class}'>", unsafe_allow_html=True)
+        st.markdown(f'<div class="coach-box {box_class}">', unsafe_allow_html=True)
         
         # Team Name
         st.markdown(f"**{team_name}**")
         
-        # Total + Top 3 inside the box
-        cols = st.columns([1.2, 2.8])
+        # Content inside box
+        cols = st.columns([1.3, 2.7])
         with cols[0]:
             st.metric("TOTAL", top_3_sum)
         with cols[1]:
@@ -186,7 +170,7 @@ for coach_id, info in teams_data.items():
             else:
                 st.caption("Waiting for scores...")
         
-        st.markdown("</div>", unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
 
 # ====================== TOP 10 LEADERBOARD (S, J, P) ======================
 st.subheader("Top 10 Leaderboard")
