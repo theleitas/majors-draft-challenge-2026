@@ -69,17 +69,23 @@ def get_player_data(api_data):
                     athlete = competitor.get("athlete", {})
                     name = athlete.get("displayName") or athlete.get("shortName")
                     if name:
+                        # Score as integer
                         score_str = competitor.get("score")
                         try:
                             score = int(float(score_str)) if score_str is not None else None
                         except:
                             score = None
 
+                        # Hole / status info
                         status = competitor.get("status", {})
-                        hole_raw = status.get("thru") or status.get("period") or status.get("type", {}).get("shortDetail")
+                        hole_raw = (status.get("thru") or 
+                                   status.get("period") or 
+                                   status.get("type", {}).get("shortDetail") or 
+                                   status.get("displayValue"))
+                        
                         if isinstance(hole_raw, (int, float)) or (isinstance(hole_raw, str) and hole_raw.replace(".", "").replace("-", "").isdigit()):
                             hole = f"Thru {hole_raw}"
-                        elif str(hole_raw).upper() in ["F", "FINISHED"]:
+                        elif str(hole_raw).upper() in ["F", "FINISHED", "COMPLETE"]:
                             hole = "Finished"
                         else:
                             hole = str(hole_raw) if hole_raw else "Not started"
@@ -91,7 +97,7 @@ def get_player_data(api_data):
 
 player_data = get_player_data(data)
 
-# ====================== VERTICAL STANDINGS (Mobile-Friendly) ======================
+# ====================== VERTICAL STANDINGS (with Hole Info) ======================
 st.subheader("Current Standings")
 
 for coach_id, info in teams_data.items():
@@ -103,11 +109,11 @@ for coach_id, info in teams_data.items():
     for player in players:
         p_info = player_data.get(player)
         if p_info and p_info["score"] is not None:
-            player_list.append((player, p_info["score"]))
+            player_list.append((player, p_info["score"], p_info["hole"]))
     
     player_list.sort(key=lambda x: x[1])  # lowest score first
     top_3 = player_list[:3]
-    top_3_sum = sum(score for _, score in top_3)
+    top_3_sum = sum(score for _, score, _ in top_3)
     
     # Create a nice card for each team
     with st.container(border=True):
@@ -116,8 +122,8 @@ for coach_id, info in teams_data.items():
         
         st.markdown("**Top 3 Golfers:**")
         if top_3:
-            for name, score in top_3:
-                st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;{name} **({score})**")
+            for name, score, hole in top_3:
+                st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;{name} **({score})** — {hole}")
         else:
             st.write("— No scores yet —")
 
