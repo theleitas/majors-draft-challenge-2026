@@ -13,7 +13,7 @@ st.set_page_config(page_title="Masters Draft 2026", layout="wide", initial_sideb
 COACH_COLORS = {
     "Jayme Leita": "#00cc77",      # Green
     "Spencer Tidwell": "#bb77ff",  # Purple
-    "Peter Miller": "#2E47DB"      # Blue
+    "Peter Miller": "#2E47DB"      # Blue for Peter
 }
 
 st.markdown("""
@@ -21,13 +21,6 @@ st.markdown("""
     .stApp { background-color: #0a0a0a; color: #e0e0e0; }
     h1 { font-size: 1.9rem !important; color: #00ff9d; }
     h2, h3 { font-size: 1.4rem !important; color: #ffffff; }
-
-    .coach-card {
-        border-radius: 14px;
-        padding: 20px;
-        margin-bottom: 1.5rem;
-        border: 3px solid;
-    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -46,7 +39,7 @@ st_autorefresh(interval=300000, limit=None, key="datarefresh")
 # ====================== GITHUB CONFIG ======================
 try:
     GITHUB_TOKEN = st.secrets["GITHUB"]["TOKEN"]
-    REPO_OWNER = "theleitas"          # ← CHANGE TO YOUR USERNAME
+    REPO_OWNER = "YOUR_GITHUB_USERNAME"          # ← CHANGE TO YOUR USERNAME
     REPO_NAME = "masters-draft-2026"
     FILE_PATH = "teams.json"
     BRANCH = "main"
@@ -142,23 +135,28 @@ for coach_id, info in teams_data.items():
     top_3_sum = sum(s for _, s, _ in top_3)
 
     color = COACH_COLORS.get(coach_id)
-    box_style = f"border: 3px solid {color}; background-color: {color}15; border-radius: 14px; padding: 20px; margin-bottom: 1.5rem;"
 
-    st.markdown(f'<div style="{box_style}">', unsafe_allow_html=True)
-    
-    st.markdown(f"<span style='color:{color}; font-size:1.45rem; font-weight:bold;'>{team_name}</span>", unsafe_allow_html=True)
-    
-    cols = st.columns([1.2, 2.8])
-    with cols[0]:
-        st.metric("TOTAL", top_3_sum)
-    with cols[1]:
-        if top_3:
-            for name, score, hole in top_3:
-                st.markdown(f"**{name}** <span style='color:{color}; font-weight:bold;'>({score})</span> — {hole}")
-        else:
-            st.caption("Waiting for scores...")
-    
-    st.markdown('</div>', unsafe_allow_html=True)
+    # Build entire card as one HTML block
+    card = f"""
+    <div style="border: 3px solid {color}; background-color: {color}15; border-radius: 14px; padding: 20px; margin-bottom: 1.5rem;">
+        <strong style="color:{color}; font-size:1.45rem;">{team_name}</strong><br><br>
+        <div style="display:flex; justify-content:space-between; align-items:start;">
+            <div>
+                <small style="color:#aaa;">TOTAL</small><br>
+                <span style="color:{color}; font-size:2.3rem; font-weight:bold;">{top_3_sum}</span>
+            </div>
+            <div style="flex-grow:1; padding-left:50px;">
+    """
+
+    if top_3:
+        for name, score, hole in top_3:
+            card += f"<strong>{name}</strong> <span style='color:{color}; font-weight:bold;'>({score})</span> — {hole}<br>"
+    else:
+        card += "Waiting for scores...<br>"
+
+    card += "</div></div></div>"
+
+    st.markdown(card, unsafe_allow_html=True)
 
 # ====================== TOP 10 LEADERBOARD ======================
 st.subheader("Top 10 Leaderboard")
