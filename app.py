@@ -48,7 +48,7 @@ st_autorefresh(interval=300000, limit=None, key="datarefresh")
 # ====================== GITHUB CONFIG ======================
 try:
     GITHUB_TOKEN = st.secrets["GITHUB"]["TOKEN"]
-    REPO_OWNER = "YOUR_GITHUB_USERNAME"          # ← CHANGE TO YOUR USERNAME
+    REPO_OWNER = "theleitas"          # ← CHANGE TO YOUR USERNAME
     REPO_NAME = "masters-draft-2026"
     FILE_PATH = "teams.json"
     BRANCH = "main"
@@ -84,7 +84,7 @@ def fetch_leaderboard():
 
 data = fetch_leaderboard()
 
-# ====================== FIXED HOLE PARSER (using linescores) ======================
+# ====================== IMPROVED CURRENT-ROUND HOLE PARSER ======================
 def get_player_data(api_data):
     player_data = {}
     if not api_data:
@@ -105,27 +105,27 @@ def get_player_data(api_data):
             except:
                 score = None
 
-            # === BETTER HOLE DETECTION USING LINESCORES ===
+            # === CURRENT ROUND HOLE DETECTION ===
             linescores = comp.get("linescores", [])
-            current_hole = None
+            hole = "Not started"
 
-            # Find the current round (last round with data)
-            for ls in reversed(linescores):
-                if ls.get("linescores"):   # has per-hole data
-                    hole_list = ls.get("linescores", [])
-                    # Count how many holes have been played
-                    played_holes = sum(1 for h in hole_list if h.get("displayValue") is not None)
-                    if played_holes > 0:
-                        current_hole = played_holes
-                        break
+            if linescores:
+                # Take the most recent round (last item in linescores)
+                current_round = linescores[-1]
+                per_hole = current_round.get("linescores", [])
 
-            # Format hole
-            if current_hole:
-                hole = f"Thru {current_hole}"
-            elif comp.get("status", {}).get("type", {}).get("shortDetail") == "F":
-                hole = "Finished"
-            else:
-                hole = "Not started"
+                # Count how many holes have been played today
+                played_holes = 0
+                for h in per_hole:
+                    if h.get("displayValue") is not None and h.get("displayValue") != "":
+                        played_holes += 1
+
+                if played_holes > 0:
+                    hole = f"Thru {played_holes}"
+                elif current_round.get("displayValue") == "F" or current_round.get("period") == "F":
+                    hole = "Finished"
+                else:
+                    hole = "Not started"
 
             # Position
             rank = comp.get("rank") or comp.get("position") or "—"
@@ -221,14 +221,14 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
 
 # ====================== DEBUG SECTION ======================
 st.divider()
-with st.expander("🔍 DEBUG: Gary Woodland Raw Data", expanded=True):
+with st.expander("🔍 DEBUG: Gary Woodland Raw Data", expanded=False):
     if data:
         competitors = data.get("events", [{}])[0].get("competitions", [{}])[0].get("competitors", [])
         woodland_raw = next((c for c in competitors if "Woodland" in str(c.get("athlete", {}).get("displayName", ""))), None)
         if woodland_raw:
             st.json(woodland_raw)
         else:
-            st.write("Gary Woodland not found in raw data")
+            st.write("Gary Woodland not found")
     else:
         st.write("No API data received")
 
