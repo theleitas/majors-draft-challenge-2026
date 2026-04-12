@@ -22,11 +22,11 @@ st.markdown("""
     h1 { font-size: 1.9rem !important; color: #00ff9d; }
     h2, h3 { font-size: 1.4rem !important; color: #ffffff; }
 
-    .colored-box {
+    .coach-card {
         border-radius: 14px;
         padding: 20px;
         margin-bottom: 1.5rem;
-        border: 2px solid;
+        border: 3px solid;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -46,7 +46,7 @@ st_autorefresh(interval=300000, limit=None, key="datarefresh")
 # ====================== GITHUB CONFIG ======================
 try:
     GITHUB_TOKEN = st.secrets["GITHUB"]["TOKEN"]
-    REPO_OWNER = "YOUR_GITHUB_USERNAME"          # ← CHANGE TO YOUR USERNAME
+    REPO_OWNER = "YOUR_GITHUB_USERNAME"
     REPO_NAME = "masters-draft-2026"
     FILE_PATH = "teams.json"
     BRANCH = "main"
@@ -124,7 +124,7 @@ def get_player_data(api_data):
 
 player_data = get_player_data(data)
 
-# ====================== STANDINGS - COLORED BOXES ======================
+# ====================== STANDINGS - FULLY CONTAINED COLORED BOXES ======================
 st.subheader("Standings")
 
 for coach_id, info in teams_data.items():
@@ -142,7 +142,7 @@ for coach_id, info in teams_data.items():
     top_3_sum = sum(s for _, s, _ in top_3)
 
     color = COACH_COLORS.get(coach_id, "#888888")
-    box_style = f"border: 2px solid {color}; background-color: rgba(20,20,20,0.95); border-radius: 14px; padding: 20px; margin-bottom: 1.5rem;"
+    box_style = f"border: 3px solid {color}; background-color: rgba(20,20,20,0.95); border-radius: 14px; padding: 20px; margin-bottom: 1.5rem;"
 
     st.markdown(f'<div style="{box_style}">', unsafe_allow_html=True)
     
