@@ -49,7 +49,7 @@ st.markdown("""
 
     /* Lighter borders for standings cards */
     .stContainer {
-        border: 2px solid #d6d4d4 !important;
+        border: 2px solid #fafafa !important;
         border-radius: 10px;
         background-color: #111111;
         padding: 14px;
@@ -63,7 +63,7 @@ st.markdown("""
     /* Top 3 highlight - bright yellow with black text */
     .highlight-top3 {
         background-color: #ffd700 !important;
-        color: #000000 !important;
+        color: #fafafa !important;
         font-weight: bold;
     }
 </style>
