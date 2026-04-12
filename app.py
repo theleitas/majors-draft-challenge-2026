@@ -19,15 +19,11 @@ st.markdown("""
         padding-top: 1rem;
         padding-bottom: 1rem;
     }
-
-    /* Page Title */
     h1 {
         font-size: 1.85rem !important;
         color: #00ff9d;
         margin-bottom: 0.3rem;
     }
-
-    /* Section Headers */
     h2, h3 {
         font-size: 1.35rem !important;
         color: #ffffff;
@@ -41,20 +37,18 @@ st.markdown("""
         font-weight: 700;
     }
 
-    /* Golfer names in standings */
+    /* Golfer names and scores in standings */
     .stMarkdown p {
         font-size: 1.05rem !important;
         margin-bottom: 0.05rem;
     }
-
-    /* Scores in parentheses - same size as names, bright green */
     .stMarkdown p strong {
         font-size: 1.05rem !important;
         color: #00ff9d;
         font-weight: 700;
     }
 
-    /* Standings Cards - White borders for visibility */
+    /* Standings Cards - White borders */
     .stContainer {
         border: 2px solid #ffffff !important;
         border-radius: 10px;
@@ -62,7 +56,7 @@ st.markdown("""
         padding: 14px;
     }
 
-    /* Total Score Metric - Bright green */
+    /* Total Score Metric */
     .stMetric {
         background-color: #1f2a1f;
         border: 1px solid #00cc77;
@@ -84,7 +78,7 @@ st.markdown("""
         background-color: #111;
     }
 
-    /* Top 3 highlight in Team Rosters */
+    /* Top 3 highlight */
     .highlight-top3 {
         background-color: #ffd700 !important;
         color: #000000 !important;
@@ -96,7 +90,6 @@ st.markdown("""
 st.title("🏌️ MASTERS DRAFT 2026")
 st.caption("Top 3 lowest scores wins • Live updates every 5 minutes")
 
-# Refresh button
 if st.button("🔄 Refresh Scores Now", type="primary", use_container_width=True):
     st.cache_data.clear()
     st.rerun()
@@ -106,7 +99,7 @@ st_autorefresh(interval=300000, limit=None, key="datarefresh")
 # ====================== GITHUB CONFIG ======================
 try:
     GITHUB_TOKEN = st.secrets["GITHUB"]["TOKEN"]
-    REPO_OWNER = "theleitas"          # ← CHANGE TO YOUR USERNAME
+    REPO_OWNER = "YOUR_GITHUB_USERNAME"          # ← CHANGE TO YOUR USERNAME
     REPO_NAME = "masters-draft-2026"             # ← CHANGE IF DIFFERENT
     FILE_PATH = "teams.json"
     BRANCH = "main"
@@ -114,7 +107,7 @@ except Exception:
     st.error("GitHub token not configured in Streamlit Secrets.")
     st.stop()
 
-# Load teams from GitHub
+# Load teams
 @st.cache_data(ttl=60)
 def load_teams_from_github():
     url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/contents/{FILE_PATH}"
@@ -131,7 +124,7 @@ def load_teams_from_github():
 
 teams_data = load_teams_from_github()
 
-# Fetch live scores from ESPN
+# Fetch live scores
 @st.cache_data(ttl=300)
 def fetch_leaderboard():
     try:
@@ -142,38 +135,66 @@ def fetch_leaderboard():
 
 data = fetch_leaderboard()
 
+# ====================== IMPROVED PLAYER DATA PARSER ======================
 def get_player_data(api_data):
     player_data = {}
     if not api_data:
         return player_data
+
     try:
         competitors = api_data.get("events", [{}])[0].get("competitions", [{}])[0].get("competitors", [])
+        
         for comp in competitors:
             athlete = comp.get("athlete", {})
             name = athlete.get("displayName") or athlete.get("shortName")
-            if name:
-                try:
-                    score = int(float(comp.get("score"))) if comp.get("score") is not None else None
-                except:
-                    score = None
+            if not name:
+                continue
 
-                status = comp.get("status", {})
-                hole_raw = status.get("thru") or status.get("period") or status.get("type", {}).get("shortDetail")
-                hole = f"Thru {hole_raw}" if str(hole_raw).replace(".", "").replace("-", "").isdigit() else \
-                       "Finished" if str(hole_raw).upper() in ["F", "FINISHED", "COMPLETE"] else str(hole_raw) or "—"
+            # Score to par
+            try:
+                score = int(float(comp.get("score"))) if comp.get("score") is not None else None
+            except:
+                score = None
 
-                # Improved position extraction
-                rank = comp.get("rank") or comp.get("position") or status.get("type", {}).get("shortDetail") or "—"
-                if isinstance(rank, (int, float)):
-                    rank = str(int(rank))
-                elif isinstance(rank, str):
-                    rank = rank.strip()
+            # === IMPROVED HOLE / STATUS LOGIC ===
+            status = comp.get("status", {}) or {}
+            status_type = status.get("type", {}) or {}
+
+            # Try multiple possible fields in order of reliability
+            thru = None
+            if status.get("thru") is not None:
+                thru = status.get("thru")
+            elif status_type.get("shortDetail"):
+                thru = status_type.get("shortDetail")
+            elif status.get("period"):
+                thru = status.get("period")
+            elif status.get("displayValue"):
+                thru = status.get("displayValue")
+
+            # Format hole status nicely
+            if thru is not None:
+                if str(thru).upper() in ["F", "FIN", "FINISHED", "COMPLETE"]:
+                    hole = "Finished"
+                elif str(thru).replace(".", "").replace("-", "").isdigit():
+                    hole = f"Thru {thru}"
                 else:
-                    rank = "—"
+                    hole = str(thru)
+            else:
+                hole = "Not started"
 
-                player_data[name] = {"score": score, "hole": hole, "rank": rank}
-    except:
-        pass
+            # Position / Rank
+            rank = comp.get("rank") or comp.get("position") or status_type.get("shortDetail") or "—"
+            if isinstance(rank, (int, float)):
+                rank = str(int(rank))
+
+            player_data[name] = {
+                "score": score,
+                "hole": hole,
+                "rank": rank
+            }
+    except Exception as e:
+        st.warning(f"Error parsing leaderboard: {e}")
+    
     return player_data
 
 player_data = get_player_data(data)
@@ -187,9 +208,9 @@ for coach_id, info in teams_data.items():
     
     player_list = []
     for p in players:
-        pd_info = player_data.get(p)
-        if pd_info and pd_info.get("score") is not None:
-            player_list.append((p, pd_info["score"], pd_info["hole"]))
+        pd_info = player_data.get(p, {})
+        if pd_info.get("score") is not None:
+            player_list.append((p, pd_info["score"], pd_info.get("hole", "—")))
     
     player_list.sort(key=lambda x: x[1])
     top_3 = player_list[:3]
@@ -210,33 +231,31 @@ for coach_id, info in teams_data.items():
             st.caption("Waiting for scores...")
 
 # ====================== $50 LEITA/TIDWELL SIDE BET - BURNS TO WIN ======================
-st.subheader("$50 Leita/Tidwell Side Bet - Leita has Burns to Win")
+st.subheader("$50 Leita/Tidwell Side Bet - Burns to Win")
 
 burns = player_data.get("Sam Burns", {})
 burns_score = burns.get("score")
 burns_hole = burns.get("hole", "—")
 burns_rank = burns.get("rank", "—")
 
-# Format position nicely (1st, 2nd, 3rd, T4, etc.)
-if burns_rank != "—":
+# Nice position formatting
+position_text = burns_rank
+if burns_rank != "—" and str(burns_rank).replace("T", "").isdigit():
     try:
-        rank_num = int(''.join(filter(str.isdigit, str(burns_rank))))
-        suffix = "st" if rank_num % 10 == 1 and rank_num % 100 != 11 else \
-                 "nd" if rank_num % 10 == 2 and rank_num % 100 != 12 else \
-                 "rd" if rank_num % 10 == 3 and rank_num % 100 != 13 else "th"
-        position_text = f"{burns_rank}{suffix}" if not str(burns_rank).startswith("T") else f"T{rank_num}{suffix}"
+        num = int(str(burns_rank).replace("T", ""))
+        suffix = "st" if num % 10 == 1 and num % 100 != 11 else \
+                 "nd" if num % 10 == 2 and num % 100 != 12 else \
+                 "rd" if num % 10 == 3 and num % 100 != 13 else "th"
+        position_text = f"T{num}{suffix}" if str(burns_rank).startswith("T") else f"{num}{suffix}"
     except:
-        position_text = burns_rank
-else:
-    position_text = "—"
+        pass
 
 with st.container(border=True):
     col1, col2, col3 = st.columns([2.5, 1, 1])
     with col1:
         st.markdown("**Sam Burns**")
     with col2:
-        score_display = f"{burns_score}" if burns_score is not None else "—"
-        st.metric("Score", score_display)
+        st.metric("Score", f"{burns_score}" if burns_score is not None else "—")
     with col3:
         st.metric("Position", position_text)
     
