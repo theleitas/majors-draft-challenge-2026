@@ -21,12 +21,12 @@ st.markdown("""
     }
     h1 {
         font-size: 1.85rem !important;
-        color: #00ff9d;
+        color: #bfbbbb;
         margin-bottom: 0.2rem;
     }
     h2, h3 {
         font-size: 1.15rem !important;
-        color: #ffffff;
+        color: #bfbbbb;
         margin: 0.6rem 0 0.3rem 0;
     }
     .stMetric {
