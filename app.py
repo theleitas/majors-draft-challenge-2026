@@ -72,7 +72,7 @@ st.markdown("""
 
 /* Darken the container border for "Standings" */
 .stContainer {
-  border: 3px solid #333333 !important; /* darker border; use #222/#333/#444 to taste */
+  border: 3px solid #ffffff !important; /* darker border; use #222/#333/#444 to taste */
   border-radius: 10px;
   background-color: #111111;
 }
