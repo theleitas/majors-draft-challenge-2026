@@ -19,21 +19,21 @@ COACH_COLORS = {
 st.markdown("""
 <style>
     .stApp { background-color: #0a0a0a; color: #e0e0e0; }
-    .block-container { padding-top: 1rem; padding-bottom: 1rem; }
-    h1 { font-size: 1.9rem !important; color: #00ff9d; margin-bottom: 0.3rem; }
+    h1 { font-size: 1.9rem !important; color: #00ff9d; }
     h2, h3 { font-size: 1.4rem !important; color: #ffffff; }
 
-    /* Full colored coach boxes */
-    .coach-box {
-        border-radius: 12px;
+    /* Full colored coach card */
+    .coach-card {
+        border-radius: 14px;
         padding: 18px;
         margin-bottom: 1.2rem;
+        border: 2px solid;
     }
-    .jayme-box { border: 2px solid #00cc77; background-color: #0f2a1f; }
-    .spencer-box { border: 2px solid #bb77ff; background-color: #1f1a2f; }
-    .peter-box { border: 2px solid #cc3344; background-color: #2a1a1f; }
+    .jayme-card  { border-color: #00cc77; background-color: #0f2a1f; }
+    .spencer-card { border-color: #bb77ff; background-color: #1f1a2f; }
+    .peter-card  { border-color: #cc3344; background-color: #2a1a1f; }
 
-    .big-total { font-size: 2.1rem !important; font-weight: bold; }
+    .big-total { font-size: 2.2rem !important; font-weight: bold; line-height: 1; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -43,7 +43,7 @@ est_tz = zoneinfo.ZoneInfo("America/New_York")
 last_updated = datetime.now(est_tz).strftime("%I:%M %p EST")
 st.caption(f"Top 3 lowest scores wins • Live updates every 5 minutes • Last updated: {last_updated}")
 
-if st.button("🔄 Refresh Scores Now", type="primary", use_container_width=True, key="top_refresh"):
+if st.button("🔄 Refresh Scores Now", type="primary", use_container_width=True):
     st.cache_data.clear()
     st.rerun()
 
@@ -52,7 +52,7 @@ st_autorefresh(interval=300000, limit=None, key="datarefresh")
 # ====================== GITHUB CONFIG ======================
 try:
     GITHUB_TOKEN = st.secrets["GITHUB"]["TOKEN"]
-    REPO_OWNER = "YOUR_GITHUB_USERNAME"          # ← CHANGE TO YOUR USERNAME
+    REPO_OWNER = "YOUR_GITHUB_USERNAME"
     REPO_NAME = "masters-draft-2026"
     FILE_PATH = "teams.json"
     BRANCH = "main"
@@ -88,7 +88,6 @@ def fetch_leaderboard():
 
 data = fetch_leaderboard()
 
-# ====================== PLAYER DATA PARSER ======================
 def get_player_data(api_data):
     player_data = {}
     if not api_data:
@@ -148,31 +147,28 @@ for coach_id, info in teams_data.items():
     top_3 = player_list[:3]
     top_3_sum = sum(s for _, s, _ in top_3)
 
-    # Choose box style
-    box_class = ("jayme-box" if coach_id == "Jayme Leita" else
-                 "spencer-box" if coach_id == "Spencer Tidwell" else
-                 "peter-box")
+    box_class = ("jayme-card" if coach_id == "Jayme Leita" else
+                 "spencer-card" if coach_id == "Spencer Tidwell" else
+                 "peter-card")
 
-    with st.container():
-        st.markdown(f'<div class="coach-box {box_class}">', unsafe_allow_html=True)
-        
-        # Team Name
-        st.markdown(f"**{team_name}**")
-        
-        # Content inside box
-        cols = st.columns([1.3, 2.7])
-        with cols[0]:
-            st.metric("TOTAL", top_3_sum)
-        with cols[1]:
-            if top_3:
-                for name, score, hole in top_3:
-                    st.markdown(f"**{name}** **({score})** — {hole}")
-            else:
-                st.caption("Waiting for scores...")
-        
-        st.markdown('</div>', unsafe_allow_html=True)
+    # Full colored box
+    st.markdown(f'<div class="coach-box {box_class}">', unsafe_allow_html=True)
 
-# ====================== TOP 10 LEADERBOARD (S, J, P) ======================
+    st.markdown(f"**{team_name}**")
+
+    cols = st.columns([1.2, 2.8])
+    with cols[0]:
+        st.metric("TOTAL", top_3_sum)
+    with cols[1]:
+        if top_3:
+            for name, score, hole in top_3:
+                st.markdown(f"**{name}** **({score})** — {hole}")
+        else:
+            st.caption("Waiting for scores...")
+
+    st.markdown('</div>', unsafe_allow_html=True)
+
+# ====================== TOP 10 LEADERBOARD ======================
 st.subheader("Top 10 Leaderboard")
 
 if player_data:
@@ -182,9 +178,7 @@ if player_data:
             owner_letter = "—"
             for cid, tinfo in teams_data.items():
                 if name in tinfo.get("players", []):
-                    owner_letter = "J" if cid == "Jayme Leita" else \
-                                   "S" if cid == "Spencer Tidwell" else \
-                                   "P" if cid == "Peter Miller" else "—"
+                    owner_letter = "J" if cid == "Jayme Leita" else "S" if cid == "Spencer Tidwell" else "P"
                     break
             leaderboard.append({
                 "Owner": owner_letter,
@@ -195,7 +189,7 @@ if player_data:
     
     df_lb = pd.DataFrame(leaderboard)
     df_lb = df_lb.sort_values("Score").head(10).reset_index(drop=True)
-    
+
     owner_map = {}
     for coach_id, info in teams_data.items():
         color = COACH_COLORS.get(coach_id, "#555555")
@@ -203,14 +197,12 @@ if player_data:
             owner_map[player] = color
 
     def highlight_lb(row):
-        player = row["Player"]
-        color = owner_map.get(player)
+        color = owner_map.get(row["Player"])
         if color:
             return [f'background-color: {color}; color: black; font-weight: bold'] * len(row)
         return [''] * len(row)
 
-    styled_lb = df_lb.style.apply(highlight_lb, axis=1)
-    st.dataframe(styled_lb, use_container_width=True, hide_index=True)
+    st.dataframe(df_lb.style.apply(highlight_lb, axis=1), use_container_width=True, hide_index=True)
 
 # ====================== $50 SIDE BET ======================
 st.subheader("$50 Leita/Tidwell Side Bet - Burns to Win")
@@ -256,13 +248,13 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
         
         st.dataframe(df.style.apply(style_top3, axis=1), use_container_width=True, hide_index=True, height=210)
 
-# ====================== BOTTOM REFRESH BUTTON ======================
+# Bottom Refresh
 st.divider()
 if st.button("🔄 Refresh Scores Now", type="primary", use_container_width=True, key="bottom_refresh"):
     st.cache_data.clear()
     st.rerun()
 
-# ====================== EDIT SECTION ======================
+# Edit Section
 st.divider()
 with st.expander("🔧 Edit Teams & Auto-Save to GitHub", expanded=False):
     new_teams = {}
