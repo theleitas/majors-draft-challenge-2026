@@ -55,6 +55,27 @@ st.markdown("""
         color: #000000 !important;
         font-weight: bold;
     }
+    /* Make metric text (the numeric value) bright/white and slightly larger */
+.stMetric,
+.stMetric * {
+  /* keep existing background/borders you already have */
+}
+.stMetric label { color: #dcdcdc !important; } /* label color (TOTAL) */
+.stMetric .stMetricValue,
+.stMetric .stMetricNumber,
+.stMetric div[class*="value"],
+.stMetric div[class*="number"] {
+  color: #ffffff !important;   /* make the number white/bright */
+  font-weight: 700 !important; /* bolder for contrast */
+  font-size: 1.6rem !important;/* larger so it's easier to read */
+}
+
+/* Darken the container border for "Standings" */
+.stContainer {
+  border: 3px solid #333333 !important; /* darker border; use #222/#333/#444 to taste */
+  border-radius: 10px;
+  background-color: #111111;
+}
 </style>
 """, unsafe_allow_html=True)
 
