@@ -71,7 +71,7 @@ def get_player_data(api_data):
                     if name:
                         score_str = competitor.get("score")
                         try:
-                            score = float(score_str) if score_str is not None else None
+                            score = int(float(score_str)) if score_str is not None else None
                         except:
                             score = None
 
@@ -91,7 +91,7 @@ def get_player_data(api_data):
 
 player_data = get_player_data(data)
 
-# ====================== STANDINGS WITH TOP 3 COLUMN (BLACK TEXT ON HIGHLIGHT) ======================
+# ====================== STANDINGS WITH TOP 3 COLUMN ======================
 standings = []
 for coach_id, info in teams_data.items():
     team_name = info.get("team_name", coach_id)
@@ -119,18 +119,20 @@ st.subheader("Current Standings")
 if standings:
     df_standings = pd.DataFrame(standings).sort_values("Top 3 Sum")
     
-    # Phone-friendly + black text on highlighted total
+    # Phone-friendly styling with black text
     styled_standings = df_standings.style.set_properties(**{
         'text-align': 'left',
-        'color': 'black'                    # default black text
+        'color': 'black'
     }).set_properties(subset=['Top 3 Sum'], **{
         'font-weight': 'bold',
         'font-size': '1.15em',
-        'background-color': '#d4edda',      # light green
-        'color': 'black'                    # ← BLACK TEXT HERE
+        'background-color': '#d4edda',
+        'color': 'black'
     }).set_properties(subset=['Top 3 Golfers'], **{
         'white-space': 'normal',
         'word-break': 'break-word'
+    }).format({
+        "Top 3 Sum": "{:.0f}"   # Force integer, no decimals
     })
     
     st.dataframe(styled_standings, use_container_width=True, hide_index=True)
@@ -140,7 +142,7 @@ st.subheader("Team Details (Top 3 highlighted)")
 
 def highlight_top_3(row):
     if row.name < 3:
-        return ['background-color: #fff566; color: black'] * len(row)   # Yellow bg + black text
+        return ['background-color: #fff566; color: black'] * len(row)
     return [''] * len(row)
 
 cols = st.columns(3)
@@ -155,9 +157,10 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
         table_data = []
         for player in players:
             p_info = player_data.get(player, {"score": None, "hole": "—"})
+            score_display = int(p_info["score"]) if isinstance(p_info["score"], (int, float)) else "—"
             table_data.append({
                 "Player": player,
-                "Score": p_info["score"] if p_info["score"] is not None else "—",
+                "Score": score_display,
                 "Hole": p_info["hole"]
             })
         
@@ -170,13 +173,16 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
             key=lambda x: pd.to_numeric(x, errors='coerce')
         ).reset_index(drop=True)
         
-        styled_df = df_team.style.apply(highlight_top_3, axis=1)
+        styled_df = df_team.style.apply(highlight_top_3, axis=1).format({
+            "Score": "{:.0f}" if pd.api.types.is_numeric_dtype(df_team["Score"]) else "{}"
+        })
         
         st.dataframe(styled_df, use_container_width=True, hide_index=True)
         
+        # Top 3 sum (integer)
         numeric_scores = [s for s in df_team["Score"] if isinstance(s, (int, float))]
         numeric_scores.sort()
-        top_3_sum = sum(numeric_scores[:3]) if numeric_scores else 0
+        top_3_sum = int(sum(numeric_scores[:3])) if numeric_scores else 0
         st.metric("Top 3 Sum", top_3_sum)
 
 # ====================== EDIT & AUTO-SAVE ======================
