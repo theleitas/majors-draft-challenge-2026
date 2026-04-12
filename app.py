@@ -8,10 +8,10 @@ from streamlit_autorefresh import st_autorefresh
 
 st.set_page_config(page_title="2026 Masters Draft", layout="wide")
 st.title("🏌️‍♂️ 2026 Masters Draft Dashboard")
-st.subheader("Top 3 lowest scores per team wins • Live every 10 minutes")
+st.subheader("Top 3 lowest scores per team wins • Live updates every 5 minutes")
 
-# Auto-refresh every 10 minutes
-st_autorefresh(interval=600000, limit=None, key="datarefresh")
+# Auto-refresh every 5 minutes (300000 ms)
+st_autorefresh(interval=300000, limit=None, key="datarefresh")
 
 # ====================== GITHUB CONFIG ======================
 try:
@@ -37,14 +37,13 @@ def load_teams_from_github():
             return json.loads(decoded)
     except:
         pass
-    # Fallback
     with open('teams.json') as f:
         return json.load(f)
 
 teams_data = load_teams_from_github()
 
 # Fetch live scores
-@st.cache_data(ttl=600)
+@st.cache_data(ttl=300)  # 5 minutes cache
 def fetch_leaderboard():
     url = "https://site.api.espn.com/apis/site/v2/sports/golf/pga/scoreboard"
     try:
@@ -92,28 +91,54 @@ def get_player_data(api_data):
 
 player_data = get_player_data(data)
 
-# ====================== STANDINGS ======================
+# ====================== STANDINGS WITH TOP 3 COLUMN ======================
 standings = []
 for coach_id, info in teams_data.items():
     team_name = info.get("team_name", coach_id)
     players = info.get("players", [])
-    scores_list = [p.get("score") for p in [player_data.get(p) for p in players] if p and p["score"] is not None]
-    scores_list.sort()
-    top_3_sum = sum(scores_list[:3]) if scores_list else 0
-    standings.append({"Team": team_name, "Top 3 Sum": top_3_sum})
+    
+    player_list = []
+    for player in players:
+        p_info = player_data.get(player)
+        if p_info and p_info["score"] is not None:
+            player_list.append((player, p_info["score"]))
+    
+    player_list.sort(key=lambda x: x[1])  # sort by lowest score
+    top_3 = player_list[:3]
+    top_3_sum = sum(score for _, score in top_3)
+    
+    # Format Top 3 string for display
+    top_3_str = ", ".join([f"{name} ({score})" for name, score in top_3]) if top_3 else "—"
+    
+    standings.append({
+        "Team": team_name,
+        "Top 3 Golfers": top_3_str,
+        "Top 3 Sum": top_3_sum
+    })
 
 st.subheader("Current Standings")
 if standings:
     df_standings = pd.DataFrame(standings).sort_values("Top 3 Sum")
-    st.dataframe(df_standings, use_container_width=True, hide_index=True)
+    
+    # Phone-friendly styling: bold total, compact
+    styled_standings = df_standings.style.set_properties(**{
+        'text-align': 'left'
+    }).set_properties(subset=['Top 3 Sum'], **{
+        'font-weight': 'bold',
+        'font-size': '1.1em',
+        'background-color': '#e6f7e6'
+    })
+    
+    st.dataframe(styled_standings, use_container_width=True, hide_index=True)
 
-# ====================== TEAM DETAILS WITH YELLOW HIGHLIGHT ======================
-st.subheader("Team Details (Top 3 highlighted in yellow)")
+# ====================== TEAM DETAILS WITH YELLOW + BLACK TEXT ======================
+st.subheader("Team Details (Top 3 highlighted)")
 
-def highlight_top_3(row):
-    """Highlight entire row yellow if this player is in the top 3 lowest scores"""
-    # This function will be applied per row after we know the ranking
-    return ['background-color: #fff566'] * len(row)   # nice bright yellow
+def highlight_top_3(row, num_rows=3):
+    """Yellow background with black text for top 3 rows"""
+    if row.name < num_rows:
+        return ['background-color: #fff566; color: black'] * len(row)
+    return [''] * len(row)
 
 cols = st.columns(3)
 
@@ -135,32 +160,26 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
         
         df_team = pd.DataFrame(table_data)
         
-        # Safe numeric sort (handles "—" and None)
+        # Safe sort
         df_team = df_team.sort_values(
             by="Score", 
             ascending=True, 
             na_position="last",
             key=lambda x: pd.to_numeric(x, errors='coerce')
-        )
+        ).reset_index(drop=True)
         
-        # Reset index so we can easily take top 3 rows
-        df_team = df_team.reset_index(drop=True)
-        
-        # Create styled version: highlight first 3 rows (top 3 lowest scores)
-        styled_df = df_team.style.apply(
-            lambda row: ['background-color: #fff566'] * len(row) if row.name < 3 else [''] * len(row),
-            axis=1
-        )
+        # Apply yellow highlight with black text
+        styled_df = df_team.style.apply(highlight_top_3, axis=1)
         
         st.dataframe(styled_df, use_container_width=True, hide_index=True)
         
-        # Top 3 sum metric
+        # Top 3 sum
         numeric_scores = [s for s in df_team["Score"] if isinstance(s, (int, float))]
         numeric_scores.sort()
         top_3_sum = sum(numeric_scores[:3]) if numeric_scores else 0
         st.metric("Top 3 Sum", top_3_sum)
 
-# ====================== EDIT & AUTO-SAVE SECTION ======================
+# ====================== EDIT & AUTO-SAVE ======================
 st.divider()
 st.subheader("🔧 Edit Teams & Auto-Save to GitHub")
 
@@ -179,7 +198,6 @@ if st.button("💾 Save Changes to GitHub", type="primary"):
         url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/contents/{FILE_PATH}"
         headers = {"Authorization": f"token {GITHUB_TOKEN}"}
         resp = requests.get(url, headers=headers)
-        
         sha = resp.json().get("sha") if resp.status_code == 200 else None
 
         content_str = json.dumps(new_teams, indent=2)
@@ -205,7 +223,7 @@ if st.button("💾 Save Changes to GitHub", type="primary"):
         st.error(f"Error: {e}")
 
 # Footer
-st.caption(f"Last updated: {datetime.now().strftime('%I:%M %p')} • Auto-refresh every 10 minutes")
+st.caption(f"Last updated: {datetime.now().strftime('%I:%M %p')} • Auto-refresh every 5 minutes")
 if st.button("🔄 Refresh Scores Now"):
     st.cache_data.clear()
     st.rerun()
