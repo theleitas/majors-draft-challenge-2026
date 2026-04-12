@@ -24,9 +24,9 @@ st.markdown("""
     h2, h3 { font-size: 1.4rem !important; color: #ffffff; }
 
     /* Coach-colored Standings Boxes */
-    .coach-box-jayme { border: 2px solid #00cc77; background-color: #0f2a1f; }
-    .coach-box-spencer { border: 2px solid #bb77ff; background-color: #1f1a2f; }
-    .coach-box-peter { border: 2px solid #cc3344; background-color: #2a1a1f; }
+    .coach-box-jayme { border: 2px solid #00cc77; background-color: #0f2a1f; border-radius: 12px; padding: 16px; }
+    .coach-box-spencer { border: 2px solid #bb77ff; background-color: #1f1a2f; border-radius: 12px; padding: 16px; }
+    .coach-box-peter { border: 2px solid #cc3344; background-color: #2a1a1f; border-radius: 12px; padding: 16px; }
 
     .stMetric div[data-testid="stMetricValue"] { font-size: 1.9rem !important; font-weight: bold; }
     .stDataFrame { font-size: 0.88rem; }
@@ -128,12 +128,11 @@ def get_player_data(api_data):
 
 player_data = get_player_data(data)
 
-# ====================== STANDINGS - COLORED BOXES WITH TOTAL LEFT + TOP 3 RIGHT ======================
+# ====================== STANDINGS - FULL COLORED BOXES ======================
 st.subheader("Standings")
 
 for coach_id, info in teams_data.items():
     team_name = info.get("team_name", coach_id)
-    color = COACH_COLORS.get(coach_id, "#888888")
     players = info.get("players", [])
     
     player_list = []
@@ -150,17 +149,16 @@ for coach_id, info in teams_data.items():
                  "coach-box-spencer" if coach_id == "Spencer Tidwell" else
                  "coach-box-peter")
 
-    with st.container(border=True):
-        st.markdown(f"<div class='{box_class}' style='padding:16px; border-radius:12px;'>", unsafe_allow_html=True)
+    with st.container():
+        st.markdown(f"<div class='{box_class}'>", unsafe_allow_html=True)
         
         cols = st.columns([1.2, 2.8])
         with cols[0]:
             st.metric("TOTAL", top_3_sum)
         with cols[1]:
-            st.markdown("**Top 3 Golfers**")
             if top_3:
                 for name, score, hole in top_3:
-                    st.markdown(f"  {name} **({score})** — {hole}")
+                    st.markdown(f"**{name}** **({score})** — {hole}")
             else:
                 st.caption("Waiting for scores...")
         
@@ -183,7 +181,6 @@ if player_data:
     df_lb = pd.DataFrame(leaderboard)
     df_lb = df_lb.sort_values("Score").head(10).reset_index(drop=True)
     
-    # Color mapping
     owner_map = {}
     for coach_id, info in teams_data.items():
         color = COACH_COLORS.get(coach_id, "#555555")
@@ -244,7 +241,7 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
         
         st.dataframe(df.style.apply(style_top3, axis=1), use_container_width=True, hide_index=True, height=210)
 
-# ====================== REFRESH BUTTON (Near Bottom) ======================
+# ====================== BOTTOM REFRESH BUTTON ======================
 st.divider()
 if st.button("🔄 Refresh Scores Now", type="primary", use_container_width=True, key="bottom_refresh"):
     st.cache_data.clear()
