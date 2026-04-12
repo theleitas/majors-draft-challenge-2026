@@ -21,13 +21,6 @@ st.markdown("""
     .stApp { background-color: #0a0a0a; color: #e0e0e0; }
     h1 { font-size: 1.9rem !important; color: #00ff9d; }
     h2, h3 { font-size: 1.4rem !important; color: #ffffff; }
-
-    .coach-card {
-        border-radius: 14px;
-        padding: 20px;
-        margin-bottom: 1.5rem;
-        border: 3px solid;
-    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -124,7 +117,7 @@ def get_player_data(api_data):
 
 player_data = get_player_data(data)
 
-# ====================== STANDINGS - COLORED CARDS ======================
+# ====================== STANDINGS - FULL COLORED CARDS ======================
 st.subheader("Standings")
 
 for coach_id, info in teams_data.items():
@@ -144,21 +137,27 @@ for coach_id, info in teams_data.items():
     color = COACH_COLORS.get(coach_id, "#888888")
     box_style = f"border: 3px solid {color}; background-color: rgba(20,20,20,0.95); border-radius: 14px; padding: 20px; margin-bottom: 1.5rem;"
 
-    st.markdown(f'<div style="{box_style}">', unsafe_allow_html=True)
-    
-    st.markdown(f"**{team_name}**")
-    
-    cols = st.columns([1.2, 2.8])
-    with cols[0]:
-        st.metric("TOTAL", top_3_sum)
-    with cols[1]:
-        if top_3:
-            for name, score, hole in top_3:
-                st.markdown(f"**{name}** **({score})** — {hole}")
-        else:
-            st.caption("Waiting for scores...")
-    
-    st.markdown('</div>', unsafe_allow_html=True)
+    # Full card as one markdown block
+    card = f"""
+<div style="{box_style}">
+  <strong style="font-size:1.3rem;">{team_name}</strong><br><br>
+  <div style="display:flex; justify-content:space-between; align-items:start;">
+    <div>
+      <small>TOTAL</small><br>
+      <span style="font-size:2.2rem; font-weight:bold; color:{color};">{top_3_sum}</span>
+    </div>
+    <div style="flex-grow:1; padding-left:40px;">
+"""
+
+    if top_3:
+        for name, score, hole in top_3:
+            card += f"<strong>{name}</strong> <strong>({score})</strong> — {hole}<br>"
+    else:
+        card += "Waiting for scores...<br>"
+
+    card += "</div></div></div>"
+
+    st.markdown(card, unsafe_allow_html=True)
 
 # ====================== TOP 10 LEADERBOARD ======================
 st.subheader("Top 10 Leaderboard")
