@@ -32,7 +32,7 @@ st.markdown("""
 
     /* Section Headers (Standings, Team Rosters, etc.) */
     h2, h3 {
-        font-size: 1.35rem !important;
+        font-size: 1.55rem !important;
         color: #ffffff;
         margin: 0.8rem 0 0.4rem 0;
     }
@@ -41,7 +41,7 @@ st.markdown("""
     
     /* Coach Team Names - Large and prominent */
     .stMarkdown p strong, .stMarkdown p b {
-        font-size: 1.75rem !important;
+        font-size: 1.95rem !important;
         color: #ffffff;
         font-weight: 700;
     }
