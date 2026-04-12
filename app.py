@@ -42,11 +42,11 @@ st.markdown("""
         font-size: 2rem;
         background-color: #111;
     }
-.stContainer {
-  border: 3px solid #333333 !important; /* darker border; use #222/#333/#444 to taste */
-  border-radius: 10px;
-  background-color: #111111;
-}
+    .stContainer {
+        border: 3px solid #e8e8e8 !important; /* darker border; use #222/#333/#444 to taste */
+        border-radius: 10px;
+        background-color: #111111;
+    }
     .css-1d391kg { padding-top: 1rem; }
     
     /* Top 3 highlight - bright yellow with black text */
