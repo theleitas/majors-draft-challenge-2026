@@ -16,7 +16,7 @@ st_autorefresh(interval=600000, limit=None, key="datarefresh")
 # Load GitHub config from secrets
 try:
     GITHUB_TOKEN = st.secrets["GITHUB"]["TOKEN"]
-    REPO_OWNER = "YOUR_GITHUB_USERNAME"          # ← CHANGE THIS
+    REPO_OWNER = "theleitas"          # ← CHANGE THIS
     REPO_NAME = "masters-draft-2026"             # ← CHANGE THIS if different
     FILE_PATH = "teams.json"
     BRANCH = "main"                              # usually "main" or "master"
