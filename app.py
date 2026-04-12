@@ -25,11 +25,18 @@ st.markdown("""
         margin-bottom: 0.2rem;
     }
     h2, h3 {
-        font-size: 1.85rem !important;
+        font-size: 1.35rem !important;
         color: #ffffff;
         margin: 0.6rem 0 0.3rem 0;
     }
-    
+
+    /* THIS IS THE IMPORTANT NEW RULE FOR COACH TEAM NAMES */
+    .stMarkdown p strong, .stMarkdown p b {
+        font-size: 1.75rem !important;     /* ← Change this number to make team names bigger */
+        color: #ffffff;
+        font-weight: 700;
+    }
+
     /* Bright Total metric */
     .stMetric {
         background-color: #1f2a1f;
@@ -47,7 +54,7 @@ st.markdown("""
         font-weight: bold;
     }
 
-    /* White borders for standings cards - high visibility */
+    /* White borders for standings cards */
     .stContainer {
         border: 2px solid #ffffff !important;
         border-radius: 10px;
