@@ -84,7 +84,7 @@ def save_teams_to_github():
     except:
         return False
 
-@st.cache_data(ttl=10)  # Short TTL so changes are picked up quickly
+@st.cache_data(ttl=10)
 def load_teams_from_github():
     url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/contents/{FILE_PATH}"
     headers = {"Authorization": f"token {GITHUB_TOKEN}"}
@@ -259,29 +259,12 @@ with st.expander("🎯 DRAFT SECTION - Toggle On/Off", expanded=False):
     else:
         st.write(f"**Pick #{current_pick}** — **On the Clock:** {current_coach if current_coach else 'Draft Paused'}")
 
-    if st.session_state.draft_active and current_coach:
+    if st.session_state.draft_active and current_coach and len(st.session_state.draft_picks) < 30:
         st.subheader(f"Available Players — {current_coach}'s Turn")
-
-        # Sort by best Vegas odds
-        def odds_value(odd_str):
-            if not odd_str or odd_str == "N/A":
-                return 99999
-            try:
-                return int(odd_str.strip("+"))
-            except:
-                return 99999
-
-        sorted_players = sorted(
-            st.session_state.available_players,
-            key=lambda p: odds_value(VEGAS_ODDS.get(p, "N/A"))
-        )
-
         cols = st.columns(4)
-        for i, player in enumerate(sorted_players):
-            odds = VEGAS_ODDS.get(player, "N/A")
-            display_text = f"✅ {player} ({odds})"
+        for i, player in enumerate(st.session_state.available_players):
             with cols[i % 4]:
-                if st.button(display_text, key=f"pick_{i}_{player}"):
+                if st.button(f"✅ {player}", key=f"pick_{i}_{player}"):
                     st.session_state.draft_picks.append((current_pick, current_coach, player))
                     st.session_state.available_players.remove(player)
 
@@ -294,10 +277,6 @@ with st.expander("🎯 DRAFT SECTION - Toggle On/Off", expanded=False):
 
                     save_teams_to_github()
                     st.session_state.turn_start_time = datetime.now()
-
-                    if len(st.session_state.draft_picks) >= 30:
-                        st.session_state.draft_active = False
-                        st.success("🎉 Draft complete! All rosters updated.")
                     st.rerun()
 
     st.subheader("Draft History")
@@ -351,10 +330,7 @@ with st.expander("🔧 Edit Teams & Auto-Save to GitHub", expanded=False):
     for coach_id, info in teams_data.items():
         st.markdown(f"**{coach_id}**")
         new_name = st.text_input("Team Name", value=info.get("team_name", coach_id), key=f"name_{coach_id}")
-        players_str = "\n".join(info.get("players", []))
-        new_players_str = st.text_area("Players (one per line)", value=players_str, key=f"players_{coach_id}", height=110)
-        new_players = [p.strip() for p in new_players_str.split("\n") if p.strip()]
-        new_teams[coach_id] = {"team_name": new_name, "players": new_players}
+        new_teams[coach_id] = {"team_name": new_name, "players": info.get("players", [])}
     
     if st.button("💾 Save Changes to GitHub", type="primary"):
         try:
