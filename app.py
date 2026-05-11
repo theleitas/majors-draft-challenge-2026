@@ -1,4 +1,3 @@
-```python
 import streamlit as st
 import requests
 import pandas as pd
@@ -323,4 +322,3 @@ with st.expander("🔧 Edit Teams & Auto-Save to GitHub", expanded=False):
             st.error(f"Error: {e}")
 
 st.caption(f"Last updated: {datetime.now().strftime('%H:%M:%S')} • Auto-refresh every 5 minutes")
-```
