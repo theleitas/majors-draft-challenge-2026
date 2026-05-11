@@ -5,13 +5,14 @@
   },
   "Jayme Leita": {
     "team_name": "Jayme's Aces",
-    "players": []
+    "players": [
+      "Jason Day"
+    ]
   },
   "Spencer Tidwell": {
     "team_name": "Spencer's Masters",
     "players": [
-      "Chandler Blanchet",
-      "Hideki Matsuyama"
+      "Chandler Blanchet"
     ]
   }
 }
