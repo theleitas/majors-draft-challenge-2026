@@ -58,6 +58,30 @@ except Exception:
     st.error("GitHub token not configured.")
     st.stop()
 
+# ====================== HELPER: Save teams to GitHub ======================
+def save_teams_to_github():
+    try:
+        url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/contents/{FILE_PATH}"
+        headers = {"Authorization": f"token {GITHUB_TOKEN}"}
+        resp = requests.get(url, headers=headers)
+        sha = resp.json().get("sha") if resp.status_code == 200 else None
+
+        content_str = json.dumps(teams_data, indent=2)
+        content_b64 = base64.b64encode(content_str.encode("utf-8")).decode("utf-8")
+
+        payload = {
+            "message": f"Draft update - {datetime.now().strftime('%Y-%m-%d %H:%M')}",
+            "content": content_b64,
+            "branch": BRANCH
+        }
+        if sha:
+            payload["sha"] = sha
+
+        put_resp = requests.put(url, headers=headers, json=payload)
+        return put_resp.status_code in [200, 201]
+    except:
+        return False
+
 # Load teams
 @st.cache_data(ttl=60)
 def load_teams_from_github():
@@ -125,32 +149,21 @@ st.subheader("Standings")
 for coach_id, info in teams_data.items():
     team_name = info.get("team_name", coach_id)
     players = info.get("players", [])
-    
-    player_list = []
-    for p in players:
-        pd_info = player_data.get(p, {})
-        if pd_info.get("score") is not None:
-            player_list.append((p, pd_info["score"], pd_info.get("hole", "—")))
-    
+    player_list = [(p, pd_info["score"], pd_info.get("hole", "—")) for p in players if (pd_info := player_data.get(p, {})).get("score") is not None]
     player_list.sort(key=lambda x: x[1])
     top_3 = player_list[:3]
     top_3_sum = sum(s for _, s, _ in top_3)
 
     color = COACH_COLORS.get(coach_id)
     box_style = f"border: 3px solid {color}; background-color: {color}15; border-radius: 14px; padding: 20px; margin-bottom: 1.5rem;"
-
     st.markdown(f'<div style="{box_style}">', unsafe_allow_html=True)
     st.markdown(f"<span style='color:{color}; font-size:1.45rem; font-weight:bold;'>{team_name}</span>", unsafe_allow_html=True)
-    
     cols = st.columns([1.2, 2.8])
     with cols[0]:
         st.metric("TOTAL", top_3_sum)
     with cols[1]:
-        if top_3:
-            for name, score, hole in top_3:
-                st.markdown(f"**{name}** <span style='color:{color}; font-weight:bold;'>({score})</span> — {hole}")
-        else:
-            st.caption("Waiting for scores...")
+        for name, score, hole in top_3:
+            st.markdown(f"**{name}** <span style='color:{color}; font-weight:bold;'>({score})</span> — {hole}")
     st.markdown('</div>', unsafe_allow_html=True)
 
 # ====================== TOP 10 LEADERBOARD ======================
@@ -192,7 +205,6 @@ st.divider()
 with st.expander("🎯 DRAFT SECTION - Toggle On/Off", expanded=False):
     st.subheader("Draft Controls")
 
-    # Draft state
     if 'draft_active' not in st.session_state:
         st.session_state.draft_active = False
     if 'draft_picks' not in st.session_state:
@@ -202,7 +214,7 @@ with st.expander("🎯 DRAFT SECTION - Toggle On/Off", expanded=False):
     if 'turn_start_time' not in st.session_state:
         st.session_state.turn_start_time = None
 
-    # Use the order set in Admin Only
+    # Draft order from Admin Only
     draft_order = st.session_state.get("draft_order", ["Spencer Tidwell", "Jayme Leita", "Peter Miller"])
 
     col1, col2 = st.columns(2)
@@ -215,7 +227,7 @@ with st.expander("🎯 DRAFT SECTION - Toggle On/Off", expanded=False):
     current_pick = len(st.session_state.draft_picks) + 1
     current_coach = draft_order[len(st.session_state.draft_picks) % len(draft_order)] if st.session_state.draft_active and draft_order else None
 
-    # Live timer
+    # Timer
     if current_coach and st.session_state.turn_start_time:
         elapsed = datetime.now() - st.session_state.turn_start_time
         minutes = int(elapsed.total_seconds() // 60)
@@ -233,8 +245,19 @@ with st.expander("🎯 DRAFT SECTION - Toggle On/Off", expanded=False):
         for i, player in enumerate(filtered[:18]):
             with cols[i % 3]:
                 if st.button(f"✅ {player}", key=f"pick_{i}_{player}"):
+                    # Add to draft history
                     st.session_state.draft_picks.append((current_pick, current_coach, player))
                     st.session_state.available_players.remove(player)
+
+                    # === IMMEDIATE ROSTER UPDATE ===
+                    for cid, info in teams_data.items():
+                        if (info.get("team_name") == current_coach) or (cid == current_coach):
+                            if player not in info.get("players", []):
+                                info.setdefault("players", []).append(player)
+                            break
+
+                    # Save to GitHub immediately
+                    save_teams_to_github()
                     st.session_state.turn_start_time = datetime.now()
                     st.rerun()
 
@@ -249,39 +272,18 @@ with st.expander("🎯 DRAFT SECTION - Toggle On/Off", expanded=False):
         if st.session_state.draft_picks:
             last = st.session_state.draft_picks.pop()
             st.session_state.available_players.append(last[2])
+            # Remove from roster too
+            for info in teams_data.values():
+                if last[2] in info.get("players", []):
+                    info["players"].remove(last[2])
+            save_teams_to_github()
             st.rerun()
 
-    # Draft Complete Button
     if st.button("✅ Draft Complete - Populate Rosters", type="primary"):
-        from collections import defaultdict
-        drafted = defaultdict(list)
-        for _, coach, player in st.session_state.draft_picks:
-            drafted[coach].append(player)
-
-        for coach_id, info in teams_data.items():
-            info["players"] = drafted.get(coach_id, info.get("players", []))
-
-        # Save to GitHub
-        try:
-            url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/contents/{FILE_PATH}"
-            headers = {"Authorization": f"token {GITHUB_TOKEN}"}
-            resp = requests.get(url, headers=headers)
-            sha = resp.json().get("sha") if resp.status_code == 200 else None
-
-            content_str = json.dumps(teams_data, indent=2)
-            content_b64 = base64.b64encode(content_str.encode("utf-8")).decode("utf-8")
-
-            payload = {"message": "Draft Complete - Rosters updated", "content": content_b64, "branch": BRANCH}
-            if sha:
-                payload["sha"] = sha
-
-            put_resp = requests.put(url, headers=headers, json=payload)
-            if put_resp.status_code in [200, 201]:
-                st.success("🎉 Draft complete! All rosters have been updated and saved.")
-                st.session_state.draft_active = False
-                st.rerun()
-        except Exception as e:
-            st.error(f"Error: {e}")
+        save_teams_to_github()
+        st.success("🎉 Draft complete! Rosters have been saved.")
+        st.session_state.draft_active = False
+        st.rerun()
 
 # ====================== ADMIN ONLY (Very Bottom) ======================
 st.divider()
@@ -296,11 +298,15 @@ with st.expander("🔧 Admin Only", expanded=False):
     )
 
     if st.button("🗑️ Clear All Golfers and Redraft", type="secondary"):
-        if st.checkbox("⚠️ Are you sure? This will delete ALL drafted players and reset the draft."):
+        if st.checkbox("⚠️ This will delete ALL golfers from every roster and reset the draft. Are you sure?"):
+            # Completely clear every roster
+            for info in teams_data.values():
+                info["players"] = []
+            save_teams_to_github()
             st.session_state.draft_picks = []
             st.session_state.available_players = sorted(player_data.keys())
             st.session_state.draft_active = False
-            st.success("Draft has been cleared. You can start over.")
+            st.success("All rosters cleared. Ready for a fresh draft.")
             st.rerun()
 
 # ====================== BOTTOM REFRESH & EDIT ======================
