@@ -41,16 +41,6 @@ with st.expander("📜 Rules", expanded=True):
     * Winner takes 50 dollars from each other player ($100 total pot)
     """)
 
-if st.button("🔄 Refresh Scores Now", type="primary", use_container_width=True):
-    st.cache_data.clear()
-    st.rerun()
-
-# Live timer refresh while drafting
-if st.session_state.get("draft_active", False):
-    st_autorefresh(interval=5000, limit=None, key="draft_timer")
-
-st_autorefresh(interval=300000, limit=None, key="datarefresh")
-
 # ====================== GITHUB CONFIG ======================
 try:
     GITHUB_TOKEN = st.secrets["GITHUB"]["TOKEN"]
@@ -146,40 +136,64 @@ def get_player_data(api_data):
 
 player_data = get_player_data(data)
 
-# ====================== CURRENT VEGAS ODDS (May 2026) ======================
-VEGAS_ODDS = {
-    "Scottie Scheffler": "+340",
-    "Rory McIlroy": "+750",
-    "Jon Rahm": "+1300",
-    "Cameron Young": "+1300",
-    "Xander Schauffele": "+1700",
-    "Matt Fitzpatrick": "+1800",
-    "Bryson DeChambeau": "+2000",
-    "Ludvig Aberg": "+2000",
-    "Collin Morikawa": "+2200",
-    "Justin Thomas": "+2200",
-    "Tommy Fleetwood": "+2500",
-    "Justin Rose": "+2700",
-    "Viktor Hovland": "+3000",
-    "Chris Gotterup": "+3300",
-    "Patrick Cantlay": "+3500",
-    "Russell Henley": "+4600",
-    "Hideki Matsuyama": "+5000",
-    "Sungjae Im": "+6000",
-    "Jordan Spieth": "+6500",
-    "Brooks Koepka": "+3900",
-    "Tyrrell Hatton": "+6000",
-    "Shane Lowry": "+7000",
-    "Robert MacIntyre": "+5300",
-    "Min Woo Lee": "+8000",
-    "Patrick Reed": "+6500",
-    # Any golfer not listed will show (N/A)
-}
+# ====================== STANDINGS ======================
+st.subheader("Standings")
+for coach_id, info in teams_data.items():
+    team_name = info.get("team_name", coach_id)
+    players = info.get("players", [])
+    player_list = [(p, pd_info["score"], pd_info.get("hole", "—")) for p in players if (pd_info := player_data.get(p, {})).get("score") is not None]
+    player_list.sort(key=lambda x: x[1])
+    top_3 = player_list[:3]
+    top_3_sum = sum(s for _, s, _ in top_3)
 
-# ====================== STANDINGS, LEADERBOARD, ROSTERS (unchanged) ======================
-# ... (the standings, top 10, and team rosters sections are the same as your last version)
+    color = COACH_COLORS.get(coach_id)
+    box_style = f"border: 3px solid {color}; background-color: {color}15; border-radius: 14px; padding: 20px; margin-bottom: 1.5rem;"
+    st.markdown(f'<div style="{box_style}">', unsafe_allow_html=True)
+    st.markdown(f"<span style='color:{color}; font-size:1.45rem; font-weight:bold;'>{team_name}</span>", unsafe_allow_html=True)
+    cols = st.columns([1.2, 2.8])
+    with cols[0]:
+        st.metric("TOTAL", top_3_sum)
+    with cols[1]:
+        for name, score, hole in top_3:
+            st.markdown(f"**{name}** <span style='color:{color}; font-weight:bold;'>({score})</span> — {hole}")
+    st.markdown('</div>', unsafe_allow_html=True)
 
-# (For brevity I omitted the full standings / leaderboard / rosters code here — keep them exactly as in your previous working version)
+# ====================== TOP 10 LEADERBOARD ======================
+st.subheader("Top 10 Leaderboard")
+if player_data:
+    leaderboard = []
+    for name, info in player_data.items():
+        if info.get("score") is not None:
+            owner_letter = "—"
+            for cid, tinfo in teams_data.items():
+                if name in tinfo.get("players", []):
+                    owner_letter = "J" if cid == "Jayme Leita" else "S" if cid == "Spencer Tidwell" else "P"
+                    break
+            leaderboard.append({"Owner": owner_letter, "Player": name, "Score": info["score"], "Hole": info["hole"]})
+    df_lb = pd.DataFrame(leaderboard).sort_values("Score").head(10).reset_index(drop=True)
+    st.dataframe(df_lb, use_container_width=True, hide_index=True)
+
+# ====================== TEAM ROSTERS ======================
+st.subheader("Team Rosters")
+team_cols = st.columns(3)
+for idx, (coach_id, info) in enumerate(teams_data.items()):
+    with team_cols[idx]:
+        team_name = info.get("team_name", coach_id)
+        players = info.get("players", [])
+        st.markdown(f"**{team_name}**")
+        if not players:
+            st.caption("No golfers drafted yet")
+        else:
+            table_data = []
+            for player in players:
+                p_info = player_data.get(player, {"score": None, "hole": "—"})
+                score_display = int(p_info["score"]) if isinstance(p_info.get("score"), (int, float)) else "—"
+                table_data.append({"Player": player, "Score": score_display, "Hole": p_info["hole"]})
+            df = pd.DataFrame(table_data)
+            df = df.sort_values(by="Score", ascending=True, na_position="last", key=lambda x: pd.to_numeric(x, errors='coerce')).reset_index(drop=True)
+            def style_top3(row):
+                return ['background-color: #ffd700; color: #000000; font-weight: bold'] * len(row) if row.name < 3 else [''] * len(row)
+            st.dataframe(df.style.apply(style_top3, axis=1), use_container_width=True, hide_index=True, height=210)
 
 # ====================== DRAFT SECTION ======================
 st.divider()
@@ -197,17 +211,23 @@ with st.expander("🎯 DRAFT SECTION - Toggle On/Off", expanded=False):
 
     draft_order = st.session_state.get("draft_order", ["Spencer Tidwell", "Jayme Leita", "Peter Miller"])
 
+    # Start / End buttons
     col1, col2 = st.columns(2)
     with col1:
-        if st.button("Start / Pause Draft", type="primary"):
-            st.session_state.draft_active = not st.session_state.draft_active
-            if st.session_state.draft_active:
+        if not st.session_state.draft_active:
+            if st.button("▶️ Start Draft", type="primary", use_container_width=True):
+                st.session_state.draft_active = True
                 st.session_state.turn_start_time = datetime.now()
+                st.rerun()
+        else:
+            if st.button("⏹️ End Draft", type="primary", use_container_width=True):
+                st.session_state.draft_active = False
+                st.rerun()
 
     current_pick = len(st.session_state.draft_picks) + 1
     current_coach = draft_order[len(st.session_state.draft_picks) % len(draft_order)] if st.session_state.draft_active else None
 
-    # Real-time timer
+    # Live timer
     if current_coach and st.session_state.turn_start_time:
         elapsed = datetime.now() - st.session_state.turn_start_time
         minutes = int(elapsed.total_seconds() // 60)
@@ -218,27 +238,10 @@ with st.expander("🎯 DRAFT SECTION - Toggle On/Off", expanded=False):
 
     if st.session_state.draft_active and current_coach:
         st.subheader(f"Available Players — {current_coach}'s Turn")
-
-        # Sort by best Vegas odds
-        def odds_value(odd_str):
-            if not odd_str:
-                return 99999
-            try:
-                return int(odd_str.strip("+"))
-            except:
-                return 99999
-
-        sorted_players = sorted(
-            st.session_state.available_players,
-            key=lambda p: odds_value(VEGAS_ODDS.get(p, ""))
-        )
-
         cols = st.columns(4)
-        for i, player in enumerate(sorted_players):
-            odds = VEGAS_ODDS.get(player, "N/A")
-            display_text = f"✅ {player} ({odds})"
+        for i, player in enumerate(st.session_state.available_players):
             with cols[i % 4]:
-                if st.button(display_text, key=f"pick_{i}_{player}"):
+                if st.button(f"✅ {player}", key=f"pick_{i}_{player}"):
                     st.session_state.draft_picks.append((current_pick, current_coach, player))
                     st.session_state.available_players.remove(player)
 
@@ -254,7 +257,7 @@ with st.expander("🎯 DRAFT SECTION - Toggle On/Off", expanded=False):
 
                     if len(st.session_state.draft_picks) >= 30:
                         st.session_state.draft_active = False
-                        st.success("🎉 Draft complete! All rosters updated.")
+                        st.success("🎉 Draft is complete! Rosters updated.")
                     st.rerun()
 
     st.subheader("Draft History")
