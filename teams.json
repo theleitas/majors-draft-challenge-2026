@@ -1,28 +1,14 @@
 {
   "Peter Miller": {
     "team_name": "Peter's Princesses",
-    "players": [
-      "Nico Echavarria",
-      "Sam Burns",
-      "Viktor Hovland",
-      "Alex Smalley",
-      "Matt Fitzpatrick"
-    ]
+    "players": []
   },
   "Jayme Leita": {
     "team_name": "Jayme's Aces",
-    "players": [
-      "Aldrich Potgieter",
-      "Min Woo Lee"
-    ]
+    "players": []
   },
   "Spencer Tidwell": {
     "team_name": "Spencer's Masters",
-    "players": [
-      "Chandler Blanchet",
-      "Cameron Young",
-      "Patrick Cantlay",
-      "Justin Thomas"
-    ]
+    "players": []
   }
 }
