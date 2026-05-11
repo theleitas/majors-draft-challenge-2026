@@ -1,9 +1,7 @@
 {
   "Peter Miller": {
     "team_name": "Peter's Princesses",
-    "players": [
-      "Keegan Bradley"
-    ]
+    "players": []
   },
   "Jayme Leita": {
     "team_name": "Jayme's Aces",
@@ -12,7 +10,8 @@
   "Spencer Tidwell": {
     "team_name": "Spencer's Masters",
     "players": [
-      "Chandler Blanchet"
+      "Chandler Blanchet",
+      "Aldrich Potgieter"
     ]
   }
 }
