@@ -7,13 +7,14 @@
   },
   "Jayme Leita": {
     "team_name": "Jayme's Aces",
-    "players": []
+    "players": [
+      "Harris English"
+    ]
   },
   "Spencer Tidwell": {
     "team_name": "Spencer's Masters",
     "players": [
-      "Chandler Blanchet",
-      "Daniel Berger"
+      "Chandler Blanchet"
     ]
   }
 }
