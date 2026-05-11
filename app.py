@@ -1,11 +1,3 @@
-### Changes Made:
-- Rules section now **exactly** matches what you requested
-- Caption updated to include "Top 3 lowest scores wins"
-- Small formatting/cleanup for better readability
-- Draft section remains at the very bottom
-
-### Replace your entire `app.py` with this:
-
 ```python
 import streamlit as st
 import requests
