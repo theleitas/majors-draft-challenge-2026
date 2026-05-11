@@ -84,7 +84,7 @@ def save_teams_to_github():
     except:
         return False
 
-@st.cache_data(ttl=30)
+@st.cache_data(ttl=10)  # Short TTL so changes are picked up quickly
 def load_teams_from_github():
     url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/contents/{FILE_PATH}"
     headers = {"Authorization": f"token {GITHUB_TOKEN}"}
@@ -297,7 +297,7 @@ with st.expander("🎯 DRAFT SECTION - Toggle On/Off", expanded=False):
 
                     if len(st.session_state.draft_picks) >= 30:
                         st.session_state.draft_active = False
-                        st.success("🎉 Draft is complete! All rosters updated.")
+                        st.success("🎉 Draft complete! All rosters updated.")
                     st.rerun()
 
     st.subheader("Draft History")
@@ -328,7 +328,7 @@ with st.expander("🔧 Admin Only", expanded=False):
         key="admin_draft_order"
     )
 
-    if st.button("🗑️ Clear All Golfers and Redraft", type="secondary"):
+    if st.button("🗑️ Clear All Golfers", type="secondary"):
         if st.checkbox("⚠️ This will delete ALL golfers from every roster. Are you sure?"):
             for info in teams_data.values():
                 info["players"] = []
