@@ -3,7 +3,7 @@ import requests
 import pandas as pd
 import json
 import base64
-from datetime import datetime, timedelta
+from datetime import datetime
 import zoneinfo
 from streamlit_autorefresh import st_autorefresh
 
@@ -11,9 +11,9 @@ st.set_page_config(page_title="PGA Championship Draft 2026", layout="wide", init
 
 # Coach Colors
 COACH_COLORS = {
-    "Jayme Leita": "#00cc77",      # Green
-    "Spencer Tidwell": "#bb77ff",  # Purple
-    "Peter Miller": "#2E47DB"      # Blue
+    "Jayme Leita": "#00cc77",
+    "Spencer Tidwell": "#bb77ff",
+    "Peter Miller": "#2E47DB"
 }
 
 st.markdown("""
@@ -28,7 +28,7 @@ st.title("🏌️ PGA CHAMPIONSHIP DRAFT 2026")
 
 est_tz = zoneinfo.ZoneInfo("America/New_York")
 last_updated = datetime.now(est_tz).strftime("%I:%M %p EST")
-st.caption(f"Top 3 lowest scores wins • Live updates every 5 minutes • Last updated: {last_updated}")
+st.caption(f"Live updates every 5 minutes • Last updated: {last_updated}")
 
 # ====================== RULES ======================
 with st.expander("📜 Rules", expanded=True):
@@ -126,9 +126,11 @@ for coach_id, info in teams_data.items():
     team_name = info.get("team_name", coach_id)
     players = info.get("players", [])
     
-    player_list = [(p, pd_info["score"], pd_info.get("hole", "—")) 
-                   for p in players 
-                   if (pd_info := player_data.get(p, {})).get("score") is not None]
+    player_list = []
+    for p in players:
+        pd_info = player_data.get(p, {})
+        if pd_info.get("score") is not None:
+            player_list.append((p, pd_info["score"], pd_info.get("hole", "—")))
     
     player_list.sort(key=lambda x: x[1])
     top_3 = player_list[:3]
@@ -144,14 +146,16 @@ for coach_id, info in teams_data.items():
     with cols[0]:
         st.metric("TOTAL", top_3_sum)
     with cols[1]:
-        for name, score, hole in top_3:
-            st.markdown(f"**{name}** <span style='color:{color}; font-weight:bold;'>({score})</span> — {hole}")
+        if top_3:
+            for name, score, hole in top_3:
+                st.markdown(f"**{name}** <span style='color:{color}; font-weight:bold;'>({score})</span> — {hole}")
+        else:
+            st.caption("Waiting for scores...")
     st.markdown('</div>', unsafe_allow_html=True)
 
-# ====================== TOP 10 + ROSTERS (kept the same) ======================
+# ====================== TOP 10 LEADERBOARD ======================
 st.subheader("Top 10 Leaderboard")
 if player_data:
-    # ... (same leaderboard code as before - abbreviated for space)
     leaderboard = []
     for name, info in player_data.items():
         if info.get("score") is not None:
@@ -161,28 +165,34 @@ if player_data:
                     owner_letter = "J" if cid == "Jayme Leita" else "S" if cid == "Spencer Tidwell" else "P"
                     break
             leaderboard.append({"Owner": owner_letter, "Player": name, "Score": info["score"], "Hole": info["hole"]})
-    
     df_lb = pd.DataFrame(leaderboard).sort_values("Score").head(10).reset_index(drop=True)
-    # styling code omitted for brevity - keep your previous version if you prefer
-
     st.dataframe(df_lb, use_container_width=True, hide_index=True)
 
+# ====================== TEAM ROSTERS ======================
 st.subheader("Team Rosters")
-# (Team Rosters code remains the same as your last version)
+team_cols = st.columns(3)
+for idx, (coach_id, info) in enumerate(teams_data.items()):
+    with team_cols[idx]:
+        team_name = info.get("team_name", coach_id)
+        players = info.get("players", [])
+        st.markdown(f"**{team_name}**")
+        table_data = []
+        for player in players:
+            p_info = player_data.get(player, {"score": None, "hole": "—"})
+            score_display = int(p_info["score"]) if isinstance(p_info.get("score"), (int, float)) else "—"
+            table_data.append({"Player": player, "Score": score_display, "Hole": p_info["hole"]})
+        df = pd.DataFrame(table_data)
+        df = df.sort_values(by="Score", ascending=True, na_position="last", key=lambda x: pd.to_numeric(x, errors='coerce')).reset_index(drop=True)
+        def style_top3(row):
+            return ['background-color: #ffd700; color: #000000; font-weight: bold'] * len(row) if row.name < 3 else [''] * len(row)
+        st.dataframe(df.style.apply(style_top3, axis=1), use_container_width=True, hide_index=True, height=210)
 
 # ====================== DRAFT SECTION ======================
 st.divider()
 with st.expander("🎯 DRAFT SECTION - Toggle On/Off", expanded=False):
-    st.subheader("Draft Setup")
-    st.write("**Set Draft Order** (first to pick is at the top)")
-    draft_order = st.multiselect(
-        "Draft Order",
-        options=["Spencer Tidwell", "Jayme Leita", "Peter Miller"],
-        default=["Spencer Tidwell", "Jayme Leita", "Peter Miller"],
-        key="draft_order"
-    )
-
     st.subheader("Draft Controls")
+
+    # Draft state
     if 'draft_active' not in st.session_state:
         st.session_state.draft_active = False
     if 'draft_picks' not in st.session_state:
@@ -192,24 +202,27 @@ with st.expander("🎯 DRAFT SECTION - Toggle On/Off", expanded=False):
     if 'turn_start_time' not in st.session_state:
         st.session_state.turn_start_time = None
 
+    # Use the order set in Admin Only
+    draft_order = st.session_state.get("draft_order", ["Spencer Tidwell", "Jayme Leita", "Peter Miller"])
+
     col1, col2 = st.columns(2)
     with col1:
         if st.button("Start / Pause Draft", type="primary"):
             st.session_state.draft_active = not st.session_state.draft_active
             if st.session_state.draft_active:
                 st.session_state.turn_start_time = datetime.now()
-            else:
-                st.session_state.turn_start_time = None
 
     current_pick = len(st.session_state.draft_picks) + 1
     current_coach = draft_order[len(st.session_state.draft_picks) % len(draft_order)] if st.session_state.draft_active and draft_order else None
 
-    # Timer
+    # Live timer
     if current_coach and st.session_state.turn_start_time:
         elapsed = datetime.now() - st.session_state.turn_start_time
         minutes = int(elapsed.total_seconds() // 60)
         seconds = int(elapsed.total_seconds() % 60)
         st.write(f"**Pick #{current_pick}** — **On the Clock:** {current_coach}  ⏱️ **{minutes:02d}:{seconds:02d}**")
+    else:
+        st.write(f"**Pick #{current_pick}** — **On the Clock:** {current_coach if current_coach else 'Draft Paused'}")
 
     if st.session_state.draft_active and current_coach:
         st.subheader(f"Available Players — {current_coach}'s Turn")
@@ -222,7 +235,7 @@ with st.expander("🎯 DRAFT SECTION - Toggle On/Off", expanded=False):
                 if st.button(f"✅ {player}", key=f"pick_{i}_{player}"):
                     st.session_state.draft_picks.append((current_pick, current_coach, player))
                     st.session_state.available_players.remove(player)
-                    st.session_state.turn_start_time = datetime.now()  # Reset timer for next player
+                    st.session_state.turn_start_time = datetime.now()
                     st.rerun()
 
     st.subheader("Draft History")
@@ -238,7 +251,7 @@ with st.expander("🎯 DRAFT SECTION - Toggle On/Off", expanded=False):
             st.session_state.available_players.append(last[2])
             st.rerun()
 
-    # ====================== DRAFT COMPLETE BUTTON ======================
+    # Draft Complete Button
     if st.button("✅ Draft Complete - Populate Rosters", type="primary"):
         from collections import defaultdict
         drafted = defaultdict(list)
@@ -258,23 +271,37 @@ with st.expander("🎯 DRAFT SECTION - Toggle On/Off", expanded=False):
             content_str = json.dumps(teams_data, indent=2)
             content_b64 = base64.b64encode(content_str.encode("utf-8")).decode("utf-8")
 
-            payload = {
-                "message": "Draft Complete - Rosters updated",
-                "content": content_b64,
-                "branch": BRANCH
-            }
+            payload = {"message": "Draft Complete - Rosters updated", "content": content_b64, "branch": BRANCH}
             if sha:
                 payload["sha"] = sha
 
             put_resp = requests.put(url, headers=headers, json=payload)
             if put_resp.status_code in [200, 201]:
-                st.success("🎉 Draft complete! Rosters have been updated and saved to GitHub.")
+                st.success("🎉 Draft complete! All rosters have been updated and saved.")
                 st.session_state.draft_active = False
                 st.rerun()
-            else:
-                st.error("Failed to save rosters.")
         except Exception as e:
-            st.error(f"Error saving rosters: {e}")
+            st.error(f"Error: {e}")
+
+# ====================== ADMIN ONLY (Very Bottom) ======================
+st.divider()
+with st.expander("🔧 Admin Only", expanded=False):
+    st.subheader("Draft Order Setup")
+    st.write("**Set Draft Order** (first picker on top)")
+    st.session_state.draft_order = st.multiselect(
+        "Draft Order",
+        options=["Spencer Tidwell", "Jayme Leita", "Peter Miller"],
+        default=st.session_state.get("draft_order", ["Spencer Tidwell", "Jayme Leita", "Peter Miller"]),
+        key="admin_draft_order"
+    )
+
+    if st.button("🗑️ Clear All Golfers and Redraft", type="secondary"):
+        if st.checkbox("⚠️ Are you sure? This will delete ALL drafted players and reset the draft."):
+            st.session_state.draft_picks = []
+            st.session_state.available_players = sorted(player_data.keys())
+            st.session_state.draft_active = False
+            st.success("Draft has been cleared. You can start over.")
+            st.rerun()
 
 # ====================== BOTTOM REFRESH & EDIT ======================
 st.divider()
@@ -284,7 +311,6 @@ if st.button("🔄 Refresh Scores Now", type="primary", use_container_width=True
 
 st.divider()
 with st.expander("🔧 Edit Teams & Auto-Save to GitHub", expanded=False):
-    # (your existing edit section code - unchanged)
     new_teams = {}
     for coach_id, info in teams_data.items():
         st.markdown(f"**{coach_id}**")
@@ -295,7 +321,31 @@ with st.expander("🔧 Edit Teams & Auto-Save to GitHub", expanded=False):
         new_teams[coach_id] = {"team_name": new_name, "players": new_players}
     
     if st.button("💾 Save Changes to GitHub", type="primary"):
-        # (your existing save code)
-        pass  # keep your original save logic here
+        try:
+            url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/contents/{FILE_PATH}"
+            headers = {"Authorization": f"token {GITHUB_TOKEN}"}
+            resp = requests.get(url, headers=headers)
+            sha = resp.json().get("sha") if resp.status_code == 200 else None
+
+            content_str = json.dumps(new_teams, indent=2)
+            content_b64 = base64.b64encode(content_str.encode("utf-8")).decode("utf-8")
+
+            payload = {
+                "message": f"Dashboard update - {datetime.now().strftime('%Y-%m-%d %H:%M')}",
+                "content": content_b64,
+                "branch": BRANCH
+            }
+            if sha:
+                payload["sha"] = sha
+
+            put_resp = requests.put(url, headers=headers, json=payload)
+            if put_resp.status_code in [200, 201]:
+                st.success("✅ Changes saved successfully!")
+                st.cache_data.clear()
+                st.rerun()
+            else:
+                st.error("Failed to save to GitHub")
+        except Exception as e:
+            st.error(f"Error: {e}")
 
 st.caption(f"Last updated: {datetime.now().strftime('%H:%M:%S')} • Auto-refresh every 5 minutes")
