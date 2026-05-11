@@ -82,7 +82,7 @@ def save_teams_to_github(teams_dict):
         st.error(f"Save failed: {e}")
         return False
 
-@st.cache_data(ttl=30)
+@st.cache_data(ttl=10)
 def load_teams_from_github():
     url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/contents/{FILE_PATH}"
     headers = {"Authorization": f"token {GITHUB_TOKEN}"}
@@ -143,7 +143,7 @@ def get_player_data(api_data):
 
 player_data = get_player_data(data)
 
-# ====================== STANDINGS ======================
+# ====================== STANDINGS (Clean display) ======================
 st.subheader("Standings")
 for coach_id, info in teams_data.items():
     team_name = info.get("team_name", coach_id)
@@ -213,7 +213,7 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
                 return ['background-color: #ffd700; color: #000000; font-weight: bold'] * len(row) if row.name < 3 else [''] * len(row)
             st.dataframe(df.style.apply(style_top3, axis=1), use_container_width=True, hide_index=True, height=210)
 
-# ====================== EDIT TEAMS (Simple - at the bottom) ======================
+# ====================== EDIT TEAMS (Simple - only name + roster) ======================
 st.divider()
 with st.expander("🔧 Edit Team Names & Rosters", expanded=False):
     new_teams = {}
@@ -225,12 +225,21 @@ with st.expander("🔧 Edit Team Names & Rosters", expanded=False):
         new_players = [p.strip() for p in new_players_str.split("\n") if p.strip()]
         new_teams[coach_id] = {"team_name": new_name, "players": new_players}
     
-    if st.button("💾 Save All Changes to GitHub", type="primary"):
-        if save_teams_to_github(new_teams):
-            st.success("✅ Team names and rosters saved successfully!")
-            st.cache_data.clear()
-            st.rerun()
-        else:
-            st.error("Failed to save to GitHub")
+    col_clear, col_save = st.columns(2)
+    with col_clear:
+        if st.button("🗑️ Clear All Golfers", type="secondary"):
+            if st.checkbox("⚠️ Delete ALL golfers from every roster?"):
+                for t in new_teams.values():
+                    t["players"] = []
+                if save_teams_to_github(new_teams):
+                    st.success("All rosters cleared.")
+                    st.cache_data.clear()
+                    st.rerun()
+    with col_save:
+        if st.button("💾 Save All Changes to GitHub", type="primary"):
+            if save_teams_to_github(new_teams):
+                st.success("✅ Saved successfully!")
+                st.cache_data.clear()
+                st.rerun()
 
 st.caption(f"Last updated: {datetime.now().strftime('%H:%M:%S')} • Auto-refresh every 5 minutes")
