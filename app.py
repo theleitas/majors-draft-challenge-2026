@@ -158,7 +158,7 @@ VEGAS_ODDS = {
     "Patrick Reed": "+6500"
 }
 
-# ====================== STANDINGS ======================
+# ====================== STANDINGS (Fixed HTML rendering) ======================
 st.subheader("Standings")
 for coach_id, info in teams_data.items():
     team_name = info.get("team_name", coach_id)
@@ -169,16 +169,23 @@ for coach_id, info in teams_data.items():
     top_3_sum = sum(s for _, s, _ in top_3)
 
     color = COACH_COLORS.get(coach_id)
-    box_style = f"border: 3px solid {color}; background-color: {color}15; border-radius: 14px; padding: 20px; margin-bottom: 1.5rem;"
-    st.markdown(f'<div style="{box_style}">', unsafe_allow_html=True)
-    st.markdown(f"<span style='color:{color}; font-size:1.45rem; font-weight:bold;'>{team_name}</span>", unsafe_allow_html=True)
-    cols = st.columns([1.2, 2.8])
-    with cols[0]:
-        st.metric("TOTAL", top_3_sum)
-    with cols[1]:
-        for name, score, hole in top_3:
-            st.markdown(f"**{name}** <span style='color:{color}; font-weight:bold;'>({score})</span> — {hole}")
-    st.markdown('</div>', unsafe_allow_html=True)
+    # Single HTML block to prevent leaking
+    card_html = f"""
+    <div style="border: 3px solid {color}; background-color: {color}15; border-radius: 14px; padding: 20px; margin-bottom: 1.5rem;">
+        <strong style="color:{color}; font-size:1.45rem;">{team_name}</strong><br><br>
+        <div style="display: flex; justify-content: space-between; align-items: start;">
+            <div>
+                <small style="color:#aaa;">TOTAL</small><br>
+                <span style="color:{color}; font-size:2.3rem; font-weight: bold;">{top_3_sum}</span>
+            </div>
+            <div style="flex-grow: 1; padding-left: 50px;">
+    """
+    for name, score, hole in top_3:
+        card_html += f"<strong>{name}</strong> <span style='color:{color}; font-weight:bold;'>({score})</span> — {hole}<br>"
+    if not top_3:
+        card_html += "Waiting for scores...<br>"
+    card_html += "</div></div></div>"
+    st.markdown(card_html, unsafe_allow_html=True)
 
 # ====================== TOP 10 LEADERBOARD ======================
 st.subheader("Top 10 Leaderboard")
@@ -263,8 +270,10 @@ with st.expander("🎯 DRAFT SECTION - Toggle On/Off", expanded=False):
         st.subheader(f"Available Players — {current_coach}'s Turn")
         cols = st.columns(4)
         for i, player in enumerate(st.session_state.available_players):
+            odds = VEGAS_ODDS.get(player, "N/A")
+            display_text = f"✅ {player} ({odds})"
             with cols[i % 4]:
-                if st.button(f"✅ {player}", key=f"pick_{i}_{player}"):
+                if st.button(display_text, key=f"pick_{i}_{player}"):
                     st.session_state.draft_picks.append((current_pick, current_coach, player))
                     st.session_state.available_players.remove(player)
 
