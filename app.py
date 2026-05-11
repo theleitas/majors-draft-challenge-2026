@@ -143,7 +143,7 @@ def get_player_data(api_data):
 
 player_data = get_player_data(data)
 
-# ====================== STANDINGS (Clean display) ======================
+# ====================== STANDINGS (Clean HTML cards - no leaking) ======================
 st.subheader("Standings")
 for coach_id, info in teams_data.items():
     team_name = info.get("team_name", coach_id)
@@ -160,21 +160,25 @@ for coach_id, info in teams_data.items():
     top_3_sum = sum(s for _, s, _ in top_3)
 
     color = COACH_COLORS.get(coach_id)
-    box_style = f"border: 3px solid {color}; background-color: {color}15; border-radius: 14px; padding: 20px; margin-bottom: 1.5rem;"
 
-    st.markdown(f'<div style="{box_style}">', unsafe_allow_html=True)
-    st.markdown(f"<span style='color:{color}; font-size:1.45rem; font-weight:bold;'>{team_name}</span>", unsafe_allow_html=True)
-    
-    cols = st.columns([1.2, 2.8])
-    with cols[0]:
-        st.metric("TOTAL", top_3_sum)
-    with cols[1]:
-        if top_3:
-            for name, score, hole in top_3:
-                st.markdown(f"**{name}** <span style='color:{color}; font-weight:bold;'>({score})</span> — {hole}")
-        else:
-            st.caption("Waiting for scores...")
-    st.markdown('</div>', unsafe_allow_html=True)
+    # Single clean HTML block per card
+    card = f"""
+    <div style="border: 3px solid {color}; background-color: {color}15; border-radius: 14px; padding: 20px; margin-bottom: 1.5rem;">
+        <strong style="color:{color}; font-size:1.45rem;">{team_name}</strong><br><br>
+        <div style="display:flex; justify-content:space-between; align-items:start;">
+            <div>
+                <small style="color:#aaa;">TOTAL</small><br>
+                <span style="color:{color}; font-size:2.3rem; font-weight:bold;">{top_3_sum}</span>
+            </div>
+            <div style="flex-grow:1; padding-left:50px;">
+    """
+    for name, score, hole in top_3:
+        card += f"<strong>{name}</strong> <span style='color:{color}; font-weight:bold;'>({score})</span> — {hole}<br>"
+    if not top_3:
+        card += "Waiting for scores...<br>"
+    card += "</div></div></div>"
+
+    st.markdown(card, unsafe_allow_html=True)
 
 # ====================== TOP 10 LEADERBOARD ======================
 st.subheader("Top 10 Leaderboard")
@@ -213,7 +217,7 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
                 return ['background-color: #ffd700; color: #000000; font-weight: bold'] * len(row) if row.name < 3 else [''] * len(row)
             st.dataframe(df.style.apply(style_top3, axis=1), use_container_width=True, hide_index=True, height=210)
 
-# ====================== EDIT TEAMS (Simple - only name + roster) ======================
+# ====================== EDIT TEAMS ======================
 st.divider()
 with st.expander("🔧 Edit Team Names & Rosters", expanded=False):
     new_teams = {}
@@ -225,21 +229,10 @@ with st.expander("🔧 Edit Team Names & Rosters", expanded=False):
         new_players = [p.strip() for p in new_players_str.split("\n") if p.strip()]
         new_teams[coach_id] = {"team_name": new_name, "players": new_players}
     
-    col_clear, col_save = st.columns(2)
-    with col_clear:
-        if st.button("🗑️ Clear All Golfers", type="secondary"):
-            if st.checkbox("⚠️ Delete ALL golfers from every roster?"):
-                for t in new_teams.values():
-                    t["players"] = []
-                if save_teams_to_github(new_teams):
-                    st.success("All rosters cleared.")
-                    st.cache_data.clear()
-                    st.rerun()
-    with col_save:
-        if st.button("💾 Save All Changes to GitHub", type="primary"):
-            if save_teams_to_github(new_teams):
-                st.success("✅ Saved successfully!")
-                st.cache_data.clear()
-                st.rerun()
+    if st.button("💾 Save All Changes to GitHub", type="primary"):
+        if save_teams_to_github(new_teams):
+            st.success("✅ Saved successfully!")
+            st.cache_data.clear()
+            st.rerun()
 
 st.caption(f"Last updated: {datetime.now().strftime('%H:%M:%S')} • Auto-refresh every 5 minutes")
