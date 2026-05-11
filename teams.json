@@ -7,13 +7,14 @@
   },
   "Jayme Leita": {
     "team_name": "Jayme's Aces",
-    "players": []
+    "players": [
+      "Robert MacIntyre"
+    ]
   },
   "Spencer Tidwell": {
     "team_name": "Spencer's Masters",
     "players": [
-      "Chandler Blanchet",
-      "Ricky Castillo"
+      "Chandler Blanchet"
     ]
   }
 }
