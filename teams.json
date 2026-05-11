@@ -1,31 +1,14 @@
 {
   "Peter Miller": {
     "team_name": "Peter's Princesses",
-    "players": [
-      "Bud Cauley",
-      "Austin Smotherman",
-      "Andrew Putnam"
-    ]
+    "players": []
   },
   "Jayme Leita": {
     "team_name": "Jayme's Aces",
-    "players": [
-      "Brian Harman",
-      "Cameron Young",
-      "Chandler Blanchet"
-    ]
+    "players": []
   },
   "Spencer Tidwell": {
     "team_name": "Spencer's Masters",
-    "players": [
-      "Andrew Putnam",
-      "Corey Conners",
-      "Alex Noren",
-      "J.J. Spaun",
-      "Jason Day",
-      "Matt McCarty",
-      "Rickie Fowler",
-      "Adam Scott"
-    ]
+    "players": []
   }
 }
