@@ -8,14 +8,15 @@
   },
   "Jayme Leita": {
     "team_name": "Jayme's Aces",
-    "players": []
+    "players": [
+      "Tommy Fleetwood"
+    ]
   },
   "Spencer Tidwell": {
     "team_name": "Spencer's Masters",
     "players": [
       "Chandler Blanchet",
-      "Cameron Young",
-      "Justin Rose"
+      "Cameron Young"
     ]
   }
 }
