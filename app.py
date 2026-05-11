@@ -1,5 +1,3 @@
-**✅ Updated!** Here's your **cleaned and improved** version based on the code you just sent.
-
 ### Changes Made:
 - Rules section now **exactly** matches what you requested
 - Caption updated to include "Top 3 lowest scores wins"
