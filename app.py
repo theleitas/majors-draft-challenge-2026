@@ -41,10 +41,10 @@ st.caption(f"Top 3 lowest scores wins • Live updates every 5 minutes • Last 
 with st.expander("📜 Rules", expanded=True):
     st.markdown("""
     **Rules**
-    - Each player drafts **10 golfers**
-    - Snake draft format (Peter → Spencer → Jayme, then reverse)
-    - Your **Top 3 lowest scores** at the end of the tournament count
-    - Winner takes **$50 from each other player** ($100 total pot)
+    - Each player drafts 10 golfers
+    - Snake draft format (Spencer → Jayme → Peter, then reverse)
+    - Your TOP 3 lowest scores at the end of the tournament count
+    - Winner takes $50 from each other player ($100 total pot)
     """)
 
 if st.button("🔄 Refresh Scores Now", type="primary", use_container_width=True):
@@ -53,7 +53,7 @@ if st.button("🔄 Refresh Scores Now", type="primary", use_container_width=True
 
 st_autorefresh(interval=300000, limit=None, key="datarefresh")
 
-# ====================== GITHUB CONFIG (NEW REPO) ======================
+# ====================== GITHUB CONFIG ======================
 try:
     GITHUB_TOKEN = st.secrets["GITHUB"]["TOKEN"]
     REPO_OWNER = "theleitas"
@@ -134,66 +134,6 @@ def get_player_data(api_data):
 
 player_data = get_player_data(data)
 
-# ====================== DRAFT SECTION ======================
-st.divider()
-with st.expander("🎯 DRAFT SECTION - Toggle On/Off", expanded=False):
-    st.subheader("Draft Controls")
-
-    # Draft state
-    if 'draft_active' not in st.session_state:
-        st.session_state.draft_active = False
-    if 'draft_picks' not in st.session_state:
-        st.session_state.draft_picks = []  # (pick_number, coach, player)
-    if 'available_players' not in st.session_state:
-        st.session_state.available_players = sorted(player_data.keys())
-
-    # Snake draft order (Peter → Spencer → Jayme, then reverse)
-    draft_order_base = ["Peter Miller", "Spencer Tidwell", "Jayme Leita"]
-    draft_order = []
-    for round_num in range(10):
-        if round_num % 2 == 0:
-            draft_order.extend(draft_order_base)
-        else:
-            draft_order.extend(reversed(draft_order_base))
-
-    col1, col2 = st.columns(2)
-    with col1:
-        if st.button("Start / Pause Draft", type="primary"):
-            st.session_state.draft_active = not st.session_state.draft_active
-
-    current_pick = len(st.session_state.draft_picks) + 1
-    current_coach = draft_order[len(st.session_state.draft_picks) % len(draft_order)] if st.session_state.draft_active else None
-
-    st.write(f"**Pick #{current_pick}** — **On the Clock:** {current_coach if current_coach else 'Draft Paused'}")
-
-    # Drafting interface
-    if st.session_state.draft_active and current_coach:
-        st.subheader(f"Available Players — {current_coach}'s Turn")
-        search = st.text_input("Search players", key="draft_search")
-        filtered = [p for p in st.session_state.available_players if search.lower() in p.lower()]
-
-        cols = st.columns(3)
-        for i, player in enumerate(filtered[:18]):
-            with cols[i % 3]:
-                if st.button(f"✅ Pick {player}", key=f"pick_{i}_{player}"):
-                    st.session_state.draft_picks.append((current_pick, current_coach, player))
-                    st.session_state.available_players.remove(player)
-                    st.rerun()
-
-    # Draft history
-    st.subheader("Draft History")
-    if st.session_state.draft_picks:
-        for num, coach, player in reversed(st.session_state.draft_picks[-12:]):
-            st.write(f"Pick {num}: **{coach}** picked **{player}**")
-    else:
-        st.caption("No picks yet.")
-
-    if st.button("↩️ Undo Last Pick"):
-        if st.session_state.draft_picks:
-            last = st.session_state.draft_picks.pop()
-            st.session_state.available_players.append(last[2])
-            st.rerun()
-
 # ====================== STANDINGS ======================
 st.subheader("Standings")
 
@@ -230,14 +170,139 @@ for coach_id, info in teams_data.items():
     
     st.markdown('</div>', unsafe_allow_html=True)
 
-# (Top 10 Leaderboard, Team Rosters, etc. kept the same)
+# ====================== TOP 10 LEADERBOARD ======================
+st.subheader("Top 10 Leaderboard")
 
-# Bottom Refresh & Edit Section
+if player_data:
+    leaderboard = []
+    for name, info in player_data.items():
+        if info.get("score") is not None:
+            owner_letter = "—"
+            for cid, tinfo in teams_data.items():
+                if name in tinfo.get("players", []):
+                    owner_letter = "J" if cid == "Jayme Leita" else "S" if cid == "Spencer Tidwell" else "P"
+                    break
+            leaderboard.append({
+                "Owner": owner_letter,
+                "Player": name,
+                "Score": info["score"],
+                "Hole": info["hole"]
+            })
+    
+    df_lb = pd.DataFrame(leaderboard)
+    df_lb = df_lb.sort_values("Score").head(10).reset_index(drop=True)
+
+    owner_map = {}
+    for coach_id, info in teams_data.items():
+        color = COACH_COLORS.get(coach_id, "#555555")
+        for player in info.get("players", []):
+            owner_map[player] = color
+
+    def highlight_lb(row):
+        color = owner_map.get(row["Player"])
+        if color:
+            return [f'background-color: {color}; color: black; font-weight: bold'] * len(row)
+        return [''] * len(row)
+
+    styled_lb = df_lb.style.apply(highlight_lb, axis=1)
+    st.dataframe(styled_lb, use_container_width=True, hide_index=True)
+
+# ====================== TEAM ROSTERS ======================
+st.subheader("Team Rosters")
+
+team_cols = st.columns(3)
+for idx, (coach_id, info) in enumerate(teams_data.items()):
+    with team_cols[idx]:
+        team_name = info.get("team_name", coach_id)
+        players = info.get("players", [])
+        
+        st.markdown(f"**{team_name}**")
+        
+        table_data = []
+        for player in players:
+            p_info = player_data.get(player, {"score": None, "hole": "—"})
+            score_display = int(p_info["score"]) if isinstance(p_info.get("score"), (int, float)) else "—"
+            table_data.append({
+                "Player": player,
+                "Score": score_display,
+                "Hole": p_info["hole"]
+            })
+        
+        df = pd.DataFrame(table_data)
+        df = df.sort_values(by="Score", ascending=True, na_position="last",
+                            key=lambda x: pd.to_numeric(x, errors='coerce')).reset_index(drop=True)
+        
+        def style_top3(row):
+            return ['background-color: #ffd700; color: #000000; font-weight: bold'] * len(row) if row.name < 3 else [''] * len(row)
+        
+        st.dataframe(df.style.apply(style_top3, axis=1), use_container_width=True, hide_index=True, height=210)
+
+# ====================== DRAFT SECTION (At the Bottom) ======================
+st.divider()
+with st.expander("🎯 DRAFT SECTION - Toggle On/Off", expanded=False):
+    st.subheader("Draft Setup")
+
+    # Draft Order Setup
+    st.write("**Set Draft Order** (Drag to reorder)")
+    draft_order = st.multiselect(
+        "Draft Order (first to pick is top)",
+        options=["Peter Miller", "Spencer Tidwell", "Jayme Leita"],
+        default=["Peter Miller", "Spencer Tidwell", "Jayme Leita"],
+        key="draft_order"
+    )
+
+    st.subheader("Draft Controls")
+
+    if 'draft_active' not in st.session_state:
+        st.session_state.draft_active = False
+    if 'draft_picks' not in st.session_state:
+        st.session_state.draft_picks = []
+    if 'available_players' not in st.session_state:
+        st.session_state.available_players = sorted(player_data.keys())
+
+    col1, col2 = st.columns(2)
+    with col1:
+        if st.button("Start / Pause Draft", type="primary"):
+            st.session_state.draft_active = not st.session_state.draft_active
+
+    current_pick = len(st.session_state.draft_picks) + 1
+    current_coach = draft_order[len(st.session_state.draft_picks) % len(draft_order)] if st.session_state.draft_active else None
+
+    st.write(f"**Pick #{current_pick}** — **On the Clock:** {current_coach if current_coach else 'Draft Paused'}")
+
+    if st.session_state.draft_active and current_coach:
+        st.subheader(f"Available Players — {current_coach}'s Turn")
+        search = st.text_input("Search players", key="draft_search")
+        filtered = [p for p in st.session_state.available_players if search.lower() in p.lower()]
+
+        cols = st.columns(3)
+        for i, player in enumerate(filtered[:18]):
+            with cols[i % 3]:
+                if st.button(f"✅ Pick {player}", key=f"pick_{i}_{player}"):
+                    st.session_state.draft_picks.append((current_pick, current_coach, player))
+                    st.session_state.available_players.remove(player)
+                    st.rerun()
+
+    st.subheader("Draft History")
+    if st.session_state.draft_picks:
+        for num, coach, player in reversed(st.session_state.draft_picks[-12:]):
+            st.write(f"Pick {num}: **{coach}** picked **{player}**")
+    else:
+        st.caption("No picks yet.")
+
+    if st.button("↩️ Undo Last Pick"):
+        if st.session_state.draft_picks:
+            last = st.session_state.draft_picks.pop()
+            st.session_state.available_players.append(last[2])
+            st.rerun()
+
+# ====================== BOTTOM REFRESH ======================
 st.divider()
 if st.button("🔄 Refresh Scores Now", type="primary", use_container_width=True, key="bottom_refresh"):
     st.cache_data.clear()
     st.rerun()
 
+# ====================== EDIT SECTION ======================
 st.divider()
 with st.expander("🔧 Edit Teams & Auto-Save to GitHub", expanded=False):
     new_teams = {}
