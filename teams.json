@@ -1,13 +1,13 @@
 {
   "Peter Miller": {
     "team_name": "Peter's Princesses",
-    "players": []
+    "players": [
+      "Keegan Bradley"
+    ]
   },
   "Jayme Leita": {
     "team_name": "Jayme's Aces",
-    "players": [
-      "Jason Day"
-    ]
+    "players": []
   },
   "Spencer Tidwell": {
     "team_name": "Spencer's Masters",
