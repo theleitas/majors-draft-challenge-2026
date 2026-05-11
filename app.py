@@ -41,6 +41,15 @@ with st.expander("📜 Rules", expanded=True):
     * Winner takes 50 dollars from each other player ($100 total pot)
     """)
 
+if st.button("🔄 Refresh Scores Now", type="primary", use_container_width=True):
+    st.cache_data.clear()
+    st.rerun()
+
+if st.session_state.get("draft_active", False):
+    st_autorefresh(interval=5000, limit=None, key="draft_timer")
+
+st_autorefresh(interval=300000, limit=None, key="datarefresh")
+
 # ====================== GITHUB CONFIG ======================
 try:
     GITHUB_TOKEN = st.secrets["GITHUB"]["TOKEN"]
@@ -136,6 +145,19 @@ def get_player_data(api_data):
 
 player_data = get_player_data(data)
 
+# ====================== VEGAS ODDS ======================
+VEGAS_ODDS = {
+    "Scottie Scheffler": "+340", "Rory McIlroy": "+750", "Jon Rahm": "+1300",
+    "Cameron Young": "+1300", "Xander Schauffele": "+1700", "Matt Fitzpatrick": "+1800",
+    "Bryson DeChambeau": "+2000", "Ludvig Aberg": "+2000", "Collin Morikawa": "+2200",
+    "Justin Thomas": "+2200", "Tommy Fleetwood": "+2500", "Justin Rose": "+2700",
+    "Viktor Hovland": "+3000", "Chris Gotterup": "+3300", "Patrick Cantlay": "+3500",
+    "Russell Henley": "+4600", "Hideki Matsuyama": "+5000", "Sungjae Im": "+6000",
+    "Jordan Spieth": "+6500", "Brooks Koepka": "+3900", "Tyrrell Hatton": "+6000",
+    "Shane Lowry": "+7000", "Robert MacIntyre": "+5300", "Min Woo Lee": "+8000",
+    "Patrick Reed": "+6500"
+}
+
 # ====================== STANDINGS ======================
 st.subheader("Standings")
 for coach_id, info in teams_data.items():
@@ -175,6 +197,9 @@ if player_data:
 
 # ====================== TEAM ROSTERS ======================
 st.subheader("Team Rosters")
+if st.button("🔄 Refresh Rosters", type="secondary"):
+    st.rerun()
+
 team_cols = st.columns(3)
 for idx, (coach_id, info) in enumerate(teams_data.items()):
     with team_cols[idx]:
@@ -187,7 +212,7 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
             table_data = []
             for player in players:
                 p_info = player_data.get(player, {"score": None, "hole": "—"})
-                score_display = int(p_info["score"]) if isinstance(p_info.get("score"), (int, float)) else "—"
+                score_display = int(p_info["score"]) if isinstance(p_info.get("score"), (int, float)) else "N/A"
                 table_data.append({"Player": player, "Score": score_display, "Hole": p_info["hole"]})
             df = pd.DataFrame(table_data)
             df = df.sort_values(by="Score", ascending=True, na_position="last", key=lambda x: pd.to_numeric(x, errors='coerce')).reset_index(drop=True)
@@ -211,7 +236,6 @@ with st.expander("🎯 DRAFT SECTION - Toggle On/Off", expanded=False):
 
     draft_order = st.session_state.get("draft_order", ["Spencer Tidwell", "Jayme Leita", "Peter Miller"])
 
-    # Start / End buttons
     col1, col2 = st.columns(2)
     with col1:
         if not st.session_state.draft_active:
@@ -227,7 +251,6 @@ with st.expander("🎯 DRAFT SECTION - Toggle On/Off", expanded=False):
     current_pick = len(st.session_state.draft_picks) + 1
     current_coach = draft_order[len(st.session_state.draft_picks) % len(draft_order)] if st.session_state.draft_active else None
 
-    # Live timer
     if current_coach and st.session_state.turn_start_time:
         elapsed = datetime.now() - st.session_state.turn_start_time
         minutes = int(elapsed.total_seconds() // 60)
@@ -238,10 +261,27 @@ with st.expander("🎯 DRAFT SECTION - Toggle On/Off", expanded=False):
 
     if st.session_state.draft_active and current_coach:
         st.subheader(f"Available Players — {current_coach}'s Turn")
+
+        # Sort by best Vegas odds
+        def odds_value(odd_str):
+            if not odd_str or odd_str == "N/A":
+                return 99999
+            try:
+                return int(odd_str.strip("+"))
+            except:
+                return 99999
+
+        sorted_players = sorted(
+            st.session_state.available_players,
+            key=lambda p: odds_value(VEGAS_ODDS.get(p, "N/A"))
+        )
+
         cols = st.columns(4)
-        for i, player in enumerate(st.session_state.available_players):
+        for i, player in enumerate(sorted_players):
+            odds = VEGAS_ODDS.get(player, "N/A")
+            display_text = f"✅ {player} ({odds})"
             with cols[i % 4]:
-                if st.button(f"✅ {player}", key=f"pick_{i}_{player}"):
+                if st.button(display_text, key=f"pick_{i}_{player}"):
                     st.session_state.draft_picks.append((current_pick, current_coach, player))
                     st.session_state.available_players.remove(player)
 
@@ -257,7 +297,7 @@ with st.expander("🎯 DRAFT SECTION - Toggle On/Off", expanded=False):
 
                     if len(st.session_state.draft_picks) >= 30:
                         st.session_state.draft_active = False
-                        st.success("🎉 Draft is complete! Rosters updated.")
+                        st.success("🎉 Draft is complete! All rosters updated.")
                     st.rerun()
 
     st.subheader("Draft History")
