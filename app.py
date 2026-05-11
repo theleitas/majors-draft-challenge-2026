@@ -58,7 +58,6 @@ except Exception:
     st.error("GitHub token not configured.")
     st.stop()
 
-# ====================== HELPER: Save teams to GitHub ======================
 def save_teams_to_github():
     try:
         url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/contents/{FILE_PATH}"
@@ -82,7 +81,6 @@ def save_teams_to_github():
     except:
         return False
 
-# Load teams
 @st.cache_data(ttl=60)
 def load_teams_from_github():
     url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/contents/{FILE_PATH}"
@@ -99,7 +97,6 @@ def load_teams_from_github():
 
 teams_data = load_teams_from_github()
 
-# Fetch live scores
 @st.cache_data(ttl=300)
 def fetch_leaderboard():
     try:
@@ -214,8 +211,11 @@ with st.expander("🎯 DRAFT SECTION - Toggle On/Off", expanded=False):
     if 'turn_start_time' not in st.session_state:
         st.session_state.turn_start_time = None
 
-    # Draft order from Admin Only
     draft_order = st.session_state.get("draft_order", ["Spencer Tidwell", "Jayme Leita", "Peter Miller"])
+
+    # Real-time timer refresh while drafting
+    if st.session_state.get('draft_active'):
+        st_autorefresh(interval=10000, limit=None, key="draft_timer")
 
     col1, col2 = st.columns(2)
     with col1:
@@ -227,7 +227,7 @@ with st.expander("🎯 DRAFT SECTION - Toggle On/Off", expanded=False):
     current_pick = len(st.session_state.draft_picks) + 1
     current_coach = draft_order[len(st.session_state.draft_picks) % len(draft_order)] if st.session_state.draft_active and draft_order else None
 
-    # Timer
+    # Live timer
     if current_coach and st.session_state.turn_start_time:
         elapsed = datetime.now() - st.session_state.turn_start_time
         minutes = int(elapsed.total_seconds() // 60)
@@ -238,27 +238,29 @@ with st.expander("🎯 DRAFT SECTION - Toggle On/Off", expanded=False):
 
     if st.session_state.draft_active and current_coach:
         st.subheader(f"Available Players — {current_coach}'s Turn")
-        search = st.text_input("Search players", key="draft_search")
-        filtered = [p for p in st.session_state.available_players if search.lower() in p.lower()]
-
-        cols = st.columns(3)
-        for i, player in enumerate(filtered[:18]):
-            with cols[i % 3]:
+        # Show ALL golfers (no search, no limit)
+        filtered = st.session_state.available_players
+        cols = st.columns(4)
+        for i, player in enumerate(filtered):
+            with cols[i % 4]:
                 if st.button(f"✅ {player}", key=f"pick_{i}_{player}"):
-                    # Add to draft history
                     st.session_state.draft_picks.append((current_pick, current_coach, player))
                     st.session_state.available_players.remove(player)
 
-                    # === IMMEDIATE ROSTER UPDATE ===
+                    # Add to correct roster immediately
                     for cid, info in teams_data.items():
-                        if (info.get("team_name") == current_coach) or (cid == current_coach):
+                        if info.get("team_name") == current_coach or cid == current_coach:
                             if player not in info.get("players", []):
                                 info.setdefault("players", []).append(player)
                             break
 
-                    # Save to GitHub immediately
                     save_teams_to_github()
                     st.session_state.turn_start_time = datetime.now()
+
+                    # Auto-end after 30 picks
+                    if len(st.session_state.draft_picks) >= 30:
+                        st.session_state.draft_active = False
+                        st.success("🎉 Draft complete! All rosters updated.")
                     st.rerun()
 
     st.subheader("Draft History")
@@ -272,26 +274,18 @@ with st.expander("🎯 DRAFT SECTION - Toggle On/Off", expanded=False):
         if st.session_state.draft_picks:
             last = st.session_state.draft_picks.pop()
             st.session_state.available_players.append(last[2])
-            # Remove from roster too
             for info in teams_data.values():
                 if last[2] in info.get("players", []):
                     info["players"].remove(last[2])
             save_teams_to_github()
             st.rerun()
 
-    if st.button("✅ Draft Complete - Populate Rosters", type="primary"):
-        save_teams_to_github()
-        st.success("🎉 Draft complete! Rosters have been saved.")
-        st.session_state.draft_active = False
-        st.rerun()
-
-# ====================== ADMIN ONLY (Very Bottom) ======================
+# ====================== ADMIN ONLY ======================
 st.divider()
 with st.expander("🔧 Admin Only", expanded=False):
     st.subheader("Draft Order Setup")
-    st.write("**Set Draft Order** (first picker on top)")
     st.session_state.draft_order = st.multiselect(
-        "Draft Order",
+        "Draft Order (first picker on top)",
         options=["Spencer Tidwell", "Jayme Leita", "Peter Miller"],
         default=st.session_state.get("draft_order", ["Spencer Tidwell", "Jayme Leita", "Peter Miller"]),
         key="admin_draft_order"
@@ -299,7 +293,6 @@ with st.expander("🔧 Admin Only", expanded=False):
 
     if st.button("🗑️ Clear All Golfers and Redraft", type="secondary"):
         if st.checkbox("⚠️ This will delete ALL golfers from every roster and reset the draft. Are you sure?"):
-            # Completely clear every roster
             for info in teams_data.values():
                 info["players"] = []
             save_teams_to_github()
