@@ -22,7 +22,7 @@ COACH_COLORS = {
     "Peter Miller": "#2E47DB"
 }
 
-# Expanded Vegas odds
+# Expanded Vegas odds (favorites first)
 VEGAS_ODDS = {
     "Scottie Scheffler": "+450", "Rory McIlroy": "+800", "Xander Schauffele": "+1400",
     "Jon Rahm": "+1600", "Bryson DeChambeau": "+1800", "Ludvig Aberg": "+2200",
@@ -83,7 +83,6 @@ def load_teams_from_github():
             return json.loads(base64.b64decode(content).decode("utf-8"))
     except:
         pass
-    # Default teams
     return {
         "Jayme Leita": {"team_name": "Jayme's Team", "players": []},
         "Spencer Tidwell": {"team_name": "Spencer's Team", "players": []},
@@ -176,6 +175,89 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
 with st.expander("🎯 DRAFT SECTION", expanded=st.session_state.get("enable_draft", False)):
     if not st.session_state.get("enable_draft", False):
         st.error("🚫 Draft is currently DISABLED in Admin section")
+    else:
+        col1, col2 = st.columns(2)
+        with col1:
+            if st.button("▶️ Start Draft", type="primary", disabled=st.session_state.get("draft_active", False), use_container_width=True):
+                st.session_state.draft_active = True
+                st.session_state.draft_paused = False
+                st.rerun()
+        with col2:
+            if st.button("⏸️ Pause Draft", disabled=not st.session_state.get("draft_active", False), use_container_width=True):
+                st.session_state.draft_paused = True
+                st.rerun()
+
+        if st.session_state.get("draft_active", False):
+            current_coach = get_coach_for_pick(st.session_state.get("current_pick", 1), st.session_state.get("draft_order", ["Jayme Leita", "Spencer Tidwell", "Peter Miller"]))
+            st.markdown(f"## 🔥 CURRENT PICK: **{current_coach}** — Pick #{st.session_state.get('current_pick', 1)}")
+            if st.session_state.get("draft_paused", False):
+                st.warning("⏸️ Draft is PAUSED")
+
+        st.subheader("Draft Dashboard")
+        # Full draft dashboard table
+        grid_html = """
+        <style>
+        @keyframes flash { 0% { background-color: #ffeb3b; } 50% { background-color: #fff59d; } 100% { background-color: #ffeb3b; } }
+        .draft-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+        .draft-table th, .draft-table td { border: 1px solid #444; padding: 10px; text-align: center; }
+        .draft-table th { background-color: #1f1f1f; color: #fff; }
+        .current-cell { animation: flash 1.2s infinite; font-weight: bold; }
+        </style>
+        <table class="draft-table">
+        <tr><th>Round</th>
+        """
+        for p in st.session_state.get("draft_order", ["Jayme Leita", "Spencer Tidwell", "Peter Miller"]):
+            grid_html += f"<th>{p}</th>"
+        grid_html += "</tr>"
+
+        for r in range(10):
+            grid_html += f"<tr><td><b>Round {r+1}</b></td>"
+            for c in range(3):
+                if r % 2 == 0:
+                    pick_num = r * 3 + c + 1
+                else:
+                    pick_num = r * 3 + (2 - c) + 1
+                picked_golfer = next((pk[2] for pk in st.session_state.get("picks", []) if pk[0] == pick_num), None)
+                is_current = (pick_num == st.session_state.get("current_pick", 1) and st.session_state.get("draft_active", False) and not st.session_state.get("draft_paused", False))
+                if picked_golfer:
+                    cell = picked_golfer
+                    cell_style = ""
+                elif is_current:
+                    elapsed = int(time.time() - st.session_state.get("last_pick_time", time.time()))
+                    cell = f"⏱️ {elapsed}s<br>Pick {pick_num}"
+                    cell_style = "class='current-cell' style='background-color:#ffeb3b; color:#000;'"
+                else:
+                    cell = f"Pick {pick_num}"
+                    cell_style = ""
+                grid_html += f"<td {cell_style}>{cell}</td>"
+            grid_html += "</tr>"
+        grid_html += "</table>"
+        st.markdown(grid_html, unsafe_allow_html=True)
+
+        st.subheader("Available Golfers — Click to Draft")
+        sorted_players = sorted(PGA_PLAYERS, key=lambda x: int(VEGAS_ODDS.get(x, "999999").replace("+", "")))
+        available = [p for p in sorted_players if p not in st.session_state.get("picked_golfers", set())]
+
+        num_cols = 4
+        cols = st.columns(num_cols)
+        for idx, golfer in enumerate(available):
+            col_idx = idx % num_cols
+            with cols[col_idx]:
+                odds = VEGAS_ODDS.get(golfer, "(N/A)")
+                disabled = not (st.session_state.get("draft_active", False) and not st.session_state.get("draft_paused", False) and st.session_state.get("enable_draft", False))
+                if st.button(f"✅ {golfer} {odds}", key=f"pick_{golfer}", disabled=disabled, use_container_width=True):
+                    coach = get_coach_for_pick(st.session_state.get("current_pick", 1), st.session_state.get("draft_order", ["Jayme Leita", "Spencer Tidwell", "Peter Miller"]))
+                    if golfer not in teams_data[coach]["players"]:
+                        teams_data[coach]["players"].append(golfer)
+                        save_teams_to_github(teams_data)
+                    st.session_state.setdefault("picks", []).append((st.session_state.get("current_pick", 1), coach, golfer))
+                    st.session_state.setdefault("picked_golfers", set()).add(golfer)
+                    st.session_state["current_pick"] = st.session_state.get("current_pick", 1) + 1
+                    st.session_state["last_pick_time"] = time.time()
+                    if st.session_state["current_pick"] > 30:
+                        st.session_state.draft_active = False
+                        st.success("🎉 Draft Complete!")
+                    st.rerun()
 
 # ====================== ADMIN SECTION ======================
 with st.expander("🔧 Admin Section", expanded=False):
@@ -191,6 +273,10 @@ with st.expander("🔧 Admin Section", expanded=False):
                 for c in teams_data:
                     teams_data[c]["players"] = []
                 save_teams_to_github(teams_data)
+                st.session_state.setdefault("picks", [])
+                st.session_state.setdefault("picked_golfers", set()).clear()
+                st.session_state.current_pick = 1
+                st.session_state.draft_active = False
                 st.success("All rosters cleared!")
                 st.rerun()
 
