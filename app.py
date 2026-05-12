@@ -176,20 +176,6 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
 with st.expander("🎯 DRAFT SECTION", expanded=st.session_state.get("enable_draft", False)):
     if not st.session_state.get("enable_draft", False):
         st.error("🚫 Draft is currently DISABLED in Admin section")
-    
-    col1, col2 = st.columns(2)
-    with col1:
-        if st.button("▶️ Start Draft", type="primary", disabled=not st.session_state.get("enable_draft", False) or st.session_state.get("draft_active", False), use_container_width=True):
-            st.session_state.draft_active = True
-            st.session_state.draft_paused = False
-            st.rerun()
-    with col2:
-        if st.button("⏸️ Pause Draft", disabled=not st.session_state.get("draft_active", False), use_container_width=True):
-            st.session_state.draft_paused = True
-            st.rerun()
-
-    if st.session_state.get("draft_active", False):
-        # Draft dashboard and pick buttons would go here (omitted for brevity in this response, but you can add from previous version)
 
 # ====================== ADMIN SECTION ======================
 with st.expander("🔧 Admin Section", expanded=False):
