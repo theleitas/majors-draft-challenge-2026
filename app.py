@@ -24,7 +24,7 @@ COACH_COLORS = {
     "Peter Miller": "#2E47DB"
 }
 
-# Expanded Vegas odds
+# Expanded Vegas odds (favorites first)
 VEGAS_ODDS = {
     "Scottie Scheffler": "+450", "Rory McIlroy": "+800", "Xander Schauffele": "+1400",
     "Jon Rahm": "+1600", "Bryson DeChambeau": "+1800", "Ludvig Aberg": "+2200",
@@ -296,11 +296,13 @@ with st.expander("🔧 Admin Section", expanded=False):
                 for c in teams_data:
                     teams_data[c]["players"] = []
                 save_teams_to_github(teams_data)
-                st.session_state.setdefault("picks", [])
-                st.session_state.setdefault("picked_golfers", set()).clear()
+                # Force reload
+                teams_data = load_teams_from_github()
+                st.session_state.picks = []
+                st.session_state.picked_golfers = set()
                 st.session_state.current_pick = 1
                 st.session_state.draft_active = False
-                st.success("All rosters cleared!")
+                st.success("All rosters cleared and reset!")
                 st.rerun()
 
     st.subheader("Edit Team Names")
