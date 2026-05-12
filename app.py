@@ -23,7 +23,7 @@ COACH_COLORS = {
     "Peter Miller": "#2E47DB"
 }
 
-# Expanded Vegas odds
+# Expanded Vegas odds (favorites first)
 VEGAS_ODDS = {
     "Scottie Scheffler": "+450", "Rory McIlroy": "+800", "Xander Schauffele": "+1400",
     "Jon Rahm": "+1600", "Bryson DeChambeau": "+1800", "Ludvig Aberg": "+2200",
