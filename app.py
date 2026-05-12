@@ -6,6 +6,7 @@ import time
 from datetime import datetime
 import zoneinfo
 from streamlit_autorefresh import st_autorefresh
+import pandas as pd   # ← This was missing
 
 st.set_page_config(page_title="PGA Championship Draft 2026", layout="wide", initial_sidebar_state="collapsed")
 
@@ -23,7 +24,7 @@ COACH_COLORS = {
     "Peter Miller": "#2E47DB"
 }
 
-# Expanded Vegas odds (favorites first)
+# Expanded Vegas odds
 VEGAS_ODDS = {
     "Scottie Scheffler": "+450", "Rory McIlroy": "+800", "Xander Schauffele": "+1400",
     "Jon Rahm": "+1600", "Bryson DeChambeau": "+1800", "Ludvig Aberg": "+2200",
