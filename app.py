@@ -24,7 +24,8 @@ VEGAS_ODDS = {
     "Min Woo Lee": "+8000", "Shane Lowry": "+9000", "Tyrrell Hatton": "+10000",
     "Corey Conners": "+11000", "Adam Scott": "+12000", "Sepp Straka": "+14000",
     "Sungjae Im": "+15000", "J.T. Poston": "+18000", "Alex Smalley": "+20000",
-    # ... many more with N/A below
+    "Sam Burns": "+22000", "Jason Day": "+25000", "Rickie Fowler": "+28000",
+    "Max Homa": "+30000", "Tony Finau": "+35000", "Justin Rose": "+40000",
 }
 
 # Full field
@@ -84,7 +85,7 @@ if "draft_active" not in st.session_state:
     st.session_state.draft_active = False
     st.session_state.draft_paused = False
     st.session_state.draft_locked = False
-    st.session_state.enable_draft = False   # ← Default is OFF
+    st.session_state.enable_draft = False
     st.session_state.current_pick = 1
     st.session_state.picks = []
     st.session_state.picked_golfers = set()
@@ -96,7 +97,7 @@ teams_data = load_teams()
 if st.session_state.draft_active and not st.session_state.draft_paused:
     st_autorefresh(interval=3000, limit=None, key="draft_timer")
 
-# ====================== STANDINGS (Clean cards like your image) ======================
+# ====================== STANDINGS ======================
 st.subheader("Standings")
 for coach_id, info in teams_data.items():
     team_name = info.get("team_name", coach_id)
@@ -119,7 +120,7 @@ for coach_id, info in teams_data.items():
     """
     st.markdown(card, unsafe_allow_html=True)
 
-# ====================== TEAM ROSTERS (Same colored card style) ======================
+# ====================== TEAM ROSTERS (Same card style) ======================
 st.subheader("Team Rosters")
 team_cols = st.columns(3)
 for idx, (coach_id, info) in enumerate(teams_data.items()):
@@ -128,7 +129,6 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
         players = info.get("players", [])
         color = COACH_COLORS.get(coach_id, "#555555")
 
-        # Big colored card for the entire roster
         roster_card = f"""
         <div style="border: 5px solid {color}; background-color: {color}18; border-radius: 24px; padding: 20px 24px; margin-bottom: 1.8rem;">
             <div style="color:{color}; font-size:1.75rem; font-weight:800; margin-bottom:12px;">{team_name}</div>
@@ -143,38 +143,139 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
             def highlight_top3(row):
                 return ['background-color: #ffeb3b; font-weight: bold'] * len(row) if row.name < 3 else [''] * len(row)
             styled = df.style.apply(highlight_top3, axis=1)
-            st.dataframe(styled, use_container_width=True, hide_index=True, height=380)  # Tall enough for 10 golfers
-
+            st.dataframe(styled, use_container_width=True, hide_index=True, height=380)
+        
         st.markdown('</div>', unsafe_allow_html=True)
 
-# ====================== DRAFT SECTION ======================
+# ====================== DRAFT SECTION (Fully working) ======================
 with st.expander("🎯 DRAFT SECTION", expanded=True):
     if not st.session_state.enable_draft:
-        st.error("🚫 Draft is currently **DISABLED** in Admin section")
+        st.error("🚫 Draft is currently DISABLED in Admin section")
     
     col1, col2, col3, col4 = st.columns([1.2, 1.2, 1.2, 2])
     with col1:
-        if st.button("▶️ Start Draft", type="primary", disabled=not st.session_state.enable_draft or st.session_state.draft_active or st.session_state.draft_locked):
+        if st.button("▶️ Start Draft", type="primary", disabled=not st.session_state.enable_draft or st.session_state.draft_active or st.session_state.draft_locked, use_container_width=True):
             st.session_state.draft_active = True
             st.session_state.draft_paused = False
             st.rerun()
     with col2:
-        if st.button("⏸️ Pause Draft", disabled=not st.session_state.draft_active):
+        if st.button("⏸️ Pause Draft", disabled=not st.session_state.draft_active, use_container_width=True):
             st.session_state.draft_paused = True
             st.rerun()
     with col3:
-        if st.button("✅ Complete Draft", disabled=not st.session_state.draft_active):
+        if st.button("✅ Complete Draft", disabled=not st.session_state.draft_active, use_container_width=True):
             st.session_state.draft_active = False
             st.session_state.draft_locked = True
             st.success("Draft completed and locked!")
             st.rerun()
     with col4:
-        if st.button("🔒 Lock in Draft Picks", type="secondary"):
+        if st.button("🔒 Lock in Draft Picks", type="secondary", use_container_width=True):
             st.session_state.draft_locked = True
             st.success("Rosters are now locked!")
             st.rerun()
 
-    # ... (draft dashboard and available golfers with odds code continues exactly as before)
+    if st.session_state.draft_active:
+        current_coach = get_coach_for_pick(st.session_state.current_pick, st.session_state.draft_order)
+        st.markdown(f"## 🔥 CURRENT PICK: **{current_coach}** — Pick #{st.session_state.current_pick}")
+        if st.session_state.draft_paused:
+            st.warning("⏸️ Draft is PAUSED")
+
+    st.subheader("Draft Dashboard")
+    grid_html = """
+    <style>
+    @keyframes flash { 0% { background-color: #ffeb3b; } 50% { background-color: #fff59d; } 100% { background-color: #ffeb3b; } }
+    .draft-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+    .draft-table th, .draft-table td { border: 1px solid #444; padding: 10px; text-align: center; }
+    .draft-table th { background-color: #1f1f1f; color: #fff; }
+    .current-cell { animation: flash 1.2s infinite; font-weight: bold; }
+    </style>
+    <table class="draft-table">
+    <tr><th>Round</th>
+    """
+    for p in st.session_state.draft_order:
+        grid_html += f"<th>{p}</th>"
+    grid_html += "</tr>"
+
+    for r in range(10):
+        grid_html += f"<tr><td><b>Round {r+1}</b></td>"
+        for c in range(3):
+            if r % 2 == 0:
+                pick_num = r * 3 + c + 1
+            else:
+                pick_num = r * 3 + (2 - c) + 1
+
+            picked_golfer = next((pk[2] for pk in st.session_state.picks if pk[0] == pick_num), None)
+            is_current = (pick_num == st.session_state.current_pick and st.session_state.draft_active and not st.session_state.draft_paused)
+
+            if picked_golfer:
+                cell = picked_golfer
+                cell_style = ""
+            elif is_current:
+                elapsed = int(time.time() - st.session_state.last_pick_time)
+                cell = f"⏱️ {elapsed}s<br>Pick {pick_num}"
+                cell_style = "class='current-cell' style='background-color:#ffeb3b; color:#000;'"
+            else:
+                cell = f"Pick {pick_num}"
+                cell_style = ""
+            grid_html += f"<td {cell_style}>{cell}</td>"
+        grid_html += "</tr>"
+    grid_html += "</table>"
+    st.markdown(grid_html, unsafe_allow_html=True)
+
+    st.subheader("Available Golfers — Click to Draft")
+    # Sort by odds (best first)
+    sorted_players = sorted(PGA_PLAYERS, key=lambda x: int(VEGAS_ODDS.get(x, "999999").replace("+", "")))
+    available = [p for p in sorted_players if p not in st.session_state.picked_golfers]
+
+    num_cols = 4
+    cols = st.columns(num_cols)
+    for idx, golfer in enumerate(available):
+        col_idx = idx % num_cols
+        with cols[col_idx]:
+            odds = VEGAS_ODDS.get(golfer, "(N/A)")
+            disabled = not (st.session_state.draft_active and not st.session_state.draft_paused and st.session_state.enable_draft)
+            if st.button(f"✅ {golfer} {odds}", key=f"pick_{golfer}", disabled=disabled, use_container_width=True):
+                coach = get_coach_for_pick(st.session_state.current_pick, st.session_state.draft_order)
+                if golfer not in teams_data[coach]["players"]:
+                    teams_data[coach]["players"].append(golfer)
+                    save_teams(teams_data)
+                st.session_state.picks.append((st.session_state.current_pick, coach, golfer))
+                st.session_state.picked_golfers.add(golfer)
+                st.session_state.current_pick += 1
+                st.session_state.last_pick_time = time.time()
+                if st.session_state.current_pick > 30:
+                    st.session_state.draft_active = False
+                    st.session_state.draft_locked = True
+                    st.success("🎉 Draft Complete!")
+                st.rerun()
+
+    st.divider()
+    col_red, col_undo = st.columns(2)
+    with col_red:
+        if st.button("🛑 Reset Draft & Clear Roster", type="secondary", use_container_width=True):
+            if st.checkbox("⚠️ Confirm full reset?"):
+                for c in teams_data:
+                    teams_data[c]["players"] = []
+                save_teams(teams_data)
+                st.session_state.picks = []
+                st.session_state.picked_golfers = set()
+                st.session_state.current_pick = 1
+                st.session_state.draft_active = False
+                st.session_state.draft_locked = False
+                st.success("Everything reset!")
+                st.rerun()
+    with col_undo:
+        if st.button("↩️ Undo Last Pick", use_container_width=True):
+            if st.session_state.picks:
+                last = st.session_state.picks.pop()
+                _, coach, golfer = last
+                if golfer in teams_data[coach]["players"]:
+                    teams_data[coach]["players"].remove(golfer)
+                save_teams(teams_data)
+                st.session_state.picked_golfers.discard(golfer)
+                st.session_state.current_pick = last[0]
+                st.success(f"Undid {golfer}")
+                st.rerun()
 
 # ====================== ADMIN SECTION ======================
 with st.expander("🔧 Admin Section", expanded=False):
@@ -183,7 +284,7 @@ with st.expander("🔧 Admin Section", expanded=False):
     if enable != st.session_state.enable_draft:
         st.session_state.enable_draft = enable
         st.rerun()
-    
+
     st.subheader("Edit Team Names")
     new_teams = {}
     for coach_id, info in teams_data.items():
@@ -193,20 +294,19 @@ with st.expander("🔧 Admin Section", expanded=False):
 
     if st.button("💾 Save Team Names"):
         save_teams(new_teams)
-        st.success("Team names saved!")
+        st.success("Saved!")
         st.rerun()
 
     st.divider()
     st.subheader("Draft Order Setup")
     coaches = list(teams_data.keys())
-    p1 = st.selectbox("Player 1 (starts Round 1)", coaches, index=0, key="admin_p1")
+    p1 = st.selectbox("Player 1", coaches, index=0, key="p1")
     rem = [c for c in coaches if c != p1]
-    p2 = st.selectbox("Player 2", rem, index=0, key="admin_p2")
+    p2 = st.selectbox("Player 2", rem, index=0, key="p2")
     p3 = [c for c in rem if c != p2][0]
-    st.write(f"**Player 3 will be:** {p3}")
-    if st.button("Set This Draft Order"):
+    if st.button("Set Draft Order"):
         st.session_state.draft_order = [p1, p2, p3]
-        st.success(f"Draft order set: {p1} → {p2} → {p3} (snake)")
+        st.success(f"Order set: {p1} → {p2} → {p3}")
         st.rerun()
 
-st.caption("PGA Championship Draft 2026 • Built with Streamlit • Data auto-saves to teams.json")
+st.caption("PGA Championship Draft 2026 • Built with Streamlit")
