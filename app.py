@@ -6,7 +6,7 @@ import time
 from datetime import datetime
 import zoneinfo
 from streamlit_autorefresh import st_autorefresh
-import pandas as pd   # ← This was missing
+import pandas as pd
 
 st.set_page_config(page_title="PGA Championship Draft 2026", layout="wide", initial_sidebar_state="collapsed")
 
