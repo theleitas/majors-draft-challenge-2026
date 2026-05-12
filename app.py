@@ -89,38 +89,38 @@ for coach_id, info in teams_data.items():
     color = COACH_COLORS.get(coach_id, "#555555")
     players = info.get("players", [])
     
-    # Build top 3 display (placeholder until live scores work)
-    top3_lines = ""
+    # Build top 3 lines
     if players:
-        for i, p in enumerate(players[:3]):
-            top3_lines += f"<div style='margin: 4px 0; color:{color};'>{p} <span style='font-weight:bold;'>(-XX)</span> Thru XX</div>"
+        top3_html = ""
+        for p in players[:3]:
+            top3_html += f"<div style='margin:3px 0; color:{color}; font-size:1.05rem;'>{p} <span style='font-weight:700;'>(-XX)</span> Thru XX</div>"
     else:
-        top3_lines = "<div style='color:#888; font-style:italic;'>No golfers drafted yet</div>"
+        top3_html = "<div style='color:#888; font-style:italic; font-size:0.95rem;'>No golfers drafted yet</div>"
     
-    # Styled card exactly like the reference image
-    card_html = f"""
+    # Clean card matching the reference image style
+    card = f"""
     <div style="
-        border: 4px solid {color}; 
-        background-color: {color}15; 
-        border-radius: 24px; 
-        padding: 18px 24px; 
-        margin-bottom: 1.6rem;
-        box-shadow: 2px 4px 12px rgba(0,0,0,0.08);
+        border: 5px solid {color}; 
+        background-color: {color}18; 
+        border-radius: 22px; 
+        padding: 16px 22px; 
+        margin-bottom: 1.5rem;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
     ">
-        <div style="color:{color}; font-size:1.65rem; font-weight:700; margin-bottom:10px;">
+        <div style="color:{color}; font-size:1.7rem; font-weight:800; margin-bottom:6px;">
             {team_name}
         </div>
         
-        <div style="font-size:1.35rem; font-weight:600; color:{color}; margin-bottom:12px;">
+        <div style="font-size:1.4rem; font-weight:700; color:{color}; margin: 8px 0 10px 0;">
             Total (-XX)
         </div>
         
-        <div style="font-size:1.05rem; line-height:1.5;">
-            {top3_lines}
+        <div style="line-height:1.45;">
+            {top3_html}
         </div>
     </div>
     """
-    st.markdown(card_html, unsafe_allow_html=True)
+    st.markdown(card, unsafe_allow_html=True)
 
 # ====================== TOP 10 LEADERBOARD (placeholder) ======================
 st.subheader("Top 10 Leaderboard")
