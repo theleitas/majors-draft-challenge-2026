@@ -22,7 +22,7 @@ COACH_COLORS = {
     "Peter Miller": "#2E47DB"
 }
 
-# Expanded Vegas odds (favorites first)
+# Expanded Vegas odds
 VEGAS_ODDS = {
     "Scottie Scheffler": "+450", "Rory McIlroy": "+800", "Xander Schauffele": "+1400",
     "Jon Rahm": "+1600", "Bryson DeChambeau": "+1800", "Ludvig Aberg": "+2200",
@@ -113,7 +113,29 @@ def save_teams_to_github(teams_dict):
         st.error(f"GitHub save failed: {e}")
         return False
 
+def get_coach_for_pick(pick_num, order):
+    round_idx = (pick_num - 1) // 3
+    pos = (pick_num - 1) % 3
+    if round_idx % 2 == 0:
+        return order[pos]
+    else:
+        return order[2 - pos]
+
+# Initialize session state
+if "draft_active" not in st.session_state:
+    st.session_state.draft_active = False
+    st.session_state.draft_paused = False
+    st.session_state.enable_draft = False
+    st.session_state.current_pick = 1
+    st.session_state.picks = []
+    st.session_state.picked_golfers = set()
+    st.session_state.draft_order = ["Jayme Leita", "Spencer Tidwell", "Peter Miller"]
+    st.session_state.last_pick_time = time.time()
+
 teams_data = load_teams_from_github()
+
+if st.session_state.draft_active and not st.session_state.draft_paused:
+    st_autorefresh(interval=3000, limit=None, key="draft_timer")
 
 # ====================== TITLE ======================
 st.title("🏌️ PGA Championship 2026")
@@ -194,7 +216,7 @@ with st.expander("🎯 DRAFT SECTION", expanded=st.session_state.get("enable_dra
                 st.warning("⏸️ Draft is PAUSED")
 
         st.subheader("Draft Dashboard")
-        # Full draft dashboard table
+        # Draft dashboard table
         grid_html = """
         <style>
         @keyframes flash { 0% { background-color: #ffeb3b; } 50% { background-color: #fff59d; } 100% { background-color: #ffeb3b; } }
