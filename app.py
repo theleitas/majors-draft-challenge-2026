@@ -87,10 +87,27 @@ st.subheader("Standings")
 for coach_id, info in teams_data.items():
     team_name = info.get("team_name", coach_id)
     color = COACH_COLORS.get(coach_id, "#555555")
-    box_style = f"border: 3px solid {color}; background-color: {color}15; border-radius: 14px; padding: 20px; margin-bottom: 1.5rem;"
-    st.markdown(f'<div style="{box_style}">', unsafe_allow_html=True)
-    st.markdown(f"<span style='color:{color}; font-size:1.45rem; font-weight:bold;'>{team_name}</span>", unsafe_allow_html=True)
-    st.caption("TOTAL: — (live scores during tournament)")
+    
+    # Big colored container for the entire player section
+    container_style = f"""
+        border: 4px solid {color}; 
+        background-color: {color}12; 
+        border-radius: 16px; 
+        padding: 20px 24px; 
+        margin-bottom: 1.8rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    """
+    st.markdown(f'<div style="{container_style}">', unsafe_allow_html=True)
+    
+    # Team name (large and colored)
+    st.markdown(f"<span style='color:{color}; font-size:1.6rem; font-weight:bold;'>{team_name}</span>", unsafe_allow_html=True)
+    
+    # TOTAL score (big)
+    st.markdown("<div style='margin: 12px 0 8px 0;'>", unsafe_allow_html=True)
+    st.metric("TOTAL", "—", help="Live scores coming soon")
+    st.markdown("</div>", unsafe_allow_html=True)
+    
+    st.caption("Top 3 lowest scores will appear here during the tournament")
     st.markdown('</div>', unsafe_allow_html=True)
 
 # ====================== TOP 10 LEADERBOARD (placeholder) ======================
@@ -125,6 +142,7 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
                 })
 
             df = pd.DataFrame(table_data)
+
             numeric_scores = df[df["Score"] != "N/A"]["Score"].astype(float)
             if len(numeric_scores) >= 3:
                 top3_indices = numeric_scores.nsmallest(3).index.tolist()
@@ -138,7 +156,15 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
 
             styled_df = df.style.apply(highlight_top3, axis=1)
 
-            st.markdown(f'<div style="border: 2px solid {color}; border-radius: 8px; padding: 4px;">', unsafe_allow_html=True)
+            # Big colored container for the entire roster table
+            roster_style = f"""
+                border: 4px solid {color}; 
+                background-color: {color}10; 
+                border-radius: 14px; 
+                padding: 12px;
+                margin-top: 8px;
+            """
+            st.markdown(f'<div style="{roster_style}">', unsafe_allow_html=True)
             st.dataframe(styled_df, use_container_width=True, hide_index=True, height=220)
             st.markdown('</div>', unsafe_allow_html=True)
 
