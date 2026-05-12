@@ -1,20 +1,14 @@
 {
-  "Peter Miller": {
-    "team_name": "Peter's Princesses",
-    "players": [
-      "J.J. Spaun"
-    ]
-  },
   "Jayme Leita": {
-    "team_name": "Jayme's Aces",
-    "players": [
-      "Rickie Fowler"
-    ]
+    "team_name": "Jayme's Team",
+    "players": []
   },
   "Spencer Tidwell": {
-    "team_name": "Spencer's Masters",
-    "players": [
-      "Harry Hall"
-    ]
+    "team_name": "Spencer's Team",
+    "players": []
+  },
+  "Peter Miller": {
+    "team_name": "Peter's Princesses",
+    "players": []
   }
 }
