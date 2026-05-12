@@ -2,6 +2,7 @@ import streamlit as st
 import requests
 import json
 import base64
+import time
 from datetime import datetime
 import zoneinfo
 from streamlit_autorefresh import st_autorefresh
@@ -216,7 +217,6 @@ with st.expander("🎯 DRAFT SECTION", expanded=st.session_state.get("enable_dra
                 st.warning("⏸️ Draft is PAUSED")
 
         st.subheader("Draft Dashboard")
-        # Draft dashboard table
         grid_html = """
         <style>
         @keyframes flash { 0% { background-color: #ffeb3b; } 50% { background-color: #fff59d; } 100% { background-color: #ffeb3b; } }
