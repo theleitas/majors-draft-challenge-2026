@@ -97,24 +97,53 @@ for coach_id, info in teams_data.items():
 st.subheader("Top 10 Leaderboard")
 st.caption("Live leaderboard will appear here during the tournament.")
 
-# ====================== TEAM ROSTERS ======================
+# ====================== TEAM ROSTERS (Nice tables with top-3 highlighted) ======================
 st.subheader("Team Rosters")
+
+def get_golfer_info(name):
+    return {"score": None, "hole": "—"}
+
 team_cols = st.columns(3)
 for idx, (coach_id, info) in enumerate(teams_data.items()):
     with team_cols[idx]:
         team_name = info.get("team_name", coach_id)
         players = info.get("players", [])
+        color = COACH_COLORS.get(coach_id, "#555555")
+
         st.markdown(f"**{team_name}**")
+
         if not players:
             st.caption("No golfers drafted yet")
         else:
+            table_data = []
             for p in players:
-                st.write(f"• {p}")
-            st.caption(f"Total: {len(players)} golfers")
+                g_info = get_golfer_info(p)
+                table_data.append({
+                    "Golfer": p,
+                    "Score": g_info["score"] if g_info["score"] is not None else "N/A",
+                    "Hole": g_info["hole"]
+                })
+
+            df = pd.DataFrame(table_data)
+            numeric_scores = df[df["Score"] != "N/A"]["Score"].astype(float)
+            if len(numeric_scores) >= 3:
+                top3_indices = numeric_scores.nsmallest(3).index.tolist()
+            else:
+                top3_indices = numeric_scores.index.tolist()
+
+            def highlight_top3(row):
+                if row.name in top3_indices:
+                    return ['background-color: #ffeb3b; font-weight: bold'] * len(row)
+                return [''] * len(row)
+
+            styled_df = df.style.apply(highlight_top3, axis=1)
+
+            st.markdown(f'<div style="border: 2px solid {color}; border-radius: 8px; padding: 4px;">', unsafe_allow_html=True)
+            st.dataframe(styled_df, use_container_width=True, hide_index=True, height=220)
+            st.markdown('</div>', unsafe_allow_html=True)
 
 # ====================== DRAFT SECTION ======================
 with st.expander("🎯 DRAFT SECTION", expanded=True):
-    # Control buttons
     col1, col2, col3 = st.columns(3)
     with col1:
         start_disabled = st.session_state.draft_active and not st.session_state.draft_paused
@@ -139,7 +168,6 @@ with st.expander("🎯 DRAFT SECTION", expanded=True):
             st.success("Draft marked as complete!")
             st.rerun()
 
-    # Current pick header
     if st.session_state.draft_active:
         current_coach = get_coach_for_pick(st.session_state.current_pick, st.session_state.draft_order)
         st.markdown(f"## 🔥 CURRENT PICK: **{current_coach}** — Pick #{st.session_state.current_pick}")
@@ -148,10 +176,8 @@ with st.expander("🎯 DRAFT SECTION", expanded=True):
     else:
         st.info("Draft is not active. Click Start Draft to begin.")
 
-    # Draft Dashboard (HTML table with flashing current cell)
     st.subheader("Draft Dashboard")
 
-    # Build grid
     grid_html = """
     <style>
     @keyframes flash {
@@ -180,7 +206,6 @@ with st.expander("🎯 DRAFT SECTION", expanded=True):
             else:
                 pick_num = r * 3 + (2 - c) + 1
 
-            # Check if picked
             picked_golfer = None
             for pk in st.session_state.picks:
                 if pk[0] == pick_num:
@@ -206,14 +231,12 @@ with st.expander("🎯 DRAFT SECTION", expanded=True):
     grid_html += "</table>"
     st.markdown(grid_html, unsafe_allow_html=True)
 
-    # Player Pick Buttons
     st.subheader("Available Golfers — Click to Draft")
     available = [p for p in PGA_PLAYERS if p not in st.session_state.picked_golfers]
 
     if not available:
         st.success("All golfers have been drafted!")
 
-    # Display in 4 columns
     num_cols = 4
     cols = st.columns(num_cols)
     for idx, golfer in enumerate(available):
@@ -234,12 +257,11 @@ with st.expander("🎯 DRAFT SECTION", expanded=True):
                     st.success("🎉 Draft Complete! All 30 picks made.")
                 st.rerun()
 
-    # Bottom Draft Controls
     st.divider()
     col_red, col_undo = st.columns(2)
     with col_red:
         if st.button("🛑 Reset Draft & Clear Roster", type="secondary", use_container_width=True):
-            confirm = st.checkbox("⚠️ Confirm: Permanently clear ALL golfers from every roster?")
+            confirm = st.checkbox("⚠️ Confirm: Permanently clear ALL golfers from every roster and reset the draft board?")
             if confirm:
                 for c in teams_data:
                     teams_data[c]["players"] = []
@@ -249,7 +271,8 @@ with st.expander("🎯 DRAFT SECTION", expanded=True):
                 st.session_state.current_pick = 1
                 st.session_state.draft_active = False
                 st.session_state.draft_paused = False
-                st.success("Draft reset and all rosters cleared!")
+                st.session_state.last_pick_time = time.time()
+                st.success("Draft fully reset — all rosters cleared and dashboard returned to starting state!")
                 st.rerun()
     with col_undo:
         if st.button("↩️ Undo Last Pick", use_container_width=True):
@@ -269,19 +292,16 @@ with st.expander("🎯 DRAFT SECTION", expanded=True):
 
 # ====================== ADMIN SECTION ======================
 with st.expander("🔧 Admin Section", expanded=False):
-    st.subheader("Edit Team Names & Rosters")
+    st.subheader("Edit Team Names")
     new_teams = {}
     for coach_id, info in teams_data.items():
         st.markdown(f"### {coach_id}")
         new_name = st.text_input("Team Name", value=info.get("team_name", coach_id), key=f"admin_name_{coach_id}")
-        players_str = "\n".join(info.get("players", []))
-        new_players_str = st.text_area("Golfers (one per line)", value=players_str, key=f"admin_players_{coach_id}", height=130)
-        new_players = [p.strip() for p in new_players_str.split("\n") if p.strip()]
-        new_teams[coach_id] = {"team_name": new_name, "players": new_players}
+        new_teams[coach_id] = {"team_name": new_name, "players": info.get("players", [])}
 
-    if st.button("💾 Save All Team Changes", type="primary"):
+    if st.button("💾 Save Team Names", type="primary"):
         save_teams(new_teams)
-        st.success("Teams saved successfully!")
+        st.success("Team names saved successfully!")
         st.rerun()
 
     st.divider()
