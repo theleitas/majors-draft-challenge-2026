@@ -1,42 +1,24 @@
 {
-  "draft_enabled": true,
-  "draft_active": true,
+  "draft_enabled": false,
+  "draft_active": false,
   "draft_order": [
     "Jayme Leita",
     "Spencer Tidwell",
     "Peter Miller"
   ],
-  "last_pick_started_at": 1778644394.410149,
+  "last_pick_started_at": 0,
   "teams": {
     "Jayme Leita": {
       "team_name": "Jayme's Team",
-      "players": [
-        "Ludvig Aberg",
-        "Rickie Fowler",
-        "Sungjae Im",
-        "Jordan Spieth",
-        "Min Woo Lee"
-      ]
+      "players": []
     },
     "Spencer Tidwell": {
       "team_name": "Spencer's Team",
-      "players": [
-        "Cameron Young",
-        "Bryson DeChambeau",
-        "Tommy Fleetwood",
-        "Rory McIlroy",
-        "Hideki Matsuyama"
-      ]
+      "players": []
     },
     "Peter Miller": {
       "team_name": "Peter's Team",
-      "players": [
-        "Jason Day",
-        "Scottie Scheffler",
-        "Collin Morikawa",
-        "Adam Schenk",
-        "Sahith Theegala"
-      ]
+      "players": []
     }
   }
 }
