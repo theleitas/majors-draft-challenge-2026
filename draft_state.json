@@ -1,12 +1,12 @@
 {
   "draft_enabled": true,
-  "draft_active": false,
+  "draft_active": true,
   "draft_order": [
     "Peter Miller",
     "Jayme Leita",
     "Spencer Tidwell"
   ],
-  "last_pick_started_at": 0,
+  "last_pick_started_at": 1778644547.7745473,
   "teams": {
     "Jayme Leita": {
       "team_name": "Jayme's Team",
