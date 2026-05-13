@@ -5,7 +5,6 @@ import base64
 import time
 import html
 from datetime import datetime
-from statistics import median
 from streamlit_autorefresh import st_autorefresh
 
 st.set_page_config(
@@ -70,6 +69,7 @@ def read_secret(*path):
         return None
 
 
+# ====================== CONFIG ======================
 GITHUB_TOKEN = read_secret("GITHUB", "TOKEN")
 REPO_OWNER = "theleitas"
 REPO_NAME = "majors-draft-challenge-2026"
@@ -83,16 +83,13 @@ GITHUB_HEADERS = {
     "X-GitHub-Api-Version": "2022-11-28",
 }
 
-ODDS_API_KEY = read_secret("ODDS_API", "KEY") or read_secret("THE_ODDS_API", "KEY")
-ODDS_SPORT_KEY = "golf_pga_championship_winner"
-
 COACH_COLORS = {
     "Jayme Leita": "#00cc77",
     "Spencer Tidwell": "#bb77ff",
     "Peter Miller": "#2E47DB",
 }
 
-FALLBACK_ODDS = {
+STATIC_ODDS = {
     "Scottie Scheffler": "+450", "Rory McIlroy": "+800", "Xander Schauffele": "+1400",
     "Jon Rahm": "+1600", "Bryson DeChambeau": "+1800", "Ludvig Aberg": "+2200",
     "Cameron Young": "+2500", "Matt Fitzpatrick": "+2800", "Tommy Fleetwood": "+3000",
@@ -142,23 +139,14 @@ PGA_PLAYERS = sorted([
 ])
 
 PLAYER_RESULTS = {
-    # Add live or manual scores here.
+    # Add manual scores here later, or replace this with a leaderboard feed.
     # "Scottie Scheffler": {"score": "-4", "hole": "12"},
     # "Rory McIlroy": {"score": "E", "hole": "F"},
     # "Xander Schauffele": {"score": "+1", "hole": "8"},
 }
 
-PLAYER_ALIASES = {
-    "Matthew Fitzpatrick": "Matt Fitzpatrick",
-    "Matt Fitzpatrick": "Matt Fitzpatrick",
-    "JT Poston": "J.T. Poston",
-    "J.T. Poston": "J.T. Poston",
-    "Rasmus Neergaard Petersen": "Rasmus Neergaard-Petersen",
-    "Nicolai Hojgaard": "Nicolai Højgaard",
-    "Rasmus Hojgaard": "Rasmus Højgaard",
-}
 
-
+# ====================== DATA HELPERS ======================
 def default_teams():
     return {
         "Jayme Leita": {"team_name": "Jayme's Team", "players": []},
@@ -175,6 +163,7 @@ def load_teams_from_github():
         if resp.status_code == 200:
             content = resp.json()["content"]
             return json.loads(base64.b64decode(content).decode("utf-8"))
+
         st.warning(f"Could not load teams from GitHub. Status code: {resp.status_code}")
     except Exception as e:
         st.warning(f"Could not load teams from GitHub: {e}")
@@ -218,16 +207,11 @@ def save_teams_to_github(teams_dict, message_prefix="Update teams"):
             if attempt < 2:
                 time.sleep(0.6)
                 continue
+
             st.error(f"GitHub save failed: {e}")
             return False
 
     return False
-
-
-def get_coach_for_pick(pick_num, order):
-    round_idx = (pick_num - 1) // 3
-    pos = (pick_num - 1) % 3
-    return order[pos] if round_idx % 2 == 0 else order[2 - pos]
 
 
 def reset_all_rosters(teams):
@@ -238,6 +222,13 @@ def reset_all_rosters(teams):
         }
         for coach, info in teams.items()
     }
+
+
+# ====================== DRAFT HELPERS ======================
+def get_coach_for_pick(pick_num, order):
+    round_idx = (pick_num - 1) // 3
+    pos = (pick_num - 1) % 3
+    return order[pos] if round_idx % 2 == 0 else order[2 - pos]
 
 
 def derive_picks_from_teams(teams, draft_order):
@@ -282,6 +273,7 @@ def undo_last_pick(teams):
 
     pick_num, coach, golfer = picks[-1]
     players = teams.get(coach, {}).get("players", [])
+    original_players = list(players)
 
     if players and players[-1] == golfer:
         players.pop()
@@ -294,9 +286,30 @@ def undo_last_pick(teams):
     if save_teams_to_github(teams, "Undo last pick"):
         return pick_num, coach, golfer
 
+    teams[coach]["players"] = original_players
     return None
 
 
+def make_draft_pick(teams, golfer):
+    coach = get_coach_for_pick(st.session_state.current_pick, st.session_state.draft_order)
+
+    if golfer in st.session_state.picked_golfers:
+        st.warning(f"{golfer} has already been drafted.")
+        return False
+
+    teams.setdefault(coach, {"team_name": f"{coach}'s Team", "players": []})
+    teams[coach].setdefault("players", [])
+    teams[coach]["players"].append(golfer)
+
+    if save_teams_to_github(teams, "Draft pick"):
+        return True
+
+    teams[coach]["players"].remove(golfer)
+    st.error("Pick was not saved. Please try again.")
+    return False
+
+
+# ====================== SCORE HELPERS ======================
 def get_player_result(player):
     return PLAYER_RESULTS.get(player, {"score": "N/A", "hole": "—"})
 
@@ -360,6 +373,7 @@ def get_team_total(players):
     return format_golf_score(total)
 
 
+# ====================== ODDS HELPERS ======================
 def parse_american_odds(value):
     try:
         if value is None:
@@ -367,13 +381,6 @@ def parse_american_odds(value):
         return int(str(value).replace("+", "").strip())
     except Exception:
         return None
-
-
-def format_american_odds(value):
-    if value is None:
-        return "(N/A)"
-    value = int(round(value))
-    return f"+{value}" if value > 0 else str(value)
 
 
 def implied_probability(american_odds):
@@ -386,8 +393,14 @@ def implied_probability(american_odds):
     return abs(american_odds) / (abs(american_odds) + 100)
 
 
-def normalize_player_name(name):
-    return PLAYER_ALIASES.get(name, name)
+def golfer_odds_label(golfer):
+    return STATIC_ODDS.get(golfer, "(N/A)")
+
+
+def odds_sort_key(golfer):
+    odds_value = parse_american_odds(STATIC_ODDS.get(golfer))
+    probability = implied_probability(odds_value)
+    return (-probability, golfer)
 
 
 def format_elapsed_time(start_time):
@@ -398,83 +411,7 @@ def format_elapsed_time(start_time):
     return f"{hours:02d}:{minutes:02d}:{seconds:02d}"
 
 
-@st.cache_data(ttl=900)
-def fetch_live_odds(api_key):
-    if not api_key:
-        return {}, "Static fallback odds. Add [ODDS_API] KEY in Streamlit secrets for live odds."
-
-    url = f"https://api.the-odds-api.com/v4/sports/{ODDS_SPORT_KEY}/odds"
-    params = {
-        "apiKey": api_key,
-        "regions": "us",
-        "markets": "outrights",
-        "oddsFormat": "american",
-    }
-
-    try:
-        resp = requests.get(url, params=params, timeout=12)
-        if resp.status_code != 200:
-            return {}, f"Static fallback odds. Live odds request failed with status {resp.status_code}."
-
-        data = resp.json()
-        player_prices = {}
-
-        for event in data:
-            for bookmaker in event.get("bookmakers", []):
-                for market in bookmaker.get("markets", []):
-                    if market.get("key") != "outrights":
-                        continue
-
-                    for outcome in market.get("outcomes", []):
-                        player = normalize_player_name(outcome.get("name"))
-                        price = outcome.get("price")
-
-                        if player in PGA_PLAYERS and isinstance(price, int):
-                            player_prices.setdefault(player, []).append(price)
-
-        odds = {}
-        for player, prices in player_prices.items():
-            median_price = int(round(median(prices)))
-            odds[player] = {
-                "label": format_american_odds(median_price),
-                "sort_price": median_price,
-                "books": len(prices),
-            }
-
-        if not odds:
-            return {}, "Static fallback odds. Live odds returned no matching golfers."
-
-        return odds, "Live odds: The Odds API PGA Championship Winner outrights, median US sportsbook price."
-
-    except Exception as e:
-        return {}, f"Static fallback odds. Live odds request failed: {e}"
-
-
-def golfer_odds_info(golfer, live_odds):
-    if golfer in live_odds:
-        return live_odds[golfer]
-
-    fallback_price = parse_american_odds(FALLBACK_ODDS.get(golfer))
-    if fallback_price is not None:
-        return {
-            "label": format_american_odds(fallback_price),
-            "sort_price": fallback_price,
-            "books": 0,
-        }
-
-    return {
-        "label": "(N/A)",
-        "sort_price": None,
-        "books": 0,
-    }
-
-
-def odds_sort_key(golfer, live_odds):
-    info = golfer_odds_info(golfer, live_odds)
-    probability = implied_probability(info.get("sort_price"))
-    return (-probability, golfer)
-
-
+# ====================== SESSION STATE ======================
 for key, default in [
     ("draft_active", False),
     ("enable_draft", False),
@@ -484,28 +421,26 @@ for key, default in [
     ("picked_golfers", set()),
     ("draft_order", ["Jayme Leita", "Spencer Tidwell", "Peter Miller"]),
     ("last_pick_time", time.time()),
-    ("saving_action", False),
 ]:
     if key not in st.session_state:
         st.session_state[key] = default
 
+if "teams_data" not in st.session_state:
+    st.session_state.teams_data = load_teams_from_github()
 
-teams_data = load_teams_from_github()
+teams_data = st.session_state.teams_data
 sync_draft_state_from_teams(teams_data)
-live_odds, odds_source = fetch_live_odds(ODDS_API_KEY)
 
-if (
-    st.session_state.draft_active
-    and st.session_state.current_pick <= MAX_PICKS
-    and not st.session_state.saving_action
-):
+if st.session_state.draft_active and st.session_state.current_pick <= MAX_PICKS:
     st_autorefresh(interval=1000, limit=None, key="draft_timer_refresh")
 
 
+# ====================== TITLE ======================
 st.title("🏌️ PGA Championship 2026")
 st.caption("**May 14–17, 2026** • Aronimink Golf Club")
 
 
+# ====================== STANDINGS ======================
 st.subheader("Standings")
 
 for coach_id, info in teams_data.items():
@@ -542,6 +477,7 @@ for coach_id, info in teams_data.items():
     st.markdown(card, unsafe_allow_html=True)
 
 
+# ====================== TEAM ROSTERS ======================
 st.subheader("Team Rosters")
 
 team_cols = st.columns(3)
@@ -586,6 +522,7 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
         st.markdown(roster_html, unsafe_allow_html=True)
 
 
+# ====================== DRAFT SECTION ======================
 with st.expander("🎯 DRAFT SECTION", expanded=st.session_state.enable_draft):
     if not st.session_state.enable_draft:
         st.error("🚫 Draft is currently DISABLED in Admin section")
@@ -615,6 +552,7 @@ with st.expander("🎯 DRAFT SECTION", expanded=st.session_state.enable_draft):
 
                 if undo_result:
                     undone_pick_num, undone_coach, undone_golfer = undo_result
+                    st.session_state.teams_data = teams_data
                     sync_draft_state_from_teams(teams_data)
                     st.session_state.current_pick = undone_pick_num
                     st.session_state.draft_active = True
@@ -720,12 +658,9 @@ with st.expander("🎯 DRAFT SECTION", expanded=st.session_state.enable_draft):
         st.markdown(grid_html, unsafe_allow_html=True)
 
         st.subheader("Available Golfers — Click to Draft")
-        st.caption(odds_source)
+        st.caption("Draft buttons are sorted once from the built-in static odds list.")
 
-        sorted_players = sorted(
-            PGA_PLAYERS,
-            key=lambda golfer: odds_sort_key(golfer, live_odds),
-        )
+        sorted_players = sorted(PGA_PLAYERS, key=odds_sort_key)
 
         available = [
             golfer for golfer in sorted_players
@@ -738,12 +673,10 @@ with st.expander("🎯 DRAFT SECTION", expanded=st.session_state.enable_draft):
             col_idx = idx % 4
 
             with cols[col_idx]:
-                odds_info = golfer_odds_info(golfer, live_odds)
-                odds_label = odds_info["label"]
+                odds_label = golfer_odds_label(golfer)
                 disabled = (
                     not st.session_state.draft_active
                     or st.session_state.current_pick > MAX_PICKS
-                    or st.session_state.saving_action
                 )
 
                 if st.button(
@@ -752,23 +685,8 @@ with st.expander("🎯 DRAFT SECTION", expanded=st.session_state.enable_draft):
                     disabled=disabled,
                     use_container_width=True,
                 ):
-                    st.session_state.saving_action = True
-
-                    coach = get_coach_for_pick(
-                        st.session_state.current_pick,
-                        st.session_state.draft_order,
-                    )
-
-                    if golfer in st.session_state.picked_golfers:
-                        st.warning(f"{golfer} has already been drafted.")
-                        st.session_state.saving_action = False
-                        st.rerun()
-
-                    teams_data.setdefault(coach, {"team_name": f"{coach}'s Team", "players": []})
-                    teams_data[coach].setdefault("players", [])
-                    teams_data[coach]["players"].append(golfer)
-
-                    if save_teams_to_github(teams_data, "Draft pick"):
+                    if make_draft_pick(teams_data, golfer):
+                        st.session_state.teams_data = teams_data
                         sync_draft_state_from_teams(teams_data)
                         st.session_state.last_pick_time = time.time()
 
@@ -776,14 +694,10 @@ with st.expander("🎯 DRAFT SECTION", expanded=st.session_state.enable_draft):
                             st.session_state.draft_active = False
                             st.success("🎉 Draft Complete!")
 
-                        st.session_state.saving_action = False
                         st.rerun()
-                    else:
-                        teams_data[coach]["players"].remove(golfer)
-                        st.session_state.saving_action = False
-                        st.error("Pick was not saved. Please try again.")
 
 
+# ====================== ADMIN SECTION ======================
 with st.expander("🔧 Admin Section", expanded=False):
     st.subheader("Draft Control")
 
@@ -821,6 +735,7 @@ with st.expander("🔧 Admin Section", expanded=False):
                     empty_teams = reset_all_rosters(teams_data)
 
                     if save_teams_to_github(empty_teams, "Reset draft"):
+                        st.session_state.teams_data = empty_teams
                         st.session_state.picks = []
                         st.session_state.picked_golfers = set()
                         st.session_state.current_pick = 1
@@ -838,6 +753,12 @@ with st.expander("🔧 Admin Section", expanded=False):
                 if st.button("Cancel", use_container_width=True):
                     st.session_state.confirm_clear_rosters = False
                     st.rerun()
+
+    if st.button("🔄 Reload Rosters From GitHub", use_container_width=True):
+        st.session_state.teams_data = load_teams_from_github()
+        sync_draft_state_from_teams(st.session_state.teams_data)
+        st.success("Rosters reloaded from GitHub.")
+        st.rerun()
 
     st.subheader("Edit Team Names")
 
@@ -859,6 +780,7 @@ with st.expander("🔧 Admin Section", expanded=False):
 
     if st.button("💾 Save Team Names"):
         if save_teams_to_github(new_teams, "Update team names"):
+            st.session_state.teams_data = new_teams
             st.success("Team names saved!")
             st.rerun()
         else:
