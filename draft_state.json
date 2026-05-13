@@ -6,11 +6,13 @@
     "Jayme Leita",
     "Spencer Tidwell"
   ],
-  "last_pick_started_at": 1778668157.6132607,
+  "last_pick_started_at": 1778668726.8038142,
   "teams": {
     "Jayme Leita": {
       "team_name": "Jayme's Team",
-      "players": []
+      "players": [
+        "Rory McIlroy"
+      ]
     },
     "Spencer Tidwell": {
       "team_name": "Spencer's Team",
