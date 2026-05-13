@@ -6,7 +6,7 @@
     "Jayme Leita",
     "Spencer Tidwell"
   ],
-  "last_pick_started_at": 1778644547.7745473,
+  "last_pick_started_at": 1778668157.6132607,
   "teams": {
     "Jayme Leita": {
       "team_name": "Jayme's Team",
@@ -18,7 +18,9 @@
     },
     "Peter Miller": {
       "team_name": "Peter's Team",
-      "players": []
+      "players": [
+        "Scottie Scheffler"
+      ]
     }
   }
 }
