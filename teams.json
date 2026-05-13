@@ -1,47 +1,14 @@
 {
   "Jayme Leita": {
     "team_name": "Jayme's Team",
-    "players": [
-      "Rory McIlroy",
-      "Viktor Hovland",
-      "Hideki Matsuyama",
-      "Jon Rahm",
-      "Corey Conners",
-      "Alex Smalley",
-      "Justin Rose",
-      "Min Woo Lee",
-      "Shane Lowry",
-      "Aldrich Potgieter"
-    ]
+    "players": []
   },
   "Spencer Tidwell": {
     "team_name": "Spencer's Team",
-    "players": [
-      "Scottie Scheffler",
-      "Xander Schauffele",
-      "Collin Morikawa",
-      "Brooks Koepka",
-      "Adam Scott",
-      "J.T. Poston",
-      "Aaron Rai",
-      "Sahith Theegala",
-      "Alex Noren",
-      "Tyrrell Hatton"
-    ]
+    "players": []
   },
   "Peter Miller": {
     "team_name": "Peter's Princesses",
-    "players": [
-      "Bryson DeChambeau",
-      "Ludvig Aberg",
-      "Patrick Cantlay",
-      "Cameron Young",
-      "Sungjae Im",
-      "Sepp Straka",
-      "Sam Burns",
-      "Jason Day",
-      "Adrien Saddier",
-      "Andrew Putnam"
-    ]
+    "players": []
   }
 }
