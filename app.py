@@ -1,11 +1,11 @@
 import streamlit as st
+import streamlit.components.v1 as components
 import requests
 import json
 import base64
 import time
 import html
 from datetime import datetime
-from streamlit_autorefresh import st_autorefresh
 
 st.set_page_config(
     page_title="PGA Championship Draft 2026",
@@ -36,26 +36,34 @@ st.markdown(
     button {
         border-radius: 8px !important;
     }
-    .roster-player-row {
-        display: flex;
-        justify-content: space-between;
-        gap: 12px;
-        align-items: center;
-        border-radius: 10px;
+    .roster-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.95rem;
+        background: #080808;
+        color: #ffffff;
+        overflow: hidden;
+        border-radius: 8px;
+    }
+    .roster-table th {
+        text-align: left;
         padding: 10px 12px;
-        margin: 8px 0;
-        font-weight: 700;
-        min-height: 42px;
-        box-sizing: border-box;
-    }
-    .roster-player-name {
-        overflow-wrap: anywhere;
-        line-height: 1.25;
-    }
-    .roster-player-meta {
+        color: #ffffff;
+        border-bottom: 1px solid rgba(255,255,255,0.18);
         font-weight: 800;
-        white-space: nowrap;
-        opacity: 0.95;
+    }
+    .roster-table td {
+        padding: 10px 12px;
+        border-bottom: 1px solid rgba(255,255,255,0.10);
+        vertical-align: middle;
+    }
+    .roster-table tr:last-child td {
+        border-bottom: none;
+    }
+    .roster-top-three td {
+        background: #ffeb3b !important;
+        color: #000000 !important;
+        font-weight: 900;
     }
     .draft-stopped-note {
         color: #bbbbbb;
@@ -165,6 +173,7 @@ def default_teams():
 
 def load_teams_from_github():
     url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/contents/{FILE_PATH}"
+
     try:
         resp = requests.get(url, headers=GITHUB_HEADERS, timeout=10)
         if resp.status_code == 200:
@@ -173,6 +182,7 @@ def load_teams_from_github():
         st.warning(f"Could not load teams from GitHub. Status code: {resp.status_code}")
     except Exception as e:
         st.warning(f"Could not load teams from GitHub: {e}")
+
     return default_teams()
 
 
@@ -191,6 +201,7 @@ def save_teams_to_github(teams_dict, message_prefix="Update teams"):
                 "content": content_b64,
                 "branch": BRANCH,
             }
+
             if sha:
                 payload["sha"] = sha
 
@@ -206,10 +217,12 @@ def save_teams_to_github(teams_dict, message_prefix="Update teams"):
             st.error(f"GitHub save failed. Status code: {put_resp.status_code}")
             st.code(put_resp.text)
             return False
+
         except Exception as e:
             if attempt < 2:
                 time.sleep(0.6)
                 continue
+
             st.error(f"GitHub save failed: {e}")
             return False
 
@@ -292,8 +305,13 @@ def undo_last_pick(teams):
 
 
 def make_draft_pick(teams, golfer):
+    if not st.session_state.draft_active:
+        st.warning("Start the draft before making a pick.")
+        return False
+
     if st.session_state.current_pick > MAX_PICKS:
         st.warning("The draft is complete.")
+        st.session_state.draft_active = False
         return False
 
     coach = get_coach_for_pick(st.session_state.current_pick, st.session_state.draft_order)
@@ -406,12 +424,38 @@ def odds_sort_key(golfer):
     return (-probability, golfer)
 
 
-def format_elapsed_time(start_time):
-    elapsed = max(0, int(time.time() - start_time))
-    hours = elapsed // 3600
-    minutes = (elapsed % 3600) // 60
-    seconds = elapsed % 60
-    return f"{hours:02d}:{minutes:02d}:{seconds:02d}"
+def render_pick_timer(start_time):
+    start_ms = int(start_time * 1000)
+
+    components.html(
+        f"""
+        <div style="background:#000;color:#fff;font-family:Arial,sans-serif;margin:0;padding:0;">
+            <div style="font-size:1.6rem;font-weight:800;line-height:1.35;">
+                ⏱️ <span id="draft-clock">00:00:00</span>
+            </div>
+        </div>
+        <script>
+        const startMs = {start_ms};
+
+        function pad(value) {{
+            return String(value).padStart(2, "0");
+        }}
+
+        function updateClock() {{
+            const elapsed = Math.max(0, Math.floor((Date.now() - startMs) / 1000));
+            const hours = Math.floor(elapsed / 3600);
+            const minutes = Math.floor((elapsed % 3600) / 60);
+            const seconds = elapsed % 60;
+            document.getElementById("draft-clock").textContent =
+                `${{pad(hours)}}:${{pad(minutes)}}:${{pad(seconds)}}`;
+        }}
+
+        updateClock();
+        setInterval(updateClock, 1000);
+        </script>
+        """,
+        height=45,
+    )
 
 
 for key, default in [
@@ -432,9 +476,6 @@ if "teams_data" not in st.session_state:
 
 teams_data = st.session_state.teams_data
 sync_draft_state_from_teams(teams_data)
-
-if st.session_state.draft_active and st.session_state.current_pick <= MAX_PICKS:
-    st_autorefresh(interval=1000, limit=None, key="draft_timer_refresh")
 
 
 st.title("🏌️ PGA Championship 2026")
@@ -504,28 +545,27 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
         if not players:
             roster_parts.append("<div style='color:#aaa; font-style:italic;'>No golfers drafted yet</div>")
         else:
+            roster_parts.append(
+                "<table class='roster-table'>"
+                "<thead><tr><th>Golfer</th><th>Score</th><th>Hole</th></tr></thead><tbody>"
+            )
+
             for player in players:
                 safe_player = html.escape(player)
                 result = get_player_result(player)
                 score = html.escape(str(result.get("score", "N/A")))
                 hole = html.escape(str(result.get("hole", "—")))
+                row_class = " class='roster-top-three'" if player in top_three_lowest_score_players else ""
 
-                if player in top_three_lowest_score_players:
-                    roster_parts.append(
-                        "<div class='roster-player-row' "
-                        "style='border: 2px solid #ffeb3b; background:#ffeb3b; color:#000000;'>"
-                        f"<span class='roster-player-name'>{safe_player}</span>"
-                        f"<span class='roster-player-meta'>{score} · {hole}</span>"
-                        "</div>"
-                    )
-                else:
-                    roster_parts.append(
-                        f"<div class='roster-player-row' "
-                        f"style='border: 2px solid {color}; background:{color}22; color:{color};'>"
-                        f"<span class='roster-player-name'>{safe_player}</span>"
-                        f"<span class='roster-player-meta'>{score} · {hole}</span>"
-                        "</div>"
-                    )
+                roster_parts.append(
+                    f"<tr{row_class}>"
+                    f"<td>{safe_player}</td>"
+                    f"<td>{score}</td>"
+                    f"<td>{hole}</td>"
+                    "</tr>"
+                )
+
+            roster_parts.append("</tbody></table>")
 
         roster_parts.append("</div>")
         st.markdown("".join(roster_parts), unsafe_allow_html=True)
@@ -557,7 +597,6 @@ with st.expander("🎯 DRAFT SECTION", expanded=st.session_state.enable_draft):
                 use_container_width=True,
             ):
                 st.session_state.draft_active = False
-                st.session_state.last_pick_time = time.time()
                 st.rerun()
 
         with col3:
@@ -584,19 +623,19 @@ with st.expander("🎯 DRAFT SECTION", expanded=st.session_state.enable_draft):
                     st.rerun()
 
         if st.session_state.current_pick > MAX_PICKS:
-            st.success("🎉 Draft Complete! All 30 picks are in.")
             st.session_state.draft_active = False
+            st.success("🎉 Draft Complete! All 30 picks are in.")
         elif st.session_state.draft_active:
             current_coach = get_coach_for_pick(
                 st.session_state.current_pick,
                 st.session_state.draft_order,
             )
-            timer_text = format_elapsed_time(st.session_state.last_pick_time)
 
             st.markdown(
                 f"## 🔥 CURRENT PICK: **{current_coach}** — "
-                f"Pick #{st.session_state.current_pick} — ⏱️ {timer_text}"
+                f"Pick #{st.session_state.current_pick}"
             )
+            render_pick_timer(st.session_state.last_pick_time)
         else:
             current_coach = get_coach_for_pick(
                 st.session_state.current_pick,
@@ -674,8 +713,7 @@ with st.expander("🎯 DRAFT SECTION", expanded=st.session_state.enable_draft):
                     cell = html.escape(picked_golfer)
                     cell_style = ""
                 elif is_current and st.session_state.draft_active:
-                    timer_text = format_elapsed_time(st.session_state.last_pick_time)
-                    cell = f"⏱️ {timer_text}<br>Pick {pick_num}"
+                    cell = f"On Clock<br>Pick {pick_num}"
                     cell_style = "class='current-cell' style='background-color:#ffeb3b; color:#000;'"
                 elif is_current and st.session_state.current_pick <= MAX_PICKS:
                     cell = f"Stopped<br>Pick {pick_num}"
@@ -717,16 +755,17 @@ with st.expander("🎯 DRAFT SECTION", expanded=st.session_state.enable_draft):
                     disabled=disabled,
                     use_container_width=True,
                 ):
-                    if make_draft_pick(teams_data, golfer):
-                        st.session_state.teams_data = teams_data
-                        sync_draft_state_from_teams(teams_data)
-                        st.session_state.last_pick_time = time.time()
+                    with st.spinner(f"Saving {golfer}..."):
+                        if make_draft_pick(teams_data, golfer):
+                            st.session_state.teams_data = teams_data
+                            sync_draft_state_from_teams(teams_data)
+                            st.session_state.last_pick_time = time.time()
 
-                        if st.session_state.current_pick > MAX_PICKS:
-                            st.session_state.draft_active = False
-                            st.success("🎉 Draft Complete! All 30 picks are in.")
+                            if st.session_state.current_pick > MAX_PICKS:
+                                st.session_state.draft_active = False
+                                st.success("🎉 Draft Complete! All 30 picks are in.")
 
-                        st.rerun()
+                            st.rerun()
 
 
 with st.expander("🔧 Admin Section", expanded=False):
