@@ -1,27 +1,14 @@
 {
   "Jayme Leita": {
     "team_name": "Jayme's Team",
-    "players": [
-      "Justin Thomas",
-      "Collin Morikawa",
-      "Shane Lowry"
-    ]
+    "players": []
   },
   "Spencer Tidwell": {
     "team_name": "Spencer's Team",
-    "players": [
-      "Sam Burns",
-      "Min Woo Lee",
-      "Xander Schauffele",
-      "Bryson DeChambeau"
-    ]
+    "players": []
   },
   "Peter Miller": {
     "team_name": "Peter's Princesses",
-    "players": [
-      "Tommy Fleetwood",
-      "Rory McIlroy",
-      "Jon Rahm"
-    ]
+    "players": []
   }
 }
