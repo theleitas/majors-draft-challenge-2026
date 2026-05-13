@@ -1,5 +1,6 @@
 import streamlit as st
 import streamlit.components.v1 as components
+from streamlit_autorefresh import st_autorefresh
 import requests
 import json
 import base64
@@ -91,7 +92,7 @@ def read_secret(*path):
 GITHUB_TOKEN = read_secret("GITHUB", "TOKEN")
 REPO_OWNER = "theleitas"
 REPO_NAME = "majors-draft-challenge-2026"
-FILE_PATH = "teams.json"
+STATE_FILE_PATH = "draft_state.json"
 BRANCH = "main"
 MAX_PICKS = 30
 
@@ -163,80 +164,117 @@ PLAYER_RESULTS = {
 }
 
 
-def default_teams():
+def default_state():
     return {
-        "Jayme Leita": {"team_name": "Jayme's Team", "players": []},
-        "Spencer Tidwell": {"team_name": "Spencer's Team", "players": []},
-        "Peter Miller": {"team_name": "Peter's Team", "players": []},
+        "draft_enabled": False,
+        "draft_active": False,
+        "draft_order": ["Jayme Leita", "Spencer Tidwell", "Peter Miller"],
+        "last_pick_started_at": 0,
+        "teams": {
+            "Jayme Leita": {"team_name": "Jayme's Team", "players": []},
+            "Spencer Tidwell": {"team_name": "Spencer's Team", "players": []},
+            "Peter Miller": {"team_name": "Peter's Team", "players": []},
+        },
     }
 
 
-def load_teams_from_github():
-    url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/contents/{FILE_PATH}"
+def normalize_state(state):
+    base = default_state()
 
+    if not isinstance(state, dict):
+        return base
+
+    state.setdefault("draft_enabled", base["draft_enabled"])
+    state.setdefault("draft_active", base["draft_active"])
+    state.setdefault("draft_order", base["draft_order"])
+    state.setdefault("last_pick_started_at", base["last_pick_started_at"])
+    state.setdefault("teams", base["teams"])
+
+    for coach, info in base["teams"].items():
+        state["teams"].setdefault(coach, info)
+
+    valid_coaches = list(state["teams"].keys())
+    cleaned_order = [coach for coach in state["draft_order"] if coach in valid_coaches]
+
+    for coach in valid_coaches:
+        if coach not in cleaned_order:
+            cleaned_order.append(coach)
+
+    state["draft_order"] = cleaned_order[:3]
+
+    for coach in valid_coaches:
+        state["teams"][coach].setdefault("team_name", coach)
+        state["teams"][coach].setdefault("players", [])
+
+    return state
+
+
+def github_file_url():
+    return f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/contents/{STATE_FILE_PATH}"
+
+
+def load_state_from_github(show_warning=True):
     try:
-        resp = requests.get(url, headers=GITHUB_HEADERS, timeout=10)
+        resp = requests.get(github_file_url(), headers=GITHUB_HEADERS, timeout=10)
+
         if resp.status_code == 200:
-            content = resp.json()["content"]
-            return json.loads(base64.b64decode(content).decode("utf-8"))
-        st.warning(f"Could not load teams from GitHub. Status code: {resp.status_code}")
+            payload = resp.json()
+            content = base64.b64decode(payload["content"]).decode("utf-8")
+            return normalize_state(json.loads(content)), payload["sha"]
+
+        if show_warning:
+            st.warning(f"Could not load {STATE_FILE_PATH}. Status code: {resp.status_code}")
+
     except Exception as e:
-        st.warning(f"Could not load teams from GitHub: {e}")
+        if show_warning:
+            st.warning(f"Could not load {STATE_FILE_PATH}: {e}")
 
-    return default_teams()
+    return default_state(), None
 
 
-def save_teams_to_github(teams_dict, message_prefix="Update teams"):
-    url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/contents/{FILE_PATH}"
-    content_str = json.dumps(teams_dict, indent=2, ensure_ascii=False)
+def save_state_to_github(state, sha, message_prefix="Update draft state"):
+    content_str = json.dumps(normalize_state(state), indent=2, ensure_ascii=False)
     content_b64 = base64.b64encode(content_str.encode("utf-8")).decode("utf-8")
 
-    for attempt in range(3):
-        try:
-            get_resp = requests.get(url, headers=GITHUB_HEADERS, timeout=10)
-            sha = get_resp.json().get("sha") if get_resp.status_code == 200 else None
-
-            payload = {
-                "message": f"{message_prefix} - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
-                "content": content_b64,
-                "branch": BRANCH,
-            }
-
-            if sha:
-                payload["sha"] = sha
-
-            put_resp = requests.put(url, headers=GITHUB_HEADERS, json=payload, timeout=15)
-
-            if put_resp.status_code in [200, 201]:
-                return True
-
-            if put_resp.status_code == 409 and attempt < 2:
-                time.sleep(0.6)
-                continue
-
-            st.error(f"GitHub save failed. Status code: {put_resp.status_code}")
-            st.code(put_resp.text)
-            return False
-
-        except Exception as e:
-            if attempt < 2:
-                time.sleep(0.6)
-                continue
-
-            st.error(f"GitHub save failed: {e}")
-            return False
-
-    return False
-
-
-def reset_all_rosters(teams):
-    return {
-        coach: {
-            "team_name": info.get("team_name", f"{coach}'s Team"),
-            "players": [],
-        }
-        for coach, info in teams.items()
+    payload = {
+        "message": f"{message_prefix} - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
+        "content": content_b64,
+        "branch": BRANCH,
     }
+
+    if sha:
+        payload["sha"] = sha
+
+    try:
+        resp = requests.put(github_file_url(), headers=GITHUB_HEADERS, json=payload, timeout=15)
+
+        if resp.status_code in [200, 201]:
+            return True
+
+        st.error(f"GitHub save failed. Status code: {resp.status_code}")
+        st.code(resp.text)
+        return False
+
+    except Exception as e:
+        st.error(f"GitHub save failed: {e}")
+        return False
+
+
+def mutate_shared_state(mutator, message_prefix):
+    for _ in range(3):
+        fresh_state, fresh_sha = load_state_from_github(show_warning=False)
+        result = mutator(fresh_state)
+
+        if result is False:
+            return False, fresh_state
+
+        if save_state_to_github(fresh_state, fresh_sha, message_prefix):
+            return result, fresh_state
+
+        time.sleep(0.5)
+
+    st.error("Could not save after retrying. Please try again.")
+    return False, None
 
 
 def get_coach_for_pick(pick_num, order):
@@ -245,8 +283,10 @@ def get_coach_for_pick(pick_num, order):
     return order[pos] if round_idx % 2 == 0 else order[2 - pos]
 
 
-def derive_picks_from_teams(teams, draft_order):
+def derive_picks_from_state(state):
     picks = []
+    teams = state["teams"]
+    draft_order = state["draft_order"]
     coach_pick_counts = {coach: 0 for coach in draft_order}
 
     for pick_num in range(1, MAX_PICKS + 1):
@@ -263,73 +303,153 @@ def derive_picks_from_teams(teams, draft_order):
     return picks
 
 
-def sync_draft_state_from_teams(teams):
-    picks = derive_picks_from_teams(teams, st.session_state.draft_order)
-    picked_golfers = set()
-
-    for info in teams.values():
-        picked_golfers.update(info.get("players", []))
-
-    st.session_state.picks = picks
-    st.session_state.picked_golfers = picked_golfers
-    st.session_state.current_pick = min(len(picks) + 1, MAX_PICKS + 1)
-
-    if st.session_state.current_pick > MAX_PICKS:
-        st.session_state.draft_active = False
+def get_current_pick(state):
+    return min(len(derive_picks_from_state(state)) + 1, MAX_PICKS + 1)
 
 
-def undo_last_pick(teams):
-    picks = derive_picks_from_teams(teams, st.session_state.draft_order)
+def get_picked_golfers(state):
+    picked = set()
 
-    if not picks:
-        st.warning("There are no picks to undo.")
-        return None
+    for info in state["teams"].values():
+        picked.update(info.get("players", []))
 
-    pick_num, coach, golfer = picks[-1]
-    players = teams.get(coach, {}).get("players", [])
-    original_players = list(players)
-
-    if players and players[-1] == golfer:
-        players.pop()
-    elif golfer in players:
-        players.remove(golfer)
-    else:
-        st.error("Could not find the last picked golfer in the roster.")
-        return None
-
-    if save_teams_to_github(teams, "Undo last pick"):
-        return pick_num, coach, golfer
-
-    teams[coach]["players"] = original_players
-    return None
+    return picked
 
 
-def make_draft_pick(teams, golfer):
-    if not st.session_state.draft_active:
-        st.warning("Start the draft before making a pick.")
-        return False
+def reset_rosters_in_state(state):
+    for coach, info in state["teams"].items():
+        info["players"] = []
 
-    if st.session_state.current_pick > MAX_PICKS:
-        st.warning("The draft is complete.")
-        st.session_state.draft_active = False
-        return False
+    state["draft_active"] = False
+    state["draft_enabled"] = False
+    state["last_pick_started_at"] = 0
+    return True
 
-    coach = get_coach_for_pick(st.session_state.current_pick, st.session_state.draft_order)
 
-    if golfer in st.session_state.picked_golfers:
-        st.warning(f"{golfer} has already been drafted.")
-        return False
+def make_draft_pick(golfer):
+    def mutator(state):
+        state = normalize_state(state)
+        current_pick = get_current_pick(state)
 
-    teams.setdefault(coach, {"team_name": f"{coach}'s Team", "players": []})
-    teams[coach].setdefault("players", [])
-    teams[coach]["players"].append(golfer)
+        if not state["draft_enabled"]:
+            st.warning("The draft is disabled.")
+            return False
 
-    if save_teams_to_github(teams, "Draft pick"):
+        if not state["draft_active"]:
+            st.warning("Start the draft before making a pick.")
+            return False
+
+        if current_pick > MAX_PICKS:
+            state["draft_active"] = False
+            state["draft_enabled"] = False
+            st.warning("The draft is complete.")
+            return False
+
+        if golfer in get_picked_golfers(state):
+            st.warning(f"{golfer} has already been drafted.")
+            return False
+
+        coach = get_coach_for_pick(current_pick, state["draft_order"])
+        state["teams"][coach]["players"].append(golfer)
+
+        next_pick = get_current_pick(state)
+        state["last_pick_started_at"] = time.time()
+
+        if next_pick > MAX_PICKS:
+            state["draft_active"] = False
+            state["draft_enabled"] = False
+
         return True
 
-    teams[coach]["players"].remove(golfer)
-    st.error("Pick was not saved. Please try again.")
-    return False
+    return mutate_shared_state(mutator, "Draft pick")
+
+
+def undo_last_pick():
+    def mutator(state):
+        picks = derive_picks_from_state(state)
+
+        if not picks:
+            st.warning("There are no picks to undo.")
+            return False
+
+        pick_num, coach, golfer = picks[-1]
+        players = state["teams"][coach]["players"]
+
+        if players and players[-1] == golfer:
+            players.pop()
+        elif golfer in players:
+            players.remove(golfer)
+        else:
+            st.error("Could not find the last picked golfer in the roster.")
+            return False
+
+        state["draft_enabled"] = True
+        state["draft_active"] = True
+        state["last_pick_started_at"] = time.time()
+
+        return pick_num, coach, golfer
+
+    return mutate_shared_state(mutator, "Undo last pick")
+
+
+def set_draft_enabled(enabled):
+    def mutator(state):
+        state["draft_enabled"] = enabled
+        if not enabled:
+            state["draft_active"] = False
+        return True
+
+    return mutate_shared_state(mutator, "Set draft enabled")
+
+
+def start_draft():
+    def mutator(state):
+        if get_current_pick(state) > MAX_PICKS:
+            state["draft_enabled"] = False
+            state["draft_active"] = False
+            st.warning("The draft is already complete.")
+            return False
+
+        state["draft_enabled"] = True
+        state["draft_active"] = True
+        state["last_pick_started_at"] = time.time()
+        return True
+
+    return mutate_shared_state(mutator, "Start draft")
+
+
+def stop_draft():
+    def mutator(state):
+        state["draft_active"] = False
+        return True
+
+    return mutate_shared_state(mutator, "Stop draft")
+
+
+def save_draft_order(new_order):
+    def mutator(state):
+        if state["draft_enabled"]:
+            st.warning("Disable the draft before changing the draft order.")
+            return False
+
+        if len(set(new_order)) != len(new_order):
+            st.warning("Each draft slot must have a different coach.")
+            return False
+
+        state["draft_order"] = new_order
+        return True
+
+    return mutate_shared_state(mutator, "Update draft order")
+
+
+def save_team_names(new_teams):
+    def mutator(state):
+        for coach, new_name in new_teams.items():
+            if coach in state["teams"]:
+                state["teams"][coach]["team_name"] = new_name
+        return True
+
+    return mutate_shared_state(mutator, "Update team names")
 
 
 def get_player_result(player):
@@ -425,6 +545,9 @@ def odds_sort_key(golfer):
 
 
 def render_pick_timer(start_time):
+    if not start_time:
+        start_time = time.time()
+
     start_ms = int(start_time * 1000)
 
     components.html(
@@ -459,23 +582,21 @@ def render_pick_timer(start_time):
 
 
 for key, default in [
-    ("draft_active", False),
-    ("enable_draft", False),
     ("confirm_clear_rosters", False),
-    ("current_pick", 1),
-    ("picks", []),
-    ("picked_golfers", set()),
-    ("draft_order", ["Jayme Leita", "Spencer Tidwell", "Peter Miller"]),
-    ("last_pick_time", time.time()),
 ]:
     if key not in st.session_state:
         st.session_state[key] = default
 
-if "teams_data" not in st.session_state:
-    st.session_state.teams_data = load_teams_from_github()
 
-teams_data = st.session_state.teams_data
-sync_draft_state_from_teams(teams_data)
+state, state_sha = load_state_from_github()
+state = normalize_state(state)
+teams_data = state["teams"]
+draft_order = state["draft_order"]
+picks = derive_picks_from_state(state)
+picked_golfers = get_picked_golfers(state)
+current_pick = get_current_pick(state)
+
+st_autorefresh(interval=5000, limit=None, key="shared_state_refresh")
 
 
 st.title("🏌️ PGA Championship 2026")
@@ -571,8 +692,8 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
         st.markdown("".join(roster_parts), unsafe_allow_html=True)
 
 
-with st.expander("🎯 DRAFT SECTION", expanded=st.session_state.enable_draft):
-    if not st.session_state.enable_draft:
+with st.expander("🎯 DRAFT SECTION", expanded=state["draft_enabled"]):
+    if not state["draft_enabled"]:
         st.error("🚫 Draft is currently DISABLED in Admin section")
     else:
         col1, col2, col3 = st.columns(3)
@@ -581,40 +702,32 @@ with st.expander("🎯 DRAFT SECTION", expanded=st.session_state.enable_draft):
             if st.button(
                 "▶️ Start Draft",
                 type="primary",
-                disabled=st.session_state.draft_active or st.session_state.current_pick > MAX_PICKS,
+                disabled=state["draft_active"] or current_pick > MAX_PICKS,
                 use_container_width=True,
             ):
-                sync_draft_state_from_teams(teams_data)
-                st.session_state.draft_active = True
-                st.session_state.confirm_clear_rosters = False
-                st.session_state.last_pick_time = time.time()
-                st.rerun()
+                result, _ = start_draft()
+                if result:
+                    st.rerun()
 
         with col2:
             if st.button(
                 "⏹️ Stop Draft",
-                disabled=not st.session_state.draft_active,
+                disabled=not state["draft_active"],
                 use_container_width=True,
             ):
-                st.session_state.draft_active = False
-                st.rerun()
+                result, _ = stop_draft()
+                if result:
+                    st.rerun()
 
         with col3:
             if st.button(
                 "↩️ Undo Last Pick",
-                disabled=not st.session_state.picks,
+                disabled=not picks,
                 use_container_width=True,
             ):
-                undo_result = undo_last_pick(teams_data)
-
-                if undo_result:
-                    undone_pick_num, undone_coach, undone_golfer = undo_result
-                    st.session_state.teams_data = teams_data
-                    sync_draft_state_from_teams(teams_data)
-                    st.session_state.current_pick = undone_pick_num
-                    st.session_state.draft_active = True
-                    st.session_state.last_pick_time = time.time()
-
+                result, _ = undo_last_pick()
+                if result:
+                    undone_pick_num, undone_coach, undone_golfer = result
                     st.success(
                         f"Undid Pick #{undone_pick_num}: {undone_golfer}. "
                         f"{undone_coach} is back on the clock."
@@ -622,28 +735,21 @@ with st.expander("🎯 DRAFT SECTION", expanded=st.session_state.enable_draft):
                     time.sleep(0.5)
                     st.rerun()
 
-        if st.session_state.current_pick > MAX_PICKS:
-            st.session_state.draft_active = False
+        if current_pick > MAX_PICKS:
             st.success("🎉 Draft Complete! All 30 picks are in.")
-        elif st.session_state.draft_active:
-            current_coach = get_coach_for_pick(
-                st.session_state.current_pick,
-                st.session_state.draft_order,
-            )
+        elif state["draft_active"]:
+            current_coach = get_coach_for_pick(current_pick, draft_order)
 
             st.markdown(
                 f"## 🔥 CURRENT PICK: **{current_coach}** — "
-                f"Pick #{st.session_state.current_pick}"
+                f"Pick #{current_pick}"
             )
-            render_pick_timer(st.session_state.last_pick_time)
+            render_pick_timer(state.get("last_pick_started_at", 0))
         else:
-            current_coach = get_coach_for_pick(
-                st.session_state.current_pick,
-                st.session_state.draft_order,
-            )
+            current_coach = get_coach_for_pick(current_pick, draft_order)
             st.markdown(
                 f"<div class='draft-stopped-note'>Draft stopped. "
-                f"{html.escape(current_coach)} is next at Pick #{st.session_state.current_pick}. "
+                f"{html.escape(current_coach)} is next at Pick #{current_pick}. "
                 f"Start the draft to resume picking.</div>",
                 unsafe_allow_html=True,
             )
@@ -688,7 +794,7 @@ with st.expander("🎯 DRAFT SECTION", expanded=st.session_state.enable_draft):
         <tr><th>Round</th>
         """
 
-        for coach in st.session_state.draft_order:
+        for coach in draft_order:
             grid_html += f"<th>{html.escape(coach)}</th>"
 
         grid_html += "</tr>"
@@ -703,19 +809,19 @@ with st.expander("🎯 DRAFT SECTION", expanded=st.session_state.enable_draft):
                     pick_num = round_num * 3 + (2 - column_num) + 1
 
                 picked_golfer = next(
-                    (pick[2] for pick in st.session_state.picks if pick[0] == pick_num),
+                    (pick[2] for pick in picks if pick[0] == pick_num),
                     None,
                 )
 
-                is_current = pick_num == st.session_state.current_pick
+                is_current = pick_num == current_pick
 
                 if picked_golfer:
                     cell = html.escape(picked_golfer)
                     cell_style = ""
-                elif is_current and st.session_state.draft_active:
+                elif is_current and state["draft_active"]:
                     cell = f"On Clock<br>Pick {pick_num}"
                     cell_style = "class='current-cell' style='background-color:#ffeb3b; color:#000;'"
-                elif is_current and st.session_state.current_pick <= MAX_PICKS:
+                elif is_current and current_pick <= MAX_PICKS:
                     cell = f"Stopped<br>Pick {pick_num}"
                     cell_style = "class='stopped-cell'"
                 else:
@@ -730,13 +836,13 @@ with st.expander("🎯 DRAFT SECTION", expanded=st.session_state.enable_draft):
         st.markdown(grid_html, unsafe_allow_html=True)
 
         st.subheader("Available Golfers — Click to Draft")
-        st.caption("Draft buttons are sorted from the built-in static odds list.")
+        st.caption("Draft buttons are sorted from the built-in static odds list. Shared draft state refreshes every 5 seconds.")
 
         sorted_players = sorted(PGA_PLAYERS, key=odds_sort_key)
 
         available = [
             golfer for golfer in sorted_players
-            if golfer not in st.session_state.picked_golfers
+            if golfer not in picked_golfers
         ]
 
         cols = st.columns(4)
@@ -745,8 +851,8 @@ with st.expander("🎯 DRAFT SECTION", expanded=st.session_state.enable_draft):
             with cols[idx % 4]:
                 odds_label = golfer_odds_label(golfer)
                 disabled = (
-                    not st.session_state.draft_active
-                    or st.session_state.current_pick > MAX_PICKS
+                    not state["draft_active"]
+                    or current_pick > MAX_PICKS
                 )
 
                 if st.button(
@@ -756,15 +862,8 @@ with st.expander("🎯 DRAFT SECTION", expanded=st.session_state.enable_draft):
                     use_container_width=True,
                 ):
                     with st.spinner(f"Saving {golfer}..."):
-                        if make_draft_pick(teams_data, golfer):
-                            st.session_state.teams_data = teams_data
-                            sync_draft_state_from_teams(teams_data)
-                            st.session_state.last_pick_time = time.time()
-
-                            if st.session_state.current_pick > MAX_PICKS:
-                                st.session_state.draft_active = False
-                                st.success("🎉 Draft Complete! All 30 picks are in.")
-
+                        result, _ = make_draft_pick(golfer)
+                        if result:
                             st.rerun()
 
 
@@ -773,16 +872,17 @@ with st.expander("🔧 Admin Section", expanded=False):
 
     enable = st.toggle(
         "Enable Draft",
-        value=st.session_state.enable_draft,
+        value=state["draft_enabled"],
         key="enable_toggle",
     )
 
-    if enable != st.session_state.enable_draft:
-        st.session_state.enable_draft = enable
+    if enable != state["draft_enabled"]:
+        result, _ = set_draft_enabled(enable)
         st.session_state.confirm_clear_rosters = False
-        st.rerun()
+        if result:
+            st.rerun()
 
-    if st.session_state.enable_draft:
+    if state["draft_enabled"]:
         if not st.session_state.confirm_clear_rosters:
             if st.button(
                 "🛑 Reset Draft & Clear Roster",
@@ -802,22 +902,12 @@ with st.expander("🔧 Admin Section", expanded=False):
                     type="primary",
                     use_container_width=True,
                 ):
-                    empty_teams = reset_all_rosters(teams_data)
-
-                    if save_teams_to_github(empty_teams, "Reset draft"):
-                        st.session_state.teams_data = empty_teams
-                        st.session_state.picks = []
-                        st.session_state.picked_golfers = set()
-                        st.session_state.current_pick = 1
-                        st.session_state.draft_active = False
+                    result, _ = mutate_shared_state(reset_rosters_in_state, "Reset draft")
+                    if result:
                         st.session_state.confirm_clear_rosters = False
-                        st.session_state.last_pick_time = time.time()
-
                         st.success("✅ All rosters cleared and draft fully reset!")
                         time.sleep(1)
                         st.rerun()
-                    else:
-                        st.error("Could not clear rosters in GitHub. Check the token/repo permissions.")
 
             with col2:
                 if st.button("Cancel", use_container_width=True):
@@ -826,11 +916,11 @@ with st.expander("🔧 Admin Section", expanded=False):
 
     st.subheader("Draft Order")
 
-    if st.session_state.enable_draft:
+    if state["draft_enabled"]:
         st.info("Disable the draft to change the draft order.")
     else:
         coaches = list(teams_data.keys())
-        current_order = st.session_state.draft_order
+        current_order = draft_order
 
         order_col1, order_col2, order_col3 = st.columns(3)
 
@@ -863,14 +953,14 @@ with st.expander("🔧 Admin Section", expanded=False):
         if len(set(proposed_order)) < len(proposed_order):
             st.error("Each draft slot must have a different coach.")
         elif st.button("💾 Save Draft Order", use_container_width=True):
-            st.session_state.draft_order = proposed_order
-            sync_draft_state_from_teams(teams_data)
-            st.success("Draft order saved.")
-            st.rerun()
+            result, _ = save_draft_order(proposed_order)
+            if result:
+                st.success("Draft order saved.")
+                st.rerun()
 
     st.subheader("Edit Team Names")
 
-    new_teams = {}
+    new_names = {}
 
     for coach_id, info in teams_data.items():
         st.markdown(f"### {coach_id}")
@@ -881,18 +971,15 @@ with st.expander("🔧 Admin Section", expanded=False):
             key=f"name_{coach_id}",
         )
 
-        new_teams[coach_id] = {
-            "team_name": new_name,
-            "players": info.get("players", []),
-        }
+        new_names[coach_id] = new_name
 
     if st.button("💾 Save Team Names"):
-        if save_teams_to_github(new_teams, "Update team names"):
-            st.session_state.teams_data = new_teams
+        result, _ = save_team_names(new_names)
+        if result:
             st.success("Team names saved!")
             st.rerun()
         else:
             st.error("Team names were not saved. Please try again.")
 
 
-st.caption("PGA Championship Draft 2026 • Built with Streamlit • Data saved to GitHub")
+st.caption("PGA Championship Draft 2026 • Built with Streamlit • Shared data saved to GitHub")
