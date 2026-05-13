@@ -1,22 +1,14 @@
 {
   "Jayme Leita": {
     "team_name": "Jayme's Team",
-    "players": [
-      "Ludvig Aberg"
-    ]
+    "players": []
   },
   "Spencer Tidwell": {
     "team_name": "Spencer's Team",
-    "players": [
-      "Bryson DeChambeau"
-    ]
+    "players": []
   },
   "Peter Miller": {
     "team_name": "Peter's Princesses",
-    "players": [
-      "Scottie Scheffler",
-      "Xander Schauffele",
-      "Rory McIlroy"
-    ]
+    "players": []
   }
 }
