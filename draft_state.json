@@ -6,7 +6,7 @@
     "Spencer Tidwell",
     "Peter Miller"
   ],
-  "last_pick_started_at": 1778643989.9957092,
+  "last_pick_started_at": 1778644003.390286,
   "teams": {
     "Jayme Leita": {
       "team_name": "Jayme's Team",
@@ -23,7 +23,8 @@
     "Peter Miller": {
       "team_name": "Peter's Team",
       "players": [
-        "Jason Day"
+        "Jason Day",
+        "Scottie Scheffler"
       ]
     }
   }
