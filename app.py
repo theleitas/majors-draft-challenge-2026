@@ -3,9 +3,10 @@ import requests
 import json
 import base64
 import time
+import html
 from datetime import datetime
 from statistics import median
-import pandas as pd
+from streamlit_autorefresh import st_autorefresh
 
 st.set_page_config(
     page_title="PGA Championship Draft 2026",
@@ -33,11 +34,23 @@ st.markdown(
         background: #050505 !important;
         border: 1px solid #333333 !important;
     }
-    div[data-testid="stDataFrame"] {
-        background: #111111 !important;
-    }
     button {
         border-radius: 8px !important;
+    }
+    .roster-player-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        align-items: center;
+        border-radius: 10px;
+        padding: 10px 12px;
+        margin: 8px 0;
+        font-weight: 700;
+    }
+    .roster-player-meta {
+        font-weight: 700;
+        opacity: 0.95;
+        white-space: nowrap;
     }
     </style>
     """,
@@ -57,7 +70,6 @@ def read_secret(*path):
         return None
 
 
-# ====================== CONFIG ======================
 GITHUB_TOKEN = read_secret("GITHUB", "TOKEN")
 REPO_OWNER = "theleitas"
 REPO_NAME = "majors-draft-challenge-2026"
@@ -128,6 +140,13 @@ PGA_PLAYERS = sorted([
     "Bernd Wiesberger", "Timothy Wiseman", "Gary Woodland", "Y.E. Yang", "Sudarshan Yellamaraju",
     "Cameron Young",
 ])
+
+PLAYER_RESULTS = {
+    # Add live or manual scores here.
+    # "Scottie Scheffler": {"score": "-4", "hole": "12"},
+    # "Rory McIlroy": {"score": "E", "hole": "F"},
+    # "Xander Schauffele": {"score": "+1", "hole": "8"},
+}
 
 PLAYER_ALIASES = {
     "Matthew Fitzpatrick": "Matt Fitzpatrick",
@@ -259,9 +278,9 @@ def undo_last_pick(teams):
 
     if not picks:
         st.warning("There are no picks to undo.")
-        return False
+        return None
 
-    _, coach, golfer = picks[-1]
+    pick_num, coach, golfer = picks[-1]
     players = teams.get(coach, {}).get("players", [])
 
     if players and players[-1] == golfer:
@@ -270,9 +289,75 @@ def undo_last_pick(teams):
         players.remove(golfer)
     else:
         st.error("Could not find the last picked golfer in the roster.")
-        return False
+        return None
 
-    return save_teams_to_github(teams, "Undo last pick")
+    if save_teams_to_github(teams, "Undo last pick"):
+        return pick_num, coach, golfer
+
+    return None
+
+
+def get_player_result(player):
+    return PLAYER_RESULTS.get(player, {"score": "N/A", "hole": "—"})
+
+
+def parse_golf_score(score):
+    if score is None:
+        return None
+
+    score_text = str(score).strip().upper()
+
+    if score_text in ["", "N/A", "—", "-", "WD", "CUT"]:
+        return None
+
+    if score_text in ["E", "EVEN"]:
+        return 0
+
+    try:
+        return int(score_text.replace("+", ""))
+    except ValueError:
+        return None
+
+
+def format_golf_score(score_value):
+    if score_value is None:
+        return "N/A"
+    if score_value == 0:
+        return "E"
+    if score_value > 0:
+        return f"+{score_value}"
+    return str(score_value)
+
+
+def get_sorted_scored_players(players):
+    scored_players = []
+
+    for draft_index, player in enumerate(players):
+        result = get_player_result(player)
+        score_value = parse_golf_score(result.get("score"))
+
+        if score_value is not None:
+            scored_players.append((score_value, draft_index, player, result))
+
+    scored_players.sort(key=lambda item: (item[0], item[1]))
+    return scored_players
+
+
+def get_top_three_lowest_score_players(players):
+    return {
+        player
+        for _, _, player, _ in get_sorted_scored_players(players)[:3]
+    }
+
+
+def get_team_total(players):
+    top_three = get_sorted_scored_players(players)[:3]
+
+    if not top_three:
+        return "N/A"
+
+    total = sum(score_value for score_value, _, _, _ in top_three)
+    return format_golf_score(total)
 
 
 def parse_american_odds(value):
@@ -303,6 +388,14 @@ def implied_probability(american_odds):
 
 def normalize_player_name(name):
     return PLAYER_ALIASES.get(name, name)
+
+
+def format_elapsed_time(start_time):
+    elapsed = max(0, int(time.time() - start_time))
+    hours = elapsed // 3600
+    minutes = (elapsed % 3600) // 60
+    seconds = elapsed % 60
+    return f"{hours:02d}:{minutes:02d}:{seconds:02d}"
 
 
 @st.cache_data(ttl=900)
@@ -382,7 +475,6 @@ def odds_sort_key(golfer, live_odds):
     return (-probability, golfer)
 
 
-# ====================== SESSION STATE ======================
 for key, default in [
     ("draft_active", False),
     ("enable_draft", False),
@@ -402,14 +494,99 @@ teams_data = load_teams_from_github()
 sync_draft_state_from_teams(teams_data)
 live_odds, odds_source = fetch_live_odds(ODDS_API_KEY)
 
+if (
+    st.session_state.draft_active
+    and st.session_state.current_pick <= MAX_PICKS
+    and not st.session_state.saving_action
+):
+    st_autorefresh(interval=1000, limit=None, key="draft_timer_refresh")
 
-# ====================== TITLE ======================
+
 st.title("🏌️ PGA Championship 2026")
 st.caption("**May 14–17, 2026** • Aronimink Golf Club")
 
 
-# ====================== DRAFT SECTION ======================
-with st.expander("🎯 DRAFT SECTION", expanded=True):
+st.subheader("Standings")
+
+for coach_id, info in teams_data.items():
+    team_name = info.get("team_name", coach_id)
+    color = COACH_COLORS.get(coach_id, "#555555")
+    players = info.get("players", [])
+    total = get_team_total(players)
+    scored_players = get_sorted_scored_players(players)[:3]
+
+    if scored_players:
+        top3_html = ""
+        for score_value, _, player, result in scored_players:
+            safe_player = html.escape(player)
+            score = html.escape(format_golf_score(score_value))
+            hole = html.escape(str(result.get("hole", "—")))
+            top3_html += (
+                f"<div style='margin:4px 0; color:{color}; font-size:1.05rem;'>"
+                f"{safe_player} <span style='font-weight:700;'>({score})</span> Thru {hole}"
+                f"</div>"
+            )
+    elif players:
+        top3_html = "<div style='color:#aaa; font-style:italic;'>No live scores yet</div>"
+    else:
+        top3_html = "<div style='color:#aaa; font-style:italic;'>No golfers drafted yet</div>"
+
+    card = f"""
+    <div style="border: 5px solid {color}; background-color: {color}18; border-radius: 16px; padding: 20px 24px; margin-bottom: 1.8rem; box-shadow: 0 4px 15px rgba(255,255,255,0.08);">
+        <div style="color:{color}; font-size:1.75rem; font-weight:800;">{html.escape(team_name)}</div>
+        <div style="font-size:1.45rem; font-weight:700; color:{color}; margin:12px 0 14px 0;">Total ({total})</div>
+        <div style="line-height:1.5;">{top3_html}</div>
+    </div>
+    """
+
+    st.markdown(card, unsafe_allow_html=True)
+
+
+st.subheader("Team Rosters")
+
+team_cols = st.columns(3)
+
+for idx, (coach_id, info) in enumerate(teams_data.items()):
+    with team_cols[idx]:
+        team_name = info.get("team_name", coach_id)
+        players = info.get("players", [])
+        color = COACH_COLORS.get(coach_id, "#555555")
+        top_three_lowest_score_players = get_top_three_lowest_score_players(players)
+
+        roster_html = f"""
+        <div style="border: 5px solid {color}; background-color: {color}18; border-radius: 16px; padding: 20px 24px; margin-bottom: 1.8rem;">
+            <div style="color:{color}; font-size:1.75rem; font-weight:800; margin-bottom:12px;">{html.escape(team_name)}</div>
+        """
+
+        if not players:
+            roster_html += "<div style='color:#aaa; font-style:italic;'>No golfers drafted yet</div>"
+        else:
+            for player in players:
+                safe_player = html.escape(player)
+                result = get_player_result(player)
+                score = html.escape(str(result.get("score", "N/A")))
+                hole = html.escape(str(result.get("hole", "—")))
+
+                if player in top_three_lowest_score_players:
+                    roster_html += f"""
+                    <div class="roster-player-row" style="border: 2px solid #ffeb3b; background:#ffeb3b; color:#000000;">
+                        <span>{safe_player}</span>
+                        <span class="roster-player-meta">{score} · {hole}</span>
+                    </div>
+                    """
+                else:
+                    roster_html += f"""
+                    <div class="roster-player-row" style="border: 2px solid {color}; background:{color}22; color:{color};">
+                        <span>{safe_player}</span>
+                        <span class="roster-player-meta">{score} · {hole}</span>
+                    </div>
+                    """
+
+        roster_html += "</div>"
+        st.markdown(roster_html, unsafe_allow_html=True)
+
+
+with st.expander("🎯 DRAFT SECTION", expanded=st.session_state.enable_draft):
     if not st.session_state.enable_draft:
         st.error("🚫 Draft is currently DISABLED in Admin section")
     else:
@@ -422,6 +599,7 @@ with st.expander("🎯 DRAFT SECTION", expanded=True):
                 disabled=st.session_state.draft_active,
                 use_container_width=True,
             ):
+                sync_draft_state_from_teams(teams_data)
                 st.session_state.draft_active = True
                 st.session_state.confirm_clear_rosters = False
                 st.session_state.last_pick_time = time.time()
@@ -433,9 +611,19 @@ with st.expander("🎯 DRAFT SECTION", expanded=True):
                 disabled=not st.session_state.picks,
                 use_container_width=True,
             ):
-                if undo_last_pick(teams_data):
+                undo_result = undo_last_pick(teams_data)
+
+                if undo_result:
+                    undone_pick_num, undone_coach, undone_golfer = undo_result
+                    sync_draft_state_from_teams(teams_data)
+                    st.session_state.current_pick = undone_pick_num
+                    st.session_state.draft_active = True
                     st.session_state.last_pick_time = time.time()
-                    st.success("Last pick undone.")
+
+                    st.success(
+                        f"Undid Pick #{undone_pick_num}: {undone_golfer}. "
+                        f"{undone_coach} is back on the clock."
+                    )
                     time.sleep(0.5)
                     st.rerun()
 
@@ -445,8 +633,11 @@ with st.expander("🎯 DRAFT SECTION", expanded=True):
                     st.session_state.current_pick,
                     st.session_state.draft_order,
                 )
+                timer_text = format_elapsed_time(st.session_state.last_pick_time)
+
                 st.markdown(
-                    f"## 🔥 CURRENT PICK: **{current_coach}** — Pick #{st.session_state.current_pick}"
+                    f"## 🔥 CURRENT PICK: **{current_coach}** — "
+                    f"Pick #{st.session_state.current_pick} — ⏱️ {timer_text}"
                 )
             else:
                 st.success("🎉 Draft Complete!")
@@ -487,7 +678,7 @@ with st.expander("🎯 DRAFT SECTION", expanded=True):
         """
 
         for coach in st.session_state.draft_order:
-            grid_html += f"<th>{coach}</th>"
+            grid_html += f"<th>{html.escape(coach)}</th>"
 
         grid_html += "</tr>"
 
@@ -511,11 +702,11 @@ with st.expander("🎯 DRAFT SECTION", expanded=True):
                 )
 
                 if picked_golfer:
-                    cell = picked_golfer
+                    cell = html.escape(picked_golfer)
                     cell_style = ""
                 elif is_current:
-                    elapsed = int(time.time() - st.session_state.last_pick_time)
-                    cell = f"⏱️ {elapsed}s<br>Pick {pick_num}"
+                    timer_text = format_elapsed_time(st.session_state.last_pick_time)
+                    cell = f"⏱️ {timer_text}<br>Pick {pick_num}"
                     cell_style = "class='current-cell' style='background-color:#ffeb3b; color:#000;'"
                 else:
                     cell = f"Pick {pick_num}"
@@ -593,72 +784,6 @@ with st.expander("🎯 DRAFT SECTION", expanded=True):
                         st.error("Pick was not saved. Please try again.")
 
 
-# ====================== STANDINGS ======================
-st.subheader("Standings")
-
-for coach_id, info in teams_data.items():
-    team_name = info.get("team_name", coach_id)
-    color = COACH_COLORS.get(coach_id, "#555555")
-    players = info.get("players", [])
-
-    if players:
-        top3_html = ""
-        for player in players[:3]:
-            top3_html += (
-                f"<div style='margin:4px 0; color:{color}; font-size:1.05rem;'>"
-                f"{player} <span style='font-weight:700;'>(-XX)</span> Thru XX"
-                f"</div>"
-            )
-    else:
-        top3_html = "<div style='color:#aaa; font-style:italic;'>No golfers drafted yet</div>"
-
-    card = f"""
-    <div style="border: 5px solid {color}; background-color: {color}18; border-radius: 16px; padding: 20px 24px; margin-bottom: 1.8rem; box-shadow: 0 4px 15px rgba(255,255,255,0.08);">
-        <div style="color:{color}; font-size:1.75rem; font-weight:800;">{team_name}</div>
-        <div style="font-size:1.45rem; font-weight:700; color:{color}; margin:12px 0 14px 0;">Total (-XX)</div>
-        <div style="line-height:1.5;">{top3_html}</div>
-    </div>
-    """
-
-    st.markdown(card, unsafe_allow_html=True)
-
-
-# ====================== TEAM ROSTERS ======================
-st.subheader("Team Rosters")
-
-team_cols = st.columns(3)
-
-for idx, (coach_id, info) in enumerate(teams_data.items()):
-    with team_cols[idx]:
-        team_name = info.get("team_name", coach_id)
-        players = info.get("players", [])
-        color = COACH_COLORS.get(coach_id, "#555555")
-
-        roster_card = f"""
-        <div style="border: 5px solid {color}; background-color: {color}18; border-radius: 16px; padding: 20px 24px; margin-bottom: 1.8rem;">
-            <div style="color:{color}; font-size:1.75rem; font-weight:800; margin-bottom:12px;">{team_name}</div>
-        """
-
-        st.markdown(roster_card, unsafe_allow_html=True)
-
-        if not players:
-            st.caption("No golfers drafted yet")
-        else:
-            table_data = [{"Golfer": player, "Score": "N/A", "Hole": "—"} for player in players]
-            df = pd.DataFrame(table_data)
-
-            def highlight_top3(row):
-                if row.name < 3:
-                    return ["background-color: #ffeb3b; color: #000000; font-weight: bold"] * len(row)
-                return ["background-color: #111111; color: #ffffff"] * len(row)
-
-            styled = df.style.apply(highlight_top3, axis=1)
-            st.dataframe(styled, use_container_width=True, hide_index=True, height=380)
-
-        st.markdown("</div>", unsafe_allow_html=True)
-
-
-# ====================== ADMIN SECTION ======================
 with st.expander("🔧 Admin Section", expanded=False):
     st.subheader("Draft Control")
 
