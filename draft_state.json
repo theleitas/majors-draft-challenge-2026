@@ -1,12 +1,12 @@
 {
-  "draft_enabled": true,
-  "draft_active": true,
+  "draft_enabled": false,
+  "draft_active": false,
   "draft_order": [
     "Peter Miller",
     "Jayme Leita",
     "Spencer Tidwell"
   ],
-  "last_pick_started_at": 1778714859.7348995,
+  "last_pick_started_at": 1778715103.9593859,
   "teams": {
     "Jayme Leita": {
       "team_name": "Jayme's Team",
@@ -49,7 +49,8 @@
         "Shane Lowry",
         "Jordan Spieth",
         "Sahith Theegala",
-        "Hideki Matsuyama"
+        "Hideki Matsuyama",
+        "Sepp Straka"
       ]
     }
   }
