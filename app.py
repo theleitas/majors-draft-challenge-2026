@@ -824,11 +824,49 @@ with st.expander("🔧 Admin Section", expanded=False):
                     st.session_state.confirm_clear_rosters = False
                     st.rerun()
 
-    if st.button("🔄 Reload Rosters From GitHub", use_container_width=True):
-        st.session_state.teams_data = load_teams_from_github()
-        sync_draft_state_from_teams(st.session_state.teams_data)
-        st.success("Rosters reloaded from GitHub.")
-        st.rerun()
+    st.subheader("Draft Order")
+
+    if st.session_state.enable_draft:
+        st.info("Disable the draft to change the draft order.")
+    else:
+        coaches = list(teams_data.keys())
+        current_order = st.session_state.draft_order
+
+        order_col1, order_col2, order_col3 = st.columns(3)
+
+        with order_col1:
+            first_pick = st.selectbox(
+                "1st Pick",
+                options=coaches,
+                index=coaches.index(current_order[0]) if current_order[0] in coaches else 0,
+                key="draft_order_first",
+            )
+
+        with order_col2:
+            second_pick = st.selectbox(
+                "2nd Pick",
+                options=coaches,
+                index=coaches.index(current_order[1]) if current_order[1] in coaches else 1,
+                key="draft_order_second",
+            )
+
+        with order_col3:
+            third_pick = st.selectbox(
+                "3rd Pick",
+                options=coaches,
+                index=coaches.index(current_order[2]) if current_order[2] in coaches else 2,
+                key="draft_order_third",
+            )
+
+        proposed_order = [first_pick, second_pick, third_pick]
+
+        if len(set(proposed_order)) < len(proposed_order):
+            st.error("Each draft slot must have a different coach.")
+        elif st.button("💾 Save Draft Order", use_container_width=True):
+            st.session_state.draft_order = proposed_order
+            sync_draft_state_from_teams(teams_data)
+            st.success("Draft order saved.")
+            st.rerun()
 
     st.subheader("Edit Team Names")
 
