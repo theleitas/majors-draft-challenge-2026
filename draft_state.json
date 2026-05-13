@@ -6,11 +6,13 @@
     "Spencer Tidwell",
     "Peter Miller"
   ],
-  "last_pick_started_at": 1778643924.6177561,
+  "last_pick_started_at": 1778643931.6248264,
   "teams": {
     "Jayme Leita": {
       "team_name": "Jayme's Team",
-      "players": []
+      "players": [
+        "Ludvig Aberg"
+      ]
     },
     "Spencer Tidwell": {
       "team_name": "Spencer's Team",
