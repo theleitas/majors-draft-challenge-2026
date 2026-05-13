@@ -37,6 +37,33 @@ st.markdown(
     button {
         border-radius: 8px !important;
     }
+    div[data-testid="stButton"] > button {
+        background-color: #151515 !important;
+        color: #ffffff !important;
+        border: 1px solid #555555 !important;
+        font-weight: 800 !important;
+        white-space: normal !important;
+        min-height: 46px !important;
+        line-height: 1.2 !important;
+    }
+    div[data-testid="stButton"] > button:hover {
+        background-color: #222222 !important;
+        color: #ffffff !important;
+        border-color: #888888 !important;
+    }
+    div[data-testid="stButton"] > button:focus {
+        background-color: #222222 !important;
+        color: #ffffff !important;
+        border-color: #ffeb3b !important;
+        box-shadow: 0 0 0 2px rgba(255, 235, 59, 0.35) !important;
+    }
+    div[data-testid="stButton"] > button:disabled,
+    div[data-testid="stButton"] > button[disabled] {
+        background-color: #2b2b2b !important;
+        color: #9a9a9a !important;
+        border-color: #444444 !important;
+        opacity: 1 !important;
+    }
     .roster-table {
         width: 100%;
         border-collapse: collapse;
@@ -251,12 +278,9 @@ def save_state_to_github(state, sha, message_prefix="Update draft state"):
         if resp.status_code in [200, 201]:
             return True
 
-        st.error(f"GitHub save failed. Status code: {resp.status_code}")
-        st.code(resp.text)
         return False
 
-    except Exception as e:
-        st.error(f"GitHub save failed: {e}")
+    except Exception:
         return False
 
 
@@ -581,11 +605,8 @@ def render_pick_timer(start_time):
     )
 
 
-for key, default in [
-    ("confirm_clear_rosters", False),
-]:
-    if key not in st.session_state:
-        st.session_state[key] = default
+if "confirm_clear_rosters" not in st.session_state:
+    st.session_state.confirm_clear_rosters = False
 
 
 state, state_sha = load_state_from_github()
