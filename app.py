@@ -39,8 +39,8 @@ div[data-testid="stButton"] > button:disabled, div[data-testid="stButton"] > but
     font-weight:800;
 }
 .app-logo {
-    width:2em;
-    height:2em;
+    width:3.5em;
+    height:3.5em;
     object-fit:contain;
     flex:0 0 auto;
 }
