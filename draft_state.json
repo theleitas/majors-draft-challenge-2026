@@ -53,5 +53,616 @@
         "Sepp Straka"
       ]
     }
-  }
+  },
+  "player_results": {
+    "Bryson DeChambeau": {
+      "score": "N/A",
+      "hole": "2026-05-14T12:18:00Z"
+    },
+    "Denny McCarthy": {
+      "score": "N/A",
+      "hole": "2026-05-14T10:50:00Z"
+    },
+    "Davis Riley": {
+      "score": "N/A",
+      "hole": "2026-05-14T16:54:00Z"
+    },
+    "Xander Schauffele": {
+      "score": "N/A",
+      "hole": "2026-05-14T12:29:00Z"
+    },
+    "J.J. Spaun": {
+      "score": "N/A",
+      "hole": "2026-05-14T16:59:00Z"
+    },
+    "Ben Polland": {
+      "score": "N/A",
+      "hole": "2026-05-14T16:26:00Z"
+    },
+    "Jhonattan Vegas": {
+      "score": "N/A",
+      "hole": "2026-05-14T11:29:00Z"
+    },
+    "Kurt Kitayama": {
+      "score": "N/A",
+      "hole": "2026-05-14T16:26:00Z"
+    },
+    "Adam Schenk": {
+      "score": "N/A",
+      "hole": "2026-05-14T17:38:00Z"
+    },
+    "J.T. Poston": {
+      "score": "N/A",
+      "hole": "2026-05-14T17:10:00Z"
+    },
+    "Matt Wallace": {
+      "score": "N/A",
+      "hole": "2026-05-14T16:43:00Z"
+    },
+    "Collin Morikawa": {
+      "score": "N/A",
+      "hole": "2026-05-14T17:32:00Z"
+    },
+    "Aaron Rai": {
+      "score": "N/A",
+      "hole": "2026-05-14T18:00:00Z"
+    },
+    "Sahith Theegala": {
+      "score": "N/A",
+      "hole": "2026-05-14T11:56:00Z"
+    },
+    "Jason Dufner": {
+      "score": "N/A",
+      "hole": "2026-05-14T17:05:00Z"
+    },
+    "Austin Smotherman": {
+      "score": "N/A",
+      "hole": "2026-05-14T18:22:00Z"
+    },
+    "Joaquin Niemann": {
+      "score": "N/A",
+      "hole": "2026-05-14T11:12:00Z"
+    },
+    "Max Greyserman": {
+      "score": "N/A",
+      "hole": "2026-05-14T12:13:00Z"
+    },
+    "Wyndham Clark": {
+      "score": "N/A",
+      "hole": "2026-05-14T11:45:00Z"
+    },
+    "Jordan Gumberg": {
+      "score": "N/A",
+      "hole": "2026-05-14T16:15:00Z"
+    },
+    "Nicolai Højgaard": {
+      "score": "N/A",
+      "hole": "2026-05-14T11:07:00Z"
+    },
+    "Rasmus Højgaard": {
+      "score": "N/A",
+      "hole": "2026-05-14T16:10:00Z"
+    },
+    "Andrew Novak": {
+      "score": "N/A",
+      "hole": "2026-05-14T16:15:00Z"
+    },
+    "Travis Smyth": {
+      "score": "N/A",
+      "hole": "2026-05-14T18:00:00Z"
+    },
+    "Robert MacIntyre": {
+      "score": "N/A",
+      "hole": "2026-05-14T17:43:00Z"
+    },
+    "Sungjae Im": {
+      "score": "N/A",
+      "hole": "2026-05-14T16:32:00Z"
+    },
+    "Max McGreevy": {
+      "score": "N/A",
+      "hole": "2026-05-14T12:51:00Z"
+    },
+    "Rico Hoey": {
+      "score": "N/A",
+      "hole": "2026-05-14T11:07:00Z"
+    },
+    "Garrick Higgo": {
+      "score": "N/A",
+      "hole": "2026-05-14T11:18:00Z"
+    },
+    "Jesse Droemer": {
+      "score": "N/A",
+      "hole": "2026-05-14T16:48:00Z"
+    },
+    "Brandt Snedeker": {
+      "score": "N/A",
+      "hole": "2026-05-14T12:57:00Z"
+    },
+    "Brian Harman": {
+      "score": "N/A",
+      "hole": "2026-05-14T11:45:00Z"
+    },
+    "Y.E. Yang": {
+      "score": "N/A",
+      "hole": "2026-05-14T11:29:00Z"
+    },
+    "Billy Horschel": {
+      "score": "N/A",
+      "hole": "2026-05-14T11:23:00Z"
+    },
+    "Jason Day": {
+      "score": "N/A",
+      "hole": "2026-05-14T11:34:00Z"
+    },
+    "Padraig Harrington": {
+      "score": "N/A",
+      "hole": "2026-05-14T12:24:00Z"
+    },
+    "Bryce Fisher": {
+      "score": "N/A",
+      "hole": "2026-05-14T11:12:00Z"
+    },
+    "Shaun Micheel": {
+      "score": "N/A",
+      "hole": "2026-05-14T11:18:00Z"
+    },
+    "Francisco Bide": {
+      "score": "N/A",
+      "hole": "2026-05-14T10:56:00Z"
+    },
+    "Ryan Vermeer": {
+      "score": "N/A",
+      "hole": "2026-05-14T12:51:00Z"
+    },
+    "Michael Block": {
+      "score": "N/A",
+      "hole": "2026-05-14T16:10:00Z"
+    },
+    "Dustin Johnson": {
+      "score": "N/A",
+      "hole": "2026-05-14T16:10:00Z"
+    },
+    "Chris Kirk": {
+      "score": "N/A",
+      "hole": "2026-05-14T12:13:00Z"
+    },
+    "Rory McIlroy": {
+      "score": "N/A",
+      "hole": "2026-05-14T12:40:00Z"
+    },
+    "Gary Woodland": {
+      "score": "N/A",
+      "hole": "2026-05-14T11:34:00Z"
+    },
+    "Martin Kaymer": {
+      "score": "N/A",
+      "hole": "2026-05-14T16:54:00Z"
+    },
+    "Rickie Fowler": {
+      "score": "N/A",
+      "hole": "2026-05-14T12:18:00Z"
+    },
+    "Nick Taylor": {
+      "score": "N/A",
+      "hole": "2026-05-14T17:16:00Z"
+    },
+    "Alex Noren": {
+      "score": "N/A",
+      "hole": "2026-05-14T12:02:00Z"
+    },
+    "Adam Scott": {
+      "score": "N/A",
+      "hole": "2026-05-14T17:21:00Z"
+    },
+    "Ryan Fox": {
+      "score": "N/A",
+      "hole": "2026-05-14T12:35:00Z"
+    },
+    "Bernd Wiesberger": {
+      "score": "N/A",
+      "hole": "2026-05-14T18:27:00Z"
+    },
+    "Tom McKibbin": {
+      "score": "N/A",
+      "hole": "2026-05-14T11:40:00Z"
+    },
+    "Kristoffer Reitan": {
+      "score": "N/A",
+      "hole": "2026-05-14T12:13:00Z"
+    },
+    "Timothy Wiseman": {
+      "score": "N/A",
+      "hole": "2026-05-14T18:22:00Z"
+    },
+    "Alex Fitzpatrick": {
+      "score": "E",
+      "hole": "Thru 1"
+    },
+    "Viktor Hovland": {
+      "score": "N/A",
+      "hole": "2026-05-14T17:32:00Z"
+    },
+    "Ben Kern": {
+      "score": "N/A",
+      "hole": "2026-05-14T17:10:00Z"
+    },
+    "Ludvig Aberg": {
+      "score": "N/A",
+      "hole": "2026-05-14T12:18:00Z"
+    },
+    "Ben Griffin": {
+      "score": "E",
+      "hole": "Thru 1"
+    },
+    "Nico Echavarria": {
+      "score": "N/A",
+      "hole": "2026-05-14T16:26:00Z"
+    },
+    "Ian Holt": {
+      "score": "N/A",
+      "hole": "2026-05-14T11:23:00Z"
+    },
+    "Min Woo Lee": {
+      "score": "N/A",
+      "hole": "2026-05-14T11:56:00Z"
+    },
+    "Akshay Bhatia": {
+      "score": "N/A",
+      "hole": "2026-05-14T16:37:00Z"
+    },
+    "Daniel Hillier": {
+      "score": "N/A",
+      "hole": "2026-05-14T12:51:00Z"
+    },
+    "Michael Thorbjornsen": {
+      "score": "N/A",
+      "hole": "2026-05-14T16:37:00Z"
+    },
+    "Cameron Young": {
+      "score": "N/A",
+      "hole": "2026-05-14T17:54:00Z"
+    },
+    "Sam Stevens": {
+      "score": "N/A",
+      "hole": "2026-05-14T18:11:00Z"
+    },
+    "Steven Fisk": {
+      "score": "N/A",
+      "hole": "2026-05-14T16:21:00Z"
+    },
+    "Jimmy Walker": {
+      "score": "N/A",
+      "hole": "2026-05-14T17:05:00Z"
+    },
+    "Keegan Bradley": {
+      "score": "N/A",
+      "hole": "2026-05-14T17:54:00Z"
+    },
+    "Matti Schmid": {
+      "score": "N/A",
+      "hole": "2026-05-14T18:22:00Z"
+    },
+    "Marco Penge": {
+      "score": "N/A",
+      "hole": "2026-05-14T17:49:00Z"
+    },
+    "Shane Lowry": {
+      "score": "N/A",
+      "hole": "2026-05-14T17:32:00Z"
+    },
+    "Harry Hall": {
+      "score": "N/A",
+      "hole": "2026-05-14T10:56:00Z"
+    },
+    "Kazuki Higa": {
+      "score": "N/A",
+      "hole": "2026-05-14T12:35:00Z"
+    },
+    "Jayden Schaper": {
+      "score": "N/A",
+      "hole": "2026-05-14T18:11:00Z"
+    },
+    "Casey Jarvis": {
+      "score": "N/A",
+      "hole": "2026-05-14T16:32:00Z"
+    },
+    "Chandler Blanchet": {
+      "score": "N/A",
+      "hole": "2026-05-14T18:16:00Z"
+    },
+    "John Parry": {
+      "score": "N/A",
+      "hole": "2026-05-14T16:15:00Z"
+    },
+    "Chris Gotterup": {
+      "score": "N/A",
+      "hole": "2026-05-14T17:43:00Z"
+    },
+    "Ricky Castillo": {
+      "score": "N/A",
+      "hole": "2026-05-14T16:37:00Z"
+    },
+    "Michael Kartrude": {
+      "score": "N/A",
+      "hole": "2026-05-14T16:43:00Z"
+    },
+    "Mikael Lindberg": {
+      "score": "N/A",
+      "hole": "2026-05-14T13:02:00Z"
+    },
+    "Elvis Smylie": {
+      "score": "N/A",
+      "hole": "2026-05-14T16:54:00Z"
+    },
+    "Tyler Collet": {
+      "score": "N/A",
+      "hole": "2026-05-14T12:57:00Z"
+    },
+    "Thomas Detry": {
+      "score": "N/A",
+      "hole": "2026-05-14T12:24:00Z"
+    },
+    "Pierceson Coody": {
+      "score": "N/A",
+      "hole": "2026-05-14T17:27:00Z"
+    },
+    "Mark Geddes": {
+      "score": "N/A",
+      "hole": "2026-05-14T16:21:00Z"
+    },
+    "Justin Thomas": {
+      "score": "N/A",
+      "hole": "2026-05-14T17:54:00Z"
+    },
+    "Ryo Hisatsune": {
+      "score": "N/A",
+      "hole": "2026-05-14T12:46:00Z"
+    },
+    "Rasmus Neergaard-Petersen": {
+      "score": "N/A",
+      "hole": "2026-05-14T17:16:00Z"
+    },
+    "Joe Highsmith": {
+      "score": "N/A",
+      "hole": "2026-05-14T12:07:00Z"
+    },
+    "David Puig": {
+      "score": "N/A",
+      "hole": "2026-05-14T10:50:00Z"
+    },
+    "Matt McCarty": {
+      "score": "N/A",
+      "hole": "2026-05-14T11:29:00Z"
+    },
+    "Michael Brennan": {
+      "score": "N/A",
+      "hole": "2026-05-14T11:18:00Z"
+    },
+    "Jacob Bridgeman": {
+      "score": "N/A",
+      "hole": "2026-05-14T12:02:00Z"
+    },
+    "Austin Hurt": {
+      "score": "N/A",
+      "hole": "2026-05-14T16:32:00Z"
+    },
+    "Jared Jones": {
+      "score": "N/A",
+      "hole": "2026-05-14T12:46:00Z"
+    },
+    "Ryan Gerard": {
+      "score": "N/A",
+      "hole": "2026-05-14T10:56:00Z"
+    },
+    "William Mouw": {
+      "score": "N/A",
+      "hole": "2026-05-14T11:01:00Z"
+    },
+    "Aldrich Potgieter": {
+      "score": "E",
+      "hole": "Thru 1"
+    },
+    "Angel Ayora": {
+      "score": "N/A",
+      "hole": "2026-05-14T13:02:00Z"
+    },
+    "Sudarshan Yellamaraju": {
+      "score": "N/A",
+      "hole": "2026-05-14T18:27:00Z"
+    },
+    "Braden Shattuck": {
+      "score": "E",
+      "hole": "Thru 1"
+    },
+    "Kota Kaneko": {
+      "score": "N/A",
+      "hole": "2026-05-14T12:57:00Z"
+    },
+    "Bud Cauley": {
+      "score": "N/A",
+      "hole": "2026-05-14T12:02:00Z"
+    },
+    "Chris Gabriele": {
+      "score": "N/A",
+      "hole": "2026-05-14T11:01:00Z"
+    },
+    "Derek Berg": {
+      "score": "N/A",
+      "hole": "2026-05-14T12:07:00Z"
+    },
+    "Paul McClure": {
+      "score": "N/A",
+      "hole": "2026-05-14T13:02:00Z"
+    },
+    "Zach Haynes": {
+      "score": "N/A",
+      "hole": "2026-05-14T18:16:00Z"
+    },
+    "Harris English": {
+      "score": "N/A",
+      "hole": "2026-05-14T11:51:00Z"
+    },
+    "Russell Henley": {
+      "score": "N/A",
+      "hole": "2026-05-14T17:10:00Z"
+    },
+    "Jordan Spieth": {
+      "score": "N/A",
+      "hole": "2026-05-14T12:40:00Z"
+    },
+    "Andrew Putnam": {
+      "score": "N/A",
+      "hole": "2026-05-14T16:43:00Z"
+    },
+    "Tommy Fleetwood": {
+      "score": "N/A",
+      "hole": "2026-05-14T17:43:00Z"
+    },
+    "Tyrrell Hatton": {
+      "score": "N/A",
+      "hole": "2026-05-14T12:29:00Z"
+    },
+    "Patrick Reed": {
+      "score": "N/A",
+      "hole": "2026-05-14T17:27:00Z"
+    },
+    "Justin Rose": {
+      "score": "N/A",
+      "hole": "2026-05-14T18:05:00Z"
+    },
+    "Hideki Matsuyama": {
+      "score": "N/A",
+      "hole": "2026-05-14T16:59:00Z"
+    },
+    "Emiliano Grillo": {
+      "score": "N/A",
+      "hole": "2026-05-14T17:27:00Z"
+    },
+    "Garrett Sapp": {
+      "score": "N/A",
+      "hole": "2026-05-14T18:11:00Z"
+    },
+    "Andy Sullivan": {
+      "score": "N/A",
+      "hole": "2026-05-14T18:27:00Z"
+    },
+    "Patrick Cantlay": {
+      "score": "N/A",
+      "hole": "2026-05-14T11:56:00Z"
+    },
+    "Luke Donald": {
+      "score": "N/A",
+      "hole": "2026-05-14T16:48:00Z"
+    },
+    "David Lipsky": {
+      "score": "N/A",
+      "hole": "2026-05-14T16:21:00Z"
+    },
+    "Lucas Glover": {
+      "score": "N/A",
+      "hole": "2026-05-14T11:40:00Z"
+    },
+    "Brooks Koepka": {
+      "score": "N/A",
+      "hole": "2026-05-14T12:29:00Z"
+    },
+    "Patrick Rodgers": {
+      "score": "N/A",
+      "hole": "2026-05-14T17:49:00Z"
+    },
+    "Stephan Jaeger": {
+      "score": "N/A",
+      "hole": "2026-05-14T11:40:00Z"
+    },
+    "Adrien Saddier": {
+      "score": "N/A",
+      "hole": "2026-05-14T11:51:00Z"
+    },
+    "Si Woo Kim": {
+      "score": "N/A",
+      "hole": "2026-05-14T12:07:00Z"
+    },
+    "Stewart Cink": {
+      "score": "N/A",
+      "hole": "2026-05-14T16:48:00Z"
+    },
+    "Keith Mitchell": {
+      "score": "N/A",
+      "hole": "2026-05-14T11:23:00Z"
+    },
+    "Sepp Straka": {
+      "score": "N/A",
+      "hole": "2026-05-14T17:49:00Z"
+    },
+    "Max Homa": {
+      "score": "N/A",
+      "hole": "2026-05-14T16:59:00Z"
+    },
+    "Michael Kim": {
+      "score": "N/A",
+      "hole": "2026-05-14T12:46:00Z"
+    },
+    "Daniel Berger": {
+      "score": "N/A",
+      "hole": "2026-05-14T17:21:00Z"
+    },
+    "Matt Fitzpatrick": {
+      "score": "N/A",
+      "hole": "2026-05-14T18:05:00Z"
+    },
+    "Corey Conners": {
+      "score": "N/A",
+      "hole": "2026-05-14T17:21:00Z"
+    },
+    "Cameron Smith": {
+      "score": "N/A",
+      "hole": "2026-05-14T11:45:00Z"
+    },
+    "Haotong Li": {
+      "score": "N/A",
+      "hole": "2026-05-14T17:05:00Z"
+    },
+    "Christiaan Bezuidenhout": {
+      "score": "N/A",
+      "hole": "2026-05-14T17:38:00Z"
+    },
+    "Scottie Scheffler": {
+      "score": "N/A",
+      "hole": "2026-05-14T18:05:00Z"
+    },
+    "Alex Smalley": {
+      "score": "N/A",
+      "hole": "2026-05-14T18:16:00Z"
+    },
+    "Jordan Smith": {
+      "score": "N/A",
+      "hole": "2026-05-14T17:16:00Z"
+    },
+    "Brian Campbell": {
+      "score": "N/A",
+      "hole": "2026-05-14T17:38:00Z"
+    },
+    "Maverick McNealy": {
+      "score": "N/A",
+      "hole": "2026-05-14T12:24:00Z"
+    },
+    "Ryan Lenahan": {
+      "score": "N/A",
+      "hole": "2026-05-14T12:35:00Z"
+    },
+    "Taylor Pendrith": {
+      "score": "N/A",
+      "hole": "2026-05-14T11:01:00Z"
+    },
+    "Jon Rahm": {
+      "score": "N/A",
+      "hole": "2026-05-14T12:40:00Z"
+    },
+    "Sam Burns": {
+      "score": "N/A",
+      "hole": "2026-05-14T11:34:00Z"
+    }
+  },
+  "last_score_refresh_at": 1778756806.6514716
 }
