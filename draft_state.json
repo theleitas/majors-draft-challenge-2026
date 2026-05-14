@@ -56,19 +56,19 @@
   },
   "player_results": {
     "Bryson DeChambeau": {
-      "score": "E",
-      "hole": "Thru 6"
+      "score": "+2",
+      "hole": "Thru 7"
     },
     "Denny McCarthy": {
-      "score": "E",
-      "hole": "Thru 12"
+      "score": "+2",
+      "hole": "Thru 14"
     },
     "Davis Riley": {
       "score": "N/A",
       "hole": "12:54 PM"
     },
     "Xander Schauffele": {
-      "score": "E",
+      "score": "-2",
       "hole": "Thru 6"
     },
     "J.J. Spaun": {
@@ -80,8 +80,8 @@
       "hole": "12:26 PM"
     },
     "Jhonattan Vegas": {
-      "score": "E",
-      "hole": "Thru 9"
+      "score": "+2",
+      "hole": "Thru 10"
     },
     "Kurt Kitayama": {
       "score": "N/A",
@@ -108,8 +108,8 @@
       "hole": "2:00 PM"
     },
     "Sahith Theegala": {
-      "score": "E",
-      "hole": "Thru 7"
+      "score": "-1",
+      "hole": "Thru 8"
     },
     "Jason Dufner": {
       "score": "N/A",
@@ -120,24 +120,24 @@
       "hole": "2:22 PM"
     },
     "Joaquin Niemann": {
-      "score": "E",
-      "hole": "Thru 11"
+      "score": "-1",
+      "hole": "Thru 12"
     },
     "Max Greyserman": {
-      "score": "E",
-      "hole": "Thru 7"
+      "score": "-1",
+      "hole": "Thru 8"
     },
     "Wyndham Clark": {
-      "score": "E",
-      "hole": "Thru 8"
+      "score": "+1",
+      "hole": "Thru 9"
     },
     "Jordan Gumberg": {
       "score": "N/A",
       "hole": "12:15 PM"
     },
     "Nicolai Højgaard": {
-      "score": "E",
-      "hole": "Thru 11"
+      "score": "-2",
+      "hole": "Thru 12"
     },
     "Rasmus Højgaard": {
       "score": "N/A",
@@ -160,60 +160,60 @@
       "hole": "12:32 PM"
     },
     "Max McGreevy": {
-      "score": "E",
-      "hole": "Thru 4"
+      "score": "+2",
+      "hole": "Thru 6"
     },
     "Rico Hoey": {
-      "score": "E",
-      "hole": "Thru 11"
+      "score": "+1",
+      "hole": "Thru 12"
     },
     "Garrick Higgo": {
-      "score": "E",
-      "hole": "Thru 10"
+      "score": "+1",
+      "hole": "Thru 11"
     },
     "Jesse Droemer": {
       "score": "N/A",
       "hole": "12:48 PM"
     },
     "Brandt Snedeker": {
-      "score": "E",
-      "hole": "Thru 5"
-    },
-    "Brian Harman": {
-      "score": "E",
-      "hole": "Thru 8"
-    },
-    "Y.E. Yang": {
-      "score": "E",
-      "hole": "Thru 9"
-    },
-    "Billy Horschel": {
-      "score": "E",
-      "hole": "Thru 10"
-    },
-    "Jason Day": {
-      "score": "E",
-      "hole": "Thru 9"
-    },
-    "Padraig Harrington": {
-      "score": "E",
+      "score": "-1",
       "hole": "Thru 6"
     },
-    "Bryce Fisher": {
-      "score": "E",
-      "hole": "Thru 11"
+    "Brian Harman": {
+      "score": "+1",
+      "hole": "Thru 9"
     },
-    "Shaun Micheel": {
-      "score": "E",
+    "Y.E. Yang": {
+      "score": "+4",
       "hole": "Thru 10"
     },
-    "Francisco Bide": {
-      "score": "E",
+    "Billy Horschel": {
+      "score": "+3",
       "hole": "Thru 11"
     },
+    "Jason Day": {
+      "score": "+1",
+      "hole": "Thru 10"
+    },
+    "Padraig Harrington": {
+      "score": "+2",
+      "hole": "Thru 8"
+    },
+    "Bryce Fisher": {
+      "score": "+5",
+      "hole": "Thru 12"
+    },
+    "Shaun Micheel": {
+      "score": "+4",
+      "hole": "Thru 11"
+    },
+    "Francisco Bide": {
+      "score": "+1",
+      "hole": "Thru 13"
+    },
     "Ryan Vermeer": {
-      "score": "E",
-      "hole": "Thru 4"
+      "score": "+4",
+      "hole": "Thru 6"
     },
     "Michael Block": {
       "score": "N/A",
@@ -225,59 +225,59 @@
     },
     "Chris Kirk": {
       "score": "E",
-      "hole": "Thru 7"
+      "hole": "Thru 8"
     },
     "Rory McIlroy": {
       "score": "E",
-      "hole": "Thru 5"
+      "hole": "Thru 6"
     },
     "Gary Woodland": {
       "score": "E",
-      "hole": "Thru 9"
+      "hole": "Thru 10"
     },
     "Martin Kaymer": {
       "score": "N/A",
       "hole": "12:54 PM"
     },
     "Rickie Fowler": {
-      "score": "E",
-      "hole": "Thru 6"
+      "score": "-1",
+      "hole": "Thru 7"
     },
     "Nick Taylor": {
       "score": "N/A",
       "hole": "1:16 PM"
     },
     "Alex Noren": {
-      "score": "E",
-      "hole": "Thru 8"
+      "score": "+1",
+      "hole": "Thru 9"
     },
     "Adam Scott": {
       "score": "N/A",
       "hole": "1:21 PM"
     },
     "Ryan Fox": {
-      "score": "E",
-      "hole": "Thru 6"
+      "score": "-1",
+      "hole": "Thru 7"
     },
     "Bernd Wiesberger": {
       "score": "N/A",
       "hole": "2:27 PM"
     },
     "Tom McKibbin": {
-      "score": "E",
-      "hole": "Thru 9"
+      "score": "+3",
+      "hole": "Thru 10"
     },
     "Kristoffer Reitan": {
-      "score": "E",
-      "hole": "Thru 7"
+      "score": "+2",
+      "hole": "Thru 8"
     },
     "Timothy Wiseman": {
       "score": "N/A",
       "hole": "2:22 PM"
     },
     "Alex Fitzpatrick": {
-      "score": "E",
-      "hole": "Thru 12"
+      "score": "-2",
+      "hole": "Thru 13"
     },
     "Viktor Hovland": {
       "score": "N/A",
@@ -289,31 +289,31 @@
     },
     "Ludvig Aberg": {
       "score": "E",
-      "hole": "Thru 6"
+      "hole": "Thru 7"
     },
     "Ben Griffin": {
-      "score": "E",
-      "hole": "Thru 12"
+      "score": "+3",
+      "hole": "Thru 13"
     },
     "Nico Echavarria": {
       "score": "N/A",
       "hole": "12:26 PM"
     },
     "Ian Holt": {
-      "score": "E",
-      "hole": "Thru 10"
+      "score": "+3",
+      "hole": "Thru 11"
     },
     "Min Woo Lee": {
-      "score": "E",
-      "hole": "Thru 7"
+      "score": "-1",
+      "hole": "Thru 8"
     },
     "Akshay Bhatia": {
       "score": "N/A",
       "hole": "12:37 PM"
     },
     "Daniel Hillier": {
-      "score": "E",
-      "hole": "Thru 4"
+      "score": "+3",
+      "hole": "Thru 6"
     },
     "Michael Thorbjornsen": {
       "score": "N/A",
@@ -352,12 +352,12 @@
       "hole": "1:32 PM"
     },
     "Harry Hall": {
-      "score": "E",
-      "hole": "Thru 11"
+      "score": "+1",
+      "hole": "Thru 13"
     },
     "Kazuki Higa": {
       "score": "E",
-      "hole": "Thru 6"
+      "hole": "Thru 7"
     },
     "Jayden Schaper": {
       "score": "N/A",
@@ -389,7 +389,7 @@
     },
     "Mikael Lindberg": {
       "score": "E",
-      "hole": "Thru 4"
+      "hole": "Thru 5"
     },
     "Elvis Smylie": {
       "score": "N/A",
@@ -397,11 +397,11 @@
     },
     "Tyler Collet": {
       "score": "E",
-      "hole": "Thru 4"
+      "hole": "Thru 6"
     },
     "Thomas Detry": {
-      "score": "E",
-      "hole": "Thru 6"
+      "score": "-1",
+      "hole": "Thru 7"
     },
     "Pierceson Coody": {
       "score": "N/A",
@@ -417,91 +417,91 @@
     },
     "Ryo Hisatsune": {
       "score": "E",
-      "hole": "Thru 5"
+      "hole": "Thru 7"
     },
     "Rasmus Neergaard-Petersen": {
       "score": "N/A",
       "hole": "1:16 PM"
     },
     "Joe Highsmith": {
-      "score": "E",
-      "hole": "Thru 6"
+      "score": "+4",
+      "hole": "Thru 8"
     },
     "David Puig": {
-      "score": "E",
-      "hole": "Thru 12"
+      "score": "+1",
+      "hole": "Thru 14"
     },
     "Matt McCarty": {
-      "score": "E",
-      "hole": "Thru 9"
-    },
-    "Michael Brennan": {
-      "score": "E",
+      "score": "+4",
       "hole": "Thru 10"
     },
+    "Michael Brennan": {
+      "score": "-1",
+      "hole": "Thru 11"
+    },
     "Jacob Bridgeman": {
-      "score": "E",
-      "hole": "Thru 8"
+      "score": "+5",
+      "hole": "Thru 9"
     },
     "Austin Hurt": {
       "score": "N/A",
       "hole": "12:32 PM"
     },
     "Jared Jones": {
-      "score": "E",
-      "hole": "Thru 5"
+      "score": "+4",
+      "hole": "Thru 6"
     },
     "Ryan Gerard": {
       "score": "E",
-      "hole": "Thru 11"
+      "hole": "Thru 13"
     },
     "William Mouw": {
-      "score": "E",
-      "hole": "Thru 11"
+      "score": "+5",
+      "hole": "Thru 13"
     },
     "Aldrich Potgieter": {
-      "score": "E",
-      "hole": "Thru 12"
+      "score": "-1",
+      "hole": "Thru 14"
     },
     "Angel Ayora": {
-      "score": "E",
-      "hole": "Thru 4"
+      "score": "+1",
+      "hole": "Thru 5"
     },
     "Sudarshan Yellamaraju": {
       "score": "N/A",
       "hole": "2:27 PM"
     },
     "Braden Shattuck": {
-      "score": "E",
-      "hole": "Thru 12"
+      "score": "+4",
+      "hole": "Thru 13"
     },
     "Kota Kaneko": {
-      "score": "E",
-      "hole": "Thru 4"
-    },
-    "Bud Cauley": {
-      "score": "E",
-      "hole": "Thru 8"
-    },
-    "Chris Gabriele": {
-      "score": "E",
-      "hole": "Thru 12"
-    },
-    "Derek Berg": {
-      "score": "E",
+      "score": "+1",
       "hole": "Thru 6"
     },
+    "Bud Cauley": {
+      "score": "-3",
+      "hole": "Thru 9"
+    },
+    "Chris Gabriele": {
+      "score": "+6",
+      "hole": "Thru 13"
+    },
+    "Derek Berg": {
+      "score": "+8",
+      "hole": "Thru 8"
+    },
     "Paul McClure": {
-      "score": "E",
-      "hole": "Thru 4"
+      "score": "+2",
+      "hole": "Thru 5"
     },
     "Zach Haynes": {
       "score": "N/A",
       "hole": "2:16 PM"
     },
     "Harris English": {
-      "score": "E",
-      "hole": "Thru 8"
+      "score": "+1",
+      "hole": "Thru 9"
     },
     "Russell Henley": {
       "score": "N/A",
@@ -509,7 +509,7 @@
     },
     "Jordan Spieth": {
       "score": "E",
-      "hole": "Thru 5"
+      "hole": "Thru 6"
     },
     "Andrew Putnam": {
       "score": "N/A",
@@ -520,8 +520,8 @@
       "hole": "1:43 PM"
     },
     "Tyrrell Hatton": {
-      "score": "E",
-      "hole": "Thru 6"
+      "score": "+3",
+      "hole": "Thru 7"
     },
     "Patrick Reed": {
       "score": "N/A",
@@ -548,8 +548,8 @@
       "hole": "2:27 PM"
     },
     "Patrick Cantlay": {
-      "score": "E",
-      "hole": "Thru 7"
+      "score": "-1",
+      "hole": "Thru 8"
     },
     "Luke Donald": {
       "score": "N/A",
@@ -560,11 +560,11 @@
       "hole": "12:21 PM"
     },
     "Lucas Glover": {
-      "score": "E",
-      "hole": "Thru 9"
+      "score": "+4",
+      "hole": "Thru 10"
     },
     "Brooks Koepka": {
-      "score": "E",
+      "score": "-1",
       "hole": "Thru 6"
     },
     "Patrick Rodgers": {
@@ -572,24 +572,24 @@
       "hole": "1:49 PM"
     },
     "Stephan Jaeger": {
-      "score": "E",
-      "hole": "Thru 9"
+      "score": "-4",
+      "hole": "Thru 10"
     },
     "Adrien Saddier": {
-      "score": "E",
-      "hole": "Thru 8"
+      "score": "+2",
+      "hole": "Thru 9"
     },
     "Si Woo Kim": {
       "score": "E",
-      "hole": "Thru 6"
+      "hole": "Thru 8"
     },
     "Stewart Cink": {
       "score": "N/A",
       "hole": "12:48 PM"
     },
     "Keith Mitchell": {
-      "score": "E",
-      "hole": "Thru 10"
+      "score": "+2",
+      "hole": "Thru 11"
     },
     "Sepp Straka": {
       "score": "N/A",
@@ -600,8 +600,8 @@
       "hole": "12:59 PM"
     },
     "Michael Kim": {
-      "score": "E",
-      "hole": "Thru 5"
+      "score": "+1",
+      "hole": "Thru 6"
     },
     "Daniel Berger": {
       "score": "N/A",
@@ -616,8 +616,8 @@
       "hole": "1:21 PM"
     },
     "Cameron Smith": {
-      "score": "E",
-      "hole": "Thru 8"
+      "score": "-1",
+      "hole": "Thru 9"
     },
     "Haotong Li": {
       "score": "N/A",
@@ -644,25 +644,25 @@
       "hole": "1:38 PM"
     },
     "Maverick McNealy": {
-      "score": "E",
-      "hole": "Thru 6"
+      "score": "-1",
+      "hole": "Thru 7"
     },
     "Ryan Lenahan": {
-      "score": "E",
-      "hole": "Thru 6"
+      "score": "+1",
+      "hole": "Thru 7"
     },
     "Taylor Pendrith": {
-      "score": "E",
-      "hole": "Thru 11"
+      "score": "+1",
+      "hole": "Thru 13"
     },
     "Jon Rahm": {
-      "score": "E",
-      "hole": "Thru 5"
+      "score": "+1",
+      "hole": "Thru 6"
     },
     "Sam Burns": {
-      "score": "E",
-      "hole": "Thru 9"
+      "score": "-1",
+      "hole": "Thru 10"
     }
   },
-  "last_score_refresh_at": 1778767980.5543969
+  "last_score_refresh_at": 1778769460.1651168
 }
