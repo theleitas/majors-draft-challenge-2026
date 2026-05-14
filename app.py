@@ -152,7 +152,7 @@ PLAYER_FLAGS = {
     "Ludvig Aberg": "🇸🇪", "Angel Ayora": "🇪🇸", "Christiaan Bezuidenhout": "🇿🇦",
     "Francisco Bide": "🇦🇷", "Daniel Brown": "🇬🇧", "Corey Conners": "🇨🇦",
     "Jason Day": "🇦🇺", "Thomas Detry": "🇧🇪", "Luke Donald": "🇬🇧",
-    "Nico Echavarria": "🇨🇴", "Alex Fitzpatrick": "🇬🇧", "Matt Fitzpatrick": "🇬🇧",
+    "Nico Echavarria": "🇨🇴", "Alex Fitzpatrick": "🇬���", "Matt Fitzpatrick": "🇬🇧",
     "Tommy Fleetwood": "🇬🇧", "Ryan Fox": "🇳🇿", "Emiliano Grillo": "🇦🇷",
     "Harry Hall": "🇬🇧", "Padraig Harrington": "🇮🇪", "Tyrrell Hatton": "🇬🇧",
     "Kazuki Higa": "🇯🇵", "Garrick Higgo": "🇿🇦", "Daniel Hillier": "🇳🇿",
@@ -189,5 +189,13 @@ def default_state():
         },
     }
 
+# Updated function to prevent redundant "thru thru" issue
 def display_hole_value(value):
-    return value  # Reverting changes to ensure app functionality
+    value = clean_status_text(value)
+    if not value:
+        return "—"
+    if re.search(r"\d{4}-\d{2}-\d{2}T", value) or re.search(r"\d{1,2}:\d{2}", value):
+        return format_tee_time(value)
+    if value.lower().startswith("thru"):
+        return value.capitalize()
+    return value
