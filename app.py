@@ -189,13 +189,5 @@ def default_state():
         },
     }
 
-# Updated function to prevent redundant "thru thru" issue
 def display_hole_value(value):
-    value = clean_status_text(value)
-    if not value:
-        return "—"
-    if re.search(r"\d{4}-\d{2}-\d{2}T", value) or re.search(r"\d{1,2}:\d{2}", value):
-        return format_tee_time(value)
-    if value.lower().startswith("thru"):
-        return value.capitalize()
-    return value
+    return value  # Reverting changes to ensure app functionality
