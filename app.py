@@ -32,41 +32,17 @@ div[data-testid="stButton"] > button:disabled, div[data-testid="stButton"] > but
     background:#2b2b2b!important; color:#9a9a9a!important; border-color:#444!important; opacity:1!important;
 }
 .refresh-button-wrap div[data-testid="stButton"] > button {
-    width:100%!important;
-    min-height:64px!important;
-    background:#ff4b00!important;
-    color:#000!important;
-    border:3px solid #ffb000!important;
-    font-size:1.35rem!important;
-    font-weight:1000!important;
-    letter-spacing:.02em!important;
-    text-transform:uppercase!important;
+    width:100%!important; min-height:64px!important; background:#ff4b00!important; color:#000!important;
+    border:3px solid #ffb000!important; font-size:1.35rem!important; font-weight:1000!important;
+    letter-spacing:.02em!important; text-transform:uppercase!important;
     box-shadow:0 0 18px rgba(255,75,0,.7), inset 0 0 10px rgba(255,255,255,.28)!important;
 }
 .refresh-button-wrap div[data-testid="stButton"] > button:hover {
-    background:#ff7a00!important;
-    color:#000!important;
-    border-color:#ffe600!important;
+    background:#ff7a00!important; color:#000!important; border-color:#ffe600!important;
 }
-.app-title {
-    display:flex;
-    align-items:center;
-    gap:14px;
-    margin:0.6rem 0 0.25rem 0;
-}
-.app-title h1 {
-    margin:0;
-    padding:0;
-    font-size:2.75rem;
-    line-height:1.1;
-    font-weight:800;
-}
-.app-logo {
-    width:3.5em;
-    height:3.5em;
-    object-fit:contain;
-    flex:0 0 auto;
-}
+.app-title { display:flex; align-items:center; gap:14px; margin:.6rem 0 .25rem 0; }
+.app-title h1 { margin:0; padding:0; font-size:2.75rem; line-height:1.1; font-weight:800; }
+.app-logo { width:3.5em; height:3.5em; object-fit:contain; flex:0 0 auto; }
 .roster-table { width:100%; border-collapse:collapse; font-size:.95rem; background:#080808; color:#fff; overflow:hidden; border-radius:8px; }
 .roster-table th { text-align:left; padding:10px 12px; color:#fff; border-bottom:1px solid rgba(255,255,255,.18); font-weight:800; }
 .roster-table td { padding:10px 12px; border-bottom:1px solid rgba(255,255,255,.10); vertical-align:middle; }
@@ -74,10 +50,7 @@ div[data-testid="stButton"] > button:disabled, div[data-testid="stButton"] > but
 .roster-top-three td { background:#ffeb3b!important; color:#000!important; font-weight:900; }
 .draft-stopped-note { color:#bbb; font-style:italic; margin:.5rem 0 1rem 0; }
 .team-heading { display:flex; align-items:center; gap:14px; }
-.team-face {
-    width:2.5em; height:2.5em; border-radius:50%; object-fit:cover;
-    border:2px solid currentColor; flex:0 0 auto;
-}
+.team-face { width:2.5em; height:2.5em; border-radius:50%; object-fit:cover; border:2px solid currentColor; flex:0 0 auto; }
 @media (max-width:700px) {
     div[data-testid="column"] { width:100%!important; flex:1 1 100%!important; }
     div[data-testid="stButton"] > button { min-height:54px!important; font-size:.98rem!important; }
@@ -227,17 +200,14 @@ def normalize_state(state):
     state.setdefault("player_results", base["player_results"])
     state.setdefault("last_score_refresh_at", base["last_score_refresh_at"])
     state.setdefault("teams", base["teams"])
-
     for coach, info in base["teams"].items():
         state["teams"].setdefault(coach, info)
-
     valid_coaches = list(state["teams"].keys())
     cleaned_order = [coach for coach in state["draft_order"] if coach in valid_coaches]
     for coach in valid_coaches:
         if coach not in cleaned_order:
             cleaned_order.append(coach)
     state["draft_order"] = cleaned_order[:3]
-
     for coach in valid_coaches:
         state["teams"][coach].setdefault("team_name", coach)
         state["teams"][coach].setdefault("players", [])
@@ -279,10 +249,12 @@ def last_name_key(player):
 
 def normalize_player_match_name(name):
     name = str(name or "").strip()
-    name = name.replace("Å", "A").replace("å", "a").replace("Á", "A").replace("á", "a")
-    name = name.replace("É", "E").replace("é", "e").replace("Í", "I").replace("í", "i")
-    name = name.replace("Ó", "O").replace("ó", "o").replace("Ú", "U").replace("ú", "u")
-    name = name.replace("Ø", "O").replace("ø", "o")
+    replacements = {
+        "Å": "A", "å": "a", "Á": "A", "á": "a", "É": "E", "é": "e", "Í": "I", "í": "i",
+        "Ó": "O", "ó": "o", "Ú": "U", "ú": "u", "Ø": "O", "ø": "o", "ø": "o",
+    }
+    for old, new in replacements.items():
+        name = name.replace(old, new)
     name = name.replace("Højgaard", "Hojgaard").replace("Neergaard-Petersen", "Neergaard Petersen")
     name = re.sub(r"[^A-Za-z ]", "", name)
     return re.sub(r"\s+", " ", name).strip().lower()
@@ -372,20 +344,47 @@ def format_tee_time(value):
     if not value:
         return ""
 
-    try:
-        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
-        parsed = parsed.astimezone(ZoneInfo("America/New_York"))
-        return parsed.strftime("%I:%M %p")
-    except Exception:
-        pass
+    iso_match = re.search(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2})?(?:\.\d+)?(?:Z|[+-]\d{2}:?\d{2})?", value)
+    if iso_match:
+        raw = iso_match.group(0)
+        if raw.endswith("Z"):
+            raw = raw[:-1] + "+00:00"
+        elif re.search(r"[+-]\d{4}$", raw):
+            raw = raw[:-5] + raw[-5:-2] + ":" + raw[-2:]
+        try:
+            parsed = datetime.fromisoformat(raw)
+            if parsed.tzinfo is None:
+                parsed = parsed.replace(tzinfo=ZoneInfo("UTC"))
+            parsed = parsed.astimezone(ZoneInfo("America/New_York"))
+            return parsed.strftime("%I:%M %p").lstrip("0")
+        except Exception:
+            pass
 
     for fmt in ["%I:%M %p", "%I:%M%p", "%H:%M"]:
         try:
             parsed = datetime.strptime(value.upper(), fmt)
-            return parsed.strftime("%I:%M %p")
+            return parsed.strftime("%I:%M %p").lstrip("0")
         except Exception:
             pass
 
+    short_time = re.search(r"\b(\d{1,2}:\d{2})\s*([AP]M)?\b", value.upper())
+    if short_time:
+        if short_time.group(2):
+            return f"{short_time.group(1)} {short_time.group(2)}"
+        try:
+            parsed = datetime.strptime(short_time.group(1), "%H:%M")
+            return parsed.strftime("%I:%M %p").lstrip("0")
+        except Exception:
+            return short_time.group(1)
+
+    return value
+
+def display_hole_value(value):
+    value = clean_status_text(value)
+    if not value:
+        return "—"
+    if re.search(r"\d{4}-\d{2}-\d{2}T", value) or re.search(r"\d{1,2}:\d{2}", value):
+        return format_tee_time(value)
     return value
 
 def extract_hole_or_tee_time(competitor):
@@ -401,21 +400,21 @@ def extract_hole_or_tee_time(competitor):
     for key in play_status_keys:
         value = clean_status_text(competitor.get(key))
         if value:
-            return value
+            return display_hole_value(value)
 
     status = competitor.get("status")
     if isinstance(status, dict):
         for key in ["displayValue", "detail", "shortDetail", "description"]:
             value = clean_status_text(status.get(key))
             if value:
-                return format_tee_time(value) if ":" in value else value
+                return display_hole_value(value)
 
         status_type = status.get("type")
         if isinstance(status_type, dict):
             for key in ["detail", "shortDetail", "description", "name"]:
                 value = clean_status_text(status_type.get(key))
                 if value:
-                    return format_tee_time(value) if ":" in value else value
+                    return display_hole_value(value)
 
     linescores = competitor.get("linescores")
     if isinstance(linescores, list) and linescores:
@@ -424,7 +423,7 @@ def extract_hole_or_tee_time(competitor):
             for key in ["thru", "thruStatus", "currentHole", "displayValue", "value"]:
                 value = clean_status_text(latest.get(key))
                 if value and value not in ["--"]:
-                    return value
+                    return display_hole_value(value)
 
     return "—"
 
@@ -617,7 +616,11 @@ def save_team_names(new_teams):
     return mutate_shared_state(mutator, "Update team names")
 
 def get_player_result(player):
-    return PLAYER_RESULTS.get(player, {"score": "N/A", "hole": "—"})
+    result = PLAYER_RESULTS.get(player, {"score": "N/A", "hole": "—"})
+    return {
+        "score": result.get("score", "N/A"),
+        "hole": display_hole_value(result.get("hole", "—")),
+    }
 
 def parse_golf_score(score):
     if score is None:
@@ -745,7 +748,7 @@ for coach_id, info in teams_data.items():
         for score_value, _, player, result in scored_players:
             safe_player = html.escape(display_player_name(player))
             score = html.escape(format_golf_score(score_value))
-            hole = html.escape(str(result.get("hole", "—")))
+            hole = html.escape(display_hole_value(result.get("hole", "—")))
             label = "Tee" if "AM" in hole or "PM" in hole else "Thru"
             top3_html += (
                 f"<div style='margin:4px 0; color:{color}; font-size:1.05rem;'>"
@@ -796,7 +799,7 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
                 safe_player = html.escape(display_player_name(player))
                 result = get_player_result(player)
                 score = html.escape(str(result.get("score", "N/A")))
-                hole = html.escape(str(result.get("hole", "—")))
+                hole = html.escape(display_hole_value(result.get("hole", "—")))
                 row_class = " class='roster-top-three'" if player in top_three_lowest_score_players else ""
                 roster_parts.append(f"<tr{row_class}><td>{safe_player}</td><td>{score}</td><td>{hole}</td></tr>")
             roster_parts.append("</tbody></table>")
