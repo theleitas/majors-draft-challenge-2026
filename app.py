@@ -6,6 +6,8 @@ import json
 import base64
 import time
 import html
+import os
+import mimetypes
 from datetime import datetime
 
 st.set_page_config(
@@ -98,6 +100,29 @@ st.markdown(
         font-style: italic;
         margin: 0.5rem 0 1rem 0;
     }
+    .team-heading {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .team-face {
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid currentColor;
+        flex: 0 0 auto;
+    }
+    @media (max-width: 700px) {
+        div[data-testid="column"] {
+            width: 100% !important;
+            flex: 1 1 100% !important;
+        }
+        div[data-testid="stButton"] > button {
+            min-height: 54px !important;
+            font-size: 0.98rem !important;
+        }
+    }
     </style>
     """,
     unsafe_allow_html=True,
@@ -133,6 +158,12 @@ COACH_COLORS = {
     "Jayme Leita": "#00cc77",
     "Spencer Tidwell": "#bb77ff",
     "Peter Miller": "#2E47DB",
+}
+
+COACH_IMAGES = {
+    "Jayme Leita": "assets/jayme-pic.png",
+    "Spencer Tidwell": "assets/spencer-pic.png",
+    "Peter Miller": "assets/peter-pic.png",
 }
 
 STATIC_ODDS = {
@@ -183,6 +214,61 @@ PGA_PLAYERS = sorted([
     "Bernd Wiesberger", "Timothy Wiseman", "Gary Woodland", "Y.E. Yang", "Sudarshan Yellamaraju",
     "Cameron Young",
 ])
+
+PLAYER_FLAGS = {
+    "Ludvig Aberg": "🇸🇪", "Angel Ayora": "🇪🇸", "Derek Berg": "🇺🇸", "Daniel Berger": "🇺🇸",
+    "Christiaan Bezuidenhout": "🇿🇦", "Akshay Bhatia": "🇺🇸", "Francisco Bide": "🇦🇷",
+    "Chandler Blanchet": "🇺🇸", "Michael Block": "🇺🇸", "Keegan Bradley": "🇺🇸",
+    "Michael Brennan": "🇺🇸", "Jacob Bridgeman": "🇺🇸", "Daniel Brown": "🏴",
+    "Sam Burns": "🇺🇸", "Brian Campbell": "🇺🇸", "Patrick Cantlay": "🇺🇸",
+    "Ricky Castillo": "🇺🇸", "Bud Cauley": "🇺🇸", "Stewart Cink": "🇺🇸",
+    "Wyndham Clark": "🇺🇸", "Tyler Collet": "🇺🇸", "Corey Conners": "🇨🇦",
+    "Pierceson Coody": "🇺🇸", "Jason Day": "🇦🇺", "Bryson DeChambeau": "🇺🇸",
+    "Thomas Detry": "🇧🇪", "Luke Donald": "🏴", "Jesse Droemer": "🇺🇸",
+    "Jason Dufner": "🇺🇸", "Nico Echavarria": "🇨🇴", "Harris English": "🇺🇸",
+    "Bryce Fisher": "🇺🇸", "Steven Fisk": "🇺🇸", "Alex Fitzpatrick": "🏴",
+    "Matt Fitzpatrick": "🏴", "Tommy Fleetwood": "🏴", "Rickie Fowler": "🇺🇸",
+    "Ryan Fox": "🇳🇿", "Chris Gabriele": "🇺🇸", "Mark Geddes": "🇺🇸",
+    "Ryan Gerard": "🇺🇸", "Lucas Glover": "🇺🇸", "Chris Gotterup": "🇺🇸",
+    "Max Greyserman": "🇺🇸", "Ben Griffin": "🇺🇸", "Emiliano Grillo": "🇦🇷",
+    "Jordan Gumberg": "🇺🇸", "Harry Hall": "🏴", "Brian Harman": "🇺🇸",
+    "Padraig Harrington": "🇮🇪", "Tyrrell Hatton": "🏴", "Zach Haynes": "🇺🇸",
+    "Russell Henley": "🇺🇸", "Kazuki Higa": "🇯🇵", "Garrick Higgo": "🇿🇦",
+    "Joe Highsmith": "🇺🇸", "Daniel Hillier": "🇳🇿", "Ryo Hisatsune": "🇯🇵",
+    "Rico Hoey": "🇵🇭", "Ian Holt": "🇺🇸", "Max Homa": "🇺🇸",
+    "Billy Horschel": "🇺🇸", "Viktor Hovland": "🇳🇴", "Austin Hurt": "🇺🇸",
+    "Nicolai Højgaard": "🇩🇰", "Rasmus Højgaard": "🇩🇰", "Sungjae Im": "🇰🇷",
+    "Stephan Jaeger": "🇩🇪", "Casey Jarvis": "🇿🇦", "Dustin Johnson": "🇺🇸",
+    "Jared Jones": "🇺🇸", "Kota Kaneko": "🇯🇵", "Michael Kartrude": "🇺🇸",
+    "Martin Kaymer": "🇩🇪", "John Keefer": "🇺🇸", "Ben Kern": "🇺🇸",
+    "Michael Kim": "🇺🇸", "Si Woo Kim": "🇰🇷", "Chris Kirk": "🇺🇸",
+    "Kurt Kitayama": "🇺🇸", "Jake Knapp": "🇺🇸", "Brooks Koepka": "🇺🇸",
+    "Min Woo Lee": "🇦🇺", "Ryan Lenahan": "🇺🇸", "Haotong Li": "🇨🇳",
+    "Mikael Lindberg": "🇸🇪", "David Lipsky": "🇺🇸", "Shane Lowry": "🇮🇪",
+    "Robert MacIntyre": "🏴", "Hideki Matsuyama": "🇯🇵", "Denny McCarthy": "🇺🇸",
+    "Matt McCarty": "🇺🇸", "Paul McClure": "🇺🇸", "Max McGreevy": "🇺🇸",
+    "Rory McIlroy": "🇬🇧", "Tom McKibbin": "🇬🇧", "Maverick McNealy": "🇺🇸",
+    "Shaun Micheel": "🇺🇸", "Keith Mitchell": "🇺🇸", "Collin Morikawa": "🇺🇸",
+    "William Mouw": "🇺🇸", "Rasmus Neergaard-Petersen": "🇩🇰", "Joaquin Niemann": "🇨🇱",
+    "Alex Noren": "🇸🇪", "Andrew Novak": "🇺🇸", "John Parry": "🏴",
+    "Taylor Pendrith": "🇨🇦", "Marco Penge": "🏴", "Ben Polland": "🇺🇸",
+    "J.T. Poston": "🇺🇸", "Aldrich Potgieter": "🇿🇦", "David Puig": "🇪🇸",
+    "Andrew Putnam": "🇺🇸", "Jon Rahm": "🇪🇸", "Aaron Rai": "🏴",
+    "Patrick Reed": "🇺🇸", "Kristoffer Reitan": "🇳🇴", "Davis Riley": "🇺🇸",
+    "Patrick Rodgers": "🇺🇸", "Justin Rose": "🏴", "Adrien Saddier": "🇫🇷",
+    "Garrett Sapp": "🇺🇸", "Jayden Schaper": "🇿🇦", "Xander Schauffele": "🇺🇸",
+    "Scottie Scheffler": "🇺🇸", "Adam Schenk": "🇺🇸", "Matti Schmid": "🇩🇪",
+    "Adam Scott": "🇦🇺", "Braden Shattuck": "🇺🇸", "Alex Smalley": "🇺🇸",
+    "Cameron Smith": "🇦🇺", "Jordan Smith": "🏴", "Austin Smotherman": "🇺🇸",
+    "Elvis Smylie": "🇦🇺", "Travis Smyth": "🇦🇺", "Brandt Snedeker": "🇺🇸",
+    "J.J. Spaun": "🇺🇸", "Jordan Spieth": "🇺🇸", "Sam Stevens": "🇺🇸",
+    "Sepp Straka": "🇦🇹", "Andy Sullivan": "🏴", "Nick Taylor": "🇨🇦",
+    "Sahith Theegala": "🇺🇸", "Justin Thomas": "🇺🇸", "Michael Thorbjornsen": "🇺🇸",
+    "Sami Valimaki": "🇫🇮", "Jhonattan Vegas": "🇻🇪", "Ryan Vermeer": "🇺🇸",
+    "Jimmy Walker": "🇺🇸", "Matt Wallace": "🏴", "Bernd Wiesberger": "🇦🇹",
+    "Timothy Wiseman": "🇺🇸", "Gary Woodland": "🇺🇸", "Y.E. Yang": "🇰🇷",
+    "Sudarshan Yellamaraju": "🇨🇦", "Cameron Young": "🇺🇸",
+}
 
 PLAYER_RESULTS = {
     # Add manual scores here later, or replace this with a leaderboard feed.
@@ -236,6 +322,44 @@ def normalize_state(state):
     return state
 
 
+def image_to_data_uri(path):
+    if not os.path.exists(path):
+        return ""
+
+    mime_type = mimetypes.guess_type(path)[0] or "image/png"
+
+    with open(path, "rb") as image_file:
+        encoded = base64.b64encode(image_file.read()).decode("utf-8")
+
+    return f"data:{mime_type};base64,{encoded}"
+
+
+def coach_image_html(coach_id):
+    image_path = COACH_IMAGES.get(coach_id)
+    if not image_path:
+        return ""
+
+    data_uri = image_to_data_uri(image_path)
+    if not data_uri:
+        return ""
+
+    return f"<img class='team-face' src='{data_uri}' alt=''>"
+
+
+def flag_for_player(player):
+    return PLAYER_FLAGS.get(player, "🏳️")
+
+
+def display_player_name(player):
+    return f"{flag_for_player(player)} {player}"
+
+
+def last_name_key(player):
+    cleaned = player.replace(".", "").replace("'", "")
+    parts = cleaned.split()
+    return parts[-1].lower() if parts else cleaned.lower()
+
+
 def github_file_url():
     return f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/contents/{STATE_FILE_PATH}"
 
@@ -274,12 +398,7 @@ def save_state_to_github(state, sha, message_prefix="Update draft state"):
 
     try:
         resp = requests.put(github_file_url(), headers=GITHUB_HEADERS, json=payload, timeout=15)
-
-        if resp.status_code in [200, 201]:
-            return True
-
-        return False
-
+        return resp.status_code in [200, 201]
     except Exception:
         return False
 
@@ -370,7 +489,7 @@ def make_draft_pick(golfer):
             return False
 
         if golfer in get_picked_golfers(state):
-            st.warning(f"{golfer} has already been drafted.")
+            st.warning(f"{display_player_name(golfer)} has already been drafted.")
             return False
 
         coach = get_coach_for_pick(current_pick, state["draft_order"])
@@ -565,7 +684,7 @@ def golfer_odds_label(golfer):
 def odds_sort_key(golfer):
     odds_value = parse_american_odds(STATIC_ODDS.get(golfer))
     probability = implied_probability(odds_value)
-    return (-probability, golfer)
+    return (-probability, last_name_key(golfer), golfer.lower())
 
 
 def render_pick_timer(start_time):
@@ -632,11 +751,12 @@ for coach_id, info in teams_data.items():
     players = info.get("players", [])
     total = get_team_total(players)
     scored_players = get_sorted_scored_players(players)[:3]
+    face_html = coach_image_html(coach_id)
 
     if scored_players:
         top3_html = ""
         for score_value, _, player, result in scored_players:
-            safe_player = html.escape(player)
+            safe_player = html.escape(display_player_name(player))
             score = html.escape(format_golf_score(score_value))
             hole = html.escape(str(result.get("hole", "—")))
             top3_html += (
@@ -653,7 +773,8 @@ for coach_id, info in teams_data.items():
         f"<div style='border: 5px solid {color}; background-color: {color}18; "
         f"border-radius: 16px; padding: 20px 24px; margin-bottom: 1.8rem; "
         f"box-shadow: 0 4px 15px rgba(255,255,255,0.08);'>"
-        f"<div style='color:{color}; font-size:1.75rem; font-weight:800;'>{html.escape(team_name)}</div>"
+        f"<div class='team-heading' style='color:{color}; font-size:1.75rem; font-weight:800;'>"
+        f"{face_html}<span>{html.escape(team_name)}</span></div>"
         f"<div style='font-size:1.45rem; font-weight:700; color:{color}; margin:12px 0 14px 0;'>Total ({total})</div>"
         f"<div style='line-height:1.5;'>{top3_html}</div>"
         f"</div>"
@@ -693,7 +814,7 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
             )
 
             for player in players:
-                safe_player = html.escape(player)
+                safe_player = html.escape(display_player_name(player))
                 result = get_player_result(player)
                 score = html.escape(str(result.get("score", "N/A")))
                 hole = html.escape(str(result.get("hole", "—")))
@@ -750,7 +871,7 @@ with st.expander("🎯 DRAFT SECTION", expanded=state["draft_enabled"]):
                 if result:
                     undone_pick_num, undone_coach, undone_golfer = result
                     st.success(
-                        f"Undid Pick #{undone_pick_num}: {undone_golfer}. "
+                        f"Undid Pick #{undone_pick_num}: {display_player_name(undone_golfer)}. "
                         f"{undone_coach} is back on the clock."
                     )
                     time.sleep(0.5)
@@ -837,7 +958,7 @@ with st.expander("🎯 DRAFT SECTION", expanded=state["draft_enabled"]):
                 is_current = pick_num == current_pick
 
                 if picked_golfer:
-                    cell = html.escape(picked_golfer)
+                    cell = html.escape(display_player_name(picked_golfer))
                     cell_style = ""
                 elif is_current and state["draft_active"]:
                     cell = f"On Clock<br>Pick {pick_num}"
@@ -857,7 +978,7 @@ with st.expander("🎯 DRAFT SECTION", expanded=state["draft_enabled"]):
         st.markdown(grid_html, unsafe_allow_html=True)
 
         st.subheader("Available Golfers — Click to Draft")
-        st.caption("Draft buttons are sorted from the built-in static odds list. Shared draft state refreshes every 5 seconds.")
+        st.caption("Sorted by odds, then last name. On phones, the list stays in true top-to-bottom order.")
 
         sorted_players = sorted(PGA_PLAYERS, key=odds_sort_key)
 
@@ -866,26 +987,28 @@ with st.expander("🎯 DRAFT SECTION", expanded=state["draft_enabled"]):
             if golfer not in picked_golfers
         ]
 
-        cols = st.columns(4)
+        for row_start in range(0, len(available), 3):
+            row_cols = st.columns(3)
+            row_players = available[row_start:row_start + 3]
 
-        for idx, golfer in enumerate(available):
-            with cols[idx % 4]:
-                odds_label = golfer_odds_label(golfer)
-                disabled = (
-                    not state["draft_active"]
-                    or current_pick > MAX_PICKS
-                )
+            for col_idx, golfer in enumerate(row_players):
+                with row_cols[col_idx]:
+                    odds_label = golfer_odds_label(golfer)
+                    disabled = (
+                        not state["draft_active"]
+                        or current_pick > MAX_PICKS
+                    )
 
-                if st.button(
-                    f"✅ {golfer} {odds_label}",
-                    key=f"pick_{golfer}",
-                    disabled=disabled,
-                    use_container_width=True,
-                ):
-                    with st.spinner(f"Saving {golfer}..."):
-                        result, _ = make_draft_pick(golfer)
-                        if result:
-                            st.rerun()
+                    if st.button(
+                        f"✅ {display_player_name(golfer)} {odds_label}",
+                        key=f"pick_{golfer}",
+                        disabled=disabled,
+                        use_container_width=True,
+                    ):
+                        with st.spinner(f"Saving {display_player_name(golfer)}..."):
+                            result, _ = make_draft_pick(golfer)
+                            if result:
+                                st.rerun()
 
 
 with st.expander("🔧 Admin Section", expanded=False):
