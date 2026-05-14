@@ -1,7 +1,7 @@
 import streamlit as st
 import streamlit.components.v1 as components
 from streamlit_autorefresh import st_autorefresh
-import requests, json, base64, time, html, os, mimetypes
+import requests, json, base64, time, html, os, mimetypes, re
 from datetime import datetime
 
 st.set_page_config(
@@ -29,6 +29,23 @@ div[data-testid="stButton"] > button:focus {
 }
 div[data-testid="stButton"] > button:disabled, div[data-testid="stButton"] > button[disabled] {
     background:#2b2b2b!important; color:#9a9a9a!important; border-color:#444!important; opacity:1!important;
+}
+.refresh-button-wrap div[data-testid="stButton"] > button {
+    width:100%!important;
+    min-height:64px!important;
+    background:#ff4b00!important;
+    color:#000!important;
+    border:3px solid #ffb000!important;
+    font-size:1.35rem!important;
+    font-weight:1000!important;
+    letter-spacing:.02em!important;
+    text-transform:uppercase!important;
+    box-shadow:0 0 18px rgba(255,75,0,.7), inset 0 0 10px rgba(255,255,255,.28)!important;
+}
+.refresh-button-wrap div[data-testid="stButton"] > button:hover {
+    background:#ff7a00!important;
+    color:#000!important;
+    border-color:#ffe600!important;
 }
 .app-title {
     display:flex;
@@ -63,6 +80,7 @@ div[data-testid="stButton"] > button:disabled, div[data-testid="stButton"] > but
 @media (max-width:700px) {
     div[data-testid="column"] { width:100%!important; flex:1 1 100%!important; }
     div[data-testid="stButton"] > button { min-height:54px!important; font-size:.98rem!important; }
+    .refresh-button-wrap div[data-testid="stButton"] > button { min-height:58px!important; font-size:1.05rem!important; }
     .app-title h1 { font-size:2rem; }
 }
 </style>
@@ -85,6 +103,7 @@ REPO_NAME = "majors-draft-challenge-2026"
 STATE_FILE_PATH = "draft_state.json"
 BRANCH = "main"
 MAX_PICKS = 30
+ESPN_LEADERBOARD_URL = "https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?league=pga"
 
 GITHUB_HEADERS = {
     "Authorization": f"Bearer {GITHUB_TOKEN}",
@@ -181,18 +200,14 @@ PLAYER_FLAGS = {
     "Bernd Wiesberger": "🇦🇹", "Y.E. Yang": "🇰🇷", "Sudarshan Yellamaraju": "🇨🇦",
 }
 
-PLAYER_RESULTS = {
-    # Add manual scores here later, or replace this with a leaderboard feed.
-    # "Scottie Scheffler": {"score": "-4", "hole": "12"},
-    # "Rory McIlroy": {"score": "E", "hole": "F"},
-}
-
 def default_state():
     return {
         "draft_enabled": False,
         "draft_active": False,
         "draft_order": ["Jayme Leita", "Spencer Tidwell", "Peter Miller"],
         "last_pick_started_at": 0,
+        "player_results": {},
+        "last_score_refresh_at": 0,
         "teams": {
             "Jayme Leita": {"team_name": "Jayme's Team", "players": []},
             "Spencer Tidwell": {"team_name": "Spencer's Team", "players": []},
@@ -208,6 +223,8 @@ def normalize_state(state):
     state.setdefault("draft_active", base["draft_active"])
     state.setdefault("draft_order", base["draft_order"])
     state.setdefault("last_pick_started_at", base["last_pick_started_at"])
+    state.setdefault("player_results", base["player_results"])
+    state.setdefault("last_score_refresh_at", base["last_score_refresh_at"])
     state.setdefault("teams", base["teams"])
 
     for coach, info in base["teams"].items():
@@ -259,6 +276,18 @@ def last_name_key(player):
     parts = cleaned.split()
     return parts[-1].lower() if parts else cleaned.lower()
 
+def normalize_player_match_name(name):
+    name = str(name or "").strip()
+    name = name.replace("Å", "A").replace("å", "a").replace("Á", "A").replace("á", "a")
+    name = name.replace("É", "E").replace("é", "e").replace("Í", "I").replace("í", "i")
+    name = name.replace("Ó", "O").replace("ó", "o").replace("Ú", "U").replace("ú", "u")
+    name = name.replace("Ø", "O").replace("ø", "o").replace("ø", "o")
+    name = name.replace("Højgaard", "Hojgaard").replace("Neergaard-Petersen", "Neergaard Petersen")
+    name = re.sub(r"[^A-Za-z ]", "", name)
+    return re.sub(r"\s+", " ", name).strip().lower()
+
+PLAYER_NAME_LOOKUP = {normalize_player_match_name(player): player for player in PGA_PLAYERS}
+
 def github_file_url():
     return f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/contents/{STATE_FILE_PATH}"
 
@@ -303,6 +332,129 @@ def mutate_shared_state(mutator, message_prefix):
         time.sleep(0.5)
     st.error("Could not save after retrying. Please try again.")
     return False, None
+
+def extract_competitors(payload):
+    competitors = []
+    for event in payload.get("events", []):
+        for competition in event.get("competitions", []):
+            competitors.extend(competition.get("competitors", []))
+    return competitors
+
+def extract_athlete_name(competitor):
+    athlete = competitor.get("athlete") or competitor.get("player") or {}
+    return (
+        athlete.get("displayName")
+        or athlete.get("fullName")
+        or competitor.get("displayName")
+        or competitor.get("name")
+        or ""
+    )
+
+def extract_score_value(competitor):
+    score = competitor.get("score")
+    if isinstance(score, dict):
+        return score.get("displayValue") or score.get("value")
+    if score not in [None, ""]:
+        return score
+    return competitor.get("displayValue") or "N/A"
+
+def clean_status_text(value):
+    if value is None:
+        return ""
+    value = str(value).strip()
+    if not value or value.lower() in ["none", "null", "n/a"]:
+        return ""
+    return value
+
+def extract_hole_or_tee_time(competitor):
+    direct_keys = [
+        "thru", "thruStatus", "currentHole", "currentHoleNumber",
+        "hole", "teeTime", "teeTimeDisplay", "startTime", "displayTime"
+    ]
+
+    for key in direct_keys:
+        value = clean_status_text(competitor.get(key))
+        if value:
+            return value
+
+    status = competitor.get("status")
+    if isinstance(status, dict):
+        for key in ["displayValue", "detail", "shortDetail", "description"]:
+            value = clean_status_text(status.get(key))
+            if value:
+                return value
+        status_type = status.get("type")
+        if isinstance(status_type, dict):
+            for key in ["detail", "shortDetail", "description", "name"]:
+                value = clean_status_text(status_type.get(key))
+                if value:
+                    return value
+
+    linescores = competitor.get("linescores")
+    if isinstance(linescores, list) and linescores:
+        latest = linescores[-1]
+        if isinstance(latest, dict):
+            for key in ["thru", "thruStatus", "currentHole", "displayValue", "value"]:
+                value = clean_status_text(latest.get(key))
+                if value and value not in ["--"]:
+                    return value
+
+    return "—"
+
+def fetch_live_scores_from_espn():
+    resp = requests.get(ESPN_LEADERBOARD_URL, timeout=12)
+    resp.raise_for_status()
+    payload = resp.json()
+
+    results = {}
+    for competitor in extract_competitors(payload):
+        raw_name = extract_athlete_name(competitor)
+        matched_name = PLAYER_NAME_LOOKUP.get(normalize_player_match_name(raw_name))
+        if not matched_name:
+            continue
+
+        score = str(extract_score_value(competitor)).strip()
+        if score in ["", "--", "-"]:
+            score = "N/A"
+
+        hole_or_tee = extract_hole_or_tee_time(competitor)
+
+        results[matched_name] = {
+            "score": score,
+            "hole": hole_or_tee,
+        }
+
+    return results
+
+def refresh_scores():
+    try:
+        live_results = fetch_live_scores_from_espn()
+    except Exception as e:
+        st.error(f"Could not refresh scores from ESPN: {e}")
+        return False
+
+    if not live_results:
+        st.error("ESPN did not return matching player scores yet.")
+        return False
+
+    def mutator(state):
+        state["player_results"] = live_results
+        state["last_score_refresh_at"] = time.time()
+        return True
+
+    result, _ = mutate_shared_state(mutator, "Refresh scores")
+    if result:
+        st.success(f"Scores refreshed for {len(live_results)} golfers.")
+        time.sleep(0.5)
+        st.rerun()
+    return bool(result)
+
+def render_refresh_scores_button(key):
+    st.markdown("<div class='refresh-button-wrap'>", unsafe_allow_html=True)
+    clicked = st.button("Refresh Scores", key=key, use_container_width=True)
+    st.markdown("</div>", unsafe_allow_html=True)
+    if clicked:
+        refresh_scores()
 
 def get_coach_for_pick(pick_num, order):
     round_idx = (pick_num - 1) // 3
@@ -538,6 +690,7 @@ state, state_sha = load_state_from_github()
 state = normalize_state(state)
 teams_data = state["teams"]
 draft_order = state["draft_order"]
+PLAYER_RESULTS = state.get("player_results", {})
 picks = derive_picks_from_state(state)
 picked_golfers = get_picked_golfers(state)
 current_pick = get_current_pick(state)
@@ -587,6 +740,8 @@ for coach_id, info in teams_data.items():
     )
     st.markdown(card, unsafe_allow_html=True)
 
+render_refresh_scores_button("refresh_scores_top")
+
 st.subheader("Team Rosters")
 
 team_cols = st.columns(3)
@@ -608,7 +763,7 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
         if not players:
             roster_parts.append("<div style='color:#aaa; font-style:italic;'>No golfers drafted yet</div>")
         else:
-            roster_parts.append("<table class='roster-table'><thead><tr><th>Golfer</th><th>Score</th><th>Hole</th></tr></thead><tbody>")
+            roster_parts.append("<table class='roster-table'><thead><tr><th>Golfer</th><th>Score</th><th>Hole / Tee</th></tr></thead><tbody>")
             for player in players:
                 safe_player = html.escape(display_player_name(player))
                 result = get_player_result(player)
@@ -620,6 +775,8 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
 
         roster_parts.append("</div>")
         st.markdown("".join(roster_parts), unsafe_allow_html=True)
+
+render_refresh_scores_button("refresh_scores_middle")
 
 with st.expander("🎯 DRAFT SECTION", expanded=state["draft_enabled"]):
     if not state["draft_enabled"]:
