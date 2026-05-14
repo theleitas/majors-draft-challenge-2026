@@ -814,6 +814,9 @@ st.markdown(
 )
 st.caption("**May 14–17, 2026** • Aronimink Golf Club")
 
+if st.button("Test Button"):
+    st.write("Hello Jayme")
+
 st.subheader("Standings")
 
 for coach_id, info in teams_data.items():
