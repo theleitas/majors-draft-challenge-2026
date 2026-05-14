@@ -106,8 +106,8 @@ st.markdown(
         gap: 12px;
     }
     .team-face {
-        width: 46px;
-        height: 46px;
+        width: 1.5em;
+        height: 1.5em;
         border-radius: 50%;
         object-fit: cover;
         border: 2px solid currentColor;
@@ -161,9 +161,9 @@ COACH_COLORS = {
 }
 
 COACH_IMAGES = {
-    "Jayme Leita": "assets/jayme-pic.png",
-    "Spencer Tidwell": "assets/spencer-pic.png",
-    "Peter Miller": "assets/peter-pic.png",
+    "Jayme Leita": "jayme-pic.png",
+    "Spencer Tidwell": "spencer-pic.png",
+    "Peter Miller": "peter-pic.png",
 }
 
 STATIC_ODDS = {
@@ -219,20 +219,20 @@ PLAYER_FLAGS = {
     "Ludvig Aberg": "🇸🇪", "Angel Ayora": "🇪🇸", "Derek Berg": "🇺🇸", "Daniel Berger": "🇺🇸",
     "Christiaan Bezuidenhout": "🇿🇦", "Akshay Bhatia": "🇺🇸", "Francisco Bide": "🇦🇷",
     "Chandler Blanchet": "🇺🇸", "Michael Block": "🇺🇸", "Keegan Bradley": "🇺🇸",
-    "Michael Brennan": "🇺🇸", "Jacob Bridgeman": "🇺🇸", "Daniel Brown": "🏴",
+    "Michael Brennan": "🇺🇸", "Jacob Bridgeman": "🇺🇸", "Daniel Brown": "🇬🇧",
     "Sam Burns": "🇺🇸", "Brian Campbell": "🇺🇸", "Patrick Cantlay": "🇺🇸",
     "Ricky Castillo": "🇺🇸", "Bud Cauley": "🇺🇸", "Stewart Cink": "🇺🇸",
     "Wyndham Clark": "🇺🇸", "Tyler Collet": "🇺🇸", "Corey Conners": "🇨🇦",
     "Pierceson Coody": "🇺🇸", "Jason Day": "🇦🇺", "Bryson DeChambeau": "🇺🇸",
-    "Thomas Detry": "🇧🇪", "Luke Donald": "🏴", "Jesse Droemer": "🇺🇸",
+    "Thomas Detry": "🇧🇪", "Luke Donald": "🇬🇧", "Jesse Droemer": "🇺🇸",
     "Jason Dufner": "🇺🇸", "Nico Echavarria": "🇨🇴", "Harris English": "🇺🇸",
-    "Bryce Fisher": "🇺🇸", "Steven Fisk": "🇺🇸", "Alex Fitzpatrick": "🏴",
-    "Matt Fitzpatrick": "🏴", "Tommy Fleetwood": "🏴", "Rickie Fowler": "🇺🇸",
+    "Bryce Fisher": "🇺🇸", "Steven Fisk": "🇺🇸", "Alex Fitzpatrick": "🇬🇧",
+    "Matt Fitzpatrick": "🇬🇧", "Tommy Fleetwood": "🇬🇧", "Rickie Fowler": "🇺🇸",
     "Ryan Fox": "🇳🇿", "Chris Gabriele": "🇺🇸", "Mark Geddes": "🇺🇸",
     "Ryan Gerard": "🇺🇸", "Lucas Glover": "🇺🇸", "Chris Gotterup": "🇺🇸",
     "Max Greyserman": "🇺🇸", "Ben Griffin": "🇺🇸", "Emiliano Grillo": "🇦🇷",
-    "Jordan Gumberg": "🇺🇸", "Harry Hall": "🏴", "Brian Harman": "🇺🇸",
-    "Padraig Harrington": "🇮🇪", "Tyrrell Hatton": "🏴", "Zach Haynes": "🇺🇸",
+    "Jordan Gumberg": "🇺🇸", "Harry Hall": "🇬🇧", "Brian Harman": "🇺🇸",
+    "Padraig Harrington": "🇮🇪", "Tyrrell Hatton": "🇬🇧", "Zach Haynes": "🇺🇸",
     "Russell Henley": "🇺🇸", "Kazuki Higa": "🇯🇵", "Garrick Higgo": "🇿🇦",
     "Joe Highsmith": "🇺🇸", "Daniel Hillier": "🇳🇿", "Ryo Hisatsune": "🇯🇵",
     "Rico Hoey": "🇵🇭", "Ian Holt": "🇺🇸", "Max Homa": "🇺🇸",
@@ -245,27 +245,27 @@ PLAYER_FLAGS = {
     "Kurt Kitayama": "🇺🇸", "Jake Knapp": "🇺🇸", "Brooks Koepka": "🇺🇸",
     "Min Woo Lee": "🇦🇺", "Ryan Lenahan": "🇺🇸", "Haotong Li": "🇨🇳",
     "Mikael Lindberg": "🇸🇪", "David Lipsky": "🇺🇸", "Shane Lowry": "🇮🇪",
-    "Robert MacIntyre": "🏴", "Hideki Matsuyama": "🇯🇵", "Denny McCarthy": "🇺🇸",
+    "Robert MacIntyre": "🇬🇧", "Hideki Matsuyama": "🇯🇵", "Denny McCarthy": "🇺🇸",
     "Matt McCarty": "🇺🇸", "Paul McClure": "🇺🇸", "Max McGreevy": "🇺🇸",
     "Rory McIlroy": "🇬🇧", "Tom McKibbin": "🇬🇧", "Maverick McNealy": "🇺🇸",
     "Shaun Micheel": "🇺🇸", "Keith Mitchell": "🇺🇸", "Collin Morikawa": "🇺🇸",
     "William Mouw": "🇺🇸", "Rasmus Neergaard-Petersen": "🇩🇰", "Joaquin Niemann": "🇨🇱",
-    "Alex Noren": "🇸🇪", "Andrew Novak": "🇺🇸", "John Parry": "🏴",
-    "Taylor Pendrith": "🇨🇦", "Marco Penge": "🏴", "Ben Polland": "🇺🇸",
+    "Alex Noren": "🇸🇪", "Andrew Novak": "🇺🇸", "John Parry": "🇬🇧",
+    "Taylor Pendrith": "🇨🇦", "Marco Penge": "🇬🇧", "Ben Polland": "🇺🇸",
     "J.T. Poston": "🇺🇸", "Aldrich Potgieter": "🇿🇦", "David Puig": "🇪🇸",
-    "Andrew Putnam": "🇺🇸", "Jon Rahm": "🇪🇸", "Aaron Rai": "🏴",
+    "Andrew Putnam": "🇺🇸", "Jon Rahm": "🇪🇸", "Aaron Rai": "🇬🇧",
     "Patrick Reed": "🇺🇸", "Kristoffer Reitan": "🇳🇴", "Davis Riley": "🇺🇸",
-    "Patrick Rodgers": "🇺🇸", "Justin Rose": "🏴", "Adrien Saddier": "🇫🇷",
+    "Patrick Rodgers": "🇺🇸", "Justin Rose": "🇬🇧", "Adrien Saddier": "🇫🇷",
     "Garrett Sapp": "🇺🇸", "Jayden Schaper": "🇿🇦", "Xander Schauffele": "🇺🇸",
     "Scottie Scheffler": "🇺🇸", "Adam Schenk": "🇺🇸", "Matti Schmid": "🇩🇪",
     "Adam Scott": "🇦🇺", "Braden Shattuck": "🇺🇸", "Alex Smalley": "🇺🇸",
-    "Cameron Smith": "🇦🇺", "Jordan Smith": "🏴", "Austin Smotherman": "🇺🇸",
+    "Cameron Smith": "🇦🇺", "Jordan Smith": "🇬🇧", "Austin Smotherman": "🇺🇸",
     "Elvis Smylie": "🇦🇺", "Travis Smyth": "🇦🇺", "Brandt Snedeker": "🇺🇸",
     "J.J. Spaun": "🇺🇸", "Jordan Spieth": "🇺🇸", "Sam Stevens": "🇺🇸",
-    "Sepp Straka": "🇦🇹", "Andy Sullivan": "🏴", "Nick Taylor": "🇨🇦",
+    "Sepp Straka": "🇦🇹", "Andy Sullivan": "🇬🇧", "Nick Taylor": "🇨🇦",
     "Sahith Theegala": "🇺🇸", "Justin Thomas": "🇺🇸", "Michael Thorbjornsen": "🇺🇸",
     "Sami Valimaki": "🇫🇮", "Jhonattan Vegas": "🇻🇪", "Ryan Vermeer": "🇺🇸",
-    "Jimmy Walker": "🇺🇸", "Matt Wallace": "🏴", "Bernd Wiesberger": "🇦🇹",
+    "Jimmy Walker": "🇺🇸", "Matt Wallace": "🇬🇧", "Bernd Wiesberger": "🇦🇹",
     "Timothy Wiseman": "🇺🇸", "Gary Woodland": "🇺🇸", "Y.E. Yang": "🇰🇷",
     "Sudarshan Yellamaraju": "🇨🇦", "Cameron Young": "🇺🇸",
 }
@@ -347,7 +347,7 @@ def coach_image_html(coach_id):
 
 
 def flag_for_player(player):
-    return PLAYER_FLAGS.get(player, "🏳️")
+    return PLAYER_FLAGS.get(player, "🇺🇳")
 
 
 def display_player_name(player):
