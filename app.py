@@ -323,29 +323,85 @@ def extract_athlete_name(competitor):
         or ""
     )
 
+def get_status_state(competitor):
+    status = competitor.get("status")
+    if isinstance(status, dict):
+        stype = status.get("type")
+        if isinstance(stype, dict):
+            state_val = stype.get("state")
+            if state_val:
+                return str(state_val).lower()
+    return ""
+
+def looks_like_topar(value):
+    """True if the string looks like a to-par value (E, -3, +1) rather than a stroke total."""
+    if value is None:
+        return False
+    text = str(value).strip().upper().replace("−", "-")
+    if text in ("E", "EVEN"):
+        return True
+    if re.fullmatch(r"[+-]\d{1,2}", text):
+        return True
+    # bare digits like "212" or "0" are NOT to-par (those are stroke totals or pre-round zeros)
+    return False
+
 def extract_score_value(competitor):
-    # 1. Preferred: statistics array has scoreToPar with a clean displayValue
+    """
+    Walk ESPN's leaderboard structure to find the to-par value.
+    Order of preference: statistics[scoreToPar] -> linescores cumulative -> score field -> displayValue.
+    Never return a bare "0" — that's almost always a pre-round placeholder, not even-par.
+    """
+    state_val = get_status_state(competitor)
+
+    # 1. statistics array (some endpoints)
     stats = competitor.get("statistics") or []
     if isinstance(stats, list):
         for stat in stats:
             if not isinstance(stat, dict):
                 continue
             name = (stat.get("name") or stat.get("abbreviation") or "").lower()
-            if name in ("scoretopar", "topar", "toparscore"):
+            if name in ("scoretopar", "topar", "toparscore", "totaltopar"):
                 val = stat.get("displayValue") or stat.get("value")
-                if val not in (None, ""):
+                if val not in (None, "") and looks_like_topar(val):
                     return val
 
-    # 2. Fallback: competitor-level "score" if it's a dict with displayValue
+    # 2. linescores: look for a cumulative to-par
+    linescores = competitor.get("linescores")
+    if isinstance(linescores, list):
+        for ls in linescores:
+            if not isinstance(ls, dict):
+                continue
+            for key in ("currentScore", "cumulativeScore", "toParCumulative"):
+                v = ls.get(key)
+                if isinstance(v, dict):
+                    dv = v.get("displayValue")
+                    if dv and looks_like_topar(dv):
+                        return dv
+                elif looks_like_topar(v):
+                    return v
+
+    # 3. competitor-level score field — dict form
     score = competitor.get("score")
     if isinstance(score, dict):
         dv = score.get("displayValue")
-        if dv not in (None, ""):
+        if dv and looks_like_topar(dv):
             return dv
-        # raw numeric value here is usually stroke total — skip
+    elif isinstance(score, str):
+        if looks_like_topar(score):
+            return score
+        # If it's "0" and the player hasn't started, treat as N/A — not even.
+        if score.strip() == "0" and state_val in ("pre", "", "scheduled"):
+            return "N/A"
+        # If it's "0" and player IS in/post, ESPN sometimes literally returns "0" meaning even
+        if score.strip() == "0" and state_val in ("in", "post"):
+            return "E"
 
-    # 3. Last resort
-    return competitor.get("displayValue") or "N/A"
+    # 4. competitor displayValue
+    dv = competitor.get("displayValue")
+    if dv and looks_like_topar(dv):
+        return dv
+
+    return "N/A"
 
 def clean_status_text(value):
     if value is None:
@@ -402,6 +458,12 @@ def display_hole_value(value):
     if re.search(r"\d{4}-\d{2}-\d{2}T", value) or re.search(r"\d{1,2}:\d{2}", value):
         return format_tee_time(value)
     return value
+
+def strip_thru_prefix(value):
+    """Remove a leading 'Thru ' so we don't double-label in the standings card."""
+    if not value:
+        return value
+    return re.sub(r"^\s*thru\s+", "", str(value), flags=re.IGNORECASE).strip()
 
 def extract_hole_or_tee_time(competitor):
     tee_time_keys = ["teeTime", "teeTimeDisplay", "startTime", "displayTime"]
@@ -641,11 +703,14 @@ def get_player_result(player):
 def parse_golf_score(score):
     if score is None:
         return None
-    score_text = str(score).strip().upper().replace("−", "-")  # unicode minus
+    score_text = str(score).strip().upper().replace("−", "-")
     if score_text in ["", "N/A", "—", "-", "WD", "CUT", "DQ"]:
         return None
     if score_text in ["E", "EVEN"]:
         return 0
+    # Guard against stroke totals leaking through (any bare unsigned integer)
+    if re.fullmatch(r"\d{2,3}", score_text):
+        return None
     try:
         return int(score_text.replace("+", ""))
     except ValueError:
@@ -764,8 +829,10 @@ for coach_id, info in teams_data.items():
         for score_value, _, player, result in scored_players:
             safe_player = html.escape(display_player_name(player))
             score = html.escape(format_golf_score(score_value))
-            hole = html.escape(display_hole_value(result.get("hole", "—")))
-            label = "Tee" if "AM" in hole or "PM" in hole else "Thru"
+            raw_hole = display_hole_value(result.get("hole", "—"))
+            hole = html.escape(strip_thru_prefix(raw_hole))
+            is_tee = "AM" in raw_hole.upper() or "PM" in raw_hole.upper()
+            label = "Tee" if is_tee else "Thru"
             top3_html += (
                 f"<div style='margin:4px 0; color:{color}; font-size:1.05rem;'>"
                 f"{safe_player} <span style='font-weight:700;'>({score})</span> {label} {hole}"
