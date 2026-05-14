@@ -4,7 +4,12 @@ from streamlit_autorefresh import st_autorefresh
 import requests, json, base64, time, html, os, mimetypes
 from datetime import datetime
 
-st.set_page_config(page_title="PGA Championship Draft 2026", layout="wide", initial_sidebar_state="collapsed")
+st.set_page_config(
+    page_title="PGA Championship Draft 2026",
+    page_icon="thumb.png",
+    layout="wide",
+    initial_sidebar_state="collapsed",
+)
 
 st.markdown("""
 <style>
