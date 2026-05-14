@@ -3,6 +3,7 @@ import streamlit.components.v1 as components
 from streamlit_autorefresh import st_autorefresh
 import requests, json, base64, time, html, os, mimetypes, re
 from datetime import datetime
+from zoneinfo import ZoneInfo
 
 st.set_page_config(
     page_title="PGA Championship Draft 2026",
@@ -281,7 +282,7 @@ def normalize_player_match_name(name):
     name = name.replace("Å", "A").replace("å", "a").replace("Á", "A").replace("á", "a")
     name = name.replace("É", "E").replace("é", "e").replace("Í", "I").replace("í", "i")
     name = name.replace("Ó", "O").replace("ó", "o").replace("Ú", "U").replace("ú", "u")
-    name = name.replace("Ø", "O").replace("ø", "o").replace("ø", "o")
+    name = name.replace("Ø", "O").replace("ø", "o")
     name = name.replace("Højgaard", "Hojgaard").replace("Neergaard-Petersen", "Neergaard Petersen")
     name = re.sub(r"[^A-Za-z ]", "", name)
     return re.sub(r"\s+", " ", name).strip().lower()
@@ -366,13 +367,38 @@ def clean_status_text(value):
         return ""
     return value
 
-def extract_hole_or_tee_time(competitor):
-    direct_keys = [
-        "thru", "thruStatus", "currentHole", "currentHoleNumber",
-        "hole", "teeTime", "teeTimeDisplay", "startTime", "displayTime"
-    ]
+def format_tee_time(value):
+    value = clean_status_text(value)
+    if not value:
+        return ""
 
-    for key in direct_keys:
+    try:
+        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+        parsed = parsed.astimezone(ZoneInfo("America/New_York"))
+        return parsed.strftime("%I:%M %p")
+    except Exception:
+        pass
+
+    for fmt in ["%I:%M %p", "%I:%M%p", "%H:%M"]:
+        try:
+            parsed = datetime.strptime(value.upper(), fmt)
+            return parsed.strftime("%I:%M %p")
+        except Exception:
+            pass
+
+    return value
+
+def extract_hole_or_tee_time(competitor):
+    tee_time_keys = ["teeTime", "teeTimeDisplay", "startTime", "displayTime"]
+
+    for key in tee_time_keys:
+        value = clean_status_text(competitor.get(key))
+        if value:
+            return format_tee_time(value)
+
+    play_status_keys = ["thru", "thruStatus", "currentHole", "currentHoleNumber", "hole"]
+
+    for key in play_status_keys:
         value = clean_status_text(competitor.get(key))
         if value:
             return value
@@ -382,13 +408,14 @@ def extract_hole_or_tee_time(competitor):
         for key in ["displayValue", "detail", "shortDetail", "description"]:
             value = clean_status_text(status.get(key))
             if value:
-                return value
+                return format_tee_time(value) if ":" in value else value
+
         status_type = status.get("type")
         if isinstance(status_type, dict):
             for key in ["detail", "shortDetail", "description", "name"]:
                 value = clean_status_text(status_type.get(key))
                 if value:
-                    return value
+                    return format_tee_time(value) if ":" in value else value
 
     linescores = competitor.get("linescores")
     if isinstance(linescores, list) and linescores:
@@ -719,9 +746,10 @@ for coach_id, info in teams_data.items():
             safe_player = html.escape(display_player_name(player))
             score = html.escape(format_golf_score(score_value))
             hole = html.escape(str(result.get("hole", "—")))
+            label = "Tee" if "AM" in hole or "PM" in hole else "Thru"
             top3_html += (
                 f"<div style='margin:4px 0; color:{color}; font-size:1.05rem;'>"
-                f"{safe_player} <span style='font-weight:700;'>({score})</span> Thru {hole}"
+                f"{safe_player} <span style='font-weight:700;'>({score})</span> {label} {hole}"
                 f"</div>"
             )
     elif players:
@@ -763,7 +791,7 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
         if not players:
             roster_parts.append("<div style='color:#aaa; font-style:italic;'>No golfers drafted yet</div>")
         else:
-            roster_parts.append("<table class='roster-table'><thead><tr><th>Golfer</th><th>Score</th><th>Hole / Tee</th></tr></thead><tbody>")
+            roster_parts.append("<table class='roster-table'><thead><tr><th>Golfer</th><th>Score</th><th>Hole</th></tr></thead><tbody>")
             for player in players:
                 safe_player = html.escape(display_player_name(player))
                 result = get_player_result(player)
