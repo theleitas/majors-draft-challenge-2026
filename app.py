@@ -251,7 +251,7 @@ def normalize_player_match_name(name):
     name = str(name or "").strip()
     replacements = {
         "Å": "A", "å": "a", "Á": "A", "á": "a", "É": "E", "é": "e", "Í": "I", "í": "i",
-        "Ó": "O", "ó": "o", "Ú": "U", "ú": "u", "Ø": "O", "ø": "o", "ø": "o",
+        "Ó": "O", "ó": "o", "Ú": "U", "ú": "u", "Ø": "O", "ø": "o",
     }
     for old, new in replacements.items():
         name = name.replace(old, new)
@@ -324,11 +324,27 @@ def extract_athlete_name(competitor):
     )
 
 def extract_score_value(competitor):
+    # 1. Preferred: statistics array has scoreToPar with a clean displayValue
+    stats = competitor.get("statistics") or []
+    if isinstance(stats, list):
+        for stat in stats:
+            if not isinstance(stat, dict):
+                continue
+            name = (stat.get("name") or stat.get("abbreviation") or "").lower()
+            if name in ("scoretopar", "topar", "toparscore"):
+                val = stat.get("displayValue") or stat.get("value")
+                if val not in (None, ""):
+                    return val
+
+    # 2. Fallback: competitor-level "score" if it's a dict with displayValue
     score = competitor.get("score")
     if isinstance(score, dict):
-        return score.get("displayValue") or score.get("value")
-    if score not in [None, ""]:
-        return score
+        dv = score.get("displayValue")
+        if dv not in (None, ""):
+            return dv
+        # raw numeric value here is usually stroke total — skip
+
+    # 3. Last resort
     return competitor.get("displayValue") or "N/A"
 
 def clean_status_text(value):
@@ -625,8 +641,8 @@ def get_player_result(player):
 def parse_golf_score(score):
     if score is None:
         return None
-    score_text = str(score).strip().upper()
-    if score_text in ["", "N/A", "—", "-", "WD", "CUT"]:
+    score_text = str(score).strip().upper().replace("−", "-")  # unicode minus
+    if score_text in ["", "N/A", "—", "-", "WD", "CUT", "DQ"]:
         return None
     if score_text in ["E", "EVEN"]:
         return 0
