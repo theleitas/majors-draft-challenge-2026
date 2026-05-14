@@ -88,7 +88,7 @@ GITHUB_HEADERS = {
 COACH_COLORS = {
     "Jayme Leita": "#00cc77",
     "Spencer Tidwell": "#bb77ff",
-    "Peter Miller": "#2E47DB",
+    "Peter Miller": "#8ECFFF",
 }
 
 COACH_IMAGES = {
