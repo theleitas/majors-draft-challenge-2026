@@ -455,6 +455,8 @@ def display_hole_value(value):
     value = clean_status_text(value)
     if not value:
         return "—"
+    if strip_thru_prefix(value).upper() in ["F", "FINAL"]:
+        return "Final"
     if re.search(r"\d{4}-\d{2}-\d{2}T", value) or re.search(r"\d{1,2}:\d{2}", value):
         return format_tee_time(value)
     return value
@@ -465,7 +467,56 @@ def strip_thru_prefix(value):
         return value
     return re.sub(r"^\s*thru\s+", "", str(value), flags=re.IGNORECASE).strip()
 
+def is_finished_round_value(value):
+    value = strip_thru_prefix(clean_status_text(value)).upper()
+    if value in ["F", "FINAL"]:
+        return True
+    try:
+        return int(value) >= 18
+    except ValueError:
+        return False
+
+def is_finished_round(competitor):
+    status = competitor.get("status")
+    if isinstance(status, dict):
+        status_type = status.get("type")
+        if isinstance(status_type, dict):
+            if status_type.get("completed") is True:
+                return True
+            if str(status_type.get("state", "")).lower() in ["post", "final"]:
+                return True
+            status_words = " ".join(
+                str(status_type.get(key, ""))
+                for key in ["name", "description", "detail", "shortDetail"]
+            )
+            if re.search(r"\b(final|complete|completed)\b", status_words, flags=re.IGNORECASE):
+                return True
+
+        status_words = " ".join(
+            str(status.get(key, ""))
+            for key in ["displayValue", "detail", "shortDetail", "description"]
+        )
+        if re.search(r"\b(final|complete|completed)\b", status_words, flags=re.IGNORECASE):
+            return True
+
+        for key in ["thru", "thruStatus"]:
+            if is_finished_round_value(status.get(key)):
+                return True
+
+    linescores = competitor.get("linescores")
+    if isinstance(linescores, list) and linescores:
+        latest = linescores[-1]
+        if isinstance(latest, dict):
+            for key in ["thru", "thruStatus"]:
+                if is_finished_round_value(latest.get(key)):
+                    return True
+
+    return False
+
 def extract_hole_or_tee_time(competitor):
+    if is_finished_round(competitor):
+        return "F"
+
     tee_time_keys = ["teeTime", "teeTimeDisplay", "startTime", "displayTime"]
 
     for key in tee_time_keys:
@@ -487,6 +538,12 @@ def extract_hole_or_tee_time(competitor):
 
     status = competitor.get("status")
     if isinstance(status, dict):
+        if get_status_state(competitor) not in ["", "pre", "scheduled"]:
+            for key in play_status_keys:
+                value = clean_status_text(status.get(key))
+                if value and value not in ["--", "0"]:
+                    return display_hole_value(value)
+
         for key in ["displayValue", "detail", "shortDetail", "description"]:
             value = clean_status_text(status.get(key))
             if value:
@@ -837,7 +894,7 @@ for coach_id, info in teams_data.items():
             raw_hole = display_hole_value(result.get("hole", "—"))
             hole_text = strip_thru_prefix(raw_hole)
             is_tee = "AM" in raw_hole.upper() or "PM" in raw_hole.upper()
-            if hole_text.upper() == "F":
+            if hole_text.upper() in ["F", "FINAL"]:
                 status_text = "Final"
             else:
                 label = "Tee" if is_tee else "Thru"
