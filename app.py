@@ -1093,4 +1093,4 @@ with st.expander("🔧 Admin Section", expanded=False):
         else:
             st.error("Team names were not saved. Please try again.")
 
-st.caption("PGA Championship Draft 2026 • Built with Streamlit • Shared data saved to GitHub")
+st.caption("2026 PGA Championship Draft Challenge • Laborously Built by Jayme Leita • No AI Used")
