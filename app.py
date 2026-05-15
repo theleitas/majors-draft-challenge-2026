@@ -830,12 +830,16 @@ for coach_id, info in teams_data.items():
             safe_player = html.escape(display_player_name(player))
             score = html.escape(format_golf_score(score_value))
             raw_hole = display_hole_value(result.get("hole", "—"))
-            hole = html.escape(strip_thru_prefix(raw_hole))
+            hole_text = strip_thru_prefix(raw_hole)
             is_tee = "AM" in raw_hole.upper() or "PM" in raw_hole.upper()
-            label = "Tee" if is_tee else "Thru"
+            if hole_text.upper() == "F":
+                status_text = "Final"
+            else:
+                label = "Tee" if is_tee else "Thru"
+                status_text = f"{label} {hole_text}"
             top3_html += (
                 f"<div style='margin:4px 0; color:{color}; font-size:1.05rem;'>"
-                f"{safe_player} <span style='font-weight:700;'>({score})</span> {label} {hole}"
+                f"{safe_player} <span style='font-weight:700;'>({score})</span> {html.escape(status_text)}"
                 f"</div>"
             )
     elif players:
