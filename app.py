@@ -874,12 +874,18 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
         players = info.get("players", [])
         color = COACH_COLORS.get(coach_id, "#555555")
         face_html = coach_image_html(coach_id)
+        total = get_team_total(players)
+        safe_total = html.escape(total)
         top_three_lowest_score_players = get_top_three_lowest_score_players(players)
 
         roster_parts = [
             f"<div style='border:5px solid {color}; background-color:{color}18; border-radius:16px; padding:20px 24px; margin-bottom:1.8rem;'>",
             f"<div class='team-heading' style='color:{color}; font-size:1.75rem; font-weight:800; margin-bottom:18px;'>"
-            f"{face_html}<span>{html.escape(team_name)}</span></div>",
+            f"{face_html}<span>{html.escape(team_name)}</span>"
+            f"<span style='display:inline-flex; align-items:center; justify-content:center; "
+            f"width:3.9rem; height:3.9rem; margin-left:10px; border-radius:50%; "
+            f"background:{color}; color:#000; font-size:2.1875rem; font-weight:800; "
+            f"line-height:1;'>{safe_total}</span></div>",
         ]
 
         if not players:
