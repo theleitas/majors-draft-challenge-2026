@@ -896,9 +896,10 @@ for coach_id, info in teams_data.items():
             is_tee = "AM" in raw_hole.upper() or "PM" in raw_hole.upper()
             if hole_text.upper() in ["F", "FINAL"]:
                 status_text = "Final"
+            elif is_tee:
+                status_text = hole_text
             else:
-                label = "Tee" if is_tee else "Thru"
-                status_text = f"{label} {hole_text}"
+                status_text = f"Thru {hole_text}"
             top3_html += (
                 f"<div style='margin:4px 0; color:{color}; font-size:1.05rem;'>"
                 f"{safe_player} <span style='font-weight:700;'>({score})</span> {html.escape(status_text)}"
