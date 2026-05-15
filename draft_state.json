@@ -76,8 +76,8 @@
       "hole": "12"
     },
     "Ben Polland": {
-      "score": "+5",
-      "hole": "14"
+      "score": "+6",
+      "hole": "15"
     },
     "Jhonattan Vegas": {
       "score": "+3",
@@ -225,7 +225,7 @@
     },
     "Dustin Johnson": {
       "score": "+2",
-      "hole": "13"
+      "hole": "14"
     },
     "Chris Kirk": {
       "score": "+3",
@@ -300,7 +300,7 @@
       "hole": "12:10 PM"
     },
     "Nico Echavarria": {
-      "score": "+10",
+      "score": "+11",
       "hole": "15"
     },
     "Ian Holt": {
@@ -325,11 +325,11 @@
     },
     "Cameron Young": {
       "score": "+1",
-      "hole": "7"
+      "hole": "8"
     },
     "Sam Stevens": {
       "score": "+1",
-      "hole": "7"
+      "hole": "8"
     },
     "Steven Fisk": {
       "score": "+9",
@@ -364,8 +364,8 @@
       "hole": "2:00 PM"
     },
     "Jayden Schaper": {
-      "score": "+6",
-      "hole": "7"
+      "score": "+7",
+      "hole": "8"
     },
     "Casey Jarvis": {
       "score": "+1",
@@ -417,7 +417,7 @@
     },
     "Justin Thomas": {
       "score": "-1",
-      "hole": "7"
+      "hole": "8"
     },
     "Ryo Hisatsune": {
       "score": "-3",
@@ -425,7 +425,7 @@
     },
     "Rasmus Neergaard-Petersen": {
       "score": "+3",
-      "hole": "10"
+      "hole": "11"
     },
     "Joe Highsmith": {
       "score": "+3",
@@ -556,8 +556,8 @@
       "hole": "1:21 PM"
     },
     "Luke Donald": {
-      "score": "E",
-      "hole": "13"
+      "score": "+1",
+      "hole": "14"
     },
     "David Lipsky": {
       "score": "+3",
@@ -589,7 +589,7 @@
     },
     "Stewart Cink": {
       "score": "+5",
-      "hole": "13"
+      "hole": "14"
     },
     "Keith Mitchell": {
       "score": "+3",
@@ -613,7 +613,7 @@
     },
     "Matt Fitzpatrick": {
       "score": "+3",
-      "hole": "6"
+      "hole": "7"
     },
     "Corey Conners": {
       "score": "+1",
@@ -633,15 +633,15 @@
     },
     "Scottie Scheffler": {
       "score": "E",
-      "hole": "6"
+      "hole": "7"
     },
     "Alex Smalley": {
       "score": "-3",
       "hole": "6"
     },
     "Jordan Smith": {
-      "score": "+10",
-      "hole": "10"
+      "score": "+11",
+      "hole": "11"
     },
     "Brian Campbell": {
       "score": "+3",
@@ -668,5 +668,5 @@
       "hole": "12:59 PM"
     }
   },
-  "last_score_refresh_at": 1778857612.2293525
+  "last_score_refresh_at": 1778857825.2915277
 }
