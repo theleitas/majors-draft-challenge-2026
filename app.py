@@ -1099,4 +1099,3 @@ with st.expander("🔧 Admin Section", expanded=False):
             st.error("Team names were not saved. Please try again.")
 
 st.caption("2026 PGA Championship Draft Challenge • Laborously Built by Jayme Leita • No AI Used")
-```*
