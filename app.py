@@ -843,12 +843,16 @@ for coach_id, info in teams_data.items():
     else:
         top3_html = "<div style='color:#aaa; font-style:italic;'>No golfers drafted yet</div>"
 
+    safe_total = html.escape(total)
     card = (
         f"<div style='border:5px solid {color}; background-color:{color}18; border-radius:16px; "
         f"padding:20px 24px; margin-bottom:1.8rem; box-shadow:0 4px 15px rgba(255,255,255,.08);'>"
         f"<div class='team-heading' style='color:{color}; font-size:1.75rem; font-weight:800;'>"
-        f"{face_html}<span>{html.escape(team_name)}</span></div>"
-        f"<div style='font-size:1.45rem; font-weight:700; color:{color}; margin:12px 0 14px 0;'>Total ({total})</div>"
+        f"{face_html}<span>{html.escape(team_name)}</span>"
+        f"<span style='display:inline-flex; align-items:center; justify-content:center; "
+        f"width:4.6rem; height:4.6rem; margin-left:10px; border-radius:50%; "
+        f"background:{color}; color:#000; font-size:2.625rem; font-weight:800; "
+        f"line-height:1;'>{safe_total}</span></div>"
         f"<div style='line-height:1.5;'>{top3_html}</div>"
         f"</div>"
     )
