@@ -809,7 +809,7 @@ current_pick = get_current_pick(state)
 st_autorefresh(interval=5000, limit=None, key="shared_state_refresh")
 
 st.markdown(
-    f"<div class='app-title'>{app_logo_html()}<h1>PGA Championship 2026</h1></div>",
+    f"<div class='app-title'>{app_logo_html()}<h1>2026 PGA Championship</h1></div>",
     unsafe_allow_html=True,
 )
 st.caption("**May 14–17, 2026** • Aronimink Golf Club")
