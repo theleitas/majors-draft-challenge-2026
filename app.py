@@ -473,6 +473,11 @@ def extract_hole_or_tee_time(competitor):
         if value:
             return format_tee_time(value)
 
+    # Check status first — if the golfer is finished, return "F"
+    state_val = get_status_state(competitor)
+    if state_val == "post":
+        return "F"
+
     play_status_keys = ["thru", "thruStatus", "currentHole", "currentHoleNumber", "hole"]
 
     for key in play_status_keys:
