@@ -504,7 +504,7 @@
       "hole": "MC"
     },
     "Harris English": {
-      "score": "E",
+      "score": "-1",
       "hole": "6"
     },
     "Russell Henley": {
@@ -668,6 +668,6 @@
       "hole": "F"
     }
   },
-  "last_score_refresh_at": 1778958121.584368,
-  "last_score_refresh_attempt_at": 1778958121.584368
+  "last_score_refresh_at": 1778958134.05336,
+  "last_score_refresh_attempt_at": 1778958134.05336
 }
