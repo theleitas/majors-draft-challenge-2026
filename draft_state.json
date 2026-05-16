@@ -125,7 +125,7 @@
     },
     "Max Greyserman": {
       "score": "-3",
-      "hole": "13"
+      "hole": "14"
     },
     "Wyndham Clark": {
       "score": "+5",
@@ -144,8 +144,8 @@
       "hole": "F"
     },
     "Andrew Novak": {
-      "score": "-1",
-      "hole": "16"
+      "score": "E",
+      "hole": "17"
     },
     "Travis Smyth": {
       "score": "+7",
@@ -293,7 +293,7 @@
     },
     "Ludvig Aberg": {
       "score": "-4",
-      "hole": "16"
+      "hole": "17"
     },
     "Ben Griffin": {
       "score": "-2",
@@ -309,7 +309,7 @@
     },
     "Min Woo Lee": {
       "score": "-1",
-      "hole": "13"
+      "hole": "14"
     },
     "Akshay Bhatia": {
       "score": "+5",
@@ -381,7 +381,7 @@
     },
     "Chris Gotterup": {
       "score": "-3",
-      "hole": "11"
+      "hole": "12"
     },
     "Ricky Castillo": {
       "score": "+7",
@@ -465,7 +465,7 @@
     },
     "Aldrich Potgieter": {
       "score": "+2",
-      "hole": "12"
+      "hole": "13"
     },
     "Angel Ayora": {
       "score": "+6",
@@ -505,7 +505,7 @@
     },
     "Harris English": {
       "score": "-1",
-      "hole": "15"
+      "hole": "16"
     },
     "Russell Henley": {
       "score": "+5",
@@ -536,8 +536,8 @@
       "hole": "F"
     },
     "Hideki Matsuyama": {
-      "score": "-1",
-      "hole": "11"
+      "score": "E",
+      "hole": "12"
     },
     "Emiliano Grillo": {
       "score": "+8",
@@ -576,16 +576,16 @@
       "hole": "MC"
     },
     "Stephan Jaeger": {
-      "score": "E",
-      "hole": "12"
+      "score": "+1",
+      "hole": "13"
     },
     "Adrien Saddier": {
       "score": "+12",
       "hole": "MC"
     },
     "Si Woo Kim": {
-      "score": "E",
-      "hole": "15"
+      "score": "-1",
+      "hole": "16"
     },
     "Stewart Cink": {
       "score": "+6",
@@ -668,6 +668,6 @@
       "hole": "F"
     }
   },
-  "last_score_refresh_at": 1778966465.2546496,
-  "last_score_refresh_attempt_at": 1778966811.1544757
+  "last_score_refresh_at": 1778966812.4126318,
+  "last_score_refresh_attempt_at": 1778966812.4126318
 }
