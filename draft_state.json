@@ -125,7 +125,7 @@
     },
     "Max Greyserman": {
       "score": "-3",
-      "hole": "11"
+      "hole": "12"
     },
     "Wyndham Clark": {
       "score": "+5",
@@ -196,8 +196,8 @@
       "hole": "MC"
     },
     "Jason Day": {
-      "score": "+1",
-      "hole": "16"
+      "score": "+3",
+      "hole": "17"
     },
     "Padraig Harrington": {
       "score": "E",
@@ -380,8 +380,8 @@
       "hole": "F"
     },
     "Chris Gotterup": {
-      "score": "-5",
-      "hole": "9"
+      "score": "-4",
+      "hole": "10"
     },
     "Ricky Castillo": {
       "score": "+7",
@@ -432,8 +432,8 @@
       "hole": "MC"
     },
     "David Puig": {
-      "score": "-1",
-      "hole": "13"
+      "score": "E",
+      "hole": "14"
     },
     "Matt McCarty": {
       "score": "+11",
@@ -517,7 +517,7 @@
     },
     "Andrew Putnam": {
       "score": "E",
-      "hole": "17"
+      "hole": "F"
     },
     "Tommy Fleetwood": {
       "score": "+5",
@@ -536,8 +536,8 @@
       "hole": "F"
     },
     "Hideki Matsuyama": {
-      "score": "-1",
-      "hole": "9"
+      "score": "E",
+      "hole": "10"
     },
     "Emiliano Grillo": {
       "score": "+8",
@@ -552,8 +552,8 @@
       "hole": "MC"
     },
     "Patrick Cantlay": {
-      "score": "+2",
-      "hole": "16"
+      "score": "+3",
+      "hole": "17"
     },
     "Luke Donald": {
       "score": "+8",
@@ -576,8 +576,8 @@
       "hole": "MC"
     },
     "Stephan Jaeger": {
-      "score": "E",
-      "hole": "10"
+      "score": "-1",
+      "hole": "11"
     },
     "Adrien Saddier": {
       "score": "+12",
@@ -633,7 +633,7 @@
     },
     "Scottie Scheffler": {
       "score": "-2",
-      "hole": "13"
+      "hole": "14"
     },
     "Alex Smalley": {
       "score": "-2",
@@ -660,14 +660,14 @@
       "hole": "F"
     },
     "Jon Rahm": {
-      "score": "-5",
-      "hole": "17"
+      "score": "-4",
+      "hole": "F"
     },
     "Sam Burns": {
       "score": "-1",
       "hole": "F"
     }
   },
-  "last_score_refresh_at": 1778964929.3440523,
-  "last_score_refresh_attempt_at": 1778965262.4828646
+  "last_score_refresh_at": 1778965263.7793648,
+  "last_score_refresh_attempt_at": 1778965263.7793648
 }
