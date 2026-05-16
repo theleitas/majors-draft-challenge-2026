@@ -80,8 +80,8 @@
       "hole": "F"
     },
     "Jhonattan Vegas": {
-      "score": "+4",
-      "hole": "7:45 AM"
+      "score": "+5",
+      "hole": "1"
     },
     "Kurt Kitayama": {
       "score": "-1",
@@ -253,7 +253,7 @@
     },
     "Alex Noren": {
       "score": "+4",
-      "hole": "7:45 AM"
+      "hole": "1"
     },
     "Adam Scott": {
       "score": "+8",
@@ -668,6 +668,6 @@
       "hole": "9:42 AM"
     }
   },
-  "last_score_refresh_at": 1778932514.5329368,
-  "last_score_refresh_attempt_at": 1778932864.1008782
+  "last_score_refresh_at": 1778932865.5070233,
+  "last_score_refresh_attempt_at": 1778932865.5070233
 }
