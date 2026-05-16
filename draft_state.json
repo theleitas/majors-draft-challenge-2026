@@ -97,7 +97,7 @@
     },
     "Matt Wallace": {
       "score": "+3",
-      "hole": "5"
+      "hole": "6"
     },
     "Collin Morikawa": {
       "score": "+1",
@@ -140,8 +140,8 @@
       "hole": "F"
     },
     "Rasmus Højgaard": {
-      "score": "+1",
-      "hole": "10"
+      "score": "+2",
+      "hole": "11"
     },
     "Andrew Novak": {
       "score": "-1",
@@ -329,7 +329,7 @@
     },
     "Sam Stevens": {
       "score": "+3",
-      "hole": "6"
+      "hole": "7"
     },
     "Steven Fisk": {
       "score": "+8",
@@ -368,8 +368,8 @@
       "hole": "F"
     },
     "Casey Jarvis": {
-      "score": "+4",
-      "hole": "5"
+      "score": "+5",
+      "hole": "6"
     },
     "Chandler Blanchet": {
       "score": "+5",
@@ -377,7 +377,7 @@
     },
     "John Parry": {
       "score": "+4",
-      "hole": "13"
+      "hole": "14"
     },
     "Chris Gotterup": {
       "score": "-3",
@@ -457,7 +457,7 @@
     },
     "Ryan Gerard": {
       "score": "+2",
-      "hole": "1"
+      "hole": "2"
     },
     "William Mouw": {
       "score": "+3",
@@ -629,7 +629,7 @@
     },
     "Christiaan Bezuidenhout": {
       "score": "+3",
-      "hole": "15"
+      "hole": "16"
     },
     "Scottie Scheffler": {
       "score": "-2",
@@ -668,6 +668,6 @@
       "hole": "9"
     }
   },
-  "last_score_refresh_at": 1778946879.8691635,
-  "last_score_refresh_attempt_at": 1778946879.8691635
+  "last_score_refresh_at": 1778946967.64501,
+  "last_score_refresh_attempt_at": 1778946967.64501
 }
