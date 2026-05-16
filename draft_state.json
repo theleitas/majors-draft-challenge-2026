@@ -109,7 +109,7 @@
     },
     "Sahith Theegala": {
       "score": "+2",
-      "hole": "9"
+      "hole": "10"
     },
     "Jason Dufner": {
       "score": "+8",
@@ -120,8 +120,8 @@
       "hole": "MC"
     },
     "Joaquin Niemann": {
-      "score": "-1",
-      "hole": "15"
+      "score": "-3",
+      "hole": "16"
     },
     "Max Greyserman": {
       "score": "-3",
@@ -140,8 +140,8 @@
       "hole": "F"
     },
     "Rasmus Højgaard": {
-      "score": "+3",
-      "hole": "17"
+      "score": "+4",
+      "hole": "F"
     },
     "Andrew Novak": {
       "score": "-1",
@@ -196,8 +196,8 @@
       "hole": "MC"
     },
     "Jason Day": {
-      "score": "E",
-      "hole": "2"
+      "score": "+1",
+      "hole": "3"
     },
     "Padraig Harrington": {
       "score": "E",
@@ -261,7 +261,7 @@
     },
     "Ryan Fox": {
       "score": "+2",
-      "hole": "6"
+      "hole": "7"
     },
     "Bernd Wiesberger": {
       "score": "+8",
@@ -329,7 +329,7 @@
     },
     "Sam Stevens": {
       "score": "+5",
-      "hole": "14"
+      "hole": "15"
     },
     "Steven Fisk": {
       "score": "+8",
@@ -421,7 +421,7 @@
     },
     "Ryo Hisatsune": {
       "score": "E",
-      "hole": "6"
+      "hole": "7"
     },
     "Rasmus Neergaard-Petersen": {
       "score": "+5",
@@ -504,8 +504,8 @@
       "hole": "MC"
     },
     "Harris English": {
-      "score": "-2",
-      "hole": "1:30 PM"
+      "score": "-1",
+      "hole": "1"
     },
     "Russell Henley": {
       "score": "+5",
@@ -585,7 +585,7 @@
     },
     "Si Woo Kim": {
       "score": "-2",
-      "hole": "1:30 PM"
+      "hole": "1"
     },
     "Stewart Cink": {
       "score": "+6",
@@ -668,6 +668,6 @@
       "hole": "16"
     }
   },
-  "last_score_refresh_at": 1778953422.6817846,
-  "last_score_refresh_attempt_at": 1778953422.6817846
+  "last_score_refresh_at": 1778953562.694418,
+  "last_score_refresh_attempt_at": 1778953562.694418
 }
