@@ -136,8 +136,8 @@
       "hole": "F"
     },
     "Nicolai Højgaard": {
-      "score": "+2",
-      "hole": "15"
+      "score": "E",
+      "hole": "16"
     },
     "Rasmus Højgaard": {
       "score": "+1",
@@ -201,7 +201,7 @@
     },
     "Padraig Harrington": {
       "score": "E",
-      "hole": "10"
+      "hole": "11"
     },
     "Bryce Fisher": {
       "score": "+22",
@@ -224,8 +224,8 @@
       "hole": "F"
     },
     "Dustin Johnson": {
-      "score": "+2",
-      "hole": "2"
+      "score": "+1",
+      "hole": "3"
     },
     "Chris Kirk": {
       "score": "-1",
@@ -241,7 +241,7 @@
     },
     "Martin Kaymer": {
       "score": "+1",
-      "hole": "3"
+      "hole": "4"
     },
     "Rickie Fowler": {
       "score": "+1",
@@ -272,8 +272,8 @@
       "hole": "F"
     },
     "Kristoffer Reitan": {
-      "score": "+3",
-      "hole": "10"
+      "score": "+2",
+      "hole": "11"
     },
     "Timothy Wiseman": {
       "score": "+15",
@@ -281,7 +281,7 @@
     },
     "Alex Fitzpatrick": {
       "score": "+2",
-      "hole": "6"
+      "hole": "7"
     },
     "Viktor Hovland": {
       "score": "+6",
@@ -329,7 +329,7 @@
     },
     "Sam Stevens": {
       "score": "+4",
-      "hole": "4"
+      "hole": "5"
     },
     "Steven Fisk": {
       "score": "+8",
@@ -352,8 +352,8 @@
       "hole": "F"
     },
     "Shane Lowry": {
-      "score": "+4",
-      "hole": "13"
+      "score": "+3",
+      "hole": "14"
     },
     "Harry Hall": {
       "score": "+7",
@@ -372,8 +372,8 @@
       "hole": "3"
     },
     "Chandler Blanchet": {
-      "score": "+3",
-      "hole": "4"
+      "score": "+4",
+      "hole": "5"
     },
     "John Parry": {
       "score": "+5",
@@ -569,7 +569,7 @@
     },
     "Brooks Koepka": {
       "score": "+1",
-      "hole": "1"
+      "hole": "2"
     },
     "Patrick Rodgers": {
       "score": "+7",
@@ -612,8 +612,8 @@
       "hole": "12"
     },
     "Matt Fitzpatrick": {
-      "score": "+2",
-      "hole": "3"
+      "score": "+3",
+      "hole": "4"
     },
     "Corey Conners": {
       "score": "+1",
@@ -668,6 +668,6 @@
       "hole": "8"
     }
   },
-  "last_score_refresh_at": 1778945198.9641087,
-  "last_score_refresh_attempt_at": 1778945198.9641087
+  "last_score_refresh_at": 1778945369.297729,
+  "last_score_refresh_attempt_at": 1778945369.297729
 }
