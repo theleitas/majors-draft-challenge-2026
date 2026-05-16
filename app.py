@@ -1002,7 +1002,7 @@ for coach_id, info in teams_data.items():
         f"<div class='team-heading' style='color:{color}; font-size:1.75rem; font-weight:800;'>"
         f"{face_html}<span>{html.escape(team_name)}</span>"
         f"<span style='display:inline-flex; align-items:center; justify-content:center; "
-        f"width:3.9rem; height:3.9rem; margin-left:10px; border-radius:50%; "
+        f"width:4.25rem; height:4.25rem; margin-left:10px; border-radius:50%; "
         f"background:{color}; color:#000; font-size:2.1875rem; font-weight:800; "
         f"line-height:1;'>{safe_total}</span></div>"
         f"<div style='line-height:1.5;'>{top3_html}</div>"
@@ -1032,7 +1032,7 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
             f"<div class='team-heading' style='color:{color}; font-size:1.75rem; font-weight:800; margin-bottom:18px;'>"
             f"{face_html}<span>{html.escape(team_name)}</span>"
             f"<span style='display:inline-flex; align-items:center; justify-content:center; "
-            f"width:3.9rem; height:3.9rem; margin-left:10px; border-radius:50%; "
+            f"width:4.25rem; height:4.25rem; margin-left:10px; border-radius:50%; "
             f"background:{color}; color:#000; font-size:2.1875rem; font-weight:800; "
             f"line-height:1;'>{safe_total}</span></div>",
         ]
