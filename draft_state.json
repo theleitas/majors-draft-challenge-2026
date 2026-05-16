@@ -84,8 +84,8 @@
       "hole": "F"
     },
     "Kurt Kitayama": {
-      "score": "+1",
-      "hole": "9"
+      "score": "+2",
+      "hole": "10"
     },
     "Adam Schenk": {
       "score": "+6",
@@ -125,7 +125,7 @@
     },
     "Max Greyserman": {
       "score": "-2",
-      "hole": "5"
+      "hole": "6"
     },
     "Wyndham Clark": {
       "score": "+5",
@@ -288,8 +288,8 @@
       "hole": "MC"
     },
     "Ben Kern": {
-      "score": "+7",
-      "hole": "14"
+      "score": "+8",
+      "hole": "15"
     },
     "Ludvig Aberg": {
       "score": "-4",
@@ -308,16 +308,16 @@
       "hole": "MC"
     },
     "Min Woo Lee": {
-      "score": "-2",
-      "hole": "5"
+      "score": "-3",
+      "hole": "6"
     },
     "Akshay Bhatia": {
       "score": "+5",
       "hole": "MC"
     },
     "Daniel Hillier": {
-      "score": "E",
-      "hole": "14"
+      "score": "+1",
+      "hole": "15"
     },
     "Michael Thorbjornsen": {
       "score": "+11",
@@ -325,7 +325,7 @@
     },
     "Cameron Young": {
       "score": "-1",
-      "hole": "6"
+      "hole": "7"
     },
     "Sam Stevens": {
       "score": "+3",
@@ -416,8 +416,8 @@
       "hole": "MC"
     },
     "Justin Thomas": {
-      "score": "-4",
-      "hole": "6"
+      "score": "-3",
+      "hole": "7"
     },
     "Ryo Hisatsune": {
       "score": "+2",
@@ -528,8 +528,8 @@
       "hole": "MC"
     },
     "Patrick Reed": {
-      "score": "-2",
-      "hole": "11"
+      "score": "-1",
+      "hole": "12"
     },
     "Justin Rose": {
       "score": "-2",
@@ -537,7 +537,7 @@
     },
     "Hideki Matsuyama": {
       "score": "-2",
-      "hole": "4"
+      "hole": "5"
     },
     "Emiliano Grillo": {
       "score": "+8",
@@ -625,7 +625,7 @@
     },
     "Haotong Li": {
       "score": "-1",
-      "hole": "11"
+      "hole": "12"
     },
     "Christiaan Bezuidenhout": {
       "score": "+4",
@@ -668,6 +668,6 @@
       "hole": "F"
     }
   },
-  "last_score_refresh_at": 1778959758.987872,
-  "last_score_refresh_attempt_at": 1778960117.802619
+  "last_score_refresh_at": 1778960119.0969682,
+  "last_score_refresh_attempt_at": 1778960119.0969682
 }
