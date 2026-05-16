@@ -124,8 +124,8 @@
       "hole": "F"
     },
     "Max Greyserman": {
-      "score": "-4",
-      "hole": "1"
+      "score": "-3",
+      "hole": "2"
     },
     "Wyndham Clark": {
       "score": "+5",
@@ -145,7 +145,7 @@
     },
     "Andrew Novak": {
       "score": "+1",
-      "hole": "5"
+      "hole": "6"
     },
     "Travis Smyth": {
       "score": "+7",
@@ -241,7 +241,7 @@
     },
     "Martin Kaymer": {
       "score": "-2",
-      "hole": "17"
+      "hole": "F"
     },
     "Rickie Fowler": {
       "score": "-1",
@@ -249,7 +249,7 @@
     },
     "Nick Taylor": {
       "score": "-2",
-      "hole": "11"
+      "hole": "12"
     },
     "Alex Noren": {
       "score": "+4",
@@ -292,12 +292,12 @@
       "hole": "11"
     },
     "Ludvig Aberg": {
-      "score": "-2",
-      "hole": "5"
+      "score": "-3",
+      "hole": "6"
     },
     "Ben Griffin": {
       "score": "-1",
-      "hole": "13"
+      "hole": "14"
     },
     "Nico Echavarria": {
       "score": "+10",
@@ -309,7 +309,7 @@
     },
     "Min Woo Lee": {
       "score": "-3",
-      "hole": "1"
+      "hole": "2"
     },
     "Akshay Bhatia": {
       "score": "+5",
@@ -324,8 +324,8 @@
       "hole": "MC"
     },
     "Cameron Young": {
-      "score": "-1",
-      "hole": "2"
+      "score": "-2",
+      "hole": "3"
     },
     "Sam Stevens": {
       "score": "+3",
@@ -432,8 +432,8 @@
       "hole": "MC"
     },
     "David Puig": {
-      "score": "E",
-      "hole": "4"
+      "score": "-1",
+      "hole": "5"
     },
     "Matt McCarty": {
       "score": "+11",
@@ -457,7 +457,7 @@
     },
     "Ryan Gerard": {
       "score": "+3",
-      "hole": "13"
+      "hole": "14"
     },
     "William Mouw": {
       "score": "+4",
@@ -484,8 +484,8 @@
       "hole": "MC"
     },
     "Bud Cauley": {
-      "score": "E",
-      "hole": "14"
+      "score": "-1",
+      "hole": "15"
     },
     "Chris Gabriele": {
       "score": "+14",
@@ -505,7 +505,7 @@
     },
     "Harris English": {
       "score": "+1",
-      "hole": "4"
+      "hole": "5"
     },
     "Russell Henley": {
       "score": "+5",
@@ -513,11 +513,11 @@
     },
     "Jordan Spieth": {
       "score": "+1",
-      "hole": "16"
+      "hole": "17"
     },
     "Andrew Putnam": {
       "score": "+2",
-      "hole": "7"
+      "hole": "8"
     },
     "Tommy Fleetwood": {
       "score": "+5",
@@ -612,12 +612,12 @@
       "hole": "F"
     },
     "Matt Fitzpatrick": {
-      "score": "+2",
-      "hole": "17"
+      "score": "+3",
+      "hole": "F"
     },
     "Corey Conners": {
-      "score": "-3",
-      "hole": "11"
+      "score": "-2",
+      "hole": "12"
     },
     "Cameron Smith": {
       "score": "E",
@@ -661,13 +661,13 @@
     },
     "Jon Rahm": {
       "score": "-3",
-      "hole": "7"
+      "hole": "8"
     },
     "Sam Burns": {
       "score": "-1",
       "hole": "F"
     }
   },
-  "last_score_refresh_at": 1778956598.8032863,
-  "last_score_refresh_attempt_at": 1778956957.5914998
+  "last_score_refresh_at": 1778956958.8917196,
+  "last_score_refresh_attempt_at": 1778956958.8917196
 }
