@@ -81,7 +81,7 @@
     },
     "Jhonattan Vegas": {
       "score": "+5",
-      "hole": "1"
+      "hole": "2"
     },
     "Kurt Kitayama": {
       "score": "-1",
@@ -137,7 +137,7 @@
     },
     "Nicolai Højgaard": {
       "score": "+4",
-      "hole": "7:54 AM"
+      "hole": "1"
     },
     "Rasmus Højgaard": {
       "score": "+3",
@@ -253,7 +253,7 @@
     },
     "Alex Noren": {
       "score": "+4",
-      "hole": "1"
+      "hole": "2"
     },
     "Adam Scott": {
       "score": "+8",
@@ -440,8 +440,8 @@
       "hole": "F"
     },
     "Michael Brennan": {
-      "score": "+4",
-      "hole": "7:54 AM"
+      "score": "+3",
+      "hole": "1"
     },
     "Jacob Bridgeman": {
       "score": "+8",
@@ -668,6 +668,6 @@
       "hole": "9:42 AM"
     }
   },
-  "last_score_refresh_at": 1778933170.3485782,
-  "last_score_refresh_attempt_at": 1778933497.9209883
+  "last_score_refresh_at": 1778933499.3727252,
+  "last_score_refresh_attempt_at": 1778933499.3727252
 }
