@@ -78,6 +78,7 @@ STATE_FILE_PATH = "draft_state.json"
 BRANCH = "main"
 MAX_PICKS = 30
 ESPN_LEADERBOARD_URL = "https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?league=pga"
+AUTO_SCORE_REFRESH_SECONDS = 5 * 60
 
 GITHUB_HEADERS = {
     "Authorization": f"Bearer {GITHUB_TOKEN}",
@@ -182,6 +183,7 @@ def default_state():
         "last_pick_started_at": 0,
         "player_results": {},
         "last_score_refresh_at": 0,
+        "last_score_refresh_attempt_at": 0,
         "teams": {
             "Jayme Leita": {"team_name": "Jayme's Team", "players": []},
             "Spencer Tidwell": {"team_name": "Spencer's Team", "players": []},
@@ -199,6 +201,7 @@ def normalize_state(state):
     state.setdefault("last_pick_started_at", base["last_pick_started_at"])
     state.setdefault("player_results", base["player_results"])
     state.setdefault("last_score_refresh_at", base["last_score_refresh_at"])
+    state.setdefault("last_score_refresh_attempt_at", base["last_score_refresh_attempt_at"])
     state.setdefault("teams", base["teams"])
     for coach, info in base["teams"].items():
         state["teams"].setdefault(coach, info)
@@ -592,25 +595,60 @@ def fetch_live_scores_from_espn():
 
     return results
 
-def refresh_scores():
+def latest_score_refresh_marker(state):
+    try:
+        refreshed_at = float(state.get("last_score_refresh_at", 0) or 0)
+    except (TypeError, ValueError):
+        refreshed_at = 0
+    try:
+        attempted_at = float(state.get("last_score_refresh_attempt_at", 0) or 0)
+    except (TypeError, ValueError):
+        attempted_at = 0
+    return max(refreshed_at, attempted_at)
+
+def should_auto_refresh_scores(state):
+    return time.time() - latest_score_refresh_marker(state) >= AUTO_SCORE_REFRESH_SECONDS
+
+def claim_auto_score_refresh():
+    now = time.time()
+
+    def mutator(state):
+        if now - latest_score_refresh_marker(state) < AUTO_SCORE_REFRESH_SECONDS:
+            return False
+        state["last_score_refresh_attempt_at"] = now
+        return True
+
+    result, _ = mutate_shared_state(mutator, "Mark score refresh attempt")
+    return bool(result)
+
+def auto_refresh_scores_if_needed(state):
+    if should_auto_refresh_scores(state) and claim_auto_score_refresh():
+        refresh_scores(show_status=False)
+
+def refresh_scores(show_status=True):
     try:
         live_results = fetch_live_scores_from_espn()
     except Exception as e:
-        st.error(f"Could not refresh scores from ESPN: {e}")
+        if show_status:
+            st.error(f"Could not refresh scores from ESPN: {e}")
         return False
 
     if not live_results:
-        st.error("ESPN did not return matching player scores yet.")
+        if show_status:
+            st.error("ESPN did not return matching player scores yet.")
         return False
 
     def mutator(state):
+        now = time.time()
         state["player_results"] = live_results
-        state["last_score_refresh_at"] = time.time()
+        state["last_score_refresh_at"] = now
+        state["last_score_refresh_attempt_at"] = now
         return True
 
     result, _ = mutate_shared_state(mutator, "Refresh scores")
     if result:
-        st.success(f"Scores refreshed for {len(live_results)} golfers.")
+        if show_status:
+            st.success(f"Scores refreshed for {len(live_results)} golfers.")
         time.sleep(0.5)
         st.rerun()
     return bool(result)
@@ -876,6 +914,7 @@ picked_golfers = get_picked_golfers(state)
 current_pick = get_current_pick(state)
 
 st_autorefresh(interval=5000, limit=None, key="shared_state_refresh")
+auto_refresh_scores_if_needed(state)
 
 st.markdown(
     f"<div class='app-title'>{app_logo_html()}<h1>2026 PGA Championship</h1></div>",
