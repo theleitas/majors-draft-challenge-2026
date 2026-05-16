@@ -458,6 +458,8 @@ def display_hole_value(value):
     value = clean_status_text(value)
     if not value:
         return "—"
+    if strip_thru_prefix(value).upper() in ["CUT", "MC", "MISSED CUT"]:
+        return "MC"
     if strip_thru_prefix(value).upper() in ["F", "FINAL"]:
         return "Final"
     if re.search(r"\d{4}-\d{2}-\d{2}T", value) or re.search(r"\d{1,2}:\d{2}", value):
@@ -478,6 +480,28 @@ def is_finished_round_value(value):
         return int(value) >= 18
     except ValueError:
         return False
+
+def is_missed_cut(competitor):
+    status = competitor.get("status")
+    if not isinstance(status, dict):
+        return False
+
+    status_type = status.get("type")
+    status_words = " ".join(
+        str(status.get(key, ""))
+        for key in ["displayValue", "detail", "shortDetail", "description"]
+    )
+    position = status.get("position")
+    if isinstance(position, dict):
+        status_words += f" {position.get('displayName', '')}"
+
+    if isinstance(status_type, dict):
+        status_words += " " + " ".join(
+            str(status_type.get(key, ""))
+            for key in ["name", "description", "detail", "shortDetail"]
+        )
+
+    return bool(re.search(r"\b(cut|missed cut|mc|status_cut)\b", status_words, flags=re.IGNORECASE))
 
 def is_finished_round(competitor):
     status = competitor.get("status")
@@ -517,6 +541,9 @@ def is_finished_round(competitor):
     return False
 
 def extract_hole_or_tee_time(competitor):
+    if is_missed_cut(competitor):
+        return "MC"
+
     if is_finished_round(competitor):
         return "F"
 
@@ -950,7 +977,9 @@ for coach_id, info in teams_data.items():
             raw_hole = display_hole_value(result.get("hole", "—"))
             hole_text = strip_thru_prefix(raw_hole)
             is_tee = "AM" in raw_hole.upper() or "PM" in raw_hole.upper()
-            if hole_text.upper() in ["F", "FINAL"]:
+            if hole_text.upper() in ["CUT", "MC", "MISSED CUT"]:
+                status_text = "MC"
+            elif hole_text.upper() in ["F", "FINAL"]:
                 status_text = "Final"
             elif is_tee:
                 status_text = hole_text
