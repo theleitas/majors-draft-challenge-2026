@@ -292,8 +292,8 @@
       "hole": "F"
     },
     "Ludvig Aberg": {
-      "score": "-3",
-      "hole": "15"
+      "score": "-4",
+      "hole": "16"
     },
     "Ben Griffin": {
       "score": "-2",
@@ -380,8 +380,8 @@
       "hole": "F"
     },
     "Chris Gotterup": {
-      "score": "-4",
-      "hole": "10"
+      "score": "-3",
+      "hole": "11"
     },
     "Ricky Castillo": {
       "score": "+7",
@@ -536,8 +536,8 @@
       "hole": "F"
     },
     "Hideki Matsuyama": {
-      "score": "E",
-      "hole": "10"
+      "score": "-1",
+      "hole": "11"
     },
     "Emiliano Grillo": {
       "score": "+8",
@@ -668,6 +668,6 @@
       "hole": "F"
     }
   },
-  "last_score_refresh_at": 1778965623.7625315,
-  "last_score_refresh_attempt_at": 1778965623.7625315
+  "last_score_refresh_at": 1778965860.9900422,
+  "last_score_refresh_attempt_at": 1778965860.9900422
 }
