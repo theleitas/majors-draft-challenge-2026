@@ -137,7 +137,7 @@
     },
     "Nicolai Højgaard": {
       "score": "+3",
-      "hole": "2"
+      "hole": "3"
     },
     "Rasmus Højgaard": {
       "score": "+3",
@@ -441,7 +441,7 @@
     },
     "Michael Brennan": {
       "score": "+3",
-      "hole": "2"
+      "hole": "3"
     },
     "Jacob Bridgeman": {
       "score": "+8",
@@ -629,7 +629,7 @@
     },
     "Christiaan Bezuidenhout": {
       "score": "+4",
-      "hole": "8:12 AM"
+      "hole": "1"
     },
     "Scottie Scheffler": {
       "score": "-2",
@@ -645,7 +645,7 @@
     },
     "Brian Campbell": {
       "score": "+4",
-      "hole": "8:21 AM"
+      "hole": "1"
     },
     "Maverick McNealy": {
       "score": "-4",
@@ -668,6 +668,6 @@
       "hole": "9:42 AM"
     }
   },
-  "last_score_refresh_at": 1778934579.1406398,
-  "last_score_refresh_attempt_at": 1778934880.857943
+  "last_score_refresh_at": 1778934883.0760896,
+  "last_score_refresh_attempt_at": 1778934883.0760896
 }
