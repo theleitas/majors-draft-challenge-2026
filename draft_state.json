@@ -84,8 +84,8 @@
       "hole": "F"
     },
     "Kurt Kitayama": {
-      "score": "+3",
-      "hole": "11"
+      "score": "+5",
+      "hole": "12"
     },
     "Adam Schenk": {
       "score": "+6",
@@ -105,7 +105,7 @@
     },
     "Aaron Rai": {
       "score": "-5",
-      "hole": "11"
+      "hole": "12"
     },
     "Sahith Theegala": {
       "score": "+3",
@@ -197,7 +197,7 @@
     },
     "Jason Day": {
       "score": "+1",
-      "hole": "12"
+      "hole": "13"
     },
     "Padraig Harrington": {
       "score": "E",
@@ -432,8 +432,8 @@
       "hole": "MC"
     },
     "David Puig": {
-      "score": "-3",
-      "hole": "9"
+      "score": "-2",
+      "hole": "10"
     },
     "Matt McCarty": {
       "score": "+11",
@@ -464,8 +464,8 @@
       "hole": "F"
     },
     "Aldrich Potgieter": {
-      "score": "-2",
-      "hole": "7"
+      "score": "E",
+      "hole": "8"
     },
     "Angel Ayora": {
       "score": "+6",
@@ -504,8 +504,8 @@
       "hole": "MC"
     },
     "Harris English": {
-      "score": "-2",
-      "hole": "10"
+      "score": "-1",
+      "hole": "11"
     },
     "Russell Henley": {
       "score": "+5",
@@ -517,7 +517,7 @@
     },
     "Andrew Putnam": {
       "score": "+1",
-      "hole": "13"
+      "hole": "14"
     },
     "Tommy Fleetwood": {
       "score": "+5",
@@ -529,7 +529,7 @@
     },
     "Patrick Reed": {
       "score": "-2",
-      "hole": "14"
+      "hole": "15"
     },
     "Justin Rose": {
       "score": "-2",
@@ -553,7 +553,7 @@
     },
     "Patrick Cantlay": {
       "score": "E",
-      "hole": "12"
+      "hole": "13"
     },
     "Luke Donald": {
       "score": "+8",
@@ -585,7 +585,7 @@
     },
     "Si Woo Kim": {
       "score": "-2",
-      "hole": "10"
+      "hole": "11"
     },
     "Stewart Cink": {
       "score": "+6",
@@ -624,7 +624,7 @@
       "hole": "15"
     },
     "Haotong Li": {
-      "score": "-1",
+      "score": "E",
       "hole": "14"
     },
     "Christiaan Bezuidenhout": {
@@ -633,7 +633,7 @@
     },
     "Scottie Scheffler": {
       "score": "-1",
-      "hole": "9"
+      "hole": "10"
     },
     "Alex Smalley": {
       "score": "-1",
@@ -668,6 +668,6 @@
       "hole": "F"
     }
   },
-  "last_score_refresh_at": 1778961919.2651975,
-  "last_score_refresh_attempt_at": 1778962277.7336755
+  "last_score_refresh_at": 1778962279.0995877,
+  "last_score_refresh_attempt_at": 1778962279.0995877
 }
