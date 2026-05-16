@@ -164,8 +164,8 @@
       "hole": "MC"
     },
     "Rico Hoey": {
-      "score": "+1",
-      "hole": "11"
+      "score": "+2",
+      "hole": "12"
     },
     "Garrick Higgo": {
       "score": "+5",
@@ -457,14 +457,14 @@
     },
     "Ryan Gerard": {
       "score": "+3",
-      "hole": "15"
+      "hole": "16"
     },
     "William Mouw": {
       "score": "+4",
       "hole": "F"
     },
     "Aldrich Potgieter": {
-      "score": "-3",
+      "score": "-2",
       "hole": "3"
     },
     "Angel Ayora": {
@@ -505,7 +505,7 @@
     },
     "Harris English": {
       "score": "-1",
-      "hole": "7"
+      "hole": "8"
     },
     "Russell Henley": {
       "score": "+5",
@@ -620,12 +620,12 @@
       "hole": "14"
     },
     "Cameron Smith": {
-      "score": "-2",
-      "hole": "11"
+      "score": "-1",
+      "hole": "12"
     },
     "Haotong Li": {
       "score": "-1",
-      "hole": "10"
+      "hole": "11"
     },
     "Christiaan Bezuidenhout": {
       "score": "+4",
@@ -668,6 +668,6 @@
       "hole": "F"
     }
   },
-  "last_score_refresh_at": 1778958957.6061049,
-  "last_score_refresh_attempt_at": 1778958957.6061049
+  "last_score_refresh_at": 1778959040.4933577,
+  "last_score_refresh_attempt_at": 1778959040.4933577
 }
