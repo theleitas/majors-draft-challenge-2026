@@ -432,8 +432,8 @@
       "hole": "MC"
     },
     "David Puig": {
-      "score": "E",
-      "hole": "14"
+      "score": "+1",
+      "hole": "15"
     },
     "Matt McCarty": {
       "score": "+11",
@@ -633,11 +633,11 @@
     },
     "Scottie Scheffler": {
       "score": "-2",
-      "hole": "14"
+      "hole": "15"
     },
     "Alex Smalley": {
       "score": "-3",
-      "hole": "10"
+      "hole": "11"
     },
     "Jordan Smith": {
       "score": "+12",
@@ -668,6 +668,6 @@
       "hole": "F"
     }
   },
-  "last_score_refresh_at": 1778966163.7082796,
-  "last_score_refresh_attempt_at": 1778966463.9710894
+  "last_score_refresh_at": 1778966465.2546496,
+  "last_score_refresh_attempt_at": 1778966465.2546496
 }
