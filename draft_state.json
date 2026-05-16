@@ -124,8 +124,8 @@
       "hole": "F"
     },
     "Max Greyserman": {
-      "score": "-2",
-      "hole": "15"
+      "score": "-3",
+      "hole": "16"
     },
     "Wyndham Clark": {
       "score": "+5",
@@ -325,7 +325,7 @@
     },
     "Cameron Young": {
       "score": "-1",
-      "hole": "16"
+      "hole": "17"
     },
     "Sam Stevens": {
       "score": "+3",
@@ -433,7 +433,7 @@
     },
     "David Puig": {
       "score": "-1",
-      "hole": "17"
+      "hole": "F"
     },
     "Matt McCarty": {
       "score": "+11",
@@ -505,7 +505,7 @@
     },
     "Harris English": {
       "score": "-1",
-      "hole": "17"
+      "hole": "F"
     },
     "Russell Henley": {
       "score": "+5",
@@ -637,7 +637,7 @@
     },
     "Alex Smalley": {
       "score": "-4",
-      "hole": "13"
+      "hole": "14"
     },
     "Jordan Smith": {
       "score": "+12",
@@ -649,7 +649,7 @@
     },
     "Maverick McNealy": {
       "score": "-4",
-      "hole": "13"
+      "hole": "14"
     },
     "Ryan Lenahan": {
       "score": "+15",
@@ -668,6 +668,6 @@
       "hole": "F"
     }
   },
-  "last_score_refresh_at": 1778968131.463484,
-  "last_score_refresh_attempt_at": 1778968677.4519165
+  "last_score_refresh_at": 1778968678.6180341,
+  "last_score_refresh_attempt_at": 1778968678.6180341
 }
