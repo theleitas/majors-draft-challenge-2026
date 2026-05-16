@@ -85,7 +85,7 @@
     },
     "Kurt Kitayama": {
       "score": "+4",
-      "hole": "17"
+      "hole": "F"
     },
     "Adam Schenk": {
       "score": "+6",
@@ -104,8 +104,8 @@
       "hole": "F"
     },
     "Aaron Rai": {
-      "score": "-5",
-      "hole": "17"
+      "score": "-4",
+      "hole": "F"
     },
     "Sahith Theegala": {
       "score": "+3",
@@ -324,8 +324,8 @@
       "hole": "MC"
     },
     "Cameron Young": {
-      "score": "+1",
-      "hole": "14"
+      "score": "E",
+      "hole": "15"
     },
     "Sam Stevens": {
       "score": "+3",
@@ -417,7 +417,7 @@
     },
     "Justin Thomas": {
       "score": "E",
-      "hole": "14"
+      "hole": "15"
     },
     "Ryo Hisatsune": {
       "score": "+3",
@@ -668,6 +668,6 @@
       "hole": "F"
     }
   },
-  "last_score_refresh_at": 1778966812.4126318,
-  "last_score_refresh_attempt_at": 1778967134.4491503
+  "last_score_refresh_at": 1778967135.6613662,
+  "last_score_refresh_attempt_at": 1778967135.6613662
 }
