@@ -84,8 +84,8 @@
       "hole": "F"
     },
     "Kurt Kitayama": {
-      "score": "+2",
-      "hole": "10"
+      "score": "+3",
+      "hole": "11"
     },
     "Adam Schenk": {
       "score": "+6",
@@ -104,8 +104,8 @@
       "hole": "17"
     },
     "Aaron Rai": {
-      "score": "-4",
-      "hole": "10"
+      "score": "-5",
+      "hole": "11"
     },
     "Sahith Theegala": {
       "score": "+3",
@@ -249,7 +249,7 @@
     },
     "Nick Taylor": {
       "score": "-4",
-      "hole": "16"
+      "hole": "17"
     },
     "Alex Noren": {
       "score": "+4",
@@ -309,7 +309,7 @@
     },
     "Min Woo Lee": {
       "score": "-3",
-      "hole": "7"
+      "hole": "8"
     },
     "Akshay Bhatia": {
       "score": "+5",
@@ -432,8 +432,8 @@
       "hole": "MC"
     },
     "David Puig": {
-      "score": "-2",
-      "hole": "8"
+      "score": "-3",
+      "hole": "9"
     },
     "Matt McCarty": {
       "score": "+11",
@@ -465,7 +465,7 @@
     },
     "Aldrich Potgieter": {
       "score": "-2",
-      "hole": "6"
+      "hole": "7"
     },
     "Angel Ayora": {
       "score": "+6",
@@ -537,7 +537,7 @@
     },
     "Hideki Matsuyama": {
       "score": "-2",
-      "hole": "5"
+      "hole": "6"
     },
     "Emiliano Grillo": {
       "score": "+8",
@@ -616,8 +616,8 @@
       "hole": "F"
     },
     "Corey Conners": {
-      "score": "+1",
-      "hole": "16"
+      "score": "+2",
+      "hole": "17"
     },
     "Cameron Smith": {
       "score": "-2",
@@ -668,6 +668,6 @@
       "hole": "F"
     }
   },
-  "last_score_refresh_at": 1778960839.0790505,
-  "last_score_refresh_attempt_at": 1778961197.730093
+  "last_score_refresh_at": 1778961199.0004094,
+  "last_score_refresh_attempt_at": 1778961199.0004094
 }
