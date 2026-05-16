@@ -84,8 +84,8 @@
       "hole": "F"
     },
     "Kurt Kitayama": {
-      "score": "+4",
-      "hole": "15"
+      "score": "+3",
+      "hole": "16"
     },
     "Adam Schenk": {
       "score": "+6",
@@ -105,7 +105,7 @@
     },
     "Aaron Rai": {
       "score": "-5",
-      "hole": "15"
+      "hole": "16"
     },
     "Sahith Theegala": {
       "score": "+3",
@@ -308,8 +308,8 @@
       "hole": "MC"
     },
     "Min Woo Lee": {
-      "score": "-1",
-      "hole": "11"
+      "score": "E",
+      "hole": "12"
     },
     "Akshay Bhatia": {
       "score": "+5",
@@ -325,7 +325,7 @@
     },
     "Cameron Young": {
       "score": "+1",
-      "hole": "12"
+      "hole": "13"
     },
     "Sam Stevens": {
       "score": "+3",
@@ -416,8 +416,8 @@
       "hole": "MC"
     },
     "Justin Thomas": {
-      "score": "E",
-      "hole": "12"
+      "score": "-1",
+      "hole": "13"
     },
     "Ryo Hisatsune": {
       "score": "+3",
@@ -505,7 +505,7 @@
     },
     "Harris English": {
       "score": "-1",
-      "hole": "14"
+      "hole": "15"
     },
     "Russell Henley": {
       "score": "+5",
@@ -584,8 +584,8 @@
       "hole": "MC"
     },
     "Si Woo Kim": {
-      "score": "-1",
-      "hole": "14"
+      "score": "E",
+      "hole": "15"
     },
     "Stewart Cink": {
       "score": "+6",
@@ -636,8 +636,8 @@
       "hole": "14"
     },
     "Alex Smalley": {
-      "score": "-2",
-      "hole": "9"
+      "score": "-3",
+      "hole": "10"
     },
     "Jordan Smith": {
       "score": "+12",
@@ -649,7 +649,7 @@
     },
     "Maverick McNealy": {
       "score": "-3",
-      "hole": "9"
+      "hole": "10"
     },
     "Ryan Lenahan": {
       "score": "+15",
@@ -668,6 +668,6 @@
       "hole": "F"
     }
   },
-  "last_score_refresh_at": 1778965263.7793648,
-  "last_score_refresh_attempt_at": 1778965622.4833436
+  "last_score_refresh_at": 1778965623.7625315,
+  "last_score_refresh_attempt_at": 1778965623.7625315
 }
