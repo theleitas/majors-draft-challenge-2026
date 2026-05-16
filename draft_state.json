@@ -81,7 +81,7 @@
     },
     "Jhonattan Vegas": {
       "score": "+5",
-      "hole": "3"
+      "hole": "4"
     },
     "Kurt Kitayama": {
       "score": "-1",
@@ -253,7 +253,7 @@
     },
     "Alex Noren": {
       "score": "+4",
-      "hole": "3"
+      "hole": "4"
     },
     "Adam Scott": {
       "score": "+8",
@@ -353,7 +353,7 @@
     },
     "Shane Lowry": {
       "score": "+4",
-      "hole": "8:21 AM"
+      "hole": "1"
     },
     "Harry Hall": {
       "score": "+7",
@@ -668,6 +668,6 @@
       "hole": "9:42 AM"
     }
   },
-  "last_score_refresh_at": 1778934883.0760896,
-  "last_score_refresh_attempt_at": 1778935212.5382922
+  "last_score_refresh_at": 1778935213.840287,
+  "last_score_refresh_attempt_at": 1778935213.840287
 }
