@@ -81,7 +81,7 @@
     },
     "Jhonattan Vegas": {
       "score": "+4",
-      "hole": "7"
+      "hole": "9"
     },
     "Kurt Kitayama": {
       "score": "-1",
@@ -136,12 +136,12 @@
       "hole": "F"
     },
     "Nicolai Højgaard": {
-      "score": "+3",
-      "hole": "6"
+      "score": "+1",
+      "hole": "8"
     },
     "Rasmus Højgaard": {
       "score": "+3",
-      "hole": "9:24 AM"
+      "hole": "1"
     },
     "Andrew Novak": {
       "score": "-1",
@@ -181,7 +181,7 @@
     },
     "Brian Harman": {
       "score": "+3",
-      "hole": "9:15 AM"
+      "hole": "1"
     },
     "Y.E. Yang": {
       "score": "+9",
@@ -189,7 +189,7 @@
     },
     "Daniel Brown": {
       "score": "+3",
-      "hole": "9:06 AM"
+      "hole": "2"
     },
     "Billy Horschel": {
       "score": "+8",
@@ -201,7 +201,7 @@
     },
     "Padraig Harrington": {
       "score": "+2",
-      "hole": "1"
+      "hole": "3"
     },
     "Bryce Fisher": {
       "score": "+22",
@@ -228,8 +228,8 @@
       "hole": "10:50 AM"
     },
     "Chris Kirk": {
-      "score": "+3",
-      "hole": "9:06 AM"
+      "score": "+2",
+      "hole": "2"
     },
     "Rory McIlroy": {
       "score": "+1",
@@ -253,7 +253,7 @@
     },
     "Alex Noren": {
       "score": "+4",
-      "hole": "7"
+      "hole": "9"
     },
     "Adam Scott": {
       "score": "+8",
@@ -273,7 +273,7 @@
     },
     "Kristoffer Reitan": {
       "score": "+3",
-      "hole": "1"
+      "hole": "3"
     },
     "Timothy Wiseman": {
       "score": "+15",
@@ -352,8 +352,8 @@
       "hole": "F"
     },
     "Shane Lowry": {
-      "score": "+5",
-      "hole": "3"
+      "score": "+4",
+      "hole": "6"
     },
     "Harry Hall": {
       "score": "+7",
@@ -377,7 +377,7 @@
     },
     "John Parry": {
       "score": "+4",
-      "hole": "2"
+      "hole": "4"
     },
     "Chris Gotterup": {
       "score": "-3",
@@ -396,8 +396,8 @@
       "hole": "9:33 AM"
     },
     "Elvis Smylie": {
-      "score": "+4",
-      "hole": "2"
+      "score": "+5",
+      "hole": "5"
     },
     "Tyler Collet": {
       "score": "+6",
@@ -425,7 +425,7 @@
     },
     "Rasmus Neergaard-Petersen": {
       "score": "+2",
-      "hole": "3"
+      "hole": "5"
     },
     "Joe Highsmith": {
       "score": "+8",
@@ -441,7 +441,7 @@
     },
     "Michael Brennan": {
       "score": "+2",
-      "hole": "6"
+      "hole": "8"
     },
     "Jacob Bridgeman": {
       "score": "+8",
@@ -461,7 +461,7 @@
     },
     "William Mouw": {
       "score": "+4",
-      "hole": "5"
+      "hole": "7"
     },
     "Aldrich Potgieter": {
       "score": "-3",
@@ -533,7 +533,7 @@
     },
     "Justin Rose": {
       "score": "+3",
-      "hole": "9:15 AM"
+      "hole": "1"
     },
     "Hideki Matsuyama": {
       "score": "-3",
@@ -557,7 +557,7 @@
     },
     "Luke Donald": {
       "score": "+4",
-      "hole": "2"
+      "hole": "5"
     },
     "David Lipsky": {
       "score": "+6",
@@ -605,11 +605,11 @@
     },
     "Michael Kim": {
       "score": "+1",
-      "hole": "2"
+      "hole": "4"
     },
     "Daniel Berger": {
-      "score": "+4",
-      "hole": "3"
+      "score": "+6",
+      "hole": "5"
     },
     "Matt Fitzpatrick": {
       "score": "+2",
@@ -629,7 +629,7 @@
     },
     "Christiaan Bezuidenhout": {
       "score": "+5",
-      "hole": "5"
+      "hole": "7"
     },
     "Scottie Scheffler": {
       "score": "-2",
@@ -644,8 +644,8 @@
       "hole": "F"
     },
     "Brian Campbell": {
-      "score": "+6",
-      "hole": "3"
+      "score": "+8",
+      "hole": "6"
     },
     "Maverick McNealy": {
       "score": "-4",
@@ -656,8 +656,8 @@
       "hole": "F"
     },
     "Taylor Pendrith": {
-      "score": "+3",
-      "hole": "5"
+      "score": "+5",
+      "hole": "8"
     },
     "Jon Rahm": {
       "score": "-1",
@@ -668,6 +668,6 @@
       "hole": "9:42 AM"
     }
   },
-  "last_score_refresh_at": 1778937291.9239025,
-  "last_score_refresh_attempt_at": 1778939036.5280585
+  "last_score_refresh_at": 1778939037.7507825,
+  "last_score_refresh_attempt_at": 1778939037.7507825
 }
