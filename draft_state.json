@@ -145,7 +145,7 @@
     },
     "Andrew Novak": {
       "score": "E",
-      "hole": "14"
+      "hole": "15"
     },
     "Travis Smyth": {
       "score": "+7",
@@ -464,8 +464,8 @@
       "hole": "F"
     },
     "Aldrich Potgieter": {
-      "score": "+1",
-      "hole": "10"
+      "score": "+2",
+      "hole": "11"
     },
     "Angel Ayora": {
       "score": "+6",
@@ -668,6 +668,6 @@
       "hole": "F"
     }
   },
-  "last_score_refresh_at": 1778964743.9743154,
-  "last_score_refresh_attempt_at": 1778964743.9743154
+  "last_score_refresh_at": 1778964910.1795774,
+  "last_score_refresh_attempt_at": 1778964910.1795774
 }
