@@ -309,7 +309,7 @@
     },
     "Min Woo Lee": {
       "score": "-1",
-      "hole": "15"
+      "hole": "16"
     },
     "Akshay Bhatia": {
       "score": "+5",
@@ -381,7 +381,7 @@
     },
     "Chris Gotterup": {
       "score": "-3",
-      "hole": "14"
+      "hole": "15"
     },
     "Ricky Castillo": {
       "score": "+7",
@@ -417,7 +417,7 @@
     },
     "Justin Thomas": {
       "score": "-1",
-      "hole": "16"
+      "hole": "17"
     },
     "Ryo Hisatsune": {
       "score": "+3",
@@ -537,7 +537,7 @@
     },
     "Hideki Matsuyama": {
       "score": "-1",
-      "hole": "14"
+      "hole": "15"
     },
     "Emiliano Grillo": {
       "score": "+8",
@@ -632,8 +632,8 @@
       "hole": "F"
     },
     "Scottie Scheffler": {
-      "score": "-2",
-      "hole": "17"
+      "score": "-1",
+      "hole": "F"
     },
     "Alex Smalley": {
       "score": "-4",
@@ -668,6 +668,6 @@
       "hole": "F"
     }
   },
-  "last_score_refresh_at": 1778968678.6180341,
-  "last_score_refresh_attempt_at": 1778969028.3211224
+  "last_score_refresh_at": 1778969030.5802026,
+  "last_score_refresh_attempt_at": 1778969030.5802026
 }
