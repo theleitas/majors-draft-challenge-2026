@@ -69,7 +69,7 @@
     },
     "Xander Schauffele": {
       "score": "+1",
-      "hole": "11:10 AM"
+      "hole": "1"
     },
     "J.J. Spaun": {
       "score": "+6",
@@ -81,7 +81,7 @@
     },
     "Jhonattan Vegas": {
       "score": "+3",
-      "hole": "16"
+      "hole": "17"
     },
     "Kurt Kitayama": {
       "score": "-1",
@@ -96,8 +96,8 @@
       "hole": "F"
     },
     "Matt Wallace": {
-      "score": "+2",
-      "hole": "2"
+      "score": "+3",
+      "hole": "3"
     },
     "Collin Morikawa": {
       "score": "+1",
@@ -141,7 +141,7 @@
     },
     "Rasmus Højgaard": {
       "score": "+1",
-      "hole": "8"
+      "hole": "9"
     },
     "Andrew Novak": {
       "score": "-1",
@@ -233,7 +233,7 @@
     },
     "Rory McIlroy": {
       "score": "E",
-      "hole": "1"
+      "hole": "2"
     },
     "Gary Woodland": {
       "score": "+6",
@@ -245,15 +245,15 @@
     },
     "Rickie Fowler": {
       "score": "+1",
-      "hole": "11:10 AM"
+      "hole": "1"
     },
     "Nick Taylor": {
       "score": "+1",
       "hole": "11:50 AM"
     },
     "Alex Noren": {
-      "score": "+6",
-      "hole": "16"
+      "score": "+5",
+      "hole": "17"
     },
     "Adam Scott": {
       "score": "+8",
@@ -352,7 +352,7 @@
       "hole": "F"
     },
     "Shane Lowry": {
-      "score": "+5",
+      "score": "+4",
       "hole": "13"
     },
     "Harry Hall": {
@@ -369,7 +369,7 @@
     },
     "Casey Jarvis": {
       "score": "+4",
-      "hole": "2"
+      "hole": "3"
     },
     "Chandler Blanchet": {
       "score": "+3",
@@ -396,8 +396,8 @@
       "hole": "8"
     },
     "Elvis Smylie": {
-      "score": "+7",
-      "hole": "11"
+      "score": "+8",
+      "hole": "12"
     },
     "Tyler Collet": {
       "score": "+6",
@@ -557,7 +557,7 @@
     },
     "Luke Donald": {
       "score": "+7",
-      "hole": "11"
+      "hole": "12"
     },
     "David Lipsky": {
       "score": "+6",
@@ -645,7 +645,7 @@
     },
     "Brian Campbell": {
       "score": "+11",
-      "hole": "12"
+      "hole": "13"
     },
     "Maverick McNealy": {
       "score": "-4",
@@ -657,17 +657,17 @@
     },
     "Taylor Pendrith": {
       "score": "+2",
-      "hole": "14"
+      "hole": "15"
     },
     "Jon Rahm": {
       "score": "-1",
       "hole": "12:50 PM"
     },
     "Sam Burns": {
-      "score": "+1",
-      "hole": "7"
+      "score": "+2",
+      "hole": "8"
     }
   },
-  "last_score_refresh_at": 1778944890.286477,
-  "last_score_refresh_attempt_at": 1778945197.7161515
+  "last_score_refresh_at": 1778945198.9641087,
+  "last_score_refresh_attempt_at": 1778945198.9641087
 }
