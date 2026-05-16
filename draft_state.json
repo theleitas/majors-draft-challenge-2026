@@ -84,8 +84,8 @@
       "hole": "F"
     },
     "Kurt Kitayama": {
-      "score": "+3",
-      "hole": "16"
+      "score": "+4",
+      "hole": "17"
     },
     "Adam Schenk": {
       "score": "+6",
@@ -105,7 +105,7 @@
     },
     "Aaron Rai": {
       "score": "-5",
-      "hole": "16"
+      "hole": "17"
     },
     "Sahith Theegala": {
       "score": "+3",
@@ -125,7 +125,7 @@
     },
     "Max Greyserman": {
       "score": "-3",
-      "hole": "12"
+      "hole": "13"
     },
     "Wyndham Clark": {
       "score": "+5",
@@ -144,8 +144,8 @@
       "hole": "F"
     },
     "Andrew Novak": {
-      "score": "E",
-      "hole": "15"
+      "score": "-1",
+      "hole": "16"
     },
     "Travis Smyth": {
       "score": "+7",
@@ -196,8 +196,8 @@
       "hole": "MC"
     },
     "Jason Day": {
-      "score": "+3",
-      "hole": "17"
+      "score": "+4",
+      "hole": "F"
     },
     "Padraig Harrington": {
       "score": "E",
@@ -308,8 +308,8 @@
       "hole": "MC"
     },
     "Min Woo Lee": {
-      "score": "E",
-      "hole": "12"
+      "score": "-1",
+      "hole": "13"
     },
     "Akshay Bhatia": {
       "score": "+5",
@@ -325,7 +325,7 @@
     },
     "Cameron Young": {
       "score": "+1",
-      "hole": "13"
+      "hole": "14"
     },
     "Sam Stevens": {
       "score": "+3",
@@ -416,8 +416,8 @@
       "hole": "MC"
     },
     "Justin Thomas": {
-      "score": "-1",
-      "hole": "13"
+      "score": "E",
+      "hole": "14"
     },
     "Ryo Hisatsune": {
       "score": "+3",
@@ -465,7 +465,7 @@
     },
     "Aldrich Potgieter": {
       "score": "+2",
-      "hole": "11"
+      "hole": "12"
     },
     "Angel Ayora": {
       "score": "+6",
@@ -553,7 +553,7 @@
     },
     "Patrick Cantlay": {
       "score": "+3",
-      "hole": "17"
+      "hole": "F"
     },
     "Luke Donald": {
       "score": "+8",
@@ -576,8 +576,8 @@
       "hole": "MC"
     },
     "Stephan Jaeger": {
-      "score": "-1",
-      "hole": "11"
+      "score": "E",
+      "hole": "12"
     },
     "Adrien Saddier": {
       "score": "+12",
@@ -649,7 +649,7 @@
     },
     "Maverick McNealy": {
       "score": "-3",
-      "hole": "10"
+      "hole": "11"
     },
     "Ryan Lenahan": {
       "score": "+15",
@@ -668,6 +668,6 @@
       "hole": "F"
     }
   },
-  "last_score_refresh_at": 1778965860.9900422,
-  "last_score_refresh_attempt_at": 1778966162.508308
+  "last_score_refresh_at": 1778966163.7082796,
+  "last_score_refresh_attempt_at": 1778966163.7082796
 }
