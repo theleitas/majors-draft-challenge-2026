@@ -97,11 +97,11 @@
     },
     "Matt Wallace": {
       "score": "+3",
-      "hole": "8"
+      "hole": "9"
     },
     "Collin Morikawa": {
       "score": "+3",
-      "hole": "4"
+      "hole": "5"
     },
     "Aaron Rai": {
       "score": "-1",
@@ -165,7 +165,7 @@
     },
     "Rico Hoey": {
       "score": "E",
-      "hole": "12:30 PM"
+      "hole": "1"
     },
     "Garrick Higgo": {
       "score": "+5",
@@ -181,7 +181,7 @@
     },
     "Brian Harman": {
       "score": "-1",
-      "hole": "14"
+      "hole": "15"
     },
     "Y.E. Yang": {
       "score": "+9",
@@ -201,7 +201,7 @@
     },
     "Padraig Harrington": {
       "score": "E",
-      "hole": "15"
+      "hole": "16"
     },
     "Bryce Fisher": {
       "score": "+22",
@@ -233,7 +233,7 @@
     },
     "Rory McIlroy": {
       "score": "-1",
-      "hole": "7"
+      "hole": "8"
     },
     "Gary Woodland": {
       "score": "+6",
@@ -249,7 +249,7 @@
     },
     "Nick Taylor": {
       "score": "E",
-      "hole": "3"
+      "hole": "4"
     },
     "Alex Noren": {
       "score": "+4",
@@ -344,8 +344,8 @@
       "hole": "MC"
     },
     "Matti Schmid": {
-      "score": "E",
-      "hole": "4"
+      "score": "-1",
+      "hole": "5"
     },
     "Marco Penge": {
       "score": "+12",
@@ -361,7 +361,7 @@
     },
     "Kazuki Higa": {
       "score": "+3",
-      "hole": "13"
+      "hole": "14"
     },
     "Jayden Schaper": {
       "score": "+10",
@@ -369,7 +369,7 @@
     },
     "Casey Jarvis": {
       "score": "+8",
-      "hole": "8"
+      "hole": "9"
     },
     "Chandler Blanchet": {
       "score": "+4",
@@ -456,8 +456,8 @@
       "hole": "MC"
     },
     "Ryan Gerard": {
-      "score": "+1",
-      "hole": "5"
+      "score": "+2",
+      "hole": "6"
     },
     "William Mouw": {
       "score": "+4",
@@ -533,7 +533,7 @@
     },
     "Justin Rose": {
       "score": "-2",
-      "hole": "14"
+      "hole": "15"
     },
     "Hideki Matsuyama": {
       "score": "-3",
@@ -605,7 +605,7 @@
     },
     "Michael Kim": {
       "score": "E",
-      "hole": "16"
+      "hole": "17"
     },
     "Daniel Berger": {
       "score": "+3",
@@ -616,12 +616,12 @@
       "hole": "9"
     },
     "Corey Conners": {
-      "score": "+1",
-      "hole": "3"
+      "score": "E",
+      "hole": "4"
     },
     "Cameron Smith": {
       "score": "E",
-      "hole": "12:30 PM"
+      "hole": "1"
     },
     "Haotong Li": {
       "score": "E",
@@ -664,10 +664,10 @@
       "hole": "12:50 PM"
     },
     "Sam Burns": {
-      "score": "+1",
-      "hole": "12"
+      "score": "E",
+      "hole": "13"
     }
   },
-  "last_score_refresh_at": 1778949638.9303944,
-  "last_score_refresh_attempt_at": 1778949949.882185
+  "last_score_refresh_at": 1778949951.4061632,
+  "last_score_refresh_attempt_at": 1778949951.4061632
 }
