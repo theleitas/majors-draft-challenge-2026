@@ -807,6 +807,13 @@ def get_team_total(players):
     total = sum(score_value for score_value, _, _, _ in top_three)
     return format_golf_score(total)
 
+def get_total_10_net_score(players):
+    scored_players = get_sorted_scored_players(players)
+    if not scored_players:
+        return "N/A"
+    total = sum(score_value for score_value, _, _, _ in scored_players)
+    return format_golf_score(total)
+
 def parse_american_odds(value):
     try:
         if value is None:
@@ -939,6 +946,7 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
         face_html = coach_image_html(coach_id)
         total = get_team_total(players)
         safe_total = html.escape(total)
+        total_10_net_score = html.escape(get_total_10_net_score(players))
         top_three_lowest_score_players = get_top_three_lowest_score_players(players)
 
         roster_parts = [
@@ -964,6 +972,10 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
                 roster_parts.append(f"<tr{row_class}><td>{safe_player}</td><td>{score}</td><td>{hole}</td></tr>")
             roster_parts.append("</tbody></table>")
 
+        roster_parts.append(
+            f"<div style='color:#fff; font-size:.85rem; font-style:italic; margin-top:12px;'>"
+            f"Total 10 Net Score = {total_10_net_score}</div>"
+        )
         roster_parts.append("</div>")
         st.markdown("".join(roster_parts), unsafe_allow_html=True)
 
