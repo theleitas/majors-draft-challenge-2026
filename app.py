@@ -653,9 +653,19 @@ def refresh_scores(show_status=True):
         st.rerun()
     return bool(result)
 
-def render_refresh_scores_button(key):
+def format_last_score_refresh_time(state):
+    try:
+        refreshed_at = float(state.get("last_score_refresh_at", 0) or 0)
+    except (TypeError, ValueError):
+        refreshed_at = 0
+    if not refreshed_at:
+        return "--:--"
+    return datetime.fromtimestamp(refreshed_at, ZoneInfo("America/New_York")).strftime("%H:%M")
+
+def render_refresh_scores_button(key, state):
+    button_label = f"Refresh Scores (Last Update: {format_last_score_refresh_time(state)})"
     st.markdown("<div class='refresh-button-wrap'>", unsafe_allow_html=True)
-    clicked = st.button("Refresh Scores", key=key, use_container_width=True)
+    clicked = st.button(button_label, key=key, use_container_width=True)
     st.markdown("</div>", unsafe_allow_html=True)
     if clicked:
         refresh_scores()
@@ -971,7 +981,7 @@ for coach_id, info in teams_data.items():
     )
     st.markdown(card, unsafe_allow_html=True)
 
-render_refresh_scores_button("refresh_scores_top")
+render_refresh_scores_button("refresh_scores_top", state)
 
 st.subheader("Team Rosters")
 
@@ -1018,7 +1028,7 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
         roster_parts.append("</div>")
         st.markdown("".join(roster_parts), unsafe_allow_html=True)
 
-render_refresh_scores_button("refresh_scores_middle")
+render_refresh_scores_button("refresh_scores_middle", state)
 
 with st.expander("🎯 DRAFT SECTION", expanded=state["draft_enabled"]):
     if not state["draft_enabled"]:
