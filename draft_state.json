@@ -461,7 +461,7 @@
     },
     "William Mouw": {
       "score": "+4",
-      "hole": "8:12 AM"
+      "hole": "1"
     },
     "Aldrich Potgieter": {
       "score": "-3",
@@ -657,7 +657,7 @@
     },
     "Taylor Pendrith": {
       "score": "+4",
-      "hole": "1"
+      "hole": "2"
     },
     "Jon Rahm": {
       "score": "-1",
@@ -668,6 +668,6 @@
       "hole": "9:42 AM"
     }
   },
-  "last_score_refresh_at": 1778934219.1091442,
-  "last_score_refresh_attempt_at": 1778934577.9336553
+  "last_score_refresh_at": 1778934579.1406398,
+  "last_score_refresh_attempt_at": 1778934579.1406398
 }
