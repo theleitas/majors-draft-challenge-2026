@@ -125,7 +125,7 @@
     },
     "Max Greyserman": {
       "score": "-2",
-      "hole": "17"
+      "hole": "F"
     },
     "Wyndham Clark": {
       "score": "+5",
@@ -308,8 +308,8 @@
       "hole": "MC"
     },
     "Min Woo Lee": {
-      "score": "-1",
-      "hole": "17"
+      "score": "-2",
+      "hole": "F"
     },
     "Akshay Bhatia": {
       "score": "+5",
@@ -380,8 +380,8 @@
       "hole": "F"
     },
     "Chris Gotterup": {
-      "score": "-3",
-      "hole": "15"
+      "score": "-2",
+      "hole": "F"
     },
     "Ricky Castillo": {
       "score": "+7",
@@ -465,7 +465,7 @@
     },
     "Aldrich Potgieter": {
       "score": "E",
-      "hole": "17"
+      "hole": "F"
     },
     "Angel Ayora": {
       "score": "+6",
@@ -536,8 +536,8 @@
       "hole": "F"
     },
     "Hideki Matsuyama": {
-      "score": "-3",
-      "hole": "16"
+      "score": "-2",
+      "hole": "F"
     },
     "Emiliano Grillo": {
       "score": "+8",
@@ -577,7 +577,7 @@
     },
     "Stephan Jaeger": {
       "score": "E",
-      "hole": "16"
+      "hole": "F"
     },
     "Adrien Saddier": {
       "score": "+12",
@@ -636,8 +636,8 @@
       "hole": "F"
     },
     "Alex Smalley": {
-      "score": "-5",
-      "hole": "15"
+      "score": "-6",
+      "hole": "F"
     },
     "Jordan Smith": {
       "score": "+12",
@@ -649,7 +649,7 @@
     },
     "Maverick McNealy": {
       "score": "-3",
-      "hole": "15"
+      "hole": "F"
     },
     "Ryan Lenahan": {
       "score": "+15",
@@ -668,6 +668,6 @@
       "hole": "F"
     }
   },
-  "last_score_refresh_at": 1778969949.0252807,
-  "last_score_refresh_attempt_at": 1778972246.1736007
+  "last_score_refresh_at": 1778972247.3664236,
+  "last_score_refresh_attempt_at": 1778972247.3664236
 }
