@@ -196,8 +196,8 @@
       "hole": "MC"
     },
     "Jason Day": {
-      "score": "+2",
-      "hole": "15"
+      "score": "+1",
+      "hole": "16"
     },
     "Padraig Harrington": {
       "score": "E",
@@ -293,7 +293,7 @@
     },
     "Ludvig Aberg": {
       "score": "-3",
-      "hole": "14"
+      "hole": "15"
     },
     "Ben Griffin": {
       "score": "-2",
@@ -417,7 +417,7 @@
     },
     "Justin Thomas": {
       "score": "E",
-      "hole": "11"
+      "hole": "12"
     },
     "Ryo Hisatsune": {
       "score": "+3",
@@ -433,7 +433,7 @@
     },
     "David Puig": {
       "score": "-1",
-      "hole": "12"
+      "hole": "13"
     },
     "Matt McCarty": {
       "score": "+11",
@@ -505,7 +505,7 @@
     },
     "Harris English": {
       "score": "-1",
-      "hole": "13"
+      "hole": "14"
     },
     "Russell Henley": {
       "score": "+5",
@@ -529,7 +529,7 @@
     },
     "Patrick Reed": {
       "score": "-3",
-      "hole": "17"
+      "hole": "F"
     },
     "Justin Rose": {
       "score": "-2",
@@ -552,8 +552,8 @@
       "hole": "MC"
     },
     "Patrick Cantlay": {
-      "score": "+1",
-      "hole": "15"
+      "score": "+2",
+      "hole": "16"
     },
     "Luke Donald": {
       "score": "+8",
@@ -584,8 +584,8 @@
       "hole": "MC"
     },
     "Si Woo Kim": {
-      "score": "-2",
-      "hole": "13"
+      "score": "-1",
+      "hole": "14"
     },
     "Stewart Cink": {
       "score": "+6",
@@ -633,7 +633,7 @@
     },
     "Scottie Scheffler": {
       "score": "-2",
-      "hole": "12"
+      "hole": "13"
     },
     "Alex Smalley": {
       "score": "-2",
@@ -668,6 +668,6 @@
       "hole": "F"
     }
   },
-  "last_score_refresh_at": 1778964549.7758212,
-  "last_score_refresh_attempt_at": 1778964549.7758212
+  "last_score_refresh_at": 1778964743.9743154,
+  "last_score_refresh_attempt_at": 1778964743.9743154
 }
