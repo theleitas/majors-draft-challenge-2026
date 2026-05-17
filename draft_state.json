@@ -62,7 +62,7 @@
     },
     "Denny McCarthy": {
       "score": "+3",
-      "hole": "14",
+      "hole": "15",
       "profile_url": "https://www.espn.com/golf/player/_/id/10054/denny-mccarthy"
     },
     "Davis Riley": {
@@ -86,8 +86,8 @@
       "profile_url": "https://www.espn.com/golf/player/_/id/10179/ben-polland"
     },
     "Jhonattan Vegas": {
-      "score": "+3",
-      "hole": "15",
+      "score": "+2",
+      "hole": "16",
       "profile_url": "https://www.espn.com/golf/player/_/id/1030/jhonattan-vegas"
     },
     "Kurt Kitayama": {
@@ -166,8 +166,8 @@
       "profile_url": "https://www.espn.com/golf/player/_/id/11253/rasmus-højgaard"
     },
     "Andrew Novak": {
-      "score": "+1",
-      "hole": "10",
+      "score": "+2",
+      "hole": "11",
       "profile_url": "https://www.espn.com/golf/player/_/id/11332/andrew-novak"
     },
     "Travis Smyth": {
@@ -192,7 +192,7 @@
     },
     "Rico Hoey": {
       "score": "+3",
-      "hole": "13",
+      "hole": "14",
       "profile_url": "https://www.espn.com/golf/player/_/id/11385/rico-hoey"
     },
     "Garrick Higgo": {
@@ -311,8 +311,8 @@
       "profile_url": "https://www.espn.com/golf/player/_/id/388/adam-scott"
     },
     "Ryan Fox": {
-      "score": "+1",
-      "hole": "15",
+      "score": "E",
+      "hole": "16",
       "profile_url": "https://www.espn.com/golf/player/_/id/4251/ryan-fox"
     },
     "Bernd Wiesberger": {
@@ -382,7 +382,7 @@
     },
     "Daniel Hillier": {
       "score": "-2",
-      "hole": "9",
+      "hole": "10",
       "profile_url": "https://www.espn.com/golf/player/_/id/4425899/daniel-hillier"
     },
     "Michael Thorbjornsen": {
@@ -397,7 +397,7 @@
     },
     "Sam Stevens": {
       "score": "+6",
-      "hole": "17",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/4426181/sam-stevens"
     },
     "Steven Fisk": {
@@ -452,7 +452,7 @@
     },
     "Chandler Blanchet": {
       "score": "+2",
-      "hole": "14",
+      "hole": "15",
       "profile_url": "https://www.espn.com/golf/player/_/id/4618114/chandler-blanchet"
     },
     "John Parry": {
@@ -462,7 +462,7 @@
     },
     "Chris Gotterup": {
       "score": "-3",
-      "hole": "4",
+      "hole": "5",
       "profile_url": "https://www.espn.com/golf/player/_/id/4690755/chris-gotterup"
     },
     "Ricky Castillo": {
@@ -627,12 +627,12 @@
     },
     "Jordan Spieth": {
       "score": "E",
-      "hole": "13",
+      "hole": "14",
       "profile_url": "https://www.espn.com/golf/player/_/id/5467/jordan-spieth"
     },
     "Andrew Putnam": {
       "score": "+4",
-      "hole": "10",
+      "hole": "11",
       "profile_url": "https://www.espn.com/golf/player/_/id/5502/andrew-putnam"
     },
     "Tommy Fleetwood": {
@@ -656,8 +656,8 @@
       "profile_url": "https://www.espn.com/golf/player/_/id/569/justin-rose"
     },
     "Hideki Matsuyama": {
-      "score": "-3",
-      "hole": "4",
+      "score": "-4",
+      "hole": "5",
       "profile_url": "https://www.espn.com/golf/player/_/id/5860/hideki-matsuyama"
     },
     "Emiliano Grillo": {
@@ -707,7 +707,7 @@
     },
     "Stephan Jaeger": {
       "score": "E",
-      "hole": "12",
+      "hole": "13",
       "profile_url": "https://www.espn.com/golf/player/_/id/6937/stephan-jaeger"
     },
     "Adrien Saddier": {
@@ -727,7 +727,7 @@
     },
     "Keith Mitchell": {
       "score": "+6",
-      "hole": "17",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/8906/keith-mitchell"
     },
     "Sepp Straka": {
@@ -741,8 +741,8 @@
       "profile_url": "https://www.espn.com/golf/player/_/id/8973/max-homa"
     },
     "Michael Kim": {
-      "score": "E",
-      "hole": "8",
+      "score": "-1",
+      "hole": "9",
       "profile_url": "https://www.espn.com/golf/player/_/id/8974/michael-kim"
     },
     "Daniel Berger": {
@@ -807,7 +807,7 @@
     },
     "Taylor Pendrith": {
       "score": "+3",
-      "hole": "12",
+      "hole": "13",
       "profile_url": "https://www.espn.com/golf/player/_/id/9658/taylor-pendrith"
     },
     "Jon Rahm": {
@@ -821,8 +821,8 @@
       "profile_url": "https://www.espn.com/golf/player/_/id/9938/sam-burns"
     }
   },
-  "last_score_refresh_at": 1779039743.256771,
-  "last_score_refresh_attempt_at": 1779040052.7232757,
+  "last_score_refresh_at": 1779040055.084618,
+  "last_score_refresh_attempt_at": 1779040055.084618,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -880,15 +880,200 @@
       ],
       "Peter Miller": [
         "Aaron Rai",
-        "Xander Schauffele",
-        "Hideki Matsuyama"
+        "Hideki Matsuyama",
+        "Xander Schauffele"
       ]
     },
     "leaders": [
-      "Peter Miller",
-      "Spencer Tidwell"
+      "Peter Miller"
     ]
   },
   "selected_tournament": {},
-  "hole_outcomes": {}
+  "hole_outcomes": {
+    "Bryson DeChambeau": [],
+    "Denny McCarthy": [
+      "P"
+    ],
+    "Davis Riley": [],
+    "Xander Schauffele": [],
+    "J.J. Spaun": [],
+    "Ben Polland": [],
+    "Jhonattan Vegas": [
+      "○"
+    ],
+    "Kurt Kitayama": [],
+    "Adam Schenk": [],
+    "J.T. Poston": [],
+    "Matt Wallace": [],
+    "Collin Morikawa": [],
+    "Aaron Rai": [],
+    "Sahith Theegala": [],
+    "Jason Dufner": [],
+    "Austin Smotherman": [],
+    "Joaquin Niemann": [],
+    "Max Greyserman": [],
+    "Wyndham Clark": [],
+    "Jordan Gumberg": [],
+    "Nicolai Højgaard": [],
+    "Rasmus Højgaard": [],
+    "Andrew Novak": [
+      "□"
+    ],
+    "Travis Smyth": [],
+    "Robert MacIntyre": [],
+    "Sungjae Im": [],
+    "Max McGreevy": [],
+    "Rico Hoey": [
+      "P"
+    ],
+    "Garrick Higgo": [],
+    "Jesse Droemer": [],
+    "Brandt Snedeker": [],
+    "Brian Harman": [],
+    "Y.E. Yang": [],
+    "Daniel Brown": [],
+    "Billy Horschel": [],
+    "Jason Day": [],
+    "Padraig Harrington": [],
+    "Bryce Fisher": [],
+    "Shaun Micheel": [],
+    "Francisco Bide": [],
+    "Ryan Vermeer": [],
+    "Michael Block": [],
+    "Dustin Johnson": [],
+    "Chris Kirk": [],
+    "Rory McIlroy": [],
+    "Gary Woodland": [],
+    "Martin Kaymer": [],
+    "Rickie Fowler": [],
+    "Nick Taylor": [],
+    "Alex Noren": [],
+    "Adam Scott": [],
+    "Ryan Fox": [
+      "○"
+    ],
+    "Bernd Wiesberger": [],
+    "Tom McKibbin": [],
+    "Kristoffer Reitan": [],
+    "Timothy Wiseman": [],
+    "Alex Fitzpatrick": [],
+    "Viktor Hovland": [],
+    "Ben Kern": [],
+    "Ludvig Aberg": [],
+    "Ben Griffin": [],
+    "Nico Echavarria": [],
+    "Ian Holt": [],
+    "Min Woo Lee": [],
+    "Akshay Bhatia": [],
+    "Daniel Hillier": [
+      "P"
+    ],
+    "Michael Thorbjornsen": [],
+    "Cameron Young": [],
+    "Sam Stevens": [
+      "P"
+    ],
+    "Steven Fisk": [],
+    "Jimmy Walker": [],
+    "Keegan Bradley": [],
+    "Matti Schmid": [],
+    "Marco Penge": [],
+    "Shane Lowry": [],
+    "Harry Hall": [],
+    "Kazuki Higa": [],
+    "Jayden Schaper": [],
+    "Casey Jarvis": [],
+    "Chandler Blanchet": [
+      "P"
+    ],
+    "John Parry": [],
+    "Chris Gotterup": [
+      "P"
+    ],
+    "Ricky Castillo": [],
+    "Michael Kartrude": [],
+    "Mikael Lindberg": [],
+    "Elvis Smylie": [],
+    "Tyler Collet": [],
+    "Thomas Detry": [],
+    "Pierceson Coody": [],
+    "Mark Geddes": [],
+    "Justin Thomas": [],
+    "Ryo Hisatsune": [],
+    "Rasmus Neergaard-Petersen": [],
+    "Joe Highsmith": [],
+    "David Puig": [],
+    "Matt McCarty": [],
+    "Michael Brennan": [],
+    "Jacob Bridgeman": [],
+    "Austin Hurt": [],
+    "Jared Jones": [],
+    "Ryan Gerard": [],
+    "William Mouw": [],
+    "Aldrich Potgieter": [],
+    "Angel Ayora": [],
+    "Sudarshan Yellamaraju": [],
+    "Braden Shattuck": [],
+    "Kota Kaneko": [],
+    "Bud Cauley": [],
+    "Chris Gabriele": [],
+    "Derek Berg": [],
+    "Paul McClure": [],
+    "Zach Haynes": [],
+    "Harris English": [],
+    "Russell Henley": [],
+    "Jordan Spieth": [
+      "P"
+    ],
+    "Andrew Putnam": [
+      "P"
+    ],
+    "Tommy Fleetwood": [],
+    "Tyrrell Hatton": [],
+    "Patrick Reed": [],
+    "Justin Rose": [],
+    "Hideki Matsuyama": [
+      "○"
+    ],
+    "Emiliano Grillo": [],
+    "Garrett Sapp": [],
+    "Andy Sullivan": [],
+    "Patrick Cantlay": [],
+    "Luke Donald": [],
+    "David Lipsky": [],
+    "Lucas Glover": [],
+    "Brooks Koepka": [],
+    "Patrick Rodgers": [],
+    "Stephan Jaeger": [
+      "P"
+    ],
+    "Adrien Saddier": [],
+    "Si Woo Kim": [],
+    "Stewart Cink": [],
+    "Keith Mitchell": [
+      "P"
+    ],
+    "Sepp Straka": [],
+    "Max Homa": [],
+    "Michael Kim": [
+      "○"
+    ],
+    "Daniel Berger": [],
+    "Matt Fitzpatrick": [],
+    "Corey Conners": [],
+    "Cameron Smith": [],
+    "Haotong Li": [],
+    "Christiaan Bezuidenhout": [],
+    "Scottie Scheffler": [],
+    "Alex Smalley": [],
+    "Jordan Smith": [],
+    "Brian Campbell": [],
+    "Maverick McNealy": [],
+    "Ryan Lenahan": [],
+    "Taylor Pendrith": [
+      "P"
+    ],
+    "Jon Rahm": [],
+    "Sam Burns": []
+  }
 }
