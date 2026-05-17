@@ -697,6 +697,29 @@ def render_refresh_scores_button(key, state):
     if clicked:
         refresh_scores()
 
+def render_tournament_leaderboard():
+    leaderboard_rows = get_tournament_leaderboard(10)
+    leaderboard_parts = [
+        "<div style='border:5px solid #fff; background-color:rgba(255,255,255,.06); border-radius:16px; padding:20px 24px; margin-bottom:1.8rem;'>",
+        f"<div class='team-heading' style='color:#fff; font-size:1.75rem; font-weight:800; margin-bottom:6px;'>"
+        f"{app_logo_html()}<span>2026 PGA Championship</span></div>",
+        "<div style='color:#bbb; font-size:1rem; font-style:italic; margin-bottom:18px;'>Aronimink Golf Club</div>",
+    ]
+
+    if not leaderboard_rows:
+        leaderboard_parts.append("<div style='color:#aaa; font-style:italic;'>No live scores yet</div>")
+    else:
+        leaderboard_parts.append("<table class='roster-table'><thead><tr><th>Rank</th><th>Golfer</th><th>Score</th><th>Hole</th></tr></thead><tbody>")
+        for rank, (score_value, _, player, result) in enumerate(leaderboard_rows, start=1):
+            safe_player = html.escape(display_player_name(player))
+            score = html.escape(format_golf_score(score_value))
+            hole = html.escape(format_hole_status_for_card(result.get("hole", "—")))
+            leaderboard_parts.append(f"<tr><td>{rank}</td><td>{safe_player}</td><td>{score}</td><td>{hole}</td></tr>")
+        leaderboard_parts.append("</tbody></table>")
+
+    leaderboard_parts.append("</div>")
+    st.markdown("".join(leaderboard_parts), unsafe_allow_html=True)
+
 def get_coach_for_pick(pick_num, order):
     round_idx = (pick_num - 1) // 3
     pos = (pick_num - 1) % 3
@@ -837,6 +860,18 @@ def get_player_result(player):
         "hole": display_hole_value(result.get("hole", "—")),
     }
 
+def format_hole_status_for_card(value):
+    raw_hole = display_hole_value(value)
+    hole_text = strip_thru_prefix(raw_hole)
+    is_tee = "AM" in raw_hole.upper() or "PM" in raw_hole.upper()
+    if hole_text.upper() in ["CUT", "MC", "MISSED CUT"]:
+        return "MC"
+    if hole_text.upper() in ["F", "FINAL"]:
+        return "Final"
+    if is_tee:
+        return hole_text
+    return f"Thru {hole_text}"
+
 def parse_golf_score(score):
     if score is None:
         return None
@@ -871,6 +906,16 @@ def get_sorted_scored_players(players):
             scored_players.append((score_value, draft_index, player, result))
     scored_players.sort(key=lambda item: (item[0], item[1]))
     return scored_players
+
+def get_tournament_leaderboard(limit=10):
+    leaderboard = []
+    for player, result in PLAYER_RESULTS.items():
+        score_value = parse_golf_score(result.get("score"))
+        if score_value is None:
+            continue
+        leaderboard.append((score_value, last_name_key(player), player, result))
+    leaderboard.sort(key=lambda item: (item[0], item[1], item[2].lower()))
+    return leaderboard[:limit]
 
 def get_top_three_lowest_score_players(players):
     return {player for _, _, player, _ in get_sorted_scored_players(players)[:3]}
@@ -974,17 +1019,7 @@ for coach_id, info in teams_data.items():
         for score_value, _, player, result in scored_players:
             safe_player = html.escape(display_player_name(player))
             score = html.escape(format_golf_score(score_value))
-            raw_hole = display_hole_value(result.get("hole", "—"))
-            hole_text = strip_thru_prefix(raw_hole)
-            is_tee = "AM" in raw_hole.upper() or "PM" in raw_hole.upper()
-            if hole_text.upper() in ["CUT", "MC", "MISSED CUT"]:
-                status_text = "MC"
-            elif hole_text.upper() in ["F", "FINAL"]:
-                status_text = "Final"
-            elif is_tee:
-                status_text = hole_text
-            else:
-                status_text = f"Thru {hole_text}"
+            status_text = format_hole_status_for_card(result.get("hole", "—"))
             top3_html += (
                 f"<div style='margin:4px 0; color:{color}; font-size:1.05rem;'>"
                 f"{safe_player} <span style='font-weight:700;'>({score})</span> {html.escape(status_text)}"
@@ -1058,6 +1093,9 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
         st.markdown("".join(roster_parts), unsafe_allow_html=True)
 
 render_refresh_scores_button("refresh_scores_middle", state)
+
+st.subheader("Tournament Leaderboard")
+render_tournament_leaderboard()
 
 with st.expander("🎯 DRAFT SECTION", expanded=state["draft_enabled"]):
     if not state["draft_enabled"]:
