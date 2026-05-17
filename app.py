@@ -1604,10 +1604,7 @@ with st.expander("📱 Text Updates", expanded=False):
         updates_enabled = st.toggle("Text Updates", value=text_updates.get("enabled", False))
 
         st.markdown("### Twilio Settings")
-        twilio_cfg = text_updates.get("twilio", {})
-        twilio_account_sid = st.text_input("Twilio Account SID", value=twilio_cfg.get("account_sid", ""))
-        twilio_auth_token = st.text_input("Twilio Auth Token", value=twilio_cfg.get("auth_token", ""), type="password")
-        twilio_from_number = st.text_input("Twilio From Number", value=twilio_cfg.get("from_number", ""))
+        st.caption("Ensure Twilio settings (account SID, authorization token, and from number) are entered into the Streamlit.io secrets file.")
 
         st.markdown("### Group Recipients")
         recipients_cfg = text_updates.get("recipients", {})
@@ -1649,16 +1646,12 @@ with st.expander("📱 Text Updates", expanded=False):
             )
             new_updates_cfg[update_key] = {"enabled": enabled, "template": template}
 
-        save_settings = st.form_submit_button("Save Text Update Settings", use_container_width=True)
+        save_settings = st.form_submit_button("Save Text Update Settings & Phone Numbers", use_container_width=True)
 
         if save_settings:
             new_settings = {
                 "enabled": updates_enabled,
-                "twilio": {
-                    "account_sid": twilio_account_sid,
-                    "auth_token": twilio_auth_token,
-                    "from_number": twilio_from_number,
-                },
+                "twilio": text_updates.get("twilio", {}),
                 "recipients": new_recipients,
                 "updates": new_updates_cfg,
                 "sent_event_ids": text_updates.get("sent_event_ids", []),
