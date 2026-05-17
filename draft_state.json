@@ -84,8 +84,8 @@
       "hole": "9:55 AM"
     },
     "Kurt Kitayama": {
-      "score": "E",
-      "hole": "8"
+      "score": "-1",
+      "hole": "9"
     },
     "Adam Schenk": {
       "score": "+6",
@@ -109,7 +109,7 @@
     },
     "Sahith Theegala": {
       "score": "+3",
-      "hole": "2"
+      "hole": "3"
     },
     "Jason Dufner": {
       "score": "+8",
@@ -289,7 +289,7 @@
     },
     "Ben Kern": {
       "score": "+9",
-      "hole": "10"
+      "hole": "11"
     },
     "Ludvig Aberg": {
       "score": "-4",
@@ -377,7 +377,7 @@
     },
     "John Parry": {
       "score": "+4",
-      "hole": "5"
+      "hole": "6"
     },
     "Chris Gotterup": {
       "score": "-2",
@@ -420,12 +420,12 @@
       "hole": "10:55 AM"
     },
     "Ryo Hisatsune": {
-      "score": "+1",
-      "hole": "3"
+      "score": "E",
+      "hole": "4"
     },
     "Rasmus Neergaard-Petersen": {
-      "score": "+8",
-      "hole": "8"
+      "score": "+7",
+      "hole": "9"
     },
     "Joe Highsmith": {
       "score": "+8",
@@ -441,7 +441,7 @@
     },
     "Michael Brennan": {
       "score": "+3",
-      "hole": "9:46 AM"
+      "hole": "1"
     },
     "Jacob Bridgeman": {
       "score": "+8",
@@ -557,7 +557,7 @@
     },
     "Luke Donald": {
       "score": "+6",
-      "hole": "10"
+      "hole": "11"
     },
     "David Lipsky": {
       "score": "+6",
@@ -608,16 +608,16 @@
       "hole": "11:45 AM"
     },
     "Daniel Berger": {
-      "score": "+3",
-      "hole": "1"
+      "score": "+2",
+      "hole": "2"
     },
     "Matt Fitzpatrick": {
       "score": "+3",
-      "hole": "2"
+      "hole": "3"
     },
     "Corey Conners": {
-      "score": "+3",
-      "hole": "3"
+      "score": "+2",
+      "hole": "4"
     },
     "Cameron Smith": {
       "score": "-2",
@@ -668,6 +668,6 @@
       "hole": "12:25 PM"
     }
   },
-  "last_score_refresh_at": 1779026221.9523182,
-  "last_score_refresh_attempt_at": 1779026580.6675737
+  "last_score_refresh_at": 1779026582.1552432,
+  "last_score_refresh_attempt_at": 1779026582.1552432
 }
