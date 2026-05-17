@@ -100,8 +100,8 @@
       "hole": "6"
     },
     "Collin Morikawa": {
-      "score": "+6",
-      "hole": "8"
+      "score": "+5",
+      "hole": "9"
     },
     "Aaron Rai": {
       "score": "-4",
@@ -109,7 +109,7 @@
     },
     "Sahith Theegala": {
       "score": "+3",
-      "hole": "1"
+      "hole": "2"
     },
     "Jason Dufner": {
       "score": "+8",
@@ -140,8 +140,8 @@
       "hole": "11:45 AM"
     },
     "Rasmus Højgaard": {
-      "score": "+3",
-      "hole": "5"
+      "score": "+2",
+      "hole": "6"
     },
     "Andrew Novak": {
       "score": "E",
@@ -189,7 +189,7 @@
     },
     "Daniel Brown": {
       "score": "+3",
-      "hole": "9:37 AM"
+      "hole": "1"
     },
     "Billy Horschel": {
       "score": "+8",
@@ -289,7 +289,7 @@
     },
     "Ben Kern": {
       "score": "+9",
-      "hole": "9"
+      "hole": "10"
     },
     "Ludvig Aberg": {
       "score": "-4",
@@ -397,7 +397,7 @@
     },
     "Elvis Smylie": {
       "score": "+5",
-      "hole": "8"
+      "hole": "9"
     },
     "Tyler Collet": {
       "score": "+6",
@@ -424,8 +424,8 @@
       "hole": "3"
     },
     "Rasmus Neergaard-Petersen": {
-      "score": "+7",
-      "hole": "7"
+      "score": "+8",
+      "hole": "8"
     },
     "Joe Highsmith": {
       "score": "+8",
@@ -460,8 +460,8 @@
       "hole": "7"
     },
     "William Mouw": {
-      "score": "+3",
-      "hole": "3"
+      "score": "+4",
+      "hole": "4"
     },
     "Aldrich Potgieter": {
       "score": "E",
@@ -557,7 +557,7 @@
     },
     "Luke Donald": {
       "score": "+6",
-      "hole": "9"
+      "hole": "10"
     },
     "David Lipsky": {
       "score": "+6",
@@ -609,7 +609,7 @@
     },
     "Daniel Berger": {
       "score": "+3",
-      "hole": "9:37 AM"
+      "hole": "1"
     },
     "Matt Fitzpatrick": {
       "score": "+3",
@@ -617,7 +617,7 @@
     },
     "Corey Conners": {
       "score": "+3",
-      "hole": "2"
+      "hole": "3"
     },
     "Cameron Smith": {
       "score": "-2",
@@ -629,7 +629,7 @@
     },
     "Christiaan Bezuidenhout": {
       "score": "+4",
-      "hole": "3"
+      "hole": "4"
     },
     "Scottie Scheffler": {
       "score": "-1",
@@ -668,6 +668,6 @@
       "hole": "12:25 PM"
     }
   },
-  "last_score_refresh_at": 1779025593.9870872,
-  "last_score_refresh_attempt_at": 1779025897.6337771
+  "last_score_refresh_at": 1779025899.0341718,
+  "last_score_refresh_attempt_at": 1779025899.0341718
 }
