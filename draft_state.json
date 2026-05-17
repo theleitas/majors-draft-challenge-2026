@@ -85,7 +85,7 @@
     },
     "Kurt Kitayama": {
       "score": "+1",
-      "hole": "3"
+      "hole": "4"
     },
     "Adam Schenk": {
       "score": "+6",
@@ -97,7 +97,7 @@
     },
     "Matt Wallace": {
       "score": "+4",
-      "hole": "2"
+      "hole": "3"
     },
     "Collin Morikawa": {
       "score": "+5",
@@ -141,7 +141,7 @@
     },
     "Rasmus Højgaard": {
       "score": "+4",
-      "hole": "1"
+      "hole": "2"
     },
     "Andrew Novak": {
       "score": "E",
@@ -280,8 +280,8 @@
       "hole": "MC"
     },
     "Alex Fitzpatrick": {
-      "score": "+5",
-      "hole": "2"
+      "score": "+4",
+      "hole": "3"
     },
     "Viktor Hovland": {
       "score": "+6",
@@ -369,7 +369,7 @@
     },
     "Casey Jarvis": {
       "score": "+10",
-      "hole": "7"
+      "hole": "8"
     },
     "Chandler Blanchet": {
       "score": "+2",
@@ -644,8 +644,8 @@
       "hole": "MC"
     },
     "Brian Campbell": {
-      "score": "+15",
-      "hole": "7"
+      "score": "+14",
+      "hole": "8"
     },
     "Maverick McNealy": {
       "score": "-3",
@@ -668,6 +668,6 @@
       "hole": "12:25 PM"
     }
   },
-  "last_score_refresh_at": 1779022794.3667517,
-  "last_score_refresh_attempt_at": 1779023096.5348132
+  "last_score_refresh_at": 1779023097.8538744,
+  "last_score_refresh_attempt_at": 1779023097.8538744
 }
