@@ -75,7 +75,7 @@
     },
     "Xander Schauffele": {
       "score": "-3",
-      "hole": "16",
+      "hole": "17",
       "profile_url": "https://www.espn.com/golf/player/_/id/10140/xander-schauffele",
       "competitor_id": "10140"
     },
@@ -974,8 +974,8 @@
       "competitor_id": "9938"
     }
   },
-  "last_score_refresh_at": 1779055704.8997865,
-  "last_score_refresh_attempt_at": 1779055704.8997865,
+  "last_score_refresh_at": 1779055858.0377235,
+  "last_score_refresh_attempt_at": 1779055858.0377235,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -1053,10 +1053,10 @@
     "Davis Riley": [],
     "Xander Schauffele": [
       "□",
-      "□",
       "P",
       "P",
-      "○"
+      "○",
+      "P"
     ],
     "J.J. Spaun": [],
     "Ben Polland": [],
