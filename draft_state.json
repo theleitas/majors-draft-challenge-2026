@@ -128,8 +128,8 @@
       "competitor_id": "10592"
     },
     "Aaron Rai": {
-      "score": "-7",
-      "hole": "15",
+      "score": "-8",
+      "hole": "16",
       "profile_url": "https://www.espn.com/golf/player/_/id/10906/aaron-rai",
       "competitor_id": "10906"
     },
@@ -410,8 +410,8 @@
       "competitor_id": "4372513"
     },
     "Ludvig Aberg": {
-      "score": "-3",
-      "hole": "15",
+      "score": "-4",
+      "hole": "16",
       "profile_url": "https://www.espn.com/golf/player/_/id/4375972/ludvig-aberg",
       "competitor_id": "4375972"
     },
@@ -974,8 +974,8 @@
       "competitor_id": "9938"
     }
   },
-  "last_score_refresh_at": 1779055858.0377235,
-  "last_score_refresh_attempt_at": 1779056344.3023276,
+  "last_score_refresh_at": 1779056345.8888395,
+  "last_score_refresh_attempt_at": 1779056345.8888395,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -1038,6 +1038,7 @@
       ]
     },
     "leaders": [
+      "Peter Miller",
       "Spencer Tidwell"
     ]
   },
@@ -1071,11 +1072,11 @@
     "Matt Wallace": [],
     "Collin Morikawa": [],
     "Aaron Rai": [
-      "P",
       "○",
       "○",
       "P",
-      "P"
+      "P",
+      "○"
     ],
     "Sahith Theegala": [],
     "Jason Dufner": [],
@@ -1215,10 +1216,10 @@
     "Ben Kern": [],
     "Ludvig Aberg": [
       "P",
-      "P",
       "○",
       "□",
-      "P"
+      "P",
+      "○"
     ],
     "Ben Griffin": [
       "P",
