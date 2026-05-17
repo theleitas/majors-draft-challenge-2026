@@ -84,8 +84,8 @@
       "hole": "9:55 AM"
     },
     "Kurt Kitayama": {
-      "score": "+3",
-      "hole": "1"
+      "score": "+2",
+      "hole": "2"
     },
     "Adam Schenk": {
       "score": "+6",
@@ -368,8 +368,8 @@
       "hole": "MC"
     },
     "Casey Jarvis": {
-      "score": "+11",
-      "hole": "4"
+      "score": "+10",
+      "hole": "5"
     },
     "Chandler Blanchet": {
       "score": "+2",
@@ -425,7 +425,7 @@
     },
     "Rasmus Neergaard-Petersen": {
       "score": "+5",
-      "hole": "1"
+      "hole": "2"
     },
     "Joe Highsmith": {
       "score": "+8",
@@ -457,7 +457,7 @@
     },
     "Ryan Gerard": {
       "score": "+4",
-      "hole": "8:16 AM"
+      "hole": "1"
     },
     "William Mouw": {
       "score": "+4",
@@ -645,7 +645,7 @@
     },
     "Brian Campbell": {
       "score": "+15",
-      "hole": "4"
+      "hole": "5"
     },
     "Maverick McNealy": {
       "score": "-3",
@@ -668,6 +668,6 @@
       "hole": "12:25 PM"
     }
   },
-  "last_score_refresh_at": 1779020929.061449,
-  "last_score_refresh_attempt_at": 1779021229.8919563
+  "last_score_refresh_at": 1779021231.2745132,
+  "last_score_refresh_attempt_at": 1779021231.2745132
 }
