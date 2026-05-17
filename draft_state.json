@@ -97,7 +97,7 @@
     },
     "Matt Wallace": {
       "score": "+4",
-      "hole": "8:25 AM"
+      "hole": "1"
     },
     "Collin Morikawa": {
       "score": "+5",
@@ -280,8 +280,8 @@
       "hole": "MC"
     },
     "Alex Fitzpatrick": {
-      "score": "+4",
-      "hole": "8:25 AM"
+      "score": "+3",
+      "hole": "1"
     },
     "Viktor Hovland": {
       "score": "+6",
@@ -289,7 +289,7 @@
     },
     "Ben Kern": {
       "score": "+9",
-      "hole": "3"
+      "hole": "4"
     },
     "Ludvig Aberg": {
       "score": "-4",
@@ -557,7 +557,7 @@
     },
     "Luke Donald": {
       "score": "+6",
-      "hole": "3"
+      "hole": "4"
     },
     "David Lipsky": {
       "score": "+6",
@@ -668,6 +668,6 @@
       "hole": "12:25 PM"
     }
   },
-  "last_score_refresh_at": 1779021231.2745132,
-  "last_score_refresh_attempt_at": 1779021535.1261013
+  "last_score_refresh_at": 1779021536.3267062,
+  "last_score_refresh_attempt_at": 1779021536.3267062
 }
