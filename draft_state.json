@@ -62,7 +62,7 @@
     },
     "Denny McCarthy": {
       "score": "+3",
-      "hole": "12",
+      "hole": "14",
       "profile_url": "https://www.espn.com/golf/player/_/id/10054/denny-mccarthy"
     },
     "Davis Riley": {
@@ -87,7 +87,7 @@
     },
     "Jhonattan Vegas": {
       "score": "+3",
-      "hole": "14",
+      "hole": "15",
       "profile_url": "https://www.espn.com/golf/player/_/id/1030/jhonattan-vegas"
     },
     "Kurt Kitayama": {
@@ -121,8 +121,8 @@
       "profile_url": "https://www.espn.com/golf/player/_/id/10906/aaron-rai"
     },
     "Sahith Theegala": {
-      "score": "+3",
-      "hole": "17",
+      "score": "+4",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/10980/sahith-theegala"
     },
     "Jason Dufner": {
@@ -136,13 +136,13 @@
       "profile_url": "https://www.espn.com/golf/player/_/id/11056/austin-smotherman"
     },
     "Joaquin Niemann": {
-      "score": "-2",
-      "hole": "1:25 PM",
+      "score": "-3",
+      "hole": "1",
       "profile_url": "https://www.espn.com/golf/player/_/id/11099/joaquin-niemann"
     },
     "Max Greyserman": {
-      "score": "-2",
-      "hole": "1",
+      "score": "-1",
+      "hole": "3",
       "profile_url": "https://www.espn.com/golf/player/_/id/11101/max-greyserman"
     },
     "Wyndham Clark": {
@@ -157,7 +157,7 @@
     },
     "Nicolai Højgaard": {
       "score": "+2",
-      "hole": "7",
+      "hole": "8",
       "profile_url": "https://www.espn.com/golf/player/_/id/11250/nicolai-højgaard"
     },
     "Rasmus Højgaard": {
@@ -167,7 +167,7 @@
     },
     "Andrew Novak": {
       "score": "+1",
-      "hole": "9",
+      "hole": "10",
       "profile_url": "https://www.espn.com/golf/player/_/id/11332/andrew-novak"
     },
     "Travis Smyth": {
@@ -191,8 +191,8 @@
       "profile_url": "https://www.espn.com/golf/player/_/id/11383/max-mcgreevy"
     },
     "Rico Hoey": {
-      "score": "+4",
-      "hole": "12",
+      "score": "+3",
+      "hole": "13",
       "profile_url": "https://www.espn.com/golf/player/_/id/11385/rico-hoey"
     },
     "Garrick Higgo": {
@@ -211,8 +211,8 @@
       "profile_url": "https://www.espn.com/golf/player/_/id/1222/brandt-snedeker"
     },
     "Brian Harman": {
-      "score": "E",
-      "hole": "3",
+      "score": "+2",
+      "hole": "5",
       "profile_url": "https://www.espn.com/golf/player/_/id/1225/brian-harman"
     },
     "Y.E. Yang": {
@@ -221,8 +221,8 @@
       "profile_url": "https://www.espn.com/golf/player/_/id/1350/ye-yang"
     },
     "Daniel Brown": {
-      "score": "+5",
-      "hole": "15",
+      "score": "+8",
+      "hole": "17",
       "profile_url": "https://www.espn.com/golf/player/_/id/1407/daniel-brown"
     },
     "Billy Horschel": {
@@ -236,8 +236,8 @@
       "profile_url": "https://www.espn.com/golf/player/_/id/1680/jason-day"
     },
     "Padraig Harrington": {
-      "score": "E",
-      "hole": "8",
+      "score": "+1",
+      "hole": "9",
       "profile_url": "https://www.espn.com/golf/player/_/id/186/padraig-harrington"
     },
     "Bryce Fisher": {
@@ -266,8 +266,8 @@
       "profile_url": "https://www.espn.com/golf/player/_/id/3312/michael-block"
     },
     "Dustin Johnson": {
-      "score": "+2",
-      "hole": "8",
+      "score": "+1",
+      "hole": "10",
       "profile_url": "https://www.espn.com/golf/player/_/id/3448/dustin-johnson"
     },
     "Chris Kirk": {
@@ -287,12 +287,12 @@
     },
     "Martin Kaymer": {
       "score": "-2",
-      "hole": "1:15 PM",
+      "hole": "2",
       "profile_url": "https://www.espn.com/golf/player/_/id/3670/martin-kaymer"
     },
     "Rickie Fowler": {
-      "score": "-1",
-      "hole": "5",
+      "score": "+1",
+      "hole": "7",
       "profile_url": "https://www.espn.com/golf/player/_/id/3702/rickie-fowler"
     },
     "Nick Taylor": {
@@ -312,7 +312,7 @@
     },
     "Ryan Fox": {
       "score": "+1",
-      "hole": "14",
+      "hole": "15",
       "profile_url": "https://www.espn.com/golf/player/_/id/4251/ryan-fox"
     },
     "Bernd Wiesberger": {
@@ -357,7 +357,7 @@
     },
     "Ben Griffin": {
       "score": "-2",
-      "hole": "1:05 PM",
+      "hole": "2",
       "profile_url": "https://www.espn.com/golf/player/_/id/4404992/ben-griffin"
     },
     "Nico Echavarria": {
@@ -371,8 +371,8 @@
       "profile_url": "https://www.espn.com/golf/player/_/id/4408324/ian-holt"
     },
     "Min Woo Lee": {
-      "score": "-2",
-      "hole": "1",
+      "score": "-1",
+      "hole": "3",
       "profile_url": "https://www.espn.com/golf/player/_/id/4410932/min-woo-lee"
     },
     "Akshay Bhatia": {
@@ -382,7 +382,7 @@
     },
     "Daniel Hillier": {
       "score": "-2",
-      "hole": "8",
+      "hole": "9",
       "profile_url": "https://www.espn.com/golf/player/_/id/4425899/daniel-hillier"
     },
     "Michael Thorbjornsen": {
@@ -392,12 +392,12 @@
     },
     "Cameron Young": {
       "score": "-1",
-      "hole": "9",
+      "hole": "11",
       "profile_url": "https://www.espn.com/golf/player/_/id/4425906/cameron-young"
     },
     "Sam Stevens": {
-      "score": "+4",
-      "hole": "15",
+      "score": "+6",
+      "hole": "17",
       "profile_url": "https://www.espn.com/golf/player/_/id/4426181/sam-stevens"
     },
     "Steven Fisk": {
@@ -436,8 +436,8 @@
       "profile_url": "https://www.espn.com/golf/player/_/id/4589438/harry-hall"
     },
     "Kazuki Higa": {
-      "score": "+4",
-      "hole": "12",
+      "score": "+5",
+      "hole": "14",
       "profile_url": "https://www.espn.com/golf/player/_/id/4597553/kazuki-higa"
     },
     "Jayden Schaper": {
@@ -452,7 +452,7 @@
     },
     "Chandler Blanchet": {
       "score": "+2",
-      "hole": "12",
+      "hole": "14",
       "profile_url": "https://www.espn.com/golf/player/_/id/4618114/chandler-blanchet"
     },
     "John Parry": {
@@ -461,8 +461,8 @@
       "profile_url": "https://www.espn.com/golf/player/_/id/4671/john-parry"
     },
     "Chris Gotterup": {
-      "score": "-2",
-      "hole": "2",
+      "score": "-3",
+      "hole": "4",
       "profile_url": "https://www.espn.com/golf/player/_/id/4690755/chris-gotterup"
     },
     "Ricky Castillo": {
@@ -476,8 +476,8 @@
       "profile_url": "https://www.espn.com/golf/player/_/id/4693951/michael-kartrude"
     },
     "Mikael Lindberg": {
-      "score": "-2",
-      "hole": "3",
+      "score": "E",
+      "hole": "5",
       "profile_url": "https://www.espn.com/golf/player/_/id/4699290/mikael-lindberg"
     },
     "Elvis Smylie": {
@@ -506,13 +506,13 @@
       "profile_url": "https://www.espn.com/golf/player/_/id/4845304/mark-geddes"
     },
     "Justin Thomas": {
-      "score": "-2",
-      "hole": "10",
+      "score": "-3",
+      "hole": "12",
       "profile_url": "https://www.espn.com/golf/player/_/id/4848/justin-thomas"
     },
     "Ryo Hisatsune": {
       "score": "+1",
-      "hole": "17",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/4858572/ryo-hisatsune"
     },
     "Rasmus Neergaard-Petersen": {
@@ -527,7 +527,7 @@
     },
     "David Puig": {
       "score": "-1",
-      "hole": "6",
+      "hole": "8",
       "profile_url": "https://www.espn.com/golf/player/_/id/4895429/david-puig"
     },
     "Matt McCarty": {
@@ -537,7 +537,7 @@
     },
     "Michael Brennan": {
       "score": "+9",
-      "hole": "15",
+      "hole": "16",
       "profile_url": "https://www.espn.com/golf/player/_/id/4921329/michael-brennan"
     },
     "Jacob Bridgeman": {
@@ -567,7 +567,7 @@
     },
     "Aldrich Potgieter": {
       "score": "+1",
-      "hole": "10",
+      "hole": "12",
       "profile_url": "https://www.espn.com/golf/player/_/id/5080439/aldrich-potgieter"
     },
     "Angel Ayora": {
@@ -592,7 +592,7 @@
     },
     "Bud Cauley": {
       "score": "-2",
-      "hole": "1:15 PM",
+      "hole": "2",
       "profile_url": "https://www.espn.com/golf/player/_/id/5338/bud-cauley"
     },
     "Chris Gabriele": {
@@ -617,7 +617,7 @@
     },
     "Harris English": {
       "score": "-3",
-      "hole": "5",
+      "hole": "7",
       "profile_url": "https://www.espn.com/golf/player/_/id/5408/harris-english"
     },
     "Russell Henley": {
@@ -627,12 +627,12 @@
     },
     "Jordan Spieth": {
       "score": "E",
-      "hole": "12",
+      "hole": "13",
       "profile_url": "https://www.espn.com/golf/player/_/id/5467/jordan-spieth"
     },
     "Andrew Putnam": {
-      "score": "+2",
-      "hole": "9",
+      "score": "+4",
+      "hole": "10",
       "profile_url": "https://www.espn.com/golf/player/_/id/5502/andrew-putnam"
     },
     "Tommy Fleetwood": {
@@ -651,13 +651,13 @@
       "profile_url": "https://www.espn.com/golf/player/_/id/5579/patrick-reed"
     },
     "Justin Rose": {
-      "score": "-2",
-      "hole": "1:25 PM",
+      "score": "-3",
+      "hole": "1",
       "profile_url": "https://www.espn.com/golf/player/_/id/569/justin-rose"
     },
     "Hideki Matsuyama": {
       "score": "-3",
-      "hole": "2",
+      "hole": "4",
       "profile_url": "https://www.espn.com/golf/player/_/id/5860/hideki-matsuyama"
     },
     "Emiliano Grillo": {
@@ -697,7 +697,7 @@
     },
     "Brooks Koepka": {
       "score": "+1",
-      "hole": "3",
+      "hole": "6",
       "profile_url": "https://www.espn.com/golf/player/_/id/6798/brooks-koepka"
     },
     "Patrick Rodgers": {
@@ -707,7 +707,7 @@
     },
     "Stephan Jaeger": {
       "score": "E",
-      "hole": "11",
+      "hole": "12",
       "profile_url": "https://www.espn.com/golf/player/_/id/6937/stephan-jaeger"
     },
     "Adrien Saddier": {
@@ -716,8 +716,8 @@
       "profile_url": "https://www.espn.com/golf/player/_/id/6962/adrien-saddier"
     },
     "Si Woo Kim": {
-      "score": "+1",
-      "hole": "9",
+      "score": "+2",
+      "hole": "11",
       "profile_url": "https://www.espn.com/golf/player/_/id/7081/si-woo-kim"
     },
     "Stewart Cink": {
@@ -726,8 +726,8 @@
       "profile_url": "https://www.espn.com/golf/player/_/id/78/stewart-cink"
     },
     "Keith Mitchell": {
-      "score": "+5",
-      "hole": "16",
+      "score": "+6",
+      "hole": "17",
       "profile_url": "https://www.espn.com/golf/player/_/id/8906/keith-mitchell"
     },
     "Sepp Straka": {
@@ -742,32 +742,32 @@
     },
     "Michael Kim": {
       "score": "E",
-      "hole": "7",
+      "hole": "8",
       "profile_url": "https://www.espn.com/golf/player/_/id/8974/michael-kim"
     },
     "Daniel Berger": {
       "score": "E",
-      "hole": "15",
+      "hole": "17",
       "profile_url": "https://www.espn.com/golf/player/_/id/9025/daniel-berger"
     },
     "Matt Fitzpatrick": {
       "score": "-2",
-      "hole": "16",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/9037/matt-fitzpatrick"
     },
     "Corey Conners": {
       "score": "+3",
-      "hole": "17",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/9126/corey-conners"
     },
     "Cameron Smith": {
-      "score": "-2",
-      "hole": "1:05 PM",
+      "score": "-3",
+      "hole": "2",
       "profile_url": "https://www.espn.com/golf/player/_/id/9131/cameron-smith"
     },
     "Haotong Li": {
       "score": "+3",
-      "hole": "12",
+      "hole": "14",
       "profile_url": "https://www.espn.com/golf/player/_/id/9221/haotong-li"
     },
     "Christiaan Bezuidenhout": {
@@ -777,7 +777,7 @@
     },
     "Scottie Scheffler": {
       "score": "-1",
-      "hole": "6",
+      "hole": "8",
       "profile_url": "https://www.espn.com/golf/player/_/id/9478/scottie-scheffler"
     },
     "Alex Smalley": {
@@ -807,7 +807,7 @@
     },
     "Taylor Pendrith": {
       "score": "+3",
-      "hole": "11",
+      "hole": "12",
       "profile_url": "https://www.espn.com/golf/player/_/id/9658/taylor-pendrith"
     },
     "Jon Rahm": {
@@ -816,13 +816,13 @@
       "profile_url": "https://www.espn.com/golf/player/_/id/9780/jon-rahm"
     },
     "Sam Burns": {
-      "score": "-1",
-      "hole": "3",
+      "score": "E",
+      "hole": "6",
       "profile_url": "https://www.espn.com/golf/player/_/id/9938/sam-burns"
     }
   },
-  "last_score_refresh_at": 1779038268.832171,
-  "last_score_refresh_attempt_at": 1779039742.0693505,
+  "last_score_refresh_at": 1779039743.256771,
+  "last_score_refresh_attempt_at": 1779039743.256771,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -875,8 +875,8 @@
       ],
       "Spencer Tidwell": [
         "Jon Rahm",
-        "Matt Fitzpatrick",
-        "Justin Thomas"
+        "Justin Thomas",
+        "Justin Rose"
       ],
       "Peter Miller": [
         "Aaron Rai",
@@ -885,7 +885,8 @@
       ]
     },
     "leaders": [
-      "Peter Miller"
+      "Peter Miller",
+      "Spencer Tidwell"
     ]
   },
   "selected_tournament": {}
