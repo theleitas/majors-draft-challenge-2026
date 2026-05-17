@@ -945,9 +945,87 @@ def fetch_live_scores_from_espn(event_id=""):
             "score": score,
             "hole": hole_or_tee,
             "profile_url": profile_url,
+            "competitor_id": str(competitor.get("id") or ""),
         }
 
     return results
+
+@st.cache_data(ttl=120, show_spinner=False)
+def fetch_competitor_summary(event_id, competitor_id, league="pga"):
+    if not event_id or not competitor_id:
+        return {}
+    url = (
+        f"https://site.web.api.espn.com/apis/site/v2/sports/golf/{league}/leaderboard/"
+        f"{event_id}/competitorsummary/{competitor_id}"
+    )
+    resp = requests.get(url, timeout=12)
+    resp.raise_for_status()
+    return resp.json()
+
+def marker_for_hole_scoretype(linescore):
+    score_type = linescore.get("scoreType") if isinstance(linescore.get("scoreType"), dict) else {}
+    score_name = str(score_type.get("name") or "").upper()
+    if "PAR" in score_name:
+        return "P"
+    if any(key in score_name for key in ["BIRDIE", "EAGLE", "ALBATROSS"]):
+        return "○"
+    if "BOGEY" in score_name:
+        return "□"
+
+    value = linescore.get("value")
+    par = linescore.get("par")
+    try:
+        value_num = float(value)
+        par_num = float(par)
+        if value_num < par_num:
+            return "○"
+        if value_num > par_num:
+            return "□"
+        return "P"
+    except (TypeError, ValueError):
+        pass
+
+    display_delta = str(score_type.get("displayValue") or "").strip()
+    if display_delta.startswith("-"):
+        return "○"
+    if display_delta.startswith("+"):
+        return "□"
+    return "P"
+
+def extract_recent_hole_outcomes_from_summary(summary):
+    rounds = summary.get("rounds") if isinstance(summary, dict) else []
+    if not isinstance(rounds, list) or not rounds:
+        return []
+
+    latest_round = None
+    for candidate in reversed(rounds):
+        if not isinstance(candidate, dict):
+            continue
+        linescores = candidate.get("linescores")
+        if isinstance(linescores, list) and linescores:
+            latest_round = candidate
+            break
+
+    if not latest_round:
+        return []
+
+    linescores = latest_round.get("linescores")
+    markers = [marker_for_hole_scoretype(linescore) for linescore in linescores if isinstance(linescore, dict)]
+    markers = [marker for marker in markers if marker in {"P", "○", "□"}]
+    return markers[-5:]
+
+def get_recent_outcomes_for_standings(result):
+    fallback = result.get("recent_outcomes", []) if isinstance(result, dict) else []
+    event_id = str(SELECTED_TOURNAMENT.get("event_id") or "").strip()
+    competitor_id = str((result or {}).get("competitor_id") or "").strip()
+    if not event_id or not competitor_id:
+        return fallback
+    try:
+        summary = fetch_competitor_summary(event_id, competitor_id, league="pga")
+        outcomes = extract_recent_hole_outcomes_from_summary(summary)
+        return outcomes or fallback
+    except Exception:
+        return fallback
 
 def coach_short_name(coach_id):
     return str(coach_id).split()[0]
@@ -1581,11 +1659,12 @@ def save_team_names(new_teams):
     return mutate_shared_state(mutator, "Update team names")
 
 def get_player_result(player):
-    result = PLAYER_RESULTS_DISPLAY.get(player, {"score": "N/A", "hole": "—", "recent_outcomes": []})
+    result = PLAYER_RESULTS_DISPLAY.get(player, {"score": "N/A", "hole": "—", "recent_outcomes": [], "competitor_id": ""})
     return {
         "score": result.get("score", "N/A"),
         "hole": result.get("hole", "—"),
         "recent_outcomes": result.get("recent_outcomes", []),
+        "competitor_id": result.get("competitor_id", ""),
     }
 
 def format_hole_status_for_card(value):
@@ -1728,6 +1807,7 @@ PLAYER_RESULTS_DISPLAY = {
         "score": result.get("score", "N/A"),
         "hole": display_hole_value(result.get("hole", "—")),
         "recent_outcomes": PLAYER_HOLE_OUTCOMES.get(player, []),
+        "competitor_id": result.get("competitor_id", ""),
     }
     for player, result in PLAYER_RESULTS.items()
 }
@@ -1791,7 +1871,8 @@ for coach_id, data in team_render_data.items():
             safe_player = html.escape(display_player_name(player))
             score = html.escape(format_golf_score(score_value))
             status_text = format_hole_status_for_card(result.get("hole", "—"))
-            recent_outcomes_text = format_recent_hole_outcomes(result.get("recent_outcomes", []))
+            recent_outcomes = get_recent_outcomes_for_standings(result)
+            recent_outcomes_text = format_recent_hole_outcomes(recent_outcomes)
             top3_html += (
                 f"<div style='margin:4px 0; color:{color}; font-size:1.05rem;'>"
                 f"{safe_player} <span style='font-weight:700;'>({score})</span> {html.escape(status_text)}{recent_outcomes_text}"
