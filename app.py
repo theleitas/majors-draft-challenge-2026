@@ -720,7 +720,7 @@ def leaderboard_owner_image_html(golfer):
     )
 
 def render_tournament_leaderboard():
-    leaderboard_rows = get_tournament_leaderboard(10)
+    leaderboard_rows = get_tournament_leaderboard(20)
     leaderboard_parts = [
         "<div style='border:5px solid #fff; background-color:rgba(255,255,255,.06); border-radius:16px; padding:20px 24px; margin-bottom:1.8rem;'>",
         f"<div class='team-heading' style='color:#fff; font-size:1.75rem; font-weight:800; margin-bottom:6px;'>"
