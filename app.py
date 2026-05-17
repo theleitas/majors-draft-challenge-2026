@@ -697,6 +697,28 @@ def render_refresh_scores_button(key, state):
     if clicked:
         refresh_scores()
 
+def get_golfer_owner(golfer):
+    for coach_id, info in teams_data.items():
+        if golfer in info.get("players", []):
+            return coach_id
+    return None
+
+def leaderboard_owner_image_html(golfer):
+    coach_id = get_golfer_owner(golfer)
+    if not coach_id:
+        return ""
+    image_path = COACH_IMAGES.get(coach_id)
+    data_uri = image_to_data_uri(image_path) if image_path else ""
+    if not data_uri:
+        return ""
+    color = COACH_COLORS.get(coach_id, "#555555")
+    safe_coach = html.escape(coach_id)
+    return (
+        f"<img src='{data_uri}' alt='{safe_coach}' title='{safe_coach}' "
+        f"style='width:2rem; height:2rem; border-radius:50%; object-fit:cover; "
+        f"border:2px solid {color}; display:block;'>"
+    )
+
 def render_tournament_leaderboard():
     leaderboard_rows = get_tournament_leaderboard(10)
     leaderboard_parts = [
@@ -709,12 +731,13 @@ def render_tournament_leaderboard():
     if not leaderboard_rows:
         leaderboard_parts.append("<div style='color:#aaa; font-style:italic;'>No live scores yet</div>")
     else:
-        leaderboard_parts.append("<table class='roster-table'><thead><tr><th>Rank</th><th>Golfer</th><th>Score</th><th>Hole</th></tr></thead><tbody>")
+        leaderboard_parts.append("<table class='roster-table'><thead><tr><th>Rank</th><th>Owner</th><th>Golfer</th><th>Score</th><th>Hole</th></tr></thead><tbody>")
         for rank, (score_value, _, player, result) in enumerate(leaderboard_rows, start=1):
+            owner_html = leaderboard_owner_image_html(player)
             safe_player = html.escape(display_player_name(player))
             score = html.escape(format_golf_score(score_value))
             hole = html.escape(format_hole_status_for_card(result.get("hole", "—")))
-            leaderboard_parts.append(f"<tr><td>{rank}</td><td>{safe_player}</td><td>{score}</td><td>{hole}</td></tr>")
+            leaderboard_parts.append(f"<tr><td>{rank}</td><td>{owner_html}</td><td>{safe_player}</td><td>{score}</td><td>{hole}</td></tr>")
         leaderboard_parts.append("</tbody></table>")
 
     leaderboard_parts.append("</div>")
