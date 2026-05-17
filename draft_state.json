@@ -669,7 +669,7 @@
     }
   },
   "last_score_refresh_at": 1779033600.0623112,
-  "last_score_refresh_attempt_at": 1779033600.0623112,
+  "last_score_refresh_attempt_at": 1779033924.2283149,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -735,5 +735,6 @@
       "Jayme Leita",
       "Peter Miller"
     ]
-  }
+  },
+  "selected_tournament": {}
 }
