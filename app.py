@@ -6,6 +6,8 @@ from functools import lru_cache
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
+RENDER_T0 = time.perf_counter()
+
 st.set_page_config(
     page_title="PGA Championship Draft 2026",
     page_icon="thumb.png",
@@ -80,6 +82,7 @@ BRANCH = "main"
 MAX_PICKS = 30
 ESPN_LEADERBOARD_URL = "https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?league=pga"
 AUTO_SCORE_REFRESH_SECONDS = 5 * 60
+AVAILABLE_GOLFERS_PAGE_SIZE = 24
 DEFAULT_TWILIO_ACCOUNT_SID = read_secret("TWILIO_ACCOUNT_SID") or ""
 DEFAULT_TWILIO_AUTH_TOKEN = read_secret("TWILIO_AUTH_TOKEN") or ""
 DEFAULT_TWILIO_FROM_NUMBER = read_secret("TWILIO_FROM_NUMBER") or ""
@@ -1410,13 +1413,37 @@ st.caption("**May 14–17, 2026** • Aronimink Golf Club")
 
 st.subheader("Standings")
 
+team_render_data = {}
 for coach_id, info in teams_data.items():
-    team_name = info.get("team_name", coach_id)
-    color = COACH_COLORS.get(coach_id, "#555555")
     players = info.get("players", [])
-    total = get_team_total(players)
-    scored_players = get_sorted_scored_players(players)[:3]
-    face_html = coach_image_html(coach_id)
+    scored_players = get_sorted_scored_players(players)
+    top_three_scored = scored_players[:3]
+    if top_three_scored:
+        top_three_total = format_golf_score(sum(score_value for score_value, _, _, _ in top_three_scored))
+    else:
+        top_three_total = "N/A"
+    if scored_players:
+        total_10 = format_golf_score(sum(score_value for score_value, _, _, _ in scored_players))
+    else:
+        total_10 = "N/A"
+    team_render_data[coach_id] = {
+        "team_name": info.get("team_name", coach_id),
+        "players": players,
+        "color": COACH_COLORS.get(coach_id, "#555555"),
+        "face_html": coach_image_html(coach_id),
+        "scored_players": top_three_scored,
+        "top_three_set": {player for _, _, player, _ in top_three_scored},
+        "top_three_total": top_three_total,
+        "total_10": total_10,
+    }
+
+for coach_id, data in team_render_data.items():
+    team_name = data["team_name"]
+    color = data["color"]
+    players = data["players"]
+    total = data["top_three_total"]
+    scored_players = data["scored_players"]
+    face_html = data["face_html"]
 
     if scored_players:
         top3_html = ""
@@ -1457,14 +1484,15 @@ team_cols = st.columns(3)
 
 for idx, (coach_id, info) in enumerate(teams_data.items()):
     with team_cols[idx]:
-        team_name = info.get("team_name", coach_id)
-        players = info.get("players", [])
-        color = COACH_COLORS.get(coach_id, "#555555")
-        face_html = coach_image_html(coach_id)
-        total = get_team_total(players)
+        data = team_render_data[coach_id]
+        team_name = data["team_name"]
+        players = data["players"]
+        color = data["color"]
+        face_html = data["face_html"]
+        total = data["top_three_total"]
         safe_total = html.escape(total)
-        total_10_net_score = html.escape(get_total_10_net_score(players))
-        top_three_lowest_score_players = get_top_three_lowest_score_players(players)
+        total_10_net_score = html.escape(data["total_10"])
+        top_three_lowest_score_players = data["top_three_set"]
 
         roster_parts = [
             f"<div style='border:5px solid {color}; background-color:{color}18; border-radius:16px; padding:20px 24px; margin-bottom:1.8rem;'>",
@@ -1591,14 +1619,39 @@ with st.expander("🎯 DRAFT SECTION", expanded=state["draft_enabled"]):
         st.markdown(grid_html, unsafe_allow_html=True)
 
         st.subheader("Available Golfers — Click to Draft")
-        st.caption("Sorted by odds, then last name. On phones, the list stays in true top-to-bottom order.")
+        st.caption("Sorted by odds, then last name. Use search and pages for faster loading on mobile.")
 
         sorted_players = sorted(PGA_PLAYERS, key=odds_sort_key)
         available = [golfer for golfer in sorted_players if golfer not in picked_golfers]
+        golfer_search = st.text_input("Find Golfer", value="", key="available_golfer_search").strip().lower()
+        if golfer_search:
+            available = [golfer for golfer in available if golfer_search in golfer.lower()]
+        total_available = len(available)
+        total_pages = max(1, (total_available + AVAILABLE_GOLFERS_PAGE_SIZE - 1) // AVAILABLE_GOLFERS_PAGE_SIZE)
+        page_col, info_col = st.columns([1, 2])
+        with page_col:
+            current_page = st.number_input(
+                "Page",
+                min_value=1,
+                max_value=total_pages,
+                value=min(st.session_state.get("available_golfers_page", 1), total_pages),
+                step=1,
+                key="available_golfers_page",
+            )
+        with info_col:
+            if total_available:
+                start_display = (current_page - 1) * AVAILABLE_GOLFERS_PAGE_SIZE + 1
+                end_display = min(current_page * AVAILABLE_GOLFERS_PAGE_SIZE, total_available)
+                st.caption(f"Showing {start_display}-{end_display} of {total_available} available golfers")
+            else:
+                st.caption("No available golfers match the current search.")
+        page_start = (current_page - 1) * AVAILABLE_GOLFERS_PAGE_SIZE
+        page_end = page_start + AVAILABLE_GOLFERS_PAGE_SIZE
+        available_page = available[page_start:page_end]
 
-        for row_start in range(0, len(available), 3):
+        for row_start in range(0, len(available_page), 3):
             row_cols = st.columns(3)
-            row_players = available[row_start:row_start + 3]
+            row_players = available_page[row_start:row_start + 3]
 
             for col_idx, golfer in enumerate(row_players):
                 with row_cols[col_idx]:
@@ -1691,6 +1744,7 @@ with st.expander("📱 Text Updates", expanded=False):
 
 with st.expander("🔧 Admin Section", expanded=False):
     st.subheader("Draft Control")
+    st.toggle("Show Performance Debug", value=st.session_state.get("perf_debug_enabled", False), key="perf_debug_enabled")
 
     enable = st.toggle("Enable Draft", value=state["draft_enabled"], key="enable_toggle")
 
@@ -1767,3 +1821,14 @@ with st.expander("🔧 Admin Section", expanded=False):
             st.error("Team names were not saved. Please try again.")
 
 st.caption("2026 PGA Championship Draft Challenge • Laborously Built by Jayme Leita • No AI Used")
+if st.session_state.get("perf_debug_enabled", False):
+    render_ms = int((time.perf_counter() - RENDER_T0) * 1000)
+    team_count = len(teams_data)
+    available_count = len([golfer for golfer in PGA_PLAYERS if golfer not in picked_golfers])
+    st.caption(
+        "Perf Debug: "
+        f"Render {render_ms}ms | "
+        f"Last Score Update {format_last_score_refresh_time(state)} | "
+        f"Teams {team_count} | "
+        f"Available Golfers {available_count}"
+    )
