@@ -669,5 +669,52 @@
     }
   },
   "last_score_refresh_at": 1779029035.9774137,
-  "last_score_refresh_attempt_at": 1779029035.9774137
+  "last_score_refresh_attempt_at": 1779029399.6434374,
+  "text_updates": {
+    "enabled": false,
+    "twilio": {
+      "account_sid": "",
+      "auth_token": "",
+      "from_number": ""
+    },
+    "recipients": {
+      "Jayme": {
+        "enabled": true,
+        "phone": "+14239679645"
+      },
+      "Spencer": {
+        "enabled": true,
+        "phone": "+13375132901"
+      },
+      "Peter": {
+        "enabled": false,
+        "phone": ""
+      }
+    },
+    "updates": {
+      "tee_off": {
+        "enabled": true,
+        "template": "{coach}'s golfer {player} has teed off. Team totals: {team_totals}"
+      },
+      "birdie": {
+        "enabled": true,
+        "template": "{coach}'s golfer {player} got a birdie on hole {hole}"
+      },
+      "bogey": {
+        "enabled": true,
+        "template": "{coach}'s golfer {player} got a bogey on hole {hole}"
+      },
+      "lead_change": {
+        "enabled": true,
+        "template": "Lead change: {leaders} now lead. Team totals: {team_totals}"
+      },
+      "top3_change": {
+        "enabled": true,
+        "template": "{coach}'s golfer {dropped_player} has dropped from the Top 3, replaced by {added_player}"
+      }
+    },
+    "sent_event_ids": [],
+    "top3_by_coach": {},
+    "leaders": []
+  }
 }
