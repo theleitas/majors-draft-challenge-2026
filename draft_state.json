@@ -85,7 +85,7 @@
     },
     "Kurt Kitayama": {
       "score": "+1",
-      "hole": "4"
+      "hole": "5"
     },
     "Adam Schenk": {
       "score": "+6",
@@ -101,7 +101,7 @@
     },
     "Collin Morikawa": {
       "score": "+5",
-      "hole": "5"
+      "hole": "6"
     },
     "Aaron Rai": {
       "score": "-4",
@@ -252,8 +252,8 @@
       "hole": "2:25 PM"
     },
     "Alex Noren": {
-      "score": "+4",
-      "hole": "9:01 AM"
+      "score": "+3",
+      "hole": "1"
     },
     "Adam Scott": {
       "score": "+8",
@@ -288,8 +288,8 @@
       "hole": "MC"
     },
     "Ben Kern": {
-      "score": "+7",
-      "hole": "6"
+      "score": "+8",
+      "hole": "7"
     },
     "Ludvig Aberg": {
       "score": "-4",
@@ -353,7 +353,7 @@
     },
     "Shane Lowry": {
       "score": "+4",
-      "hole": "1"
+      "hole": "2"
     },
     "Harry Hall": {
       "score": "+7",
@@ -377,7 +377,7 @@
     },
     "John Parry": {
       "score": "+4",
-      "hole": "1"
+      "hole": "2"
     },
     "Chris Gotterup": {
       "score": "-2",
@@ -396,8 +396,8 @@
       "hole": "12:35 PM"
     },
     "Elvis Smylie": {
-      "score": "+7",
-      "hole": "5"
+      "score": "+6",
+      "hole": "6"
     },
     "Tyler Collet": {
       "score": "+6",
@@ -457,7 +457,7 @@
     },
     "Ryan Gerard": {
       "score": "+3",
-      "hole": "3"
+      "hole": "4"
     },
     "William Mouw": {
       "score": "+3",
@@ -557,7 +557,7 @@
     },
     "Luke Donald": {
       "score": "+6",
-      "hole": "6"
+      "hole": "7"
     },
     "David Lipsky": {
       "score": "+6",
@@ -668,6 +668,6 @@
       "hole": "12:25 PM"
     }
   },
-  "last_score_refresh_at": 1779023274.2961478,
-  "last_score_refresh_attempt_at": 1779023580.6450334
+  "last_score_refresh_at": 1779023582.0631514,
+  "last_score_refresh_attempt_at": 1779023582.0631514
 }
