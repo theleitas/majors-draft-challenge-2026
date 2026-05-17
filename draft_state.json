@@ -97,11 +97,11 @@
     },
     "Matt Wallace": {
       "score": "+3",
-      "hole": "7"
+      "hole": "8"
     },
     "Collin Morikawa": {
-      "score": "+5",
-      "hole": "9"
+      "score": "+6",
+      "hole": "10"
     },
     "Aaron Rai": {
       "score": "-4",
@@ -140,8 +140,8 @@
       "hole": "11:45 AM"
     },
     "Rasmus Højgaard": {
-      "score": "+2",
-      "hole": "6"
+      "score": "+3",
+      "hole": "7"
     },
     "Andrew Novak": {
       "score": "E",
@@ -189,7 +189,7 @@
     },
     "Daniel Brown": {
       "score": "+3",
-      "hole": "1"
+      "hole": "2"
     },
     "Billy Horschel": {
       "score": "+8",
@@ -253,7 +253,7 @@
     },
     "Alex Noren": {
       "score": "+3",
-      "hole": "4"
+      "hole": "5"
     },
     "Adam Scott": {
       "score": "+8",
@@ -281,7 +281,7 @@
     },
     "Alex Fitzpatrick": {
       "score": "+5",
-      "hole": "7"
+      "hole": "8"
     },
     "Viktor Hovland": {
       "score": "+6",
@@ -368,8 +368,8 @@
       "hole": "MC"
     },
     "Casey Jarvis": {
-      "score": "+9",
-      "hole": "12"
+      "score": "+8",
+      "hole": "13"
     },
     "Chandler Blanchet": {
       "score": "+2",
@@ -396,8 +396,8 @@
       "hole": "12:35 PM"
     },
     "Elvis Smylie": {
-      "score": "+5",
-      "hole": "9"
+      "score": "+6",
+      "hole": "10"
     },
     "Tyler Collet": {
       "score": "+6",
@@ -553,7 +553,7 @@
     },
     "Patrick Cantlay": {
       "score": "+3",
-      "hole": "4"
+      "hole": "5"
     },
     "Luke Donald": {
       "score": "+6",
@@ -644,8 +644,8 @@
       "hole": "MC"
     },
     "Brian Campbell": {
-      "score": "+15",
-      "hole": "12"
+      "score": "+16",
+      "hole": "13"
     },
     "Maverick McNealy": {
       "score": "-3",
@@ -668,6 +668,6 @@
       "hole": "12:25 PM"
     }
   },
-  "last_score_refresh_at": 1779026582.1552432,
-  "last_score_refresh_attempt_at": 1779026940.6880195
+  "last_score_refresh_at": 1779026942.1073406,
+  "last_score_refresh_attempt_at": 1779026942.1073406
 }
