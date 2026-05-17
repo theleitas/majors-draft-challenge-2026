@@ -84,8 +84,8 @@
       "hole": "9:55 AM"
     },
     "Kurt Kitayama": {
-      "score": "+2",
-      "hole": "2"
+      "score": "+1",
+      "hole": "3"
     },
     "Adam Schenk": {
       "score": "+6",
@@ -141,7 +141,7 @@
     },
     "Rasmus Højgaard": {
       "score": "+4",
-      "hole": "8:34 AM"
+      "hole": "1"
     },
     "Andrew Novak": {
       "score": "E",
@@ -288,8 +288,8 @@
       "hole": "MC"
     },
     "Ben Kern": {
-      "score": "+9",
-      "hole": "4"
+      "score": "+8",
+      "hole": "5"
     },
     "Ludvig Aberg": {
       "score": "-4",
@@ -425,7 +425,7 @@
     },
     "Rasmus Neergaard-Petersen": {
       "score": "+5",
-      "hole": "2"
+      "hole": "3"
     },
     "Joe Highsmith": {
       "score": "+8",
@@ -557,7 +557,7 @@
     },
     "Luke Donald": {
       "score": "+6",
-      "hole": "4"
+      "hole": "5"
     },
     "David Lipsky": {
       "score": "+6",
@@ -668,6 +668,6 @@
       "hole": "12:25 PM"
     }
   },
-  "last_score_refresh_at": 1779021843.0246086,
-  "last_score_refresh_attempt_at": 1779022200.670877
+  "last_score_refresh_at": 1779022202.935051,
+  "last_score_refresh_attempt_at": 1779022202.935051
 }
