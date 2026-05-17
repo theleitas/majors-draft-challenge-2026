@@ -177,7 +177,7 @@
     },
     "Nicolai Højgaard": {
       "score": "+3",
-      "hole": "13",
+      "hole": "14",
       "profile_url": "https://www.espn.com/golf/player/_/id/11250/nicolai-højgaard",
       "competitor_id": "11250"
     },
@@ -836,8 +836,8 @@
       "competitor_id": "6825"
     },
     "Stephan Jaeger": {
-      "score": "E",
-      "hole": "17",
+      "score": "-1",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/6937/stephan-jaeger",
       "competitor_id": "6937"
     },
@@ -974,8 +974,8 @@
       "competitor_id": "9938"
     }
   },
-  "last_score_refresh_at": 1779044039.200576,
-  "last_score_refresh_attempt_at": 1779044039.200576,
+  "last_score_refresh_at": 1779044066.6702595,
+  "last_score_refresh_attempt_at": 1779044066.6702595,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -1090,11 +1090,11 @@
     "Wyndham Clark": [],
     "Jordan Gumberg": [],
     "Nicolai Højgaard": [
-      "○",
       "P",
       "P",
       "P",
-      "□"
+      "□",
+      "P"
     ],
     "Rasmus Højgaard": [],
     "Andrew Novak": [
@@ -1386,10 +1386,10 @@
     "Patrick Rodgers": [],
     "Stephan Jaeger": [
       "P",
-      "P",
       "○",
       "□",
-      "P"
+      "P",
+      "○"
     ],
     "Adrien Saddier": [],
     "Si Woo Kim": [
