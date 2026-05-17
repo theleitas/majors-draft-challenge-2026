@@ -962,6 +962,23 @@ def fetch_competitor_summary(event_id, competitor_id, league="pga"):
     resp.raise_for_status()
     return resp.json()
 
+@st.cache_data(ttl=120, show_spinner=False)
+def fetch_event_competitor_lookup(event_id, league="pga"):
+    if not event_id:
+        return {}
+    params = {"league": league, "event": str(event_id)}
+    resp = requests.get(ESPN_LEADERBOARD_BASE_URL, params=params, timeout=12)
+    resp.raise_for_status()
+    payload = resp.json()
+    lookup = {}
+    for competitor in extract_competitors(payload):
+        raw_name = extract_athlete_name(competitor)
+        matched_name = PLAYER_NAME_LOOKUP.get(normalize_player_match_name(raw_name))
+        competitor_id = str(competitor.get("id") or "").strip()
+        if matched_name and competitor_id:
+            lookup[matched_name] = competitor_id
+    return lookup
+
 def marker_for_hole_scoretype(linescore):
     score_type = linescore.get("scoreType") if isinstance(linescore.get("scoreType"), dict) else {}
     score_name = str(score_type.get("name") or "").upper()
@@ -1014,10 +1031,15 @@ def extract_recent_hole_outcomes_from_summary(summary):
     markers = [marker for marker in markers if marker in {"P", "○", "□"}]
     return markers[-5:]
 
-def get_recent_outcomes_for_standings(result):
+def get_recent_outcomes_for_standings(player_name, result):
     fallback = result.get("recent_outcomes", []) if isinstance(result, dict) else []
     event_id = str(SELECTED_TOURNAMENT.get("event_id") or "").strip()
     competitor_id = str((result or {}).get("competitor_id") or "").strip()
+    if not competitor_id and event_id and player_name:
+        try:
+            competitor_id = str(fetch_event_competitor_lookup(event_id, league="pga").get(player_name) or "").strip()
+        except Exception:
+            competitor_id = ""
     if not event_id or not competitor_id:
         return fallback
     try:
@@ -1126,7 +1148,7 @@ def format_recent_hole_outcomes(outcomes):
     safe = [html.escape(str(item)) for item in outcomes if str(item) in {"P", "○", "□"}]
     if not safe:
         return ""
-    return f" ({' '.join(safe)})"
+    return f" ({', '.join(safe)})"
 
 def get_team_top_three_from_results(players, results):
     scored_players = []
@@ -1871,7 +1893,7 @@ for coach_id, data in team_render_data.items():
             safe_player = html.escape(display_player_name(player))
             score = html.escape(format_golf_score(score_value))
             status_text = format_hole_status_for_card(result.get("hole", "—"))
-            recent_outcomes = get_recent_outcomes_for_standings(result)
+            recent_outcomes = get_recent_outcomes_for_standings(player, result)
             recent_outcomes_text = format_recent_hole_outcomes(recent_outcomes)
             top3_html += (
                 f"<div style='margin:4px 0; color:{color}; font-size:1.05rem;'>"
