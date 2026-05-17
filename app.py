@@ -268,6 +268,7 @@ def default_state():
         "draft_order": ["Jayme Leita", "Spencer Tidwell", "Peter Miller"],
         "last_pick_started_at": 0,
         "player_results": {},
+        "hole_outcomes": {},
         "last_score_refresh_at": 0,
         "last_score_refresh_attempt_at": 0,
         "teams": {
@@ -288,6 +289,7 @@ def normalize_state(state):
     state.setdefault("draft_order", base["draft_order"])
     state.setdefault("last_pick_started_at", base["last_pick_started_at"])
     state.setdefault("player_results", base["player_results"])
+    state.setdefault("hole_outcomes", base["hole_outcomes"])
     state.setdefault("last_score_refresh_at", base["last_score_refresh_at"])
     state.setdefault("last_score_refresh_attempt_at", base["last_score_refresh_attempt_at"])
     state.setdefault("teams", base["teams"])
@@ -306,6 +308,8 @@ def normalize_state(state):
         state["teams"][coach].setdefault("players", [])
     if not isinstance(state.get("selected_tournament"), dict):
         state["selected_tournament"] = {}
+    if not isinstance(state.get("hole_outcomes"), dict):
+        state["hole_outcomes"] = {}
     normalize_text_updates(state)
     return state
 
@@ -498,6 +502,7 @@ def save_selected_tournament(selection):
         state = normalize_state(state)
         state["selected_tournament"] = chosen
         state["player_results"] = {}
+        state["hole_outcomes"] = {}
         state["last_score_refresh_at"] = 0
         state["last_score_refresh_attempt_at"] = 0
         text_updates = normalize_text_updates(state)
@@ -966,6 +971,85 @@ def hole_number_from_status(value):
     except ValueError:
         return None
 
+def is_final_hole_status(value):
+    return strip_thru_prefix(display_hole_value(value)).upper() in ["F", "FINAL"]
+
+def outcome_marker_for_delta(score_delta):
+    if score_delta < 0:
+        return "○"
+    if score_delta > 0:
+        return "□"
+    return "P"
+
+def derive_hole_outcome_markers(old_result, new_result):
+    old_result = old_result if isinstance(old_result, dict) else {}
+    new_result = new_result if isinstance(new_result, dict) else {}
+
+    old_score = parse_golf_score(old_result.get("score"))
+    new_score = parse_golf_score(new_result.get("score"))
+    if old_score is None or new_score is None:
+        return []
+
+    old_hole_num = hole_number_from_status(old_result.get("hole"))
+    new_hole_num = hole_number_from_status(new_result.get("hole"))
+
+    holes_advanced = 0
+    if old_hole_num is not None and new_hole_num is not None and new_hole_num > old_hole_num:
+        holes_advanced = new_hole_num - old_hole_num
+    elif old_hole_num is not None and is_final_hole_status(new_result.get("hole")):
+        holes_advanced = max(0, 18 - old_hole_num)
+
+    if holes_advanced <= 0:
+        return []
+
+    score_delta = new_score - old_score
+    if holes_advanced == 1:
+        return [outcome_marker_for_delta(score_delta)]
+
+    # If multiple holes advanced between refreshes, spread the net delta over those holes:
+    # treat remaining holes as pars.
+    markers = []
+    if score_delta < 0:
+        birdies = min(-score_delta, holes_advanced)
+        markers.extend(["P"] * (holes_advanced - birdies))
+        markers.extend(["○"] * birdies)
+    elif score_delta > 0:
+        bogeys = min(score_delta, holes_advanced)
+        markers.extend(["P"] * (holes_advanced - bogeys))
+        markers.extend(["□"] * bogeys)
+    else:
+        markers.extend(["P"] * holes_advanced)
+    return markers
+
+def update_hole_outcomes(existing_outcomes, old_results, new_results):
+    existing_outcomes = existing_outcomes if isinstance(existing_outcomes, dict) else {}
+    old_results = old_results if isinstance(old_results, dict) else {}
+    new_results = new_results if isinstance(new_results, dict) else {}
+
+    updated = {}
+    for player, prior in existing_outcomes.items():
+        if isinstance(prior, list):
+            updated[player] = [str(item) for item in prior if str(item) in {"P", "○", "□"}][-5:]
+
+    for player, new_result in new_results.items():
+        markers = derive_hole_outcome_markers(old_results.get(player, {}), new_result)
+        if not markers:
+            if player not in updated:
+                updated[player] = []
+            continue
+        history = list(updated.get(player, []))
+        history.extend(markers)
+        updated[player] = history[-5:]
+    return updated
+
+def format_recent_hole_outcomes(outcomes):
+    if not isinstance(outcomes, list) or not outcomes:
+        return ""
+    safe = [html.escape(str(item)) for item in outcomes if str(item) in {"P", "○", "□"}]
+    if not safe:
+        return ""
+    return f" ({' '.join(safe)})"
+
 def get_team_top_three_from_results(players, results):
     scored_players = []
     for draft_index, player in enumerate(players):
@@ -1241,7 +1325,9 @@ def refresh_scores(show_status=True):
         nonlocal pending_messages
         now = time.time()
         old_results = state.get("player_results", {})
+        old_outcomes = state.get("hole_outcomes", {})
         pending_messages, new_event_ids = build_text_update_messages(state, old_results, live_results)
+        state["hole_outcomes"] = update_hole_outcomes(old_outcomes, old_results, live_results)
         state["player_results"] = live_results
         state["last_score_refresh_at"] = now
         state["last_score_refresh_attempt_at"] = now
@@ -1495,10 +1581,11 @@ def save_team_names(new_teams):
     return mutate_shared_state(mutator, "Update team names")
 
 def get_player_result(player):
-    result = PLAYER_RESULTS_DISPLAY.get(player, {"score": "N/A", "hole": "—"})
+    result = PLAYER_RESULTS_DISPLAY.get(player, {"score": "N/A", "hole": "—", "recent_outcomes": []})
     return {
         "score": result.get("score", "N/A"),
         "hole": result.get("hole", "—"),
+        "recent_outcomes": result.get("recent_outcomes", []),
     }
 
 def format_hole_status_for_card(value):
@@ -1635,10 +1722,12 @@ teams_data = state["teams"]
 draft_order = state["draft_order"]
 text_updates = normalize_text_updates(state)
 PLAYER_RESULTS = state.get("player_results", {})
+PLAYER_HOLE_OUTCOMES = state.get("hole_outcomes", {})
 PLAYER_RESULTS_DISPLAY = {
     player: {
         "score": result.get("score", "N/A"),
         "hole": display_hole_value(result.get("hole", "—")),
+        "recent_outcomes": PLAYER_HOLE_OUTCOMES.get(player, []),
     }
     for player, result in PLAYER_RESULTS.items()
 }
@@ -1702,9 +1791,10 @@ for coach_id, data in team_render_data.items():
             safe_player = html.escape(display_player_name(player))
             score = html.escape(format_golf_score(score_value))
             status_text = format_hole_status_for_card(result.get("hole", "—"))
+            recent_outcomes_text = format_recent_hole_outcomes(result.get("recent_outcomes", []))
             top3_html += (
                 f"<div style='margin:4px 0; color:{color}; font-size:1.05rem;'>"
-                f"{safe_player} <span style='font-weight:700;'>({score})</span> {html.escape(status_text)}"
+                f"{safe_player} <span style='font-weight:700;'>({score})</span> {html.escape(status_text)}{recent_outcomes_text}"
                 f"</div>"
             )
     elif players:
