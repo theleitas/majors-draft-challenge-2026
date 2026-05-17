@@ -2,6 +2,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 from streamlit_autorefresh import st_autorefresh
 import requests, json, base64, time, html, os, mimetypes, re
+from functools import lru_cache
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
@@ -300,13 +301,22 @@ def normalize_state(state):
     normalize_text_updates(state)
     return state
 
-def image_to_data_uri(path):
-    if not os.path.exists(path):
-        return ""
+@lru_cache(maxsize=64)
+def _image_to_data_uri_cached(path, modified_at):
     mime_type = mimetypes.guess_type(path)[0] or "image/png"
     with open(path, "rb") as image_file:
         encoded = base64.b64encode(image_file.read()).decode("utf-8")
     return f"data:{mime_type};base64,{encoded}"
+
+def image_to_data_uri(path):
+    if not path:
+        return ""
+    try:
+        abs_path = os.path.abspath(path)
+        modified_at = os.path.getmtime(abs_path)
+        return _image_to_data_uri_cached(abs_path, modified_at)
+    except OSError:
+        return ""
 
 def image_html(path, class_name):
     data_uri = image_to_data_uri(path)
@@ -1063,14 +1073,8 @@ def send_test_text_update(text_updates, recipient_name):
     message = f"Test message from 2026 PGA Championship Draft Challenge ({datetime.now().strftime('%Y-%m-%d %H:%M:%S')})."
     return send_twilio_sms(text_updates, phone, message)
 
-def get_golfer_owner(golfer):
-    for coach_id, info in teams_data.items():
-        if golfer in info.get("players", []):
-            return coach_id
-    return None
-
-def leaderboard_owner_image_html(golfer):
-    coach_id = get_golfer_owner(golfer)
+def leaderboard_owner_image_html(golfer, owner_lookup):
+    coach_id = owner_lookup.get(golfer)
     if not coach_id:
         return ""
     image_path = COACH_IMAGES.get(coach_id)
@@ -1087,6 +1091,10 @@ def leaderboard_owner_image_html(golfer):
 
 def render_tournament_leaderboard():
     leaderboard_rows = get_tournament_leaderboard(20)
+    owner_lookup = {}
+    for coach_id, info in teams_data.items():
+        for golfer in info.get("players", []):
+            owner_lookup[golfer] = coach_id
     leaderboard_parts = [
         "<div style='border:5px solid #fff; background-color:rgba(255,255,255,.06); border-radius:16px; padding:20px 24px; margin-bottom:1.8rem;'>",
         f"<div class='team-heading' style='color:#fff; font-size:1.75rem; font-weight:800; margin-bottom:6px;'>"
@@ -1099,7 +1107,7 @@ def render_tournament_leaderboard():
     else:
         leaderboard_parts.append("<table class='roster-table'><thead><tr><th>Rank</th><th>Owner</th><th>Golfer</th><th>Score</th><th>Hole</th></tr></thead><tbody>")
         for rank, (score_value, _, player, result) in enumerate(leaderboard_rows, start=1):
-            owner_html = leaderboard_owner_image_html(player)
+            owner_html = leaderboard_owner_image_html(player, owner_lookup)
             safe_player = html.escape(display_player_name(player))
             score = html.escape(format_golf_score(score_value))
             hole = html.escape(format_hole_status_for_card(result.get("hole", "—")))
@@ -1243,10 +1251,10 @@ def save_team_names(new_teams):
     return mutate_shared_state(mutator, "Update team names")
 
 def get_player_result(player):
-    result = PLAYER_RESULTS.get(player, {"score": "N/A", "hole": "—"})
+    result = PLAYER_RESULTS_DISPLAY.get(player, {"score": "N/A", "hole": "—"})
     return {
         "score": result.get("score", "N/A"),
-        "hole": display_hole_value(result.get("hole", "—")),
+        "hole": result.get("hole", "—"),
     }
 
 def format_hole_status_for_card(value):
@@ -1376,11 +1384,17 @@ if "confirm_clear_rosters" not in st.session_state:
     st.session_state.confirm_clear_rosters = False
 
 state, state_sha = load_state_from_github()
-state = normalize_state(state)
 teams_data = state["teams"]
 draft_order = state["draft_order"]
 text_updates = normalize_text_updates(state)
 PLAYER_RESULTS = state.get("player_results", {})
+PLAYER_RESULTS_DISPLAY = {
+    player: {
+        "score": result.get("score", "N/A"),
+        "hole": display_hole_value(result.get("hole", "—")),
+    }
+    for player, result in PLAYER_RESULTS.items()
+}
 picks = derive_picks_from_state(state)
 picked_golfers = get_picked_golfers(state)
 current_pick = get_current_pick(state)
