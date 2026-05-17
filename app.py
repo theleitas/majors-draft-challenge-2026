@@ -898,6 +898,22 @@ def extract_hole_or_tee_time(competitor):
 
     return "—"
 
+def extract_player_profile_url(competitor):
+    athlete = competitor.get("athlete") if isinstance(competitor.get("athlete"), dict) else {}
+    links = athlete.get("links")
+    if isinstance(links, list):
+        for link in links:
+            if not isinstance(link, dict):
+                continue
+            href = str(link.get("href") or "").strip()
+            if href and ("player/_/id/" in href or "playercard" in " ".join(link.get("rel", []))):
+                return href
+
+    athlete_id = str(athlete.get("id") or "").strip()
+    if athlete_id:
+        return f"https://www.espn.com/golf/player/_/id/{athlete_id}"
+    return ""
+
 def fetch_live_scores_from_espn(event_id=""):
     params = {"league": "pga"}
     if event_id:
@@ -918,10 +934,12 @@ def fetch_live_scores_from_espn(event_id=""):
             score = "N/A"
 
         hole_or_tee = extract_hole_or_tee_time(competitor)
+        profile_url = extract_player_profile_url(competitor)
 
         results[matched_name] = {
             "score": score,
             "hole": hole_or_tee,
+            "profile_url": profile_url,
         }
 
     return results
@@ -1300,6 +1318,19 @@ def leaderboard_owner_image_html(golfer, owner_lookup):
         f"border:2px solid {color}; display:block;'>"
     )
 
+def leaderboard_golfer_with_info_html(player, result):
+    safe_player = html.escape(display_player_name(player))
+    profile_url = str((result or {}).get("profile_url") or "").strip()
+    if not profile_url:
+        return safe_player
+    safe_url = html.escape(profile_url, quote=True)
+    return (
+        f"{safe_player} "
+        f"<a href='{safe_url}' target='_blank' rel='noopener noreferrer' "
+        f"title='Player info' aria-label='Player info' "
+        f"style='color:#fff; text-decoration:none; font-style:normal; font-weight:700;'>ⓘ</a>"
+    )
+
 def render_tournament_leaderboard(tournament):
     leaderboard_rows = get_tournament_leaderboard(20)
     owner_lookup = {}
@@ -1321,10 +1352,10 @@ def render_tournament_leaderboard(tournament):
         leaderboard_parts.append("<table class='roster-table'><thead><tr><th>Rank</th><th>Owner</th><th>Golfer</th><th>Score</th><th>Hole</th></tr></thead><tbody>")
         for rank, (score_value, _, player, result) in enumerate(leaderboard_rows, start=1):
             owner_html = leaderboard_owner_image_html(player, owner_lookup)
-            safe_player = html.escape(display_player_name(player))
+            golfer_cell = leaderboard_golfer_with_info_html(player, result)
             score = html.escape(format_golf_score(score_value))
             hole = html.escape(format_hole_status_for_card(result.get("hole", "—")))
-            leaderboard_parts.append(f"<tr><td>{rank}</td><td>{owner_html}</td><td>{safe_player}</td><td>{score}</td><td>{hole}</td></tr>")
+            leaderboard_parts.append(f"<tr><td>{rank}</td><td>{owner_html}</td><td>{golfer_cell}</td><td>{score}</td><td>{hole}</td></tr>")
         leaderboard_parts.append("</tbody></table>")
 
     leaderboard_parts.append("</div>")
