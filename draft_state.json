@@ -140,8 +140,8 @@
       "hole": "11:45 AM"
     },
     "Rasmus Højgaard": {
-      "score": "+4",
-      "hole": "2"
+      "score": "+3",
+      "hole": "3"
     },
     "Andrew Novak": {
       "score": "E",
@@ -197,7 +197,7 @@
     },
     "Jason Day": {
       "score": "+4",
-      "hole": "4"
+      "hole": "5"
     },
     "Padraig Harrington": {
       "score": "E",
@@ -369,7 +369,7 @@
     },
     "Casey Jarvis": {
       "score": "+10",
-      "hole": "8"
+      "hole": "9"
     },
     "Chandler Blanchet": {
       "score": "+2",
@@ -457,7 +457,7 @@
     },
     "Ryan Gerard": {
       "score": "+3",
-      "hole": "4"
+      "hole": "5"
     },
     "William Mouw": {
       "score": "+3",
@@ -553,7 +553,7 @@
     },
     "Patrick Cantlay": {
       "score": "+3",
-      "hole": "9:01 AM"
+      "hole": "1"
     },
     "Luke Donald": {
       "score": "+6",
@@ -629,7 +629,7 @@
     },
     "Christiaan Bezuidenhout": {
       "score": "+4",
-      "hole": "1"
+      "hole": "2"
     },
     "Scottie Scheffler": {
       "score": "-1",
@@ -668,6 +668,6 @@
       "hole": "12:25 PM"
     }
   },
-  "last_score_refresh_at": 1779023582.0631514,
-  "last_score_refresh_attempt_at": 1779023889.147295
+  "last_score_refresh_at": 1779023890.505107,
+  "last_score_refresh_attempt_at": 1779023890.505107
 }
