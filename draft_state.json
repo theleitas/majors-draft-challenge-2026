@@ -96,8 +96,8 @@
       "hole": "MC"
     },
     "Matt Wallace": {
-      "score": "+4",
-      "hole": "6"
+      "score": "+3",
+      "hole": "7"
     },
     "Collin Morikawa": {
       "score": "+5",
@@ -197,7 +197,7 @@
     },
     "Jason Day": {
       "score": "+4",
-      "hole": "7"
+      "hole": "8"
     },
     "Padraig Harrington": {
       "score": "E",
@@ -253,7 +253,7 @@
     },
     "Alex Noren": {
       "score": "+3",
-      "hole": "3"
+      "hole": "4"
     },
     "Adam Scott": {
       "score": "+8",
@@ -281,7 +281,7 @@
     },
     "Alex Fitzpatrick": {
       "score": "+5",
-      "hole": "6"
+      "hole": "7"
     },
     "Viktor Hovland": {
       "score": "+6",
@@ -329,7 +329,7 @@
     },
     "Sam Stevens": {
       "score": "+3",
-      "hole": "1"
+      "hole": "2"
     },
     "Steven Fisk": {
       "score": "+8",
@@ -352,8 +352,8 @@
       "hole": "MC"
     },
     "Shane Lowry": {
-      "score": "+4",
-      "hole": "5"
+      "score": "+3",
+      "hole": "6"
     },
     "Harry Hall": {
       "score": "+7",
@@ -369,7 +369,7 @@
     },
     "Casey Jarvis": {
       "score": "+9",
-      "hole": "11"
+      "hole": "12"
     },
     "Chandler Blanchet": {
       "score": "+2",
@@ -456,12 +456,12 @@
       "hole": "MC"
     },
     "Ryan Gerard": {
-      "score": "+5",
-      "hole": "7"
+      "score": "+6",
+      "hole": "8"
     },
     "William Mouw": {
       "score": "+4",
-      "hole": "4"
+      "hole": "5"
     },
     "Aldrich Potgieter": {
       "score": "E",
@@ -553,7 +553,7 @@
     },
     "Patrick Cantlay": {
       "score": "+3",
-      "hole": "3"
+      "hole": "4"
     },
     "Luke Donald": {
       "score": "+6",
@@ -592,8 +592,8 @@
       "hole": "MC"
     },
     "Keith Mitchell": {
-      "score": "+3",
-      "hole": "1"
+      "score": "+4",
+      "hole": "2"
     },
     "Sepp Straka": {
       "score": "+6",
@@ -629,7 +629,7 @@
     },
     "Christiaan Bezuidenhout": {
       "score": "+4",
-      "hole": "4"
+      "hole": "5"
     },
     "Scottie Scheffler": {
       "score": "-1",
@@ -645,7 +645,7 @@
     },
     "Brian Campbell": {
       "score": "+15",
-      "hole": "11"
+      "hole": "12"
     },
     "Maverick McNealy": {
       "score": "-3",
@@ -668,6 +668,6 @@
       "hole": "12:25 PM"
     }
   },
-  "last_score_refresh_at": 1779025899.0341718,
-  "last_score_refresh_attempt_at": 1779026220.6386006
+  "last_score_refresh_at": 1779026221.9523182,
+  "last_score_refresh_attempt_at": 1779026221.9523182
 }
