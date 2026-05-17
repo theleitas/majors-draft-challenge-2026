@@ -128,8 +128,8 @@
       "competitor_id": "10592"
     },
     "Aaron Rai": {
-      "score": "-6",
-      "hole": "12",
+      "score": "-7",
+      "hole": "13",
       "profile_url": "https://www.espn.com/golf/player/_/id/10906/aaron-rai",
       "competitor_id": "10906"
     },
@@ -314,8 +314,8 @@
       "competitor_id": "3448"
     },
     "Chris Kirk": {
-      "score": "+2",
-      "hole": "15",
+      "score": "+1",
+      "hole": "16",
       "profile_url": "https://www.espn.com/golf/player/_/id/3449/chris-kirk",
       "competitor_id": "3449"
     },
@@ -380,8 +380,8 @@
       "competitor_id": "4348444"
     },
     "Kristoffer Reitan": {
-      "score": "+3",
-      "hole": "15",
+      "score": "+2",
+      "hole": "16",
       "profile_url": "https://www.espn.com/golf/player/_/id/4348470/kristoffer-reitan",
       "competitor_id": "4348470"
     },
@@ -974,8 +974,8 @@
       "competitor_id": "9938"
     }
   },
-  "last_score_refresh_at": 1779053149.3811438,
-  "last_score_refresh_attempt_at": 1779053454.2852447,
+  "last_score_refresh_at": 1779053455.6554651,
+  "last_score_refresh_attempt_at": 1779053455.6554651,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -1071,10 +1071,10 @@
     "Matt Wallace": [],
     "Collin Morikawa": [],
     "Aaron Rai": [
-      "P",
       "○",
       "P",
       "P",
+      "○",
       "○"
     ],
     "Sahith Theegala": [],
@@ -1158,11 +1158,11 @@
       "□"
     ],
     "Chris Kirk": [
-      "□",
       "P",
       "P",
       "P",
-      "P"
+      "P",
+      "○"
     ],
     "Rory McIlroy": [
       "P",
@@ -1206,8 +1206,8 @@
       "P",
       "P",
       "P",
-      "P",
-      "□"
+      "□",
+      "○"
     ],
     "Timothy Wiseman": [],
     "Alex Fitzpatrick": [],
