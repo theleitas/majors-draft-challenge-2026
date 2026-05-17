@@ -80,7 +80,8 @@ REPO_NAME = "majors-draft-challenge-2026"
 STATE_FILE_PATH = "draft_state.json"
 BRANCH = "main"
 MAX_PICKS = 30
-ESPN_LEADERBOARD_URL = "https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?league=pga"
+ESPN_LEADERBOARD_BASE_URL = "https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard"
+ESPN_PGA_SCOREBOARD_URL = "https://site.api.espn.com/apis/site/v2/sports/golf/pga/scoreboard"
 AUTO_SCORE_REFRESH_SECONDS = 5 * 60
 AVAILABLE_GOLFERS_PAGE_SIZE = 24
 DEFAULT_TWILIO_ACCOUNT_SID = read_secret("TWILIO_ACCOUNT_SID") or ""
@@ -274,6 +275,7 @@ def default_state():
             "Spencer Tidwell": {"team_name": "Spencer's Team", "players": []},
             "Peter Miller": {"team_name": "Peter's Team", "players": []},
         },
+        "selected_tournament": {},
         "text_updates": default_text_updates(),
     }
 
@@ -289,6 +291,7 @@ def normalize_state(state):
     state.setdefault("last_score_refresh_at", base["last_score_refresh_at"])
     state.setdefault("last_score_refresh_attempt_at", base["last_score_refresh_attempt_at"])
     state.setdefault("teams", base["teams"])
+    state.setdefault("selected_tournament", base["selected_tournament"])
     state.setdefault("text_updates", base["text_updates"])
     for coach, info in base["teams"].items():
         state["teams"].setdefault(coach, info)
@@ -301,8 +304,209 @@ def normalize_state(state):
     for coach in valid_coaches:
         state["teams"][coach].setdefault("team_name", coach)
         state["teams"][coach].setdefault("players", [])
+    if not isinstance(state.get("selected_tournament"), dict):
+        state["selected_tournament"] = {}
     normalize_text_updates(state)
     return state
+
+def parse_espn_datetime(value):
+    text = str(value or "").strip()
+    if not text:
+        return None
+    if text.endswith("Z"):
+        text = text[:-1] + "+00:00"
+    elif re.search(r"[+-]\d{4}$", text):
+        text = text[:-5] + text[-5:-2] + ":" + text[-2:]
+    try:
+        return datetime.fromisoformat(text)
+    except Exception:
+        return None
+
+def format_tournament_title(name, start_date_iso):
+    raw_name = str(name or "").strip() or "PGA Tournament"
+    parsed = parse_espn_datetime(start_date_iso)
+    year = parsed.year if parsed else datetime.now(ZoneInfo("America/New_York")).year
+    if raw_name.startswith(f"{year} "):
+        return raw_name
+    return f"{year} {raw_name}"
+
+def format_event_location(event):
+    courses = event.get("courses") if isinstance(event, dict) else None
+    if not isinstance(courses, list) or not courses:
+        return "Location TBA"
+
+    host_course = None
+    for course in courses:
+        if isinstance(course, dict) and course.get("host"):
+            host_course = course
+            break
+    if host_course is None:
+        host_course = courses[0] if isinstance(courses[0], dict) else {}
+
+    course_name = str(host_course.get("name") or "").strip()
+    address = host_course.get("address") if isinstance(host_course.get("address"), dict) else {}
+    city = str(address.get("city") or "").strip()
+    state_or_country = str(address.get("state") or address.get("country") or "").strip()
+    city_state = ", ".join(part for part in [city, state_or_country] if part)
+    if course_name and city_state:
+        return f"{course_name} - {city_state}"
+    if course_name:
+        return course_name
+    if city_state:
+        return city_state
+    return "Location TBA"
+
+def format_tournament_date_range(start_date_iso, end_date_iso):
+    start_dt = parse_espn_datetime(start_date_iso)
+    end_dt = parse_espn_datetime(end_date_iso)
+    if not start_dt and not end_dt:
+        return "Date TBD"
+    if start_dt and not end_dt:
+        return start_dt.strftime("%b %d, %Y")
+    if end_dt and not start_dt:
+        return end_dt.strftime("%b %d, %Y")
+    start_local = start_dt.astimezone(ZoneInfo("America/New_York"))
+    end_local = end_dt.astimezone(ZoneInfo("America/New_York"))
+    if start_local.year != end_local.year:
+        return f"{start_local.strftime('%b %d, %Y')} - {end_local.strftime('%b %d, %Y')}"
+    if start_local.month == end_local.month:
+        return f"{start_local.strftime('%b %d')} - {end_local.strftime('%d, %Y')}"
+    return f"{start_local.strftime('%b %d')} - {end_local.strftime('%b %d, %Y')}"
+
+@st.cache_data(ttl=300, show_spinner=False)
+def fetch_pga_calendar_payload():
+    resp = requests.get(ESPN_PGA_SCOREBOARD_URL, timeout=12)
+    resp.raise_for_status()
+    return resp.json()
+
+@st.cache_data(ttl=1800, show_spinner=False)
+def fetch_tournament_metadata(event_id):
+    params = {"league": "pga", "event": str(event_id)}
+    resp = requests.get(ESPN_LEADERBOARD_BASE_URL, params=params, timeout=12)
+    resp.raise_for_status()
+    payload = resp.json()
+    events = payload.get("events") or []
+    if not events:
+        raise ValueError("No tournament events returned from ESPN.")
+
+    event = events[0]
+    return {
+        "event_id": str(event.get("id") or event_id),
+        "name": str(event.get("name") or "PGA Tournament"),
+        "start_date": event.get("date"),
+        "end_date": event.get("endDate"),
+        "title": format_tournament_title(event.get("name"), event.get("date")),
+        "location": format_event_location(event),
+    }
+
+def build_tournament_options(selected_event_id):
+    payload = fetch_pga_calendar_payload()
+    league = (payload.get("leagues") or [{}])[0]
+    calendar = league.get("calendar") or []
+    current_events = payload.get("events") or []
+    current_event_id = str(current_events[0].get("id")) if current_events else None
+    today_et = datetime.now(ZoneInfo("America/New_York")).date()
+
+    normalized = []
+    for entry in calendar:
+        event_id = str(entry.get("id") or "").strip()
+        if not event_id:
+            continue
+        end_dt = parse_espn_datetime(entry.get("endDate"))
+        if end_dt and end_dt.astimezone(ZoneInfo("America/New_York")).date() < today_et:
+            continue
+        normalized.append(
+            {
+                "event_id": event_id,
+                "name": str(entry.get("label") or "PGA Tournament"),
+                "start_date": entry.get("startDate"),
+                "end_date": entry.get("endDate"),
+            }
+        )
+
+    if not normalized:
+        return [], None
+
+    anchor_event_id = str(selected_event_id or "").strip() or current_event_id or normalized[0]["event_id"]
+    anchor_index = next((idx for idx, item in enumerate(normalized) if item["event_id"] == anchor_event_id), None)
+    if anchor_index is None:
+        anchor_index = 0
+        anchor_event_id = normalized[0]["event_id"]
+
+    picked = normalized[anchor_index:anchor_index + 11]
+    options = []
+    for item in picked:
+        details = {
+            "event_id": item["event_id"],
+            "name": item["name"],
+            "start_date": item["start_date"],
+            "end_date": item["end_date"],
+            "title": format_tournament_title(item["name"], item["start_date"]),
+            "location": "Location TBA",
+        }
+        try:
+            fetched = fetch_tournament_metadata(item["event_id"])
+            details.update({k: v for k, v in fetched.items() if v})
+            details["title"] = format_tournament_title(details.get("name"), details.get("start_date"))
+        except Exception:
+            pass
+        options.append(details)
+
+    return options, anchor_event_id
+
+def current_tournament_selection(state):
+    selected = state.get("selected_tournament") if isinstance(state.get("selected_tournament"), dict) else {}
+    selected_event_id = str(selected.get("event_id") or "").strip()
+
+    try:
+        options, anchor_event_id = build_tournament_options(selected_event_id)
+    except Exception:
+        options = []
+        anchor_event_id = selected_event_id
+
+    option_lookup = {option["event_id"]: option for option in options}
+    chosen_event_id = selected_event_id if selected_event_id in option_lookup else (anchor_event_id if anchor_event_id in option_lookup else "")
+
+    chosen = dict(selected) if isinstance(selected, dict) else {}
+    if chosen_event_id and chosen_event_id in option_lookup:
+        chosen = dict(option_lookup[chosen_event_id])
+    elif options:
+        chosen = dict(options[0])
+
+    if chosen and "title" not in chosen:
+        chosen["title"] = format_tournament_title(chosen.get("name"), chosen.get("start_date"))
+
+    return chosen, options
+
+def tournament_option_label(option):
+    date_text = format_tournament_date_range(option.get("start_date"), option.get("end_date"))
+    title = str(option.get("title") or option.get("name") or "PGA Tournament")
+    location = str(option.get("location") or "Location TBA")
+    return f"{date_text} | {title} | {location}"
+
+def save_selected_tournament(selection):
+    chosen = {
+        "event_id": str(selection.get("event_id") or "").strip(),
+        "name": str(selection.get("name") or "").strip(),
+        "start_date": selection.get("start_date"),
+        "end_date": selection.get("end_date"),
+        "title": str(selection.get("title") or "").strip(),
+        "location": str(selection.get("location") or "").strip(),
+    }
+
+    def mutator(state):
+        state = normalize_state(state)
+        state["selected_tournament"] = chosen
+        state["player_results"] = {}
+        state["last_score_refresh_at"] = 0
+        state["last_score_refresh_attempt_at"] = 0
+        text_updates = normalize_text_updates(state)
+        text_updates["sent_event_ids"] = []
+        text_updates["top3_by_coach"] = {}
+        text_updates["leaders"] = []
+        return True
+
+    return mutate_shared_state(mutator, "Update selected tournament")
 
 @lru_cache(maxsize=64)
 def _image_to_data_uri_cached(path, modified_at):
@@ -694,8 +898,11 @@ def extract_hole_or_tee_time(competitor):
 
     return "—"
 
-def fetch_live_scores_from_espn():
-    resp = requests.get(ESPN_LEADERBOARD_URL, timeout=12)
+def fetch_live_scores_from_espn(event_id=""):
+    params = {"league": "pga"}
+    if event_id:
+        params["event"] = str(event_id)
+    resp = requests.get(ESPN_LEADERBOARD_BASE_URL, params=params, timeout=12)
     resp.raise_for_status()
     payload = resp.json()
 
@@ -997,8 +1204,9 @@ def auto_refresh_scores_if_needed(state):
         refresh_scores(show_status=False)
 
 def refresh_scores(show_status=True):
+    event_id = str(SELECTED_TOURNAMENT.get("event_id") or "").strip()
     try:
-        live_results = fetch_live_scores_from_espn()
+        live_results = fetch_live_scores_from_espn(event_id=event_id)
     except Exception as e:
         if show_status:
             st.error(f"Could not refresh scores from ESPN: {e}")
@@ -1092,17 +1300,19 @@ def leaderboard_owner_image_html(golfer, owner_lookup):
         f"border:2px solid {color}; display:block;'>"
     )
 
-def render_tournament_leaderboard():
+def render_tournament_leaderboard(tournament):
     leaderboard_rows = get_tournament_leaderboard(20)
     owner_lookup = {}
     for coach_id, info in teams_data.items():
         for golfer in info.get("players", []):
             owner_lookup[golfer] = coach_id
+    tournament_title = html.escape(str(tournament.get("title") or "PGA Tournament"))
+    tournament_location = html.escape(str(tournament.get("location") or "Location TBA"))
     leaderboard_parts = [
         "<div style='border:5px solid #fff; background-color:rgba(255,255,255,.06); border-radius:16px; padding:20px 24px; margin-bottom:1.8rem;'>",
         f"<div class='team-heading' style='color:#fff; font-size:1.75rem; font-weight:800; margin-bottom:6px;'>"
-        f"{app_logo_html()}<span>2026 PGA Championship</span></div>",
-        "<div style='color:#bbb; font-size:1rem; font-style:italic; margin-bottom:18px;'>Aronimink Golf Club</div>",
+        f"{app_logo_html()}<span>{tournament_title}</span></div>",
+        f"<div style='color:#bbb; font-size:1rem; font-style:italic; margin-bottom:18px;'>{tournament_location}</div>",
     ]
 
     if not leaderboard_rows:
@@ -1385,8 +1595,11 @@ def render_pick_timer(start_time):
 
 if "confirm_clear_rosters" not in st.session_state:
     st.session_state.confirm_clear_rosters = False
+if "confirm_save_tournament" not in st.session_state:
+    st.session_state.confirm_save_tournament = False
 
 state, state_sha = load_state_from_github()
+SELECTED_TOURNAMENT, TOURNAMENT_OPTIONS = current_tournament_selection(state)
 teams_data = state["teams"]
 draft_order = state["draft_order"]
 text_updates = normalize_text_updates(state)
@@ -1405,11 +1618,18 @@ current_pick = get_current_pick(state)
 st_autorefresh(interval=5000, limit=None, key="shared_state_refresh")
 auto_refresh_scores_if_needed(state)
 
+selected_tournament_title = html.escape(str(SELECTED_TOURNAMENT.get("title") or "PGA Tournament"))
+selected_tournament_date = format_tournament_date_range(
+    SELECTED_TOURNAMENT.get("start_date"),
+    SELECTED_TOURNAMENT.get("end_date"),
+)
+selected_tournament_location = html.escape(str(SELECTED_TOURNAMENT.get("location") or "Location TBA"))
+
 st.markdown(
-    f"<div class='app-title'>{app_logo_html()}<h1>2026 PGA Championship</h1></div>",
+    f"<div class='app-title'>{app_logo_html()}<h1>{selected_tournament_title}</h1></div>",
     unsafe_allow_html=True,
 )
-st.caption("**May 14–17, 2026** • Aronimink Golf Club")
+st.caption(f"**{selected_tournament_date}** • {selected_tournament_location}")
 
 st.subheader("Standings")
 
@@ -1527,7 +1747,7 @@ for idx, (coach_id, info) in enumerate(teams_data.items()):
 render_refresh_scores_button("refresh_scores_middle", state)
 
 st.subheader("Tournament Leaderboard")
-render_tournament_leaderboard()
+render_tournament_leaderboard(SELECTED_TOURNAMENT)
 
 with st.expander("🎯 DRAFT SECTION", expanded=state["draft_enabled"]):
     if not state["draft_enabled"]:
@@ -1743,6 +1963,56 @@ with st.expander("📱 Text Updates", expanded=False):
             st.error(f"Test message failed: {info}")
 
 with st.expander("🔧 Admin Section", expanded=False):
+    st.subheader("Tournament Selection")
+
+    if not TOURNAMENT_OPTIONS:
+        st.error("Could not load tournament schedule from ESPN right now.")
+    else:
+        option_lookup = {option["event_id"]: option for option in TOURNAMENT_OPTIONS}
+        option_ids = list(option_lookup.keys())
+        saved_event_id = str((state.get("selected_tournament") or {}).get("event_id") or "")
+        active_event_id = saved_event_id if saved_event_id in option_lookup else str(SELECTED_TOURNAMENT.get("event_id") or "")
+        if active_event_id not in option_ids:
+            active_event_id = option_ids[0]
+        effective_saved_event_id = saved_event_id if saved_event_id in option_lookup else active_event_id
+
+        selected_event_id = st.selectbox(
+            "Tournament",
+            options=option_ids,
+            index=option_ids.index(active_event_id),
+            format_func=lambda event_id: tournament_option_label(option_lookup[event_id]),
+            key="admin_tournament_select_event_id",
+        )
+
+        if st.session_state.get("pending_tournament_event_id") != selected_event_id:
+            st.session_state.confirm_save_tournament = False
+            st.session_state.pending_tournament_event_id = selected_event_id
+
+        chosen_option = option_lookup[selected_event_id]
+        if selected_event_id == effective_saved_event_id:
+            st.caption("Current saved tournament is active.")
+        else:
+            st.warning("Saving this updates the app's tournament target and score source. Rosters will stay untouched.")
+            if not st.session_state.confirm_save_tournament:
+                if st.button("💾 Save Tournament Selection", use_container_width=True):
+                    st.session_state.confirm_save_tournament = True
+                    st.rerun()
+            else:
+                st.warning(f"Are you sure you want to switch to: {tournament_option_label(chosen_option)}?")
+                save_col, cancel_col = st.columns(2)
+                with save_col:
+                    if st.button("✅ YES, SAVE TOURNAMENT", type="primary", use_container_width=True):
+                        result, _ = save_selected_tournament(chosen_option)
+                        if result:
+                            st.session_state.confirm_save_tournament = False
+                            st.success("Tournament selection saved.")
+                            time.sleep(0.5)
+                            st.rerun()
+                with cancel_col:
+                    if st.button("Cancel Tournament Save", use_container_width=True):
+                        st.session_state.confirm_save_tournament = False
+                        st.rerun()
+
     st.subheader("Draft Control")
     st.toggle("Show Performance Debug", value=st.session_state.get("perf_debug_enabled", False), key="perf_debug_enabled")
 
