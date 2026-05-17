@@ -101,7 +101,7 @@
     },
     "Collin Morikawa": {
       "score": "+5",
-      "hole": "4"
+      "hole": "5"
     },
     "Aaron Rai": {
       "score": "-4",
@@ -353,7 +353,7 @@
     },
     "Shane Lowry": {
       "score": "+4",
-      "hole": "8:43 AM"
+      "hole": "1"
     },
     "Harry Hall": {
       "score": "+7",
@@ -377,7 +377,7 @@
     },
     "John Parry": {
       "score": "+4",
-      "hole": "8:43 AM"
+      "hole": "1"
     },
     "Chris Gotterup": {
       "score": "-2",
@@ -397,7 +397,7 @@
     },
     "Elvis Smylie": {
       "score": "+7",
-      "hole": "4"
+      "hole": "5"
     },
     "Tyler Collet": {
       "score": "+6",
@@ -424,8 +424,8 @@
       "hole": "9:10 AM"
     },
     "Rasmus Neergaard-Petersen": {
-      "score": "+5",
-      "hole": "3"
+      "score": "+6",
+      "hole": "4"
     },
     "Joe Highsmith": {
       "score": "+8",
@@ -557,7 +557,7 @@
     },
     "Luke Donald": {
       "score": "+6",
-      "hole": "5"
+      "hole": "6"
     },
     "David Lipsky": {
       "score": "+6",
@@ -668,6 +668,6 @@
       "hole": "12:25 PM"
     }
   },
-  "last_score_refresh_at": 1779022565.8901381,
-  "last_score_refresh_attempt_at": 1779022565.8901381
+  "last_score_refresh_at": 1779022794.3667517,
+  "last_score_refresh_attempt_at": 1779022794.3667517
 }
