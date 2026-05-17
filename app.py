@@ -1148,7 +1148,12 @@ def format_recent_hole_outcomes(outcomes):
     safe = [html.escape(str(item)) for item in outcomes if str(item) in {"P", "○", "□"}]
     if not safe:
         return ""
-    return f" ({', '.join(safe)})"
+    return f" ({' '.join(safe)})"
+
+def should_show_recent_hole_outcomes(result):
+    # Only show the last-5 markers when the golfer is actively playing today's round.
+    hole_value = (result or {}).get("hole", "—")
+    return hole_number_from_status(hole_value) is not None
 
 def get_team_top_three_from_results(players, results):
     scored_players = []
@@ -1893,7 +1898,7 @@ for coach_id, data in team_render_data.items():
             safe_player = html.escape(display_player_name(player))
             score = html.escape(format_golf_score(score_value))
             status_text = format_hole_status_for_card(result.get("hole", "—"))
-            recent_outcomes = get_recent_outcomes_for_standings(player, result)
+            recent_outcomes = get_recent_outcomes_for_standings(player, result) if should_show_recent_hole_outcomes(result) else []
             recent_outcomes_text = format_recent_hole_outcomes(recent_outcomes)
             top3_html += (
                 f"<div style='margin:4px 0; color:{color}; font-size:1.05rem;'>"
