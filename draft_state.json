@@ -61,7 +61,7 @@
     },
     "Denny McCarthy": {
       "score": "+2",
-      "hole": "3"
+      "hole": "4"
     },
     "Davis Riley": {
       "score": "+11",
@@ -97,11 +97,11 @@
     },
     "Matt Wallace": {
       "score": "+3",
-      "hole": "11"
+      "hole": "12"
     },
     "Collin Morikawa": {
       "score": "+4",
-      "hole": "14"
+      "hole": "15"
     },
     "Aaron Rai": {
       "score": "-4",
@@ -281,7 +281,7 @@
     },
     "Alex Fitzpatrick": {
       "score": "+8",
-      "hole": "11"
+      "hole": "12"
     },
     "Viktor Hovland": {
       "score": "+6",
@@ -329,7 +329,7 @@
     },
     "Sam Stevens": {
       "score": "+3",
-      "hole": "6"
+      "hole": "7"
     },
     "Steven Fisk": {
       "score": "+8",
@@ -373,7 +373,7 @@
     },
     "Chandler Blanchet": {
       "score": "+2",
-      "hole": "3"
+      "hole": "4"
     },
     "John Parry": {
       "score": "+3",
@@ -397,7 +397,7 @@
     },
     "Elvis Smylie": {
       "score": "+8",
-      "hole": "14"
+      "hole": "15"
     },
     "Tyler Collet": {
       "score": "+6",
@@ -417,7 +417,7 @@
     },
     "Justin Thomas": {
       "score": "E",
-      "hole": "10:55 AM"
+      "hole": "1"
     },
     "Ryo Hisatsune": {
       "score": "+1",
@@ -440,8 +440,8 @@
       "hole": "MC"
     },
     "Michael Brennan": {
-      "score": "+6",
-      "hole": "5"
+      "score": "+7",
+      "hole": "6"
     },
     "Jacob Bridgeman": {
       "score": "+8",
@@ -556,8 +556,8 @@
       "hole": "9"
     },
     "Luke Donald": {
-      "score": "+7",
-      "hole": "16"
+      "score": "+6",
+      "hole": "17"
     },
     "David Lipsky": {
       "score": "+6",
@@ -613,7 +613,7 @@
     },
     "Matt Fitzpatrick": {
       "score": "+1",
-      "hole": "7"
+      "hole": "8"
     },
     "Corey Conners": {
       "score": "+3",
@@ -628,8 +628,8 @@
       "hole": "3"
     },
     "Christiaan Bezuidenhout": {
-      "score": "+3",
-      "hole": "9"
+      "score": "+2",
+      "hole": "10"
     },
     "Scottie Scheffler": {
       "score": "-1",
@@ -668,8 +668,8 @@
       "hole": "12:25 PM"
     }
   },
-  "last_score_refresh_at": 1779030288.5409648,
-  "last_score_refresh_attempt_at": 1779030589.369033,
+  "last_score_refresh_at": 1779030591.7906587,
+  "last_score_refresh_attempt_at": 1779030591.7906587,
   "text_updates": {
     "enabled": false,
     "twilio": {
