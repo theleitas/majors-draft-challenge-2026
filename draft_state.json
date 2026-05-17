@@ -678,17 +678,17 @@
       "from_number": ""
     },
     "recipients": {
+      "Peter": {
+        "enabled": false,
+        "phone": "+14239679645"
+      },
       "Jayme": {
         "enabled": true,
-        "phone": "+14239679645"
+        "phone": "+14239638665"
       },
       "Spencer": {
         "enabled": true,
         "phone": "+13375132901"
-      },
-      "Peter": {
-        "enabled": false,
-        "phone": ""
       }
     },
     "updates": {
