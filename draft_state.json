@@ -197,7 +197,7 @@
     },
     "Jason Day": {
       "score": "+4",
-      "hole": "3"
+      "hole": "4"
     },
     "Padraig Harrington": {
       "score": "E",
@@ -425,7 +425,7 @@
     },
     "Rasmus Neergaard-Petersen": {
       "score": "+6",
-      "hole": "4"
+      "hole": "5"
     },
     "Joe Highsmith": {
       "score": "+8",
@@ -460,8 +460,8 @@
       "hole": "3"
     },
     "William Mouw": {
-      "score": "+4",
-      "hole": "8:52 AM"
+      "score": "+3",
+      "hole": "1"
     },
     "Aldrich Potgieter": {
       "score": "E",
@@ -629,7 +629,7 @@
     },
     "Christiaan Bezuidenhout": {
       "score": "+4",
-      "hole": "8:52 AM"
+      "hole": "1"
     },
     "Scottie Scheffler": {
       "score": "-1",
@@ -668,6 +668,6 @@
       "hole": "12:25 PM"
     }
   },
-  "last_score_refresh_at": 1779023097.8538744,
-  "last_score_refresh_attempt_at": 1779023097.8538744
+  "last_score_refresh_at": 1779023274.2961478,
+  "last_score_refresh_attempt_at": 1779023274.2961478
 }
