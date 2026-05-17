@@ -152,8 +152,8 @@
       "competitor_id": "11056"
     },
     "Joaquin Niemann": {
-      "score": "-2",
-      "hole": "16",
+      "score": "-1",
+      "hole": "17",
       "profile_url": "https://www.espn.com/golf/player/_/id/11099/joaquin-niemann",
       "competitor_id": "11099"
     },
@@ -321,7 +321,7 @@
     },
     "Rory McIlroy": {
       "score": "-4",
-      "hole": "14",
+      "hole": "15",
       "profile_url": "https://www.espn.com/golf/player/_/id/3470/rory-mcilroy",
       "competitor_id": "3470"
     },
@@ -333,7 +333,7 @@
     },
     "Martin Kaymer": {
       "score": "+1",
-      "hole": "17",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/3670/martin-kaymer",
       "competitor_id": "3670"
     },
@@ -410,8 +410,8 @@
       "competitor_id": "4372513"
     },
     "Ludvig Aberg": {
-      "score": "-4",
-      "hole": "13",
+      "score": "-3",
+      "hole": "14",
       "profile_url": "https://www.espn.com/golf/player/_/id/4375972/ludvig-aberg",
       "competitor_id": "4375972"
     },
@@ -489,7 +489,7 @@
     },
     "Matti Schmid": {
       "score": "-5",
-      "hole": "11",
+      "hole": "12",
       "profile_url": "https://www.espn.com/golf/player/_/id/4566443/matti-schmid",
       "competitor_id": "4566443"
     },
@@ -699,7 +699,7 @@
     },
     "Bud Cauley": {
       "score": "E",
-      "hole": "17",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/5338/bud-cauley",
       "competitor_id": "5338"
     },
@@ -764,14 +764,14 @@
       "competitor_id": "5553"
     },
     "Patrick Reed": {
-      "score": "-3",
-      "hole": "15",
+      "score": "-4",
+      "hole": "16",
       "profile_url": "https://www.espn.com/golf/player/_/id/5579/patrick-reed",
       "competitor_id": "5579"
     },
     "Justin Rose": {
       "score": "-3",
-      "hole": "16",
+      "hole": "17",
       "profile_url": "https://www.espn.com/golf/player/_/id/569/justin-rose",
       "competitor_id": "569"
     },
@@ -927,7 +927,7 @@
     },
     "Alex Smalley": {
       "score": "-4",
-      "hole": "11",
+      "hole": "12",
       "profile_url": "https://www.espn.com/golf/player/_/id/9484/alex-smalley",
       "competitor_id": "9484"
     },
@@ -974,8 +974,8 @@
       "competitor_id": "9938"
     }
   },
-  "last_score_refresh_at": 1779053455.6554651,
-  "last_score_refresh_attempt_at": 1779053928.303357,
+  "last_score_refresh_at": 1779053930.9829133,
+  "last_score_refresh_attempt_at": 1779053930.9829133,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -1081,11 +1081,11 @@
     "Jason Dufner": [],
     "Austin Smotherman": [],
     "Joaquin Niemann": [
-      "□",
       "P",
       "P",
       "□",
-      "○"
+      "○",
+      "□"
     ],
     "Max Greyserman": [
       "○",
@@ -1167,13 +1167,13 @@
     "Rory McIlroy": [
       "P",
       "P",
-      "P",
       "□",
-      "○"
+      "○",
+      "P"
     ],
     "Gary Woodland": [],
     "Martin Kaymer": [
-      "□",
+      "P",
       "P",
       "P",
       "P",
@@ -1214,11 +1214,11 @@
     "Viktor Hovland": [],
     "Ben Kern": [],
     "Ludvig Aberg": [
-      "□",
       "P",
       "P",
       "P",
-      "○"
+      "○",
+      "□"
     ],
     "Ben Griffin": [
       "P",
@@ -1262,8 +1262,8 @@
       "P",
       "P",
       "P",
-      "P",
-      "□"
+      "□",
+      "P"
     ],
     "Marco Penge": [],
     "Shane Lowry": [],
@@ -1343,7 +1343,7 @@
     "Braden Shattuck": [],
     "Kota Kaneko": [],
     "Bud Cauley": [
-      "○",
+      "P",
       "P",
       "P",
       "P",
@@ -1380,9 +1380,9 @@
     "Patrick Reed": [
       "P",
       "P",
-      "P",
       "○",
-      "P"
+      "P",
+      "○"
     ],
     "Justin Rose": [
       "P",
@@ -1468,8 +1468,8 @@
       "□"
     ],
     "Alex Smalley": [
-      "P",
       "□",
+      "P",
       "P",
       "P",
       "P"
