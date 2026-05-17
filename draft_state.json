@@ -61,7 +61,7 @@
     },
     "Denny McCarthy": {
       "score": "+2",
-      "hole": "4"
+      "hole": "5"
     },
     "Davis Riley": {
       "score": "+11",
@@ -85,7 +85,7 @@
     },
     "Kurt Kitayama": {
       "score": "-2",
-      "hole": "14"
+      "hole": "15"
     },
     "Adam Schenk": {
       "score": "+6",
@@ -97,7 +97,7 @@
     },
     "Matt Wallace": {
       "score": "+3",
-      "hole": "12"
+      "hole": "13"
     },
     "Collin Morikawa": {
       "score": "+4",
@@ -140,8 +140,8 @@
       "hole": "11:45 AM"
     },
     "Rasmus Højgaard": {
-      "score": "+5",
-      "hole": "11"
+      "score": "+6",
+      "hole": "12"
     },
     "Andrew Novak": {
       "score": "E",
@@ -252,8 +252,8 @@
       "hole": "2:25 PM"
     },
     "Alex Noren": {
-      "score": "+1",
-      "hole": "9"
+      "score": "E",
+      "hole": "10"
     },
     "Adam Scott": {
       "score": "+8",
@@ -280,8 +280,8 @@
       "hole": "MC"
     },
     "Alex Fitzpatrick": {
-      "score": "+8",
-      "hole": "12"
+      "score": "+7",
+      "hole": "13"
     },
     "Viktor Hovland": {
       "score": "+6",
@@ -325,11 +325,11 @@
     },
     "Cameron Young": {
       "score": "E",
-      "hole": "11:05 AM"
+      "hole": "1"
     },
     "Sam Stevens": {
       "score": "+3",
-      "hole": "7"
+      "hole": "8"
     },
     "Steven Fisk": {
       "score": "+8",
@@ -361,7 +361,7 @@
     },
     "Kazuki Higa": {
       "score": "+1",
-      "hole": "3"
+      "hole": "4"
     },
     "Jayden Schaper": {
       "score": "+10",
@@ -373,7 +373,7 @@
     },
     "Chandler Blanchet": {
       "score": "+2",
-      "hole": "4"
+      "hole": "5"
     },
     "John Parry": {
       "score": "+3",
@@ -424,8 +424,8 @@
       "hole": "9"
     },
     "Rasmus Neergaard-Petersen": {
-      "score": "+7",
-      "hole": "14"
+      "score": "+8",
+      "hole": "15"
     },
     "Joe Highsmith": {
       "score": "+8",
@@ -585,7 +585,7 @@
     },
     "Si Woo Kim": {
       "score": "E",
-      "hole": "11:05 AM"
+      "hole": "1"
     },
     "Stewart Cink": {
       "score": "+6",
@@ -593,7 +593,7 @@
     },
     "Keith Mitchell": {
       "score": "+6",
-      "hole": "7"
+      "hole": "8"
     },
     "Sepp Straka": {
       "score": "+6",
@@ -624,8 +624,8 @@
       "hole": "1:05 PM"
     },
     "Haotong Li": {
-      "score": "E",
-      "hole": "3"
+      "score": "+1",
+      "hole": "4"
     },
     "Christiaan Bezuidenhout": {
       "score": "+2",
@@ -668,8 +668,8 @@
       "hole": "12:25 PM"
     }
   },
-  "last_score_refresh_at": 1779030902.2418165,
-  "last_score_refresh_attempt_at": 1779031205.9064693,
+  "last_score_refresh_at": 1779031207.4022717,
+  "last_score_refresh_attempt_at": 1779031207.4022717,
   "text_updates": {
     "enabled": false,
     "twilio": {
