@@ -74,8 +74,8 @@
       "competitor_id": "10058"
     },
     "Xander Schauffele": {
-      "score": "-3",
-      "hole": "17",
+      "score": "-4",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/10140/xander-schauffele",
       "competitor_id": "10140"
     },
@@ -128,8 +128,8 @@
       "competitor_id": "10592"
     },
     "Aaron Rai": {
-      "score": "-8",
-      "hole": "16",
+      "score": "-9",
+      "hole": "17",
       "profile_url": "https://www.espn.com/golf/player/_/id/10906/aaron-rai",
       "competitor_id": "10906"
     },
@@ -321,7 +321,7 @@
     },
     "Rory McIlroy": {
       "score": "-4",
-      "hole": "17",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/3470/rory-mcilroy",
       "competitor_id": "3470"
     },
@@ -411,7 +411,7 @@
     },
     "Ludvig Aberg": {
       "score": "-4",
-      "hole": "16",
+      "hole": "17",
       "profile_url": "https://www.espn.com/golf/player/_/id/4375972/ludvig-aberg",
       "competitor_id": "4375972"
     },
@@ -488,8 +488,8 @@
       "competitor_id": "4513"
     },
     "Matti Schmid": {
-      "score": "-6",
-      "hole": "14",
+      "score": "-5",
+      "hole": "15",
       "profile_url": "https://www.espn.com/golf/player/_/id/4566443/matti-schmid",
       "competitor_id": "4566443"
     },
@@ -974,8 +974,8 @@
       "competitor_id": "9938"
     }
   },
-  "last_score_refresh_at": 1779056371.8486173,
-  "last_score_refresh_attempt_at": 1779056371.8486173,
+  "last_score_refresh_at": 1779056572.5836082,
+  "last_score_refresh_attempt_at": 1779056572.5836082,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -1038,8 +1038,7 @@
       ]
     },
     "leaders": [
-      "Peter Miller",
-      "Spencer Tidwell"
+      "Peter Miller"
     ]
   },
   "selected_tournament": {},
@@ -1053,11 +1052,11 @@
     ],
     "Davis Riley": [],
     "Xander Schauffele": [
-      "□",
       "P",
       "P",
       "○",
-      "P"
+      "P",
+      "○"
     ],
     "J.J. Spaun": [],
     "Ben Polland": [],
@@ -1073,9 +1072,9 @@
     "Collin Morikawa": [],
     "Aaron Rai": [
       "○",
+      "P",
+      "P",
       "○",
-      "P",
-      "P",
       "○"
     ],
     "Sahith Theegala": [],
@@ -1166,8 +1165,8 @@
       "□"
     ],
     "Rory McIlroy": [
-      "□",
       "○",
+      "P",
       "P",
       "P",
       "P"
@@ -1215,11 +1214,11 @@
     "Viktor Hovland": [],
     "Ben Kern": [],
     "Ludvig Aberg": [
-      "P",
       "○",
       "□",
       "P",
-      "○"
+      "○",
+      "P"
     ],
     "Ben Griffin": [
       "P",
@@ -1260,11 +1259,11 @@
     "Jimmy Walker": [],
     "Keegan Bradley": [],
     "Matti Schmid": [
-      "P",
       "□",
       "P",
       "P",
-      "○"
+      "○",
+      "□"
     ],
     "Marco Penge": [],
     "Shane Lowry": [],
