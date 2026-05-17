@@ -698,7 +698,7 @@
       "competitor_id": "5312609"
     },
     "Bud Cauley": {
-      "score": "-1",
+      "score": "E",
       "hole": "14",
       "profile_url": "https://www.espn.com/golf/player/_/id/5338/bud-cauley",
       "competitor_id": "5338"
@@ -926,7 +926,7 @@
       "competitor_id": "9478"
     },
     "Alex Smalley": {
-      "score": "-3",
+      "score": "-4",
       "hole": "8",
       "profile_url": "https://www.espn.com/golf/player/_/id/9484/alex-smalley",
       "competitor_id": "9484"
@@ -974,8 +974,8 @@
       "competitor_id": "9938"
     }
   },
-  "last_score_refresh_at": 1779050761.9911525,
-  "last_score_refresh_attempt_at": 1779050761.9911525,
+  "last_score_refresh_at": 1779050777.9110003,
+  "last_score_refresh_attempt_at": 1779050777.9110003,
   "text_updates": {
     "enabled": false,
     "twilio": {
