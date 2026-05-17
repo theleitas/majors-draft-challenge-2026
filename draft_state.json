@@ -344,8 +344,8 @@
       "competitor_id": "3702"
     },
     "Nick Taylor": {
-      "score": "-1",
-      "hole": "17",
+      "score": "E",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/3792/nick-taylor",
       "competitor_id": "3792"
     },
@@ -489,7 +489,7 @@
     },
     "Matti Schmid": {
       "score": "-5",
-      "hole": "15",
+      "hole": "17",
       "profile_url": "https://www.espn.com/golf/player/_/id/4566443/matti-schmid",
       "competitor_id": "4566443"
     },
@@ -926,8 +926,8 @@
       "competitor_id": "9478"
     },
     "Alex Smalley": {
-      "score": "-6",
-      "hole": "16",
+      "score": "-5",
+      "hole": "17",
       "profile_url": "https://www.espn.com/golf/player/_/id/9484/alex-smalley",
       "competitor_id": "9484"
     },
@@ -963,7 +963,7 @@
     },
     "Jon Rahm": {
       "score": "-6",
-      "hole": "17",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/9780/jon-rahm",
       "competitor_id": "9780"
     },
@@ -974,8 +974,8 @@
       "competitor_id": "9938"
     }
   },
-  "last_score_refresh_at": 1779057430.7233722,
-  "last_score_refresh_attempt_at": 1779058247.2531662,
+  "last_score_refresh_at": 1779058248.712682,
+  "last_score_refresh_attempt_at": 1779058248.712682,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -1189,9 +1189,9 @@
     "Nick Taylor": [
       "□",
       "□",
-      "□",
       "P",
-      "P"
+      "P",
+      "□"
     ],
     "Alex Noren": [],
     "Adam Scott": [],
@@ -1259,11 +1259,11 @@
     "Jimmy Walker": [],
     "Keegan Bradley": [],
     "Matti Schmid": [
-      "□",
-      "P",
       "P",
       "○",
-      "□"
+      "□",
+      "P",
+      "P"
     ],
     "Marco Penge": [],
     "Shane Lowry": [],
@@ -1471,8 +1471,8 @@
       "P",
       "P",
       "P",
-      "P",
-      "○"
+      "○",
+      "□"
     ],
     "Jordan Smith": [],
     "Brian Campbell": [],
@@ -1495,8 +1495,8 @@
       "P",
       "P",
       "P",
-      "P",
-      "○"
+      "○",
+      "P"
     ],
     "Sam Burns": [
       "P",
