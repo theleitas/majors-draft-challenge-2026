@@ -80,8 +80,8 @@
       "hole": "MC"
     },
     "Jhonattan Vegas": {
-      "score": "+3",
-      "hole": "2"
+      "score": "+2",
+      "hole": "3"
     },
     "Kurt Kitayama": {
       "score": "-1",
@@ -109,7 +109,7 @@
     },
     "Sahith Theegala": {
       "score": "+2",
-      "hole": "5"
+      "hole": "6"
     },
     "Jason Dufner": {
       "score": "+8",
@@ -141,7 +141,7 @@
     },
     "Rasmus Højgaard": {
       "score": "+4",
-      "hole": "8"
+      "hole": "9"
     },
     "Andrew Novak": {
       "score": "E",
@@ -188,16 +188,16 @@
       "hole": "MC"
     },
     "Daniel Brown": {
-      "score": "+3",
-      "hole": "3"
+      "score": "+4",
+      "hole": "4"
     },
     "Billy Horschel": {
       "score": "+8",
       "hole": "MC"
     },
     "Jason Day": {
-      "score": "+2",
-      "hole": "10"
+      "score": "+4",
+      "hole": "11"
     },
     "Padraig Harrington": {
       "score": "E",
@@ -361,7 +361,7 @@
     },
     "Kazuki Higa": {
       "score": "+2",
-      "hole": "10:25 AM"
+      "hole": "1"
     },
     "Jayden Schaper": {
       "score": "+10",
@@ -456,12 +456,12 @@
       "hole": "MC"
     },
     "Ryan Gerard": {
-      "score": "+6",
-      "hole": "10"
+      "score": "+8",
+      "hole": "11"
     },
     "William Mouw": {
       "score": "+5",
-      "hole": "7"
+      "hole": "8"
     },
     "Aldrich Potgieter": {
       "score": "E",
@@ -609,7 +609,7 @@
     },
     "Daniel Berger": {
       "score": "+1",
-      "hole": "3"
+      "hole": "4"
     },
     "Matt Fitzpatrick": {
       "score": "+2",
@@ -628,8 +628,8 @@
       "hole": "10:25 AM"
     },
     "Christiaan Bezuidenhout": {
-      "score": "+4",
-      "hole": "7"
+      "score": "+5",
+      "hole": "8"
     },
     "Scottie Scheffler": {
       "score": "-1",
@@ -668,6 +668,6 @@
       "hole": "12:25 PM"
     }
   },
-  "last_score_refresh_at": 1779028382.2293613,
-  "last_score_refresh_attempt_at": 1779028693.6579068
+  "last_score_refresh_at": 1779028695.0369709,
+  "last_score_refresh_attempt_at": 1779028695.0369709
 }
