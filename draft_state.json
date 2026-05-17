@@ -128,8 +128,8 @@
       "competitor_id": "10592"
     },
     "Aaron Rai": {
-      "score": "-5",
-      "hole": "2",
+      "score": "-4",
+      "hole": "3",
       "profile_url": "https://www.espn.com/golf/player/_/id/10906/aaron-rai",
       "competitor_id": "10906"
     },
@@ -158,8 +158,8 @@
       "competitor_id": "11099"
     },
     "Max Greyserman": {
-      "score": "-1",
-      "hole": "8",
+      "score": "-2",
+      "hole": "9",
       "profile_url": "https://www.espn.com/golf/player/_/id/11101/max-greyserman",
       "competitor_id": "11101"
     },
@@ -188,8 +188,8 @@
       "competitor_id": "11253"
     },
     "Andrew Novak": {
-      "score": "+1",
-      "hole": "15",
+      "score": "E",
+      "hole": "16",
       "profile_url": "https://www.espn.com/golf/player/_/id/11332/andrew-novak",
       "competitor_id": "11332"
     },
@@ -243,7 +243,7 @@
     },
     "Brian Harman": {
       "score": "+2",
-      "hole": "10",
+      "hole": "11",
       "profile_url": "https://www.espn.com/golf/player/_/id/1225/brian-harman",
       "competitor_id": "1225"
     },
@@ -411,7 +411,7 @@
     },
     "Ludvig Aberg": {
       "score": "-5",
-      "hole": "2",
+      "hole": "3",
       "profile_url": "https://www.espn.com/golf/player/_/id/4375972/ludvig-aberg",
       "competitor_id": "4375972"
     },
@@ -435,7 +435,7 @@
     },
     "Min Woo Lee": {
       "score": "-1",
-      "hole": "8",
+      "hole": "9",
       "profile_url": "https://www.espn.com/golf/player/_/id/4410932/min-woo-lee",
       "competitor_id": "4410932"
     },
@@ -620,8 +620,8 @@
       "competitor_id": "4868733"
     },
     "David Puig": {
-      "score": "-2",
-      "hole": "12",
+      "score": "-1",
+      "hole": "13",
       "profile_url": "https://www.espn.com/golf/player/_/id/4895429/david-puig",
       "competitor_id": "4895429"
     },
@@ -746,8 +746,8 @@
       "competitor_id": "5467"
     },
     "Andrew Putnam": {
-      "score": "+4",
-      "hole": "15",
+      "score": "+3",
+      "hole": "16",
       "profile_url": "https://www.espn.com/golf/player/_/id/5502/andrew-putnam",
       "competitor_id": "5502"
     },
@@ -825,7 +825,7 @@
     },
     "Brooks Koepka": {
       "score": "-1",
-      "hole": "11",
+      "hole": "12",
       "profile_url": "https://www.espn.com/golf/player/_/id/6798/brooks-koepka",
       "competitor_id": "6798"
     },
@@ -879,7 +879,7 @@
     },
     "Michael Kim": {
       "score": "+2",
-      "hole": "13",
+      "hole": "14",
       "profile_url": "https://www.espn.com/golf/player/_/id/8974/michael-kim",
       "competitor_id": "8974"
     },
@@ -920,8 +920,8 @@
       "competitor_id": "9243"
     },
     "Scottie Scheffler": {
-      "score": "-2",
-      "hole": "12",
+      "score": "-3",
+      "hole": "13",
       "profile_url": "https://www.espn.com/golf/player/_/id/9478/scottie-scheffler",
       "competitor_id": "9478"
     },
@@ -957,7 +957,7 @@
     },
     "Taylor Pendrith": {
       "score": "+2",
-      "hole": "17",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/9658/taylor-pendrith",
       "competitor_id": "9658"
     },
@@ -969,13 +969,13 @@
     },
     "Sam Burns": {
       "score": "E",
-      "hole": "11",
+      "hole": "12",
       "profile_url": "https://www.espn.com/golf/player/_/id/9938/sam-burns",
       "competitor_id": "9938"
     }
   },
-  "last_score_refresh_at": 1779044066.6702595,
-  "last_score_refresh_attempt_at": 1779044066.6702595,
+  "last_score_refresh_at": 1779044352.4442198,
+  "last_score_refresh_attempt_at": 1779044352.4442198,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -1033,8 +1033,8 @@
       ],
       "Peter Miller": [
         "Aaron Rai",
-        "Xander Schauffele",
-        "Hideki Matsuyama"
+        "Scottie Scheffler",
+        "Xander Schauffele"
       ]
     },
     "leaders": [
@@ -1068,7 +1068,8 @@
     "Matt Wallace": [],
     "Collin Morikawa": [],
     "Aaron Rai": [
-      "P"
+      "P",
+      "□"
     ],
     "Sahith Theegala": [],
     "Jason Dufner": [],
@@ -1085,7 +1086,7 @@
       "P",
       "P",
       "P",
-      "P"
+      "○"
     ],
     "Wyndham Clark": [],
     "Jordan Gumberg": [],
@@ -1098,10 +1099,10 @@
     ],
     "Rasmus Højgaard": [],
     "Andrew Novak": [
-      "□",
       "P",
       "○",
       "□",
+      "○",
       "○"
     ],
     "Travis Smyth": [],
@@ -1119,10 +1120,10 @@
     "Jesse Droemer": [],
     "Brandt Snedeker": [],
     "Brian Harman": [
-      "○",
       "P",
       "P",
       "□",
+      "P",
       "P"
     ],
     "Y.E. Yang": [],
@@ -1198,7 +1199,8 @@
     "Viktor Hovland": [],
     "Ben Kern": [],
     "Ludvig Aberg": [
-      "○"
+      "○",
+      "P"
     ],
     "Ben Griffin": [
       "P",
@@ -1211,9 +1213,9 @@
     "Ian Holt": [],
     "Min Woo Lee": [
       "P",
-      "P",
       "○",
       "□",
+      "P",
       "P"
     ],
     "Akshay Bhatia": [],
@@ -1292,7 +1294,8 @@
       "○",
       "P",
       "P",
-      "P"
+      "P",
+      "□"
     ],
     "Matt McCarty": [],
     "Michael Brennan": [
@@ -1342,11 +1345,11 @@
       "○"
     ],
     "Andrew Putnam": [
-      "P",
       "□",
       "P",
       "○",
-      "P"
+      "P",
+      "○"
     ],
     "Tommy Fleetwood": [],
     "Tyrrell Hatton": [],
@@ -1377,10 +1380,10 @@
     "David Lipsky": [],
     "Lucas Glover": [],
     "Brooks Koepka": [
-      "□",
       "P",
       "○",
       "○",
+      "P",
       "P"
     ],
     "Patrick Rodgers": [],
@@ -1406,11 +1409,11 @@
     "Sepp Straka": [],
     "Max Homa": [],
     "Michael Kim": [
-      "○",
       "□",
       "P",
       "P",
-      "□"
+      "□",
+      "P"
     ],
     "Daniel Berger": [
       "□"
@@ -1435,7 +1438,8 @@
       "○",
       "P",
       "P",
-      "P"
+      "P",
+      "○"
     ],
     "Alex Smalley": [],
     "Jordan Smith": [],
@@ -1447,8 +1451,8 @@
     ],
     "Ryan Lenahan": [],
     "Taylor Pendrith": [
-      "P",
       "○",
+      "P",
       "P",
       "P",
       "P"
@@ -1458,9 +1462,9 @@
     ],
     "Sam Burns": [
       "P",
-      "P",
       "○",
       "□",
+      "P",
       "P"
     ]
   }
