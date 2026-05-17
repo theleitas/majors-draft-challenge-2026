@@ -96,12 +96,12 @@
       "hole": "MC"
     },
     "Matt Wallace": {
-      "score": "+5",
-      "hole": "4"
+      "score": "+4",
+      "hole": "5"
     },
     "Collin Morikawa": {
-      "score": "+5",
-      "hole": "6"
+      "score": "+6",
+      "hole": "7"
     },
     "Aaron Rai": {
       "score": "-4",
@@ -141,7 +141,7 @@
     },
     "Rasmus Højgaard": {
       "score": "+3",
-      "hole": "3"
+      "hole": "4"
     },
     "Andrew Novak": {
       "score": "E",
@@ -197,7 +197,7 @@
     },
     "Jason Day": {
       "score": "+4",
-      "hole": "5"
+      "hole": "6"
     },
     "Padraig Harrington": {
       "score": "E",
@@ -253,7 +253,7 @@
     },
     "Alex Noren": {
       "score": "+3",
-      "hole": "1"
+      "hole": "2"
     },
     "Adam Scott": {
       "score": "+8",
@@ -281,7 +281,7 @@
     },
     "Alex Fitzpatrick": {
       "score": "+4",
-      "hole": "4"
+      "hole": "5"
     },
     "Viktor Hovland": {
       "score": "+6",
@@ -397,7 +397,7 @@
     },
     "Elvis Smylie": {
       "score": "+6",
-      "hole": "6"
+      "hole": "7"
     },
     "Tyler Collet": {
       "score": "+6",
@@ -457,7 +457,7 @@
     },
     "Ryan Gerard": {
       "score": "+3",
-      "hole": "5"
+      "hole": "6"
     },
     "William Mouw": {
       "score": "+3",
@@ -553,7 +553,7 @@
     },
     "Patrick Cantlay": {
       "score": "+3",
-      "hole": "1"
+      "hole": "2"
     },
     "Luke Donald": {
       "score": "+7",
@@ -668,6 +668,6 @@
       "hole": "12:25 PM"
     }
   },
-  "last_score_refresh_at": 1779024243.361327,
-  "last_score_refresh_attempt_at": 1779024600.6952887
+  "last_score_refresh_at": 1779024602.063972,
+  "last_score_refresh_attempt_at": 1779024602.063972
 }
