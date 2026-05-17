@@ -927,7 +927,7 @@
     },
     "Alex Smalley": {
       "score": "-4",
-      "hole": "14",
+      "hole": "15",
       "profile_url": "https://www.espn.com/golf/player/_/id/9484/alex-smalley",
       "competitor_id": "9484"
     },
@@ -974,8 +974,8 @@
       "competitor_id": "9938"
     }
   },
-  "last_score_refresh_at": 1779056345.8888395,
-  "last_score_refresh_attempt_at": 1779056345.8888395,
+  "last_score_refresh_at": 1779056371.8486173,
+  "last_score_refresh_attempt_at": 1779056371.8486173,
   "text_updates": {
     "enabled": false,
     "twilio": {
