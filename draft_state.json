@@ -101,7 +101,7 @@
     },
     "Collin Morikawa": {
       "score": "+6",
-      "hole": "10"
+      "hole": "11"
     },
     "Aaron Rai": {
       "score": "-4",
@@ -109,7 +109,7 @@
     },
     "Sahith Theegala": {
       "score": "+2",
-      "hole": "4"
+      "hole": "5"
     },
     "Jason Dufner": {
       "score": "+8",
@@ -140,8 +140,8 @@
       "hole": "11:45 AM"
     },
     "Rasmus Højgaard": {
-      "score": "+3",
-      "hole": "7"
+      "score": "+4",
+      "hole": "8"
     },
     "Andrew Novak": {
       "score": "E",
@@ -189,7 +189,7 @@
     },
     "Daniel Brown": {
       "score": "+3",
-      "hole": "2"
+      "hole": "3"
     },
     "Billy Horschel": {
       "score": "+8",
@@ -252,8 +252,8 @@
       "hole": "2:25 PM"
     },
     "Alex Noren": {
-      "score": "+3",
-      "hole": "5"
+      "score": "+2",
+      "hole": "6"
     },
     "Adam Scott": {
       "score": "+8",
@@ -353,7 +353,7 @@
     },
     "Shane Lowry": {
       "score": "+3",
-      "hole": "6"
+      "hole": "7"
     },
     "Harry Hall": {
       "score": "+7",
@@ -369,7 +369,7 @@
     },
     "Casey Jarvis": {
       "score": "+8",
-      "hole": "13"
+      "hole": "14"
     },
     "Chandler Blanchet": {
       "score": "+2",
@@ -377,7 +377,7 @@
     },
     "John Parry": {
       "score": "+4",
-      "hole": "6"
+      "hole": "7"
     },
     "Chris Gotterup": {
       "score": "-2",
@@ -397,7 +397,7 @@
     },
     "Elvis Smylie": {
       "score": "+6",
-      "hole": "10"
+      "hole": "11"
     },
     "Tyler Collet": {
       "score": "+6",
@@ -552,8 +552,8 @@
       "hole": "MC"
     },
     "Patrick Cantlay": {
-      "score": "+3",
-      "hole": "5"
+      "score": "+2",
+      "hole": "6"
     },
     "Luke Donald": {
       "score": "+6",
@@ -608,12 +608,12 @@
       "hole": "11:45 AM"
     },
     "Daniel Berger": {
-      "score": "+2",
-      "hole": "2"
+      "score": "+1",
+      "hole": "3"
     },
     "Matt Fitzpatrick": {
       "score": "+3",
-      "hole": "4"
+      "hole": "5"
     },
     "Corey Conners": {
       "score": "+2",
@@ -644,8 +644,8 @@
       "hole": "MC"
     },
     "Brian Campbell": {
-      "score": "+16",
-      "hole": "13"
+      "score": "+17",
+      "hole": "14"
     },
     "Maverick McNealy": {
       "score": "-3",
@@ -668,6 +668,6 @@
       "hole": "12:25 PM"
     }
   },
-  "last_score_refresh_at": 1779027303.3901515,
-  "last_score_refresh_attempt_at": 1779027660.7000642
+  "last_score_refresh_at": 1779027662.0881174,
+  "last_score_refresh_attempt_at": 1779027662.0881174
 }
