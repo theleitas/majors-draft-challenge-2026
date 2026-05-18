@@ -489,7 +489,7 @@
     },
     "Matti Schmid": {
       "score": "-5",
-      "hole": "17",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/4566443/matti-schmid",
       "competitor_id": "4566443"
     },
@@ -926,8 +926,8 @@
       "competitor_id": "9478"
     },
     "Alex Smalley": {
-      "score": "-5",
-      "hole": "17",
+      "score": "-6",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/9484/alex-smalley",
       "competitor_id": "9484"
     },
@@ -974,8 +974,8 @@
       "competitor_id": "9938"
     }
   },
-  "last_score_refresh_at": 1779058531.6749964,
-  "last_score_refresh_attempt_at": 1779070443.6897237,
+  "last_score_refresh_at": 1779070445.2058167,
+  "last_score_refresh_attempt_at": 1779070445.2058167,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -1259,9 +1259,9 @@
     "Jimmy Walker": [],
     "Keegan Bradley": [],
     "Matti Schmid": [
-      "P",
       "○",
       "□",
+      "P",
       "P",
       "P"
     ],
@@ -1470,9 +1470,9 @@
     "Alex Smalley": [
       "P",
       "P",
-      "P",
       "○",
-      "□"
+      "□",
+      "○"
     ],
     "Jordan Smith": [],
     "Brian Campbell": [],
