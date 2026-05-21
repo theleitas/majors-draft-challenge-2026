@@ -80,7 +80,7 @@
       "competitor_id": "11101"
     },
     "Wyndham Clark": {
-      "score": "E",
+      "score": "-1",
       "hole": "2",
       "profile_url": "https://www.espn.com/golf/player/_/id/11119/wyndham-clark",
       "competitor_id": "11119"
@@ -224,8 +224,8 @@
       "competitor_id": "6825"
     },
     "Stephan Jaeger": {
-      "score": "-1",
-      "hole": "2",
+      "score": "-2",
+      "hole": "3",
       "profile_url": "https://www.espn.com/golf/player/_/id/6937/stephan-jaeger",
       "competitor_id": "6937"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779370231.362011,
-  "last_score_refresh_attempt_at": 1779370532.7592359,
+  "last_score_refresh_at": 1779370534.5999348,
+  "last_score_refresh_attempt_at": 1779370534.5999348,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -733,11 +733,11 @@
     ],
     "Patrick Rodgers": [],
     "Stephan Jaeger": [
-      "○",
       "□",
       "P",
       "○",
-      "P"
+      "P",
+      "○"
     ],
     "Adrien Saddier": [],
     "Si Woo Kim": [
