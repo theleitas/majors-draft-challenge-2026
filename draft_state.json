@@ -206,8 +206,8 @@
       "competitor_id": "5467"
     },
     "Emiliano Grillo": {
-      "score": "-6",
-      "hole": "14",
+      "score": "-7",
+      "hole": "15",
       "profile_url": "https://www.espn.com/golf/player/_/id/5882/emiliano-grillo",
       "competitor_id": "5882"
     },
@@ -255,7 +255,7 @@
     },
     "Christiaan Bezuidenhout": {
       "score": "-1",
-      "hole": "9",
+      "hole": "10",
       "profile_url": "https://www.espn.com/golf/player/_/id/9243/christiaan-bezuidenhout",
       "competitor_id": "9243"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779379223.3951366,
-  "last_score_refresh_attempt_at": 1779379527.4111342,
+  "last_score_refresh_at": 1779379529.1292062,
+  "last_score_refresh_attempt_at": 1779379529.1292062,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -743,10 +743,10 @@
       "P"
     ],
     "Emiliano Grillo": [
+      "P",
+      "P",
+      "P",
       "○",
-      "P",
-      "P",
-      "P",
       "○"
     ],
     "Garrett Sapp": [],
@@ -827,7 +827,7 @@
       "P"
     ],
     "Christiaan Bezuidenhout": [
-      "○",
+      "P",
       "P",
       "P",
       "P",
