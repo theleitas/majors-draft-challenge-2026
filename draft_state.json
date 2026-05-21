@@ -68,8 +68,8 @@
       "competitor_id": "1030"
     },
     "Adam Schenk": {
-      "score": "+3",
-      "hole": "17",
+      "score": "+4",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/10372/adam-schenk",
       "competitor_id": "10372"
     },
@@ -111,7 +111,7 @@
     },
     "Garrick Higgo": {
       "score": "E",
-      "hole": "1",
+      "hole": "2",
       "profile_url": "https://www.espn.com/golf/player/_/id/11393/garrick-higgo",
       "competitor_id": "11393"
     },
@@ -141,19 +141,19 @@
     },
     "Steven Fisk": {
       "score": "-2",
-      "hole": "17",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/4426182/steven-fisk",
       "competitor_id": "4426182"
     },
     "Matti Schmid": {
       "score": "+2",
-      "hole": "2",
+      "hole": "3",
       "profile_url": "https://www.espn.com/golf/player/_/id/4566443/matti-schmid",
       "competitor_id": "4566443"
     },
     "Chandler Blanchet": {
       "score": "E",
-      "hole": "14",
+      "hole": "15",
       "profile_url": "https://www.espn.com/golf/player/_/id/4618114/chandler-blanchet",
       "competitor_id": "4618114"
     },
@@ -171,7 +171,7 @@
     },
     "Ryo Hisatsune": {
       "score": "E",
-      "hole": "2",
+      "hole": "3",
       "profile_url": "https://www.espn.com/golf/player/_/id/4858572/ryo-hisatsune",
       "competitor_id": "4858572"
     },
@@ -249,7 +249,7 @@
     },
     "Haotong Li": {
       "score": "-3",
-      "hole": "14",
+      "hole": "15",
       "profile_url": "https://www.espn.com/golf/player/_/id/9221/haotong-li",
       "competitor_id": "9221"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779387248.494129,
-  "last_score_refresh_attempt_at": 1779387677.5404427,
+  "last_score_refresh_at": 1779387679.1130445,
+  "last_score_refresh_attempt_at": 1779387679.1130445,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -374,7 +374,7 @@
     "Adam Schenk": [
       "P",
       "P",
-      "P",
+      "□",
       "□",
       "□"
     ],
@@ -447,7 +447,9 @@
       "P",
       "P"
     ],
-    "Garrick Higgo": [],
+    "Garrick Higgo": [
+      "P"
+    ],
     "Jesse Droemer": [],
     "Brandt Snedeker": [],
     "Brian Harman": [
@@ -589,18 +591,18 @@
     "Steven Fisk": [
       "P",
       "P",
-      "P",
       "□",
+      "P",
       "P"
     ],
     "Jimmy Walker": [],
     "Keegan Bradley": [],
     "Matti Schmid": [
+      "P",
+      "P",
+      "P",
       "□",
-      "P",
-      "P",
-      "P",
-      "□"
+      "P"
     ],
     "Marco Penge": [],
     "Shane Lowry": [],
@@ -614,7 +616,7 @@
     "Jayden Schaper": [],
     "Casey Jarvis": [],
     "Chandler Blanchet": [
-      "□",
+      "P",
       "P",
       "P",
       "P",
@@ -652,6 +654,7 @@
       "P"
     ],
     "Ryo Hisatsune": [
+      "P",
       "P"
     ],
     "Rasmus Neergaard-Petersen": [
