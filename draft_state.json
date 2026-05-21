@@ -93,13 +93,13 @@
     },
     "Sungjae Im": {
       "score": "-3",
-      "hole": "9",
+      "hole": "10",
       "profile_url": "https://www.espn.com/golf/player/_/id/11382/sungjae-im",
       "competitor_id": "11382"
     },
     "Max McGreevy": {
       "score": "-1",
-      "hole": "8",
+      "hole": "9",
       "profile_url": "https://www.espn.com/golf/player/_/id/11383/max-mcgreevy",
       "competitor_id": "11383"
     },
@@ -111,13 +111,13 @@
     },
     "Garrick Higgo": {
       "score": "-2",
-      "hole": "8",
+      "hole": "10",
       "profile_url": "https://www.espn.com/golf/player/_/id/11393/garrick-higgo",
       "competitor_id": "11393"
     },
     "Daniel Brown": {
       "score": "+3",
-      "hole": "6",
+      "hole": "7",
       "profile_url": "https://www.espn.com/golf/player/_/id/1407/daniel-brown",
       "competitor_id": "1407"
     },
@@ -147,7 +147,7 @@
     },
     "Matti Schmid": {
       "score": "-2",
-      "hole": "10",
+      "hole": "11",
       "profile_url": "https://www.espn.com/golf/player/_/id/4566443/matti-schmid",
       "competitor_id": "4566443"
     },
@@ -158,20 +158,20 @@
       "competitor_id": "4618114"
     },
     "John Parry": {
-      "score": "E",
-      "hole": "6",
+      "score": "-1",
+      "hole": "7",
       "profile_url": "https://www.espn.com/golf/player/_/id/4671/john-parry",
       "competitor_id": "4671"
     },
     "Pierceson Coody": {
       "score": "-3",
-      "hole": "10",
+      "hole": "11",
       "profile_url": "https://www.espn.com/golf/player/_/id/4837368/pierceson-coody",
       "competitor_id": "4837368"
     },
     "Ryo Hisatsune": {
       "score": "-3",
-      "hole": "10",
+      "hole": "11",
       "profile_url": "https://www.espn.com/golf/player/_/id/4858572/ryo-hisatsune",
       "competitor_id": "4858572"
     },
@@ -201,7 +201,7 @@
     },
     "Jordan Spieth": {
       "score": "-3",
-      "hole": "9",
+      "hole": "10",
       "profile_url": "https://www.espn.com/golf/player/_/id/5467/jordan-spieth",
       "competitor_id": "5467"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779395510.4149675,
-  "last_score_refresh_attempt_at": 1779395973.5775099,
+  "last_score_refresh_at": 1779395975.262493,
+  "last_score_refresh_attempt_at": 1779395975.262493,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -439,16 +439,16 @@
     "Robert MacIntyre": [],
     "Sungjae Im": [
       "○",
-      "○",
+      "P",
       "P",
       "P",
       "P"
     ],
     "Max McGreevy": [
-      "P",
       "○",
       "○",
       "□",
+      "P",
       "P"
     ],
     "Rico Hoey": [
@@ -460,7 +460,7 @@
     ],
     "Garrick Higgo": [
       "P",
-      "○",
+      "P",
       "P",
       "P",
       "P"
@@ -476,11 +476,11 @@
     ],
     "Y.E. Yang": [],
     "Daniel Brown": [
-      "P",
       "□",
       "P",
       "P",
-      "□"
+      "□",
+      "P"
     ],
     "Billy Horschel": [
       "P",
@@ -623,10 +623,10 @@
     "Jimmy Walker": [],
     "Keegan Bradley": [],
     "Matti Schmid": [
-      "○",
       "P",
       "○",
       "○",
+      "P",
       "P"
     ],
     "Marco Penge": [],
@@ -648,11 +648,11 @@
       "P"
     ],
     "John Parry": [
-      "P",
       "○",
       "□",
       "P",
-      "P"
+      "P",
+      "○"
     ],
     "Chris Gotterup": [
       "P",
@@ -674,9 +674,9 @@
     "Tyler Collet": [],
     "Thomas Detry": [],
     "Pierceson Coody": [
-      "○",
       "□",
       "○",
+      "P",
       "P",
       "P"
     ],
@@ -690,9 +690,9 @@
     ],
     "Ryo Hisatsune": [
       "P",
-      "P",
       "□",
       "○",
+      "P",
       "P"
     ],
     "Rasmus Neergaard-Petersen": [
@@ -767,10 +767,10 @@
     "Russell Henley": [],
     "Jordan Spieth": [
       "○",
+      "P",
+      "P",
       "○",
-      "P",
-      "P",
-      "○"
+      "P"
     ],
     "Andrew Putnam": [
       "○",
