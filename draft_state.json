@@ -75,7 +75,7 @@
     },
     "Max Greyserman": {
       "score": "E",
-      "hole": "15",
+      "hole": "16",
       "profile_url": "https://www.espn.com/golf/player/_/id/11101/max-greyserman",
       "competitor_id": "11101"
     },
@@ -122,8 +122,8 @@
       "competitor_id": "1407"
     },
     "Billy Horschel": {
-      "score": "-2",
-      "hole": "15",
+      "score": "-1",
+      "hole": "16",
       "profile_url": "https://www.espn.com/golf/player/_/id/1651/billy-horschel",
       "competitor_id": "1651"
     },
@@ -195,7 +195,7 @@
     },
     "William Mouw": {
       "score": "E",
-      "hole": "16",
+      "hole": "17",
       "profile_url": "https://www.espn.com/golf/player/_/id/5076025/william-mouw",
       "competitor_id": "5076025"
     },
@@ -273,13 +273,13 @@
     },
     "Taylor Pendrith": {
       "score": "-3",
-      "hole": "15",
+      "hole": "16",
       "profile_url": "https://www.espn.com/golf/player/_/id/9658/taylor-pendrith",
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779402650.6349432,
-  "last_score_refresh_attempt_at": 1779402972.8963273,
+  "last_score_refresh_at": 1779402974.1888194,
+  "last_score_refresh_attempt_at": 1779402974.1888194,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -483,11 +483,11 @@
       "○"
     ],
     "Billy Horschel": [
-      "P",
       "○",
       "P",
       "○",
-      "P"
+      "P",
+      "□"
     ],
     "Jason Day": [],
     "Padraig Harrington": [
@@ -925,10 +925,10 @@
     "Ryan Lenahan": [],
     "Taylor Pendrith": [
       "P",
-      "P",
       "○",
       "○",
-      "□"
+      "□",
+      "P"
     ],
     "Jon Rahm": [
       "P",
