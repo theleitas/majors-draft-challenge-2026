@@ -99,7 +99,7 @@
     },
     "Max McGreevy": {
       "score": "-3",
-      "hole": "17",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/11383/max-mcgreevy",
       "competitor_id": "11383"
     },
@@ -116,8 +116,8 @@
       "competitor_id": "11393"
     },
     "Daniel Brown": {
-      "score": "E",
-      "hole": "16",
+      "score": "-1",
+      "hole": "17",
       "profile_url": "https://www.espn.com/golf/player/_/id/1407/daniel-brown",
       "competitor_id": "1407"
     },
@@ -159,7 +159,7 @@
     },
     "John Parry": {
       "score": "-1",
-      "hole": "14",
+      "hole": "15",
       "profile_url": "https://www.espn.com/golf/player/_/id/4671/john-parry",
       "competitor_id": "4671"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779404847.4031157,
-  "last_score_refresh_attempt_at": 1779405343.0395374,
+  "last_score_refresh_at": 1779405345.3936005,
+  "last_score_refresh_attempt_at": 1779405345.3936005,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -445,8 +445,8 @@
       "□"
     ],
     "Max McGreevy": [
-      "P",
       "○",
+      "P",
       "P",
       "P",
       "P"
@@ -476,10 +476,10 @@
     ],
     "Y.E. Yang": [],
     "Daniel Brown": [
-      "P",
       "○",
       "○",
       "P",
+      "○",
       "○"
     ],
     "Billy Horschel": [
@@ -648,9 +648,9 @@
       "P"
     ],
     "John Parry": [
-      "P",
       "□",
       "○",
+      "P",
       "P",
       "P"
     ],
