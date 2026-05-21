@@ -236,14 +236,14 @@
       "competitor_id": "6962"
     },
     "Si Woo Kim": {
-      "score": "N/A",
-      "hole": "8:33 AM",
+      "score": "-1",
+      "hole": "1",
       "profile_url": "https://www.espn.com/golf/player/_/id/7081/si-woo-kim",
       "competitor_id": "7081"
     },
     "Keith Mitchell": {
       "score": "E",
-      "hole": "1",
+      "hole": "2",
       "profile_url": "https://www.espn.com/golf/player/_/id/8906/keith-mitchell",
       "competitor_id": "8906"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779367227.094325,
-  "last_score_refresh_attempt_at": 1779367528.874571,
+  "last_score_refresh_at": 1779367530.4319232,
+  "last_score_refresh_attempt_at": 1779367530.4319232,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -722,6 +722,7 @@
     ],
     "Stewart Cink": [],
     "Keith Mitchell": [
+      "P",
       "P"
     ],
     "Sepp Straka": [],
