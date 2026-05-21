@@ -75,7 +75,7 @@
     },
     "Max Greyserman": {
       "score": "E",
-      "hole": "9",
+      "hole": "10",
       "profile_url": "https://www.espn.com/golf/player/_/id/11101/max-greyserman",
       "competitor_id": "11101"
     },
@@ -117,13 +117,13 @@
     },
     "Daniel Brown": {
       "score": "+3",
-      "hole": "7",
+      "hole": "8",
       "profile_url": "https://www.espn.com/golf/player/_/id/1407/daniel-brown",
       "competitor_id": "1407"
     },
     "Billy Horschel": {
       "score": "E",
-      "hole": "9",
+      "hole": "10",
       "profile_url": "https://www.espn.com/golf/player/_/id/1651/billy-horschel",
       "competitor_id": "1651"
     },
@@ -182,8 +182,8 @@
       "competitor_id": "4858859"
     },
     "Joe Highsmith": {
-      "score": "-1",
-      "hole": "9",
+      "score": "+1",
+      "hole": "10",
       "profile_url": "https://www.espn.com/golf/player/_/id/4868733/joe-highsmith",
       "competitor_id": "4868733"
     },
@@ -195,7 +195,7 @@
     },
     "William Mouw": {
       "score": "E",
-      "hole": "9",
+      "hole": "10",
       "profile_url": "https://www.espn.com/golf/player/_/id/5076025/william-mouw",
       "competitor_id": "5076025"
     },
@@ -273,13 +273,13 @@
     },
     "Taylor Pendrith": {
       "score": "-2",
-      "hole": "9",
+      "hole": "10",
       "profile_url": "https://www.espn.com/golf/player/_/id/9658/taylor-pendrith",
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779395975.262493,
-  "last_score_refresh_attempt_at": 1779396510.1985,
+  "last_score_refresh_at": 1779396512.367195,
+  "last_score_refresh_attempt_at": 1779396512.367195,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -400,10 +400,10 @@
       "P"
     ],
     "Max Greyserman": [
-      "○",
       "P",
       "P",
       "○",
+      "P",
       "P"
     ],
     "Wyndham Clark": [
@@ -476,18 +476,18 @@
     ],
     "Y.E. Yang": [],
     "Daniel Brown": [
-      "□",
       "P",
       "P",
       "□",
+      "P",
       "P"
     ],
     "Billy Horschel": [
       "P",
-      "P",
       "□",
       "P",
-      "○"
+      "○",
+      "P"
     ],
     "Jason Day": [],
     "Padraig Harrington": [
@@ -703,11 +703,11 @@
       "P"
     ],
     "Joe Highsmith": [
+      "P",
+      "P",
+      "P",
       "○",
-      "P",
-      "P",
-      "P",
-      "○"
+      "□"
     ],
     "David Puig": [
       "P",
@@ -729,11 +729,11 @@
     "Jared Jones": [],
     "Ryan Gerard": [],
     "William Mouw": [
-      "P",
       "□",
       "P",
       "P",
-      "□"
+      "□",
+      "P"
     ],
     "Aldrich Potgieter": [
       "P",
@@ -924,10 +924,10 @@
     ],
     "Ryan Lenahan": [],
     "Taylor Pendrith": [
-      "○",
       "P",
       "P",
       "○",
+      "P",
       "P"
     ],
     "Jon Rahm": [
