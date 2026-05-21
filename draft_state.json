@@ -98,8 +98,8 @@
       "competitor_id": "11382"
     },
     "Max McGreevy": {
-      "score": "-2",
-      "hole": "13",
+      "score": "-3",
+      "hole": "14",
       "profile_url": "https://www.espn.com/golf/player/_/id/11383/max-mcgreevy",
       "competitor_id": "11383"
     },
@@ -111,7 +111,7 @@
     },
     "Garrick Higgo": {
       "score": "-2",
-      "hole": "15",
+      "hole": "16",
       "profile_url": "https://www.espn.com/golf/player/_/id/11393/garrick-higgo",
       "competitor_id": "11393"
     },
@@ -195,7 +195,7 @@
     },
     "William Mouw": {
       "score": "E",
-      "hole": "14",
+      "hole": "15",
       "profile_url": "https://www.espn.com/golf/player/_/id/5076025/william-mouw",
       "competitor_id": "5076025"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779400944.2700584,
-  "last_score_refresh_attempt_at": 1779401268.9668458,
+  "last_score_refresh_at": 1779401270.417312,
+  "last_score_refresh_attempt_at": 1779401270.417312,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -445,11 +445,11 @@
       "○"
     ],
     "Max McGreevy": [
-      "P",
       "○",
       "P",
       "P",
-      "P"
+      "P",
+      "○"
     ],
     "Rico Hoey": [
       "○",
