@@ -92,14 +92,14 @@
       "competitor_id": "11253"
     },
     "Sungjae Im": {
-      "score": "-3",
-      "hole": "13",
+      "score": "-2",
+      "hole": "14",
       "profile_url": "https://www.espn.com/golf/player/_/id/11382/sungjae-im",
       "competitor_id": "11382"
     },
     "Max McGreevy": {
       "score": "-2",
-      "hole": "12",
+      "hole": "13",
       "profile_url": "https://www.espn.com/golf/player/_/id/11383/max-mcgreevy",
       "competitor_id": "11383"
     },
@@ -111,25 +111,25 @@
     },
     "Garrick Higgo": {
       "score": "-2",
-      "hole": "14",
+      "hole": "15",
       "profile_url": "https://www.espn.com/golf/player/_/id/11393/garrick-higgo",
       "competitor_id": "11393"
     },
     "Daniel Brown": {
       "score": "+3",
-      "hole": "11",
+      "hole": "12",
       "profile_url": "https://www.espn.com/golf/player/_/id/1407/daniel-brown",
       "competitor_id": "1407"
     },
     "Billy Horschel": {
-      "score": "-1",
-      "hole": "13",
+      "score": "-2",
+      "hole": "14",
       "profile_url": "https://www.espn.com/golf/player/_/id/1651/billy-horschel",
       "competitor_id": "1651"
     },
     "Chris Kirk": {
       "score": "-3",
-      "hole": "13",
+      "hole": "14",
       "profile_url": "https://www.espn.com/golf/player/_/id/3449/chris-kirk",
       "competitor_id": "3449"
     },
@@ -147,7 +147,7 @@
     },
     "Matti Schmid": {
       "score": "-2",
-      "hole": "14",
+      "hole": "15",
       "profile_url": "https://www.espn.com/golf/player/_/id/4566443/matti-schmid",
       "competitor_id": "4566443"
     },
@@ -164,14 +164,14 @@
       "competitor_id": "4671"
     },
     "Pierceson Coody": {
-      "score": "-4",
-      "hole": "14",
+      "score": "-3",
+      "hole": "15",
       "profile_url": "https://www.espn.com/golf/player/_/id/4837368/pierceson-coody",
       "competitor_id": "4837368"
     },
     "Ryo Hisatsune": {
       "score": "-3",
-      "hole": "14",
+      "hole": "15",
       "profile_url": "https://www.espn.com/golf/player/_/id/4858572/ryo-hisatsune",
       "competitor_id": "4858572"
     },
@@ -200,8 +200,8 @@
       "competitor_id": "5076025"
     },
     "Jordan Spieth": {
-      "score": "-1",
-      "hole": "13",
+      "score": "-2",
+      "hole": "14",
       "profile_url": "https://www.espn.com/golf/player/_/id/5467/jordan-spieth",
       "competitor_id": "5467"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779400155.4213934,
-  "last_score_refresh_attempt_at": 1779400619.3621438,
+  "last_score_refresh_at": 1779400620.8002458,
+  "last_score_refresh_attempt_at": 1779400620.8002458,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -441,12 +441,12 @@
       "P",
       "P",
       "P",
-      "P"
+      "□"
     ],
     "Max McGreevy": [
       "P",
-      "P",
       "○",
+      "P",
       "P",
       "P"
     ],
@@ -482,11 +482,11 @@
       "P"
     ],
     "Billy Horschel": [
-      "○",
       "P",
       "P",
       "○",
-      "P"
+      "P",
+      "○"
     ],
     "Jason Day": [],
     "Padraig Harrington": [
@@ -509,10 +509,10 @@
       "□"
     ],
     "Chris Kirk": [
-      "○",
       "P",
       "□",
       "○",
+      "P",
       "P"
     ],
     "Rory McIlroy": [
@@ -676,8 +676,8 @@
       "P",
       "P",
       "P",
-      "P",
-      "○"
+      "○",
+      "□"
     ],
     "Mark Geddes": [],
     "Justin Thomas": [
@@ -765,11 +765,11 @@
     ],
     "Russell Henley": [],
     "Jordan Spieth": [
-      "○",
       "P",
       "□",
       "P",
-      "□"
+      "□",
+      "○"
     ],
     "Andrew Putnam": [
       "○",
