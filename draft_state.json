@@ -75,7 +75,7 @@
     },
     "Max Greyserman": {
       "score": "E",
-      "hole": "13",
+      "hole": "14",
       "profile_url": "https://www.espn.com/golf/player/_/id/11101/max-greyserman",
       "competitor_id": "11101"
     },
@@ -92,8 +92,8 @@
       "competitor_id": "11253"
     },
     "Sungjae Im": {
-      "score": "-2",
-      "hole": "14",
+      "score": "-3",
+      "hole": "15",
       "profile_url": "https://www.espn.com/golf/player/_/id/11382/sungjae-im",
       "competitor_id": "11382"
     },
@@ -128,8 +128,8 @@
       "competitor_id": "1651"
     },
     "Chris Kirk": {
-      "score": "-3",
-      "hole": "14",
+      "score": "-4",
+      "hole": "15",
       "profile_url": "https://www.espn.com/golf/player/_/id/3449/chris-kirk",
       "competitor_id": "3449"
     },
@@ -158,8 +158,8 @@
       "competitor_id": "4618114"
     },
     "John Parry": {
-      "score": "-1",
-      "hole": "10",
+      "score": "E",
+      "hole": "11",
       "profile_url": "https://www.espn.com/golf/player/_/id/4671/john-parry",
       "competitor_id": "4671"
     },
@@ -183,7 +183,7 @@
     },
     "Joe Highsmith": {
       "score": "E",
-      "hole": "14",
+      "hole": "15",
       "profile_url": "https://www.espn.com/golf/player/_/id/4868733/joe-highsmith",
       "competitor_id": "4868733"
     },
@@ -200,8 +200,8 @@
       "competitor_id": "5076025"
     },
     "Jordan Spieth": {
-      "score": "-2",
-      "hole": "14",
+      "score": "-3",
+      "hole": "15",
       "profile_url": "https://www.espn.com/golf/player/_/id/5467/jordan-spieth",
       "competitor_id": "5467"
     },
@@ -272,14 +272,14 @@
       "competitor_id": "9506"
     },
     "Taylor Pendrith": {
-      "score": "-3",
-      "hole": "13",
+      "score": "-4",
+      "hole": "14",
       "profile_url": "https://www.espn.com/golf/player/_/id/9658/taylor-pendrith",
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779400620.8002458,
-  "last_score_refresh_attempt_at": 1779400942.8306181,
+  "last_score_refresh_at": 1779400944.2700584,
+  "last_score_refresh_attempt_at": 1779400944.2700584,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -335,7 +335,8 @@
       ]
     },
     "leaders": [
-      "Jayme Leita"
+      "Jayme Leita",
+      "Peter Miller"
     ]
   },
   "selected_tournament": {},
@@ -440,8 +441,8 @@
       "P",
       "P",
       "P",
-      "P",
-      "□"
+      "□",
+      "○"
     ],
     "Max McGreevy": [
       "P",
@@ -509,11 +510,11 @@
       "□"
     ],
     "Chris Kirk": [
-      "P",
       "□",
       "○",
       "P",
-      "P"
+      "P",
+      "○"
     ],
     "Rory McIlroy": [
       "○",
@@ -647,11 +648,11 @@
       "P"
     ],
     "John Parry": [
-      "P",
       "○",
       "P",
       "P",
-      "P"
+      "P",
+      "□"
     ],
     "Chris Gotterup": [
       "P",
@@ -702,11 +703,11 @@
       "P"
     ],
     "Joe Highsmith": [
-      "□",
       "P",
       "P",
       "P",
-      "○"
+      "○",
+      "P"
     ],
     "David Puig": [
       "P",
@@ -765,10 +766,10 @@
     ],
     "Russell Henley": [],
     "Jordan Spieth": [
-      "P",
       "□",
       "P",
       "□",
+      "○",
       "○"
     ],
     "Andrew Putnam": [
@@ -926,7 +927,7 @@
       "P",
       "P",
       "P",
-      "P",
+      "○",
       "○"
     ],
     "Jon Rahm": [
