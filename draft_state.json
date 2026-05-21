@@ -57,7 +57,7 @@
   "player_results": {
     "Davis Riley": {
       "score": "-1",
-      "hole": "2",
+      "hole": "3",
       "profile_url": "https://www.espn.com/golf/player/_/id/10058/davis-riley",
       "competitor_id": "10058"
     },
@@ -140,8 +140,8 @@
       "competitor_id": "4425904"
     },
     "Steven Fisk": {
-      "score": "E",
-      "hole": "1",
+      "score": "-1",
+      "hole": "2",
       "profile_url": "https://www.espn.com/golf/player/_/id/4426182/steven-fisk",
       "competitor_id": "4426182"
     },
@@ -189,7 +189,7 @@
     },
     "Michael Brennan": {
       "score": "E",
-      "hole": "2",
+      "hole": "3",
       "profile_url": "https://www.espn.com/golf/player/_/id/4921329/michael-brennan",
       "competitor_id": "4921329"
     },
@@ -254,14 +254,14 @@
       "competitor_id": "9221"
     },
     "Christiaan Bezuidenhout": {
-      "score": "N/A",
-      "hole": "9:06 AM",
+      "score": "E",
+      "hole": "1",
       "profile_url": "https://www.espn.com/golf/player/_/id/9243/christiaan-bezuidenhout",
       "competitor_id": "9243"
     },
     "Scottie Scheffler": {
-      "score": "E",
-      "hole": "2",
+      "score": "-1",
+      "hole": "3",
       "profile_url": "https://www.espn.com/golf/player/_/id/9478/scottie-scheffler",
       "competitor_id": "9478"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779369624.7392707,
-  "last_score_refresh_attempt_at": 1779369924.9681706,
+  "last_score_refresh_at": 1779369926.7511146,
+  "last_score_refresh_attempt_at": 1779369926.7511146,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -334,7 +334,8 @@
       ]
     },
     "leaders": [
-      "Jayme Leita"
+      "Jayme Leita",
+      "Peter Miller"
     ]
   },
   "selected_tournament": {},
@@ -347,6 +348,7 @@
       "P"
     ],
     "Davis Riley": [
+      "P",
       "P"
     ],
     "Xander Schauffele": [
@@ -558,7 +560,9 @@
     "Sam Stevens": [
       "P"
     ],
-    "Steven Fisk": [],
+    "Steven Fisk": [
+      "○"
+    ],
     "Jimmy Walker": [],
     "Keegan Bradley": [],
     "Matti Schmid": [
@@ -628,6 +632,7 @@
     "Michael Brennan": [
       "□",
       "□",
+      "P",
       "P"
     ],
     "Jacob Bridgeman": [],
@@ -773,11 +778,11 @@
     ],
     "Christiaan Bezuidenhout": [],
     "Scottie Scheffler": [
-      "P",
       "○",
       "P",
       "□",
-      "P"
+      "P",
+      "○"
     ],
     "Alex Smalley": [
       "P",
