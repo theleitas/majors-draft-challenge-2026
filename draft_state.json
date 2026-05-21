@@ -80,8 +80,8 @@
       "competitor_id": "11101"
     },
     "Wyndham Clark": {
-      "score": "N/A",
-      "hole": "8:44 AM",
+      "score": "E",
+      "hole": "1",
       "profile_url": "https://www.espn.com/golf/player/_/id/11119/wyndham-clark",
       "competitor_id": "11119"
     },
@@ -207,13 +207,13 @@
     },
     "Emiliano Grillo": {
       "score": "-2",
-      "hole": "3",
+      "hole": "4",
       "profile_url": "https://www.espn.com/golf/player/_/id/5882/emiliano-grillo",
       "competitor_id": "5882"
     },
     "Brooks Koepka": {
-      "score": "E",
-      "hole": "1",
+      "score": "-1",
+      "hole": "2",
       "profile_url": "https://www.espn.com/golf/player/_/id/6798/brooks-koepka",
       "competitor_id": "6798"
     },
@@ -224,8 +224,8 @@
       "competitor_id": "6825"
     },
     "Stephan Jaeger": {
-      "score": "N/A",
-      "hole": "8:44 AM",
+      "score": "-1",
+      "hole": "1",
       "profile_url": "https://www.espn.com/golf/player/_/id/6937/stephan-jaeger",
       "competitor_id": "6937"
     },
@@ -242,8 +242,8 @@
       "competitor_id": "7081"
     },
     "Keith Mitchell": {
-      "score": "E",
-      "hole": "2",
+      "score": "-1",
+      "hole": "3",
       "profile_url": "https://www.espn.com/golf/player/_/id/8906/keith-mitchell",
       "competitor_id": "8906"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779368132.2591572,
-  "last_score_refresh_attempt_at": 1779368531.256965,
+  "last_score_refresh_at": 1779368533.342019,
+  "last_score_refresh_attempt_at": 1779368533.342019,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -334,8 +334,7 @@
       ]
     },
     "leaders": [
-      "Jayme Leita",
-      "Peter Miller"
+      "Jayme Leita"
     ]
   },
   "selected_tournament": {},
@@ -699,7 +698,8 @@
     ],
     "Emiliano Grillo": [
       "○",
-      "○"
+      "○",
+      "P"
     ],
     "Garrett Sapp": [],
     "Andy Sullivan": [],
@@ -708,11 +708,11 @@
     "David Lipsky": [],
     "Lucas Glover": [],
     "Brooks Koepka": [
-      "P",
       "□",
       "P",
       "□",
-      "□"
+      "□",
+      "○"
     ],
     "Patrick Rodgers": [],
     "Stephan Jaeger": [
@@ -733,7 +733,8 @@
     "Stewart Cink": [],
     "Keith Mitchell": [
       "P",
-      "P"
+      "P",
+      "○"
     ],
     "Sepp Straka": [],
     "Max Homa": [],
