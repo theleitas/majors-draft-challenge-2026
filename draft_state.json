@@ -75,7 +75,7 @@
     },
     "Max Greyserman": {
       "score": "E",
-      "hole": "12",
+      "hole": "13",
       "profile_url": "https://www.espn.com/golf/player/_/id/11101/max-greyserman",
       "competitor_id": "11101"
     },
@@ -182,8 +182,8 @@
       "competitor_id": "4858859"
     },
     "Joe Highsmith": {
-      "score": "+1",
-      "hole": "13",
+      "score": "E",
+      "hole": "14",
       "profile_url": "https://www.espn.com/golf/player/_/id/4868733/joe-highsmith",
       "competitor_id": "4868733"
     },
@@ -195,7 +195,7 @@
     },
     "William Mouw": {
       "score": "E",
-      "hole": "13",
+      "hole": "14",
       "profile_url": "https://www.espn.com/golf/player/_/id/5076025/william-mouw",
       "competitor_id": "5076025"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779399636.5313575,
-  "last_score_refresh_attempt_at": 1779400153.9883602,
+  "last_score_refresh_at": 1779400155.4213934,
+  "last_score_refresh_attempt_at": 1779400155.4213934,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -399,7 +399,7 @@
       "P"
     ],
     "Max Greyserman": [
-      "○",
+      "P",
       "P",
       "P",
       "P",
@@ -702,11 +702,11 @@
       "P"
     ],
     "Joe Highsmith": [
-      "○",
       "□",
       "P",
       "P",
-      "P"
+      "P",
+      "○"
     ],
     "David Puig": [
       "P",
@@ -728,7 +728,7 @@
     "Jared Jones": [],
     "Ryan Gerard": [],
     "William Mouw": [
-      "□",
+      "P",
       "P",
       "P",
       "P",
