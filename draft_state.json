@@ -56,8 +56,8 @@
   },
   "player_results": {
     "Davis Riley": {
-      "score": "N/A",
-      "hole": "8:33 AM",
+      "score": "-1",
+      "hole": "1",
       "profile_url": "https://www.espn.com/golf/player/_/id/10058/davis-riley",
       "competitor_id": "10058"
     },
@@ -86,8 +86,8 @@
       "competitor_id": "11119"
     },
     "Rasmus Højgaard": {
-      "score": "E",
-      "hole": "1",
+      "score": "+1",
+      "hole": "2",
       "profile_url": "https://www.espn.com/golf/player/_/id/11253/rasmus-højgaard",
       "competitor_id": "11253"
     },
@@ -188,8 +188,8 @@
       "competitor_id": "4868733"
     },
     "Michael Brennan": {
-      "score": "N/A",
-      "hole": "8:33 AM",
+      "score": "E",
+      "hole": "1",
       "profile_url": "https://www.espn.com/golf/player/_/id/4921329/michael-brennan",
       "competitor_id": "4921329"
     },
@@ -206,14 +206,14 @@
       "competitor_id": "5467"
     },
     "Emiliano Grillo": {
-      "score": "-1",
-      "hole": "2",
+      "score": "-2",
+      "hole": "3",
       "profile_url": "https://www.espn.com/golf/player/_/id/5882/emiliano-grillo",
       "competitor_id": "5882"
     },
     "Brooks Koepka": {
-      "score": "N/A",
-      "hole": "8:33 AM",
+      "score": "E",
+      "hole": "1",
       "profile_url": "https://www.espn.com/golf/player/_/id/6798/brooks-koepka",
       "competitor_id": "6798"
     },
@@ -260,8 +260,8 @@
       "competitor_id": "9243"
     },
     "Scottie Scheffler": {
-      "score": "N/A",
-      "hole": "8:33 AM",
+      "score": "E",
+      "hole": "1",
       "profile_url": "https://www.espn.com/golf/player/_/id/9478/scottie-scheffler",
       "competitor_id": "9478"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779367530.4319232,
-  "last_score_refresh_attempt_at": 1779368130.643374,
+  "last_score_refresh_at": 1779368132.2591572,
+  "last_score_refresh_attempt_at": 1779368132.2591572,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -325,11 +325,18 @@
     },
     "sent_event_ids": [],
     "top3_by_coach": {
-      "Jayme Leita": [],
+      "Jayme Leita": [
+        "Brooks Koepka"
+      ],
       "Spencer Tidwell": [],
-      "Peter Miller": []
+      "Peter Miller": [
+        "Scottie Scheffler"
+      ]
     },
-    "leaders": []
+    "leaders": [
+      "Jayme Leita",
+      "Peter Miller"
+    ]
   },
   "selected_tournament": {},
   "hole_outcomes": {
@@ -393,7 +400,9 @@
       "○",
       "P"
     ],
-    "Rasmus Højgaard": [],
+    "Rasmus Højgaard": [
+      "□"
+    ],
     "Andrew Novak": [
       "□",
       "○",
@@ -689,6 +698,7 @@
       "P"
     ],
     "Emiliano Grillo": [
+      "○",
       "○"
     ],
     "Garrett Sapp": [],
