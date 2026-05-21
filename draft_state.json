@@ -158,8 +158,8 @@
       "competitor_id": "4618114"
     },
     "John Parry": {
-      "score": "-1",
-      "hole": "16",
+      "score": "-2",
+      "hole": "17",
       "profile_url": "https://www.espn.com/golf/player/_/id/4671/john-parry",
       "competitor_id": "4671"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779406512.2225826,
-  "last_score_refresh_attempt_at": 1779406815.5589345,
+  "last_score_refresh_at": 1779406817.0097232,
+  "last_score_refresh_attempt_at": 1779406817.0097232,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -648,11 +648,11 @@
       "P"
     ],
     "John Parry": [
-      "○",
       "P",
       "P",
       "P",
-      "P"
+      "P",
+      "○"
     ],
     "Chris Gotterup": [
       "P",
