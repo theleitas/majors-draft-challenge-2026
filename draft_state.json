@@ -86,8 +86,8 @@
       "competitor_id": "11119"
     },
     "Rasmus Højgaard": {
-      "score": "N/A",
-      "hole": "8:22 AM",
+      "score": "E",
+      "hole": "1",
       "profile_url": "https://www.espn.com/golf/player/_/id/11253/rasmus-højgaard",
       "competitor_id": "11253"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779366839.5581017,
-  "last_score_refresh_attempt_at": 1779367225.3728826,
+  "last_score_refresh_at": 1779367227.094325,
+  "last_score_refresh_attempt_at": 1779367227.094325,
   "text_updates": {
     "enabled": false,
     "twilio": {
