@@ -57,7 +57,7 @@
   "player_results": {
     "Davis Riley": {
       "score": "-1",
-      "hole": "17",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/10058/davis-riley",
       "competitor_id": "10058"
     },
@@ -80,8 +80,8 @@
       "competitor_id": "11101"
     },
     "Wyndham Clark": {
-      "score": "-6",
-      "hole": "17",
+      "score": "-5",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/11119/wyndham-clark",
       "competitor_id": "11119"
     },
@@ -105,7 +105,7 @@
     },
     "Rico Hoey": {
       "score": "-3",
-      "hole": "15",
+      "hole": "16",
       "profile_url": "https://www.espn.com/golf/player/_/id/11385/rico-hoey",
       "competitor_id": "11385"
     },
@@ -177,7 +177,7 @@
     },
     "Rasmus Neergaard-Petersen": {
       "score": "-4",
-      "hole": "12",
+      "hole": "13",
       "profile_url": "https://www.espn.com/golf/player/_/id/4858859/rasmus-neergaard-petersen",
       "competitor_id": "4858859"
     },
@@ -188,8 +188,8 @@
       "competitor_id": "4868733"
     },
     "Michael Brennan": {
-      "score": "-2",
-      "hole": "17",
+      "score": "-3",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/4921329/michael-brennan",
       "competitor_id": "4921329"
     },
@@ -224,14 +224,14 @@
       "competitor_id": "6825"
     },
     "Stephan Jaeger": {
-      "score": "-6",
-      "hole": "17",
+      "score": "-7",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/6937/stephan-jaeger",
       "competitor_id": "6937"
     },
     "Adrien Saddier": {
-      "score": "-1",
-      "hole": "12",
+      "score": "-2",
+      "hole": "13",
       "profile_url": "https://www.espn.com/golf/player/_/id/6962/adrien-saddier",
       "competitor_id": "6962"
     },
@@ -267,7 +267,7 @@
     },
     "Jordan Smith": {
       "score": "-5",
-      "hole": "15",
+      "hole": "16",
       "profile_url": "https://www.espn.com/golf/player/_/id/9506/jordan-smith",
       "competitor_id": "9506"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779385239.1364703,
-  "last_score_refresh_attempt_at": 1779385541.5571656,
+  "last_score_refresh_at": 1779385543.0884085,
+  "last_score_refresh_attempt_at": 1779385543.0884085,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -348,7 +348,7 @@
     ],
     "Davis Riley": [
       "□",
-      "□",
+      "P",
       "P",
       "P",
       "P"
@@ -405,11 +405,11 @@
       "P"
     ],
     "Wyndham Clark": [
-      "P",
       "○",
       "P",
       "P",
-      "P"
+      "P",
+      "□"
     ],
     "Jordan Gumberg": [],
     "Nicolai Højgaard": [
@@ -438,10 +438,10 @@
     "Sungjae Im": [],
     "Max McGreevy": [],
     "Rico Hoey": [
-      "○",
       "P",
       "P",
       "○",
+      "P",
       "P"
     ],
     "Garrick Higgo": [],
@@ -651,8 +651,8 @@
       "P",
       "P",
       "P",
-      "P",
-      "○"
+      "○",
+      "P"
     ],
     "Joe Highsmith": [],
     "David Puig": [
@@ -664,11 +664,11 @@
     ],
     "Matt McCarty": [],
     "Michael Brennan": [
-      "□",
       "P",
       "P",
       "P",
-      "P"
+      "P",
+      "○"
     ],
     "Jacob Bridgeman": [],
     "Austin Hurt": [],
@@ -772,16 +772,16 @@
     "Stephan Jaeger": [
       "○",
       "○",
-      "○",
       "P",
-      "P"
+      "P",
+      "○"
     ],
     "Adrien Saddier": [
       "P",
       "P",
       "P",
       "P",
-      "P"
+      "○"
     ],
     "Si Woo Kim": [
       "○",
@@ -849,10 +849,10 @@
     ],
     "Jordan Smith": [
       "○",
+      "P",
+      "P",
       "○",
-      "P",
-      "P",
-      "○"
+      "P"
     ],
     "Brian Campbell": [],
     "Maverick McNealy": [
