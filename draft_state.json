@@ -75,7 +75,7 @@
     },
     "Max Greyserman": {
       "score": "+1",
-      "hole": "6",
+      "hole": "7",
       "profile_url": "https://www.espn.com/golf/player/_/id/11101/max-greyserman",
       "competitor_id": "11101"
     },
@@ -111,7 +111,7 @@
     },
     "Garrick Higgo": {
       "score": "-2",
-      "hole": "6",
+      "hole": "7",
       "profile_url": "https://www.espn.com/golf/player/_/id/11393/garrick-higgo",
       "competitor_id": "11393"
     },
@@ -122,8 +122,8 @@
       "competitor_id": "1407"
     },
     "Billy Horschel": {
-      "score": "E",
-      "hole": "6",
+      "score": "+1",
+      "hole": "7",
       "profile_url": "https://www.espn.com/golf/player/_/id/1651/billy-horschel",
       "competitor_id": "1651"
     },
@@ -273,13 +273,13 @@
     },
     "Taylor Pendrith": {
       "score": "-1",
-      "hole": "6",
+      "hole": "7",
       "profile_url": "https://www.espn.com/golf/player/_/id/9658/taylor-pendrith",
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779392418.5448804,
-  "last_score_refresh_attempt_at": 1779392721.081967,
+  "last_score_refresh_at": 1779392723.0973399,
+  "last_score_refresh_attempt_at": 1779392723.0973399,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -400,9 +400,9 @@
     ],
     "Max Greyserman": [
       "□",
-      "□",
       "P",
       "○",
+      "P",
       "P"
     ],
     "Wyndham Clark": [
@@ -458,10 +458,10 @@
       "○"
     ],
     "Garrick Higgo": [
-      "P",
       "○",
       "P",
       "○",
+      "P",
       "P"
     ],
     "Jesse Droemer": [],
@@ -484,7 +484,7 @@
       "P",
       "P",
       "P",
-      "P"
+      "□"
     ],
     "Jason Day": [],
     "Padraig Harrington": [
@@ -920,8 +920,8 @@
     "Taylor Pendrith": [
       "P",
       "P",
-      "P",
       "○",
+      "P",
       "P"
     ],
     "Jon Rahm": [
