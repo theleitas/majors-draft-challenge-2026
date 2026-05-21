@@ -206,8 +206,8 @@
       "competitor_id": "5467"
     },
     "Emiliano Grillo": {
-      "score": "E",
-      "hole": "1",
+      "score": "-1",
+      "hole": "2",
       "profile_url": "https://www.espn.com/golf/player/_/id/5882/emiliano-grillo",
       "competitor_id": "5882"
     },
@@ -242,8 +242,8 @@
       "competitor_id": "7081"
     },
     "Keith Mitchell": {
-      "score": "N/A",
-      "hole": "8:11 AM",
+      "score": "E",
+      "hole": "1",
       "profile_url": "https://www.espn.com/golf/player/_/id/8906/keith-mitchell",
       "competitor_id": "8906"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779366353.586385,
-  "last_score_refresh_attempt_at": 1779366838.093163,
+  "last_score_refresh_at": 1779366839.5581017,
+  "last_score_refresh_attempt_at": 1779366839.5581017,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -688,7 +688,9 @@
       "○",
       "P"
     ],
-    "Emiliano Grillo": [],
+    "Emiliano Grillo": [
+      "○"
+    ],
     "Garrett Sapp": [],
     "Andy Sullivan": [],
     "Patrick Cantlay": [],
