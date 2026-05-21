@@ -147,7 +147,7 @@
     },
     "Matti Schmid": {
       "score": "-1",
-      "hole": "17",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/4566443/matti-schmid",
       "competitor_id": "4566443"
     },
@@ -159,19 +159,19 @@
     },
     "John Parry": {
       "score": "-1",
-      "hole": "12",
+      "hole": "13",
       "profile_url": "https://www.espn.com/golf/player/_/id/4671/john-parry",
       "competitor_id": "4671"
     },
     "Pierceson Coody": {
       "score": "-3",
-      "hole": "17",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/4837368/pierceson-coody",
       "competitor_id": "4837368"
     },
     "Ryo Hisatsune": {
       "score": "-4",
-      "hole": "17",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/4858572/ryo-hisatsune",
       "competitor_id": "4858572"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779402974.1888194,
-  "last_score_refresh_attempt_at": 1779403274.3653157,
+  "last_score_refresh_at": 1779403275.7447407,
+  "last_score_refresh_attempt_at": 1779403275.7447407,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -625,8 +625,8 @@
     "Matti Schmid": [
       "P",
       "P",
-      "P",
       "□",
+      "P",
       "P"
     ],
     "Marco Penge": [],
@@ -650,9 +650,9 @@
     "John Parry": [
       "P",
       "P",
-      "P",
       "□",
-      "○"
+      "○",
+      "P"
     ],
     "Chris Gotterup": [
       "P",
@@ -674,9 +674,9 @@
     "Tyler Collet": [],
     "Thomas Detry": [],
     "Pierceson Coody": [
-      "P",
       "○",
       "□",
+      "P",
       "P",
       "P"
     ],
@@ -692,8 +692,8 @@
       "P",
       "P",
       "P",
-      "P",
-      "○"
+      "○",
+      "P"
     ],
     "Rasmus Neergaard-Petersen": [
       "P",
