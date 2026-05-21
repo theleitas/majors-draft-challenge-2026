@@ -75,7 +75,7 @@
     },
     "Max Greyserman": {
       "score": "E",
-      "hole": "8",
+      "hole": "9",
       "profile_url": "https://www.espn.com/golf/player/_/id/11101/max-greyserman",
       "competitor_id": "11101"
     },
@@ -122,14 +122,14 @@
       "competitor_id": "1407"
     },
     "Billy Horschel": {
-      "score": "+1",
-      "hole": "8",
+      "score": "E",
+      "hole": "9",
       "profile_url": "https://www.espn.com/golf/player/_/id/1651/billy-horschel",
       "competitor_id": "1651"
     },
     "Chris Kirk": {
       "score": "-3",
-      "hole": "9",
+      "hole": "10",
       "profile_url": "https://www.espn.com/golf/player/_/id/3449/chris-kirk",
       "competitor_id": "3449"
     },
@@ -159,7 +159,7 @@
     },
     "John Parry": {
       "score": "E",
-      "hole": "5",
+      "hole": "6",
       "profile_url": "https://www.espn.com/golf/player/_/id/4671/john-parry",
       "competitor_id": "4671"
     },
@@ -273,13 +273,13 @@
     },
     "Taylor Pendrith": {
       "score": "-2",
-      "hole": "8",
+      "hole": "9",
       "profile_url": "https://www.espn.com/golf/player/_/id/9658/taylor-pendrith",
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779395147.906592,
-  "last_score_refresh_attempt_at": 1779395508.9065685,
+  "last_score_refresh_at": 1779395510.4149675,
+  "last_score_refresh_attempt_at": 1779395510.4149675,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -400,11 +400,11 @@
       "P"
     ],
     "Max Greyserman": [
-      "P",
       "○",
       "P",
       "P",
-      "○"
+      "○",
+      "P"
     ],
     "Wyndham Clark": [
       "○",
@@ -485,9 +485,9 @@
     "Billy Horschel": [
       "P",
       "P",
-      "P",
       "□",
-      "P"
+      "P",
+      "○"
     ],
     "Jason Day": [],
     "Padraig Harrington": [
@@ -510,11 +510,11 @@
       "□"
     ],
     "Chris Kirk": [
-      "○",
       "P",
       "P",
       "○",
-      "○"
+      "○",
+      "P"
     ],
     "Rory McIlroy": [
       "○",
@@ -651,6 +651,7 @@
       "P",
       "○",
       "□",
+      "P",
       "P"
     ],
     "Chris Gotterup": [
@@ -923,11 +924,11 @@
     ],
     "Ryan Lenahan": [],
     "Taylor Pendrith": [
-      "P",
       "○",
       "P",
       "P",
-      "○"
+      "○",
+      "P"
     ],
     "Jon Rahm": [
       "P",
