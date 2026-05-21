@@ -93,7 +93,7 @@
     },
     "Sungjae Im": {
       "score": "-3",
-      "hole": "7",
+      "hole": "8",
       "profile_url": "https://www.espn.com/golf/player/_/id/11382/sungjae-im",
       "competitor_id": "11382"
     },
@@ -117,7 +117,7 @@
     },
     "Daniel Brown": {
       "score": "+2",
-      "hole": "3",
+      "hole": "4",
       "profile_url": "https://www.espn.com/golf/player/_/id/1407/daniel-brown",
       "competitor_id": "1407"
     },
@@ -128,8 +128,8 @@
       "competitor_id": "1651"
     },
     "Chris Kirk": {
-      "score": "E",
-      "hole": "7",
+      "score": "-1",
+      "hole": "8",
       "profile_url": "https://www.espn.com/golf/player/_/id/3449/chris-kirk",
       "competitor_id": "3449"
     },
@@ -201,7 +201,7 @@
     },
     "Jordan Spieth": {
       "score": "-2",
-      "hole": "7",
+      "hole": "8",
       "profile_url": "https://www.espn.com/golf/player/_/id/5467/jordan-spieth",
       "competitor_id": "5467"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779392723.0973399,
-  "last_score_refresh_attempt_at": 1779393023.3798206,
+  "last_score_refresh_at": 1779393024.983636,
+  "last_score_refresh_attempt_at": 1779393024.983636,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -437,10 +437,10 @@
     "Travis Smyth": [],
     "Robert MacIntyre": [],
     "Sungjae Im": [
-      "□",
       "○",
       "○",
       "○",
+      "P",
       "P"
     ],
     "Max McGreevy": [
@@ -477,7 +477,8 @@
     "Daniel Brown": [
       "P",
       "P",
-      "□"
+      "□",
+      "P"
     ],
     "Billy Horschel": [
       "P",
@@ -507,11 +508,11 @@
       "□"
     ],
     "Chris Kirk": [
-      "P",
       "□",
       "○",
       "P",
-      "P"
+      "P",
+      "○"
     ],
     "Rory McIlroy": [
       "○",
@@ -760,10 +761,10 @@
     ],
     "Russell Henley": [],
     "Jordan Spieth": [
-      "○",
       "□",
       "○",
       "○",
+      "P",
       "P"
     ],
     "Andrew Putnam": [
