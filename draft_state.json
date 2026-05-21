@@ -98,8 +98,8 @@
       "competitor_id": "11382"
     },
     "Max McGreevy": {
-      "score": "E",
-      "hole": "4",
+      "score": "-1",
+      "hole": "5",
       "profile_url": "https://www.espn.com/golf/player/_/id/11383/max-mcgreevy",
       "competitor_id": "11383"
     },
@@ -111,7 +111,7 @@
     },
     "Garrick Higgo": {
       "score": "-2",
-      "hole": "5",
+      "hole": "6",
       "profile_url": "https://www.espn.com/golf/player/_/id/11393/garrick-higgo",
       "competitor_id": "11393"
     },
@@ -123,7 +123,7 @@
     },
     "Billy Horschel": {
       "score": "E",
-      "hole": "5",
+      "hole": "6",
       "profile_url": "https://www.espn.com/golf/player/_/id/1651/billy-horschel",
       "competitor_id": "1651"
     },
@@ -147,7 +147,7 @@
     },
     "Matti Schmid": {
       "score": "E",
-      "hole": "6",
+      "hole": "7",
       "profile_url": "https://www.espn.com/golf/player/_/id/4566443/matti-schmid",
       "competitor_id": "4566443"
     },
@@ -159,13 +159,13 @@
     },
     "John Parry": {
       "score": "E",
-      "hole": "1",
+      "hole": "2",
       "profile_url": "https://www.espn.com/golf/player/_/id/4671/john-parry",
       "competitor_id": "4671"
     },
     "Pierceson Coody": {
-      "score": "-3",
-      "hole": "6",
+      "score": "-2",
+      "hole": "7",
       "profile_url": "https://www.espn.com/golf/player/_/id/4837368/pierceson-coody",
       "competitor_id": "4837368"
     },
@@ -182,8 +182,8 @@
       "competitor_id": "4858859"
     },
     "Joe Highsmith": {
-      "score": "+1",
-      "hole": "4",
+      "score": "E",
+      "hole": "5",
       "profile_url": "https://www.espn.com/golf/player/_/id/4868733/joe-highsmith",
       "competitor_id": "4868733"
     },
@@ -195,7 +195,7 @@
     },
     "William Mouw": {
       "score": "-2",
-      "hole": "4",
+      "hole": "5",
       "profile_url": "https://www.espn.com/golf/player/_/id/5076025/william-mouw",
       "competitor_id": "5076025"
     },
@@ -273,13 +273,13 @@
     },
     "Taylor Pendrith": {
       "score": "-1",
-      "hole": "5",
+      "hole": "6",
       "profile_url": "https://www.espn.com/golf/player/_/id/9658/taylor-pendrith",
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779391227.5108373,
-  "last_score_refresh_attempt_at": 1779391803.2279837,
+  "last_score_refresh_at": 1779391804.740751,
+  "last_score_refresh_attempt_at": 1779391804.740751,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -446,7 +446,8 @@
     "Max McGreevy": [
       "P",
       "P",
-      "P"
+      "P",
+      "○"
     ],
     "Rico Hoey": [
       "○",
@@ -459,7 +460,8 @@
       "P",
       "○",
       "P",
-      "○"
+      "○",
+      "P"
     ],
     "Jesse Droemer": [],
     "Brandt Snedeker": [],
@@ -476,6 +478,7 @@
       "P"
     ],
     "Billy Horschel": [
+      "P",
       "P",
       "P",
       "P",
@@ -615,11 +618,11 @@
     "Jimmy Walker": [],
     "Keegan Bradley": [],
     "Matti Schmid": [
-      "□",
       "P",
       "P",
       "○",
-      "○"
+      "○",
+      "P"
     ],
     "Marco Penge": [],
     "Shane Lowry": [],
@@ -639,7 +642,9 @@
       "○",
       "P"
     ],
-    "John Parry": [],
+    "John Parry": [
+      "P"
+    ],
     "Chris Gotterup": [
       "P",
       "P",
@@ -662,9 +667,9 @@
     "Pierceson Coody": [
       "P",
       "P",
-      "P",
       "○",
-      "○"
+      "○",
+      "□"
     ],
     "Mark Geddes": [],
     "Justin Thomas": [
@@ -691,7 +696,8 @@
     "Joe Highsmith": [
       "P",
       "P",
-      "P"
+      "P",
+      "○"
     ],
     "David Puig": [
       "P",
@@ -715,6 +721,7 @@
     "William Mouw": [
       "○",
       "○",
+      "P",
       "P"
     ],
     "Aldrich Potgieter": [
@@ -909,8 +916,8 @@
       "P",
       "P",
       "P",
-      "P",
-      "○"
+      "○",
+      "P"
     ],
     "Jon Rahm": [
       "P",
