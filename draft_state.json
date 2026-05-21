@@ -57,19 +57,19 @@
   "player_results": {
     "Davis Riley": {
       "score": "-2",
-      "hole": "6",
+      "hole": "7",
       "profile_url": "https://www.espn.com/golf/player/_/id/10058/davis-riley",
       "competitor_id": "10058"
     },
     "Jhonattan Vegas": {
-      "score": "E",
-      "hole": "4",
+      "score": "-1",
+      "hole": "6",
       "profile_url": "https://www.espn.com/golf/player/_/id/1030/jhonattan-vegas",
       "competitor_id": "1030"
     },
     "Adam Schenk": {
       "score": "E",
-      "hole": "5",
+      "hole": "6",
       "profile_url": "https://www.espn.com/golf/player/_/id/10372/adam-schenk",
       "competitor_id": "10372"
     },
@@ -87,7 +87,7 @@
     },
     "Rasmus Højgaard": {
       "score": "E",
-      "hole": "7",
+      "hole": "8",
       "profile_url": "https://www.espn.com/golf/player/_/id/11253/rasmus-højgaard",
       "competitor_id": "11253"
     },
@@ -134,14 +134,14 @@
       "competitor_id": "3449"
     },
     "Michael Thorbjornsen": {
-      "score": "-2",
-      "hole": "4",
+      "score": "-3",
+      "hole": "5",
       "profile_url": "https://www.espn.com/golf/player/_/id/4425904/michael-thorbjornsen",
       "competitor_id": "4425904"
     },
     "Steven Fisk": {
       "score": "-2",
-      "hole": "5",
+      "hole": "6",
       "profile_url": "https://www.espn.com/golf/player/_/id/4426182/steven-fisk",
       "competitor_id": "4426182"
     },
@@ -153,7 +153,7 @@
     },
     "Chandler Blanchet": {
       "score": "E",
-      "hole": "2",
+      "hole": "3",
       "profile_url": "https://www.espn.com/golf/player/_/id/4618114/chandler-blanchet",
       "competitor_id": "4618114"
     },
@@ -188,8 +188,8 @@
       "competitor_id": "4868733"
     },
     "Michael Brennan": {
-      "score": "-1",
-      "hole": "6",
+      "score": "E",
+      "hole": "7",
       "profile_url": "https://www.espn.com/golf/player/_/id/4921329/michael-brennan",
       "competitor_id": "4921329"
     },
@@ -207,13 +207,13 @@
     },
     "Emiliano Grillo": {
       "score": "-4",
-      "hole": "8",
+      "hole": "9",
       "profile_url": "https://www.espn.com/golf/player/_/id/5882/emiliano-grillo",
       "competitor_id": "5882"
     },
     "Brooks Koepka": {
       "score": "-4",
-      "hole": "6",
+      "hole": "7",
       "profile_url": "https://www.espn.com/golf/player/_/id/6798/brooks-koepka",
       "competitor_id": "6798"
     },
@@ -225,43 +225,43 @@
     },
     "Stephan Jaeger": {
       "score": "-2",
-      "hole": "5",
+      "hole": "6",
       "profile_url": "https://www.espn.com/golf/player/_/id/6937/stephan-jaeger",
       "competitor_id": "6937"
     },
     "Adrien Saddier": {
       "score": "E",
-      "hole": "1",
+      "hole": "2",
       "profile_url": "https://www.espn.com/golf/player/_/id/6962/adrien-saddier",
       "competitor_id": "6962"
     },
     "Si Woo Kim": {
       "score": "-3",
-      "hole": "6",
+      "hole": "7",
       "profile_url": "https://www.espn.com/golf/player/_/id/7081/si-woo-kim",
       "competitor_id": "7081"
     },
     "Keith Mitchell": {
       "score": "-3",
-      "hole": "7",
+      "hole": "8",
       "profile_url": "https://www.espn.com/golf/player/_/id/8906/keith-mitchell",
       "competitor_id": "8906"
     },
     "Haotong Li": {
-      "score": "-1",
-      "hole": "2",
+      "score": "-2",
+      "hole": "3",
       "profile_url": "https://www.espn.com/golf/player/_/id/9221/haotong-li",
       "competitor_id": "9221"
     },
     "Christiaan Bezuidenhout": {
-      "score": "E",
-      "hole": "4",
+      "score": "-1",
+      "hole": "5",
       "profile_url": "https://www.espn.com/golf/player/_/id/9243/christiaan-bezuidenhout",
       "competitor_id": "9243"
     },
     "Scottie Scheffler": {
       "score": "-2",
-      "hole": "6",
+      "hole": "7",
       "profile_url": "https://www.espn.com/golf/player/_/id/9478/scottie-scheffler",
       "competitor_id": "9478"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779373281.5143518,
-  "last_score_refresh_attempt_at": 1779374132.76615,
+  "last_score_refresh_at": 1779374134.484555,
+  "last_score_refresh_attempt_at": 1779374134.484555,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -350,8 +350,8 @@
       "P",
       "P",
       "P",
-      "P",
-      "○"
+      "○",
+      "P"
     ],
     "Xander Schauffele": [
       "P",
@@ -363,14 +363,15 @@
     "J.J. Spaun": [],
     "Ben Polland": [],
     "Jhonattan Vegas": [
-      "P",
-      "P",
       "○",
       "P",
-      "□"
+      "□",
+      "P",
+      "○"
     ],
     "Kurt Kitayama": [],
     "Adam Schenk": [
+      "P",
       "P",
       "P",
       "P",
@@ -420,8 +421,8 @@
     ],
     "Rasmus Højgaard": [
       "P",
-      "P",
       "○",
+      "P",
       "P",
       "P"
     ],
@@ -568,7 +569,8 @@
     "Michael Thorbjornsen": [
       "P",
       "○",
-      "P"
+      "P",
+      "○"
     ],
     "Cameron Young": [
       "□",
@@ -584,7 +586,8 @@
       "○",
       "P",
       "P",
-      "○"
+      "○",
+      "P"
     ],
     "Jimmy Walker": [],
     "Keegan Bradley": [],
@@ -657,8 +660,8 @@
       "P",
       "P",
       "P",
-      "P",
-      "○"
+      "○",
+      "□"
     ],
     "Jacob Bridgeman": [],
     "Austin Hurt": [],
@@ -733,9 +736,9 @@
       "P"
     ],
     "Emiliano Grillo": [
+      "○",
+      "○",
       "P",
-      "○",
-      "○",
       "P",
       "P"
     ],
@@ -747,10 +750,10 @@
     "Lucas Glover": [],
     "Brooks Koepka": [
       "○",
+      "P",
+      "P",
       "○",
-      "P",
-      "P",
-      "○"
+      "P"
     ],
     "Patrick Rodgers": [
       "○",
@@ -758,26 +761,28 @@
       "P"
     ],
     "Stephan Jaeger": [
-      "○",
       "P",
       "○",
+      "P",
       "P",
       "P"
     ],
-    "Adrien Saddier": [],
+    "Adrien Saddier": [
+      "P"
+    ],
     "Si Woo Kim": [
-      "P",
       "○",
       "P",
       "P",
-      "○"
+      "○",
+      "P"
     ],
     "Stewart Cink": [],
     "Keith Mitchell": [
-      "○",
       "P",
       "○",
       "○",
+      "P",
       "P"
     ],
     "Sepp Straka": [],
@@ -802,21 +807,22 @@
       "P"
     ],
     "Haotong Li": [
-      "P",
       "○",
       "○",
       "P",
-      "P"
+      "P",
+      "○"
     ],
     "Christiaan Bezuidenhout": [
       "○",
       "□",
-      "P"
+      "P",
+      "○"
     ],
     "Scottie Scheffler": [
+      "○",
+      "○",
       "P",
-      "○",
-      "○",
       "P",
       "P"
     ],
