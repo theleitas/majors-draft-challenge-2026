@@ -62,14 +62,14 @@
       "competitor_id": "10058"
     },
     "Jhonattan Vegas": {
-      "score": "E",
-      "hole": "1",
+      "score": "-1",
+      "hole": "2",
       "profile_url": "https://www.espn.com/golf/player/_/id/1030/jhonattan-vegas",
       "competitor_id": "1030"
     },
     "Adam Schenk": {
       "score": "E",
-      "hole": "1",
+      "hole": "2",
       "profile_url": "https://www.espn.com/golf/player/_/id/10372/adam-schenk",
       "competitor_id": "10372"
     },
@@ -87,7 +87,7 @@
     },
     "Rasmus Højgaard": {
       "score": "+1",
-      "hole": "3",
+      "hole": "4",
       "profile_url": "https://www.espn.com/golf/player/_/id/11253/rasmus-højgaard",
       "competitor_id": "11253"
     },
@@ -135,7 +135,7 @@
     },
     "Michael Thorbjornsen": {
       "score": "-1",
-      "hole": "1",
+      "hole": "2",
       "profile_url": "https://www.espn.com/golf/player/_/id/4425904/michael-thorbjornsen",
       "competitor_id": "4425904"
     },
@@ -212,8 +212,8 @@
       "competitor_id": "5882"
     },
     "Brooks Koepka": {
-      "score": "-1",
-      "hole": "2",
+      "score": "-3",
+      "hole": "3",
       "profile_url": "https://www.espn.com/golf/player/_/id/6798/brooks-koepka",
       "competitor_id": "6798"
     },
@@ -236,14 +236,14 @@
       "competitor_id": "6962"
     },
     "Si Woo Kim": {
-      "score": "-1",
-      "hole": "2",
+      "score": "-2",
+      "hole": "3",
       "profile_url": "https://www.espn.com/golf/player/_/id/7081/si-woo-kim",
       "competitor_id": "7081"
     },
     "Keith Mitchell": {
-      "score": "-1",
-      "hole": "4",
+      "score": "-2",
+      "hole": "5",
       "profile_url": "https://www.espn.com/golf/player/_/id/8906/keith-mitchell",
       "competitor_id": "8906"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779369926.7511146,
-  "last_score_refresh_attempt_at": 1779370229.6547837,
+  "last_score_refresh_at": 1779370231.362011,
+  "last_score_refresh_attempt_at": 1779370231.362011,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -334,8 +334,7 @@
       ]
     },
     "leaders": [
-      "Jayme Leita",
-      "Peter Miller"
+      "Jayme Leita"
     ]
   },
   "selected_tournament": {},
@@ -363,10 +362,13 @@
     "Jhonattan Vegas": [
       "○",
       "P",
-      "P"
+      "P",
+      "○"
     ],
     "Kurt Kitayama": [],
-    "Adam Schenk": [],
+    "Adam Schenk": [
+      "P"
+    ],
     "J.T. Poston": [],
     "Matt Wallace": [],
     "Collin Morikawa": [],
@@ -407,6 +409,7 @@
     ],
     "Rasmus Højgaard": [
       "□",
+      "P",
       "P"
     ],
     "Andrew Novak": [
@@ -549,7 +552,9 @@
       "P",
       "○"
     ],
-    "Michael Thorbjornsen": [],
+    "Michael Thorbjornsen": [
+      "P"
+    ],
     "Cameron Young": [
       "□",
       "□",
@@ -720,10 +725,10 @@
     "David Lipsky": [],
     "Lucas Glover": [],
     "Brooks Koepka": [
-      "□",
       "P",
       "□",
       "□",
+      "○",
       "○"
     ],
     "Patrick Rodgers": [],
@@ -736,18 +741,19 @@
     ],
     "Adrien Saddier": [],
     "Si Woo Kim": [
-      "P",
       "○",
       "P",
       "P",
-      "P"
+      "P",
+      "○"
     ],
     "Stewart Cink": [],
     "Keith Mitchell": [
       "P",
       "P",
       "○",
-      "P"
+      "P",
+      "○"
     ],
     "Sepp Straka": [],
     "Max Homa": [],
