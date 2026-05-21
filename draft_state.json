@@ -62,8 +62,8 @@
       "competitor_id": "10058"
     },
     "Jhonattan Vegas": {
-      "score": "+2",
-      "hole": "15",
+      "score": "+3",
+      "hole": "16",
       "profile_url": "https://www.espn.com/golf/player/_/id/1030/jhonattan-vegas",
       "competitor_id": "1030"
     },
@@ -135,7 +135,7 @@
     },
     "Michael Thorbjornsen": {
       "score": "-7",
-      "hole": "15",
+      "hole": "16",
       "profile_url": "https://www.espn.com/golf/player/_/id/4425904/michael-thorbjornsen",
       "competitor_id": "4425904"
     },
@@ -218,14 +218,14 @@
       "competitor_id": "6798"
     },
     "Patrick Rodgers": {
-      "score": "-3",
-      "hole": "14",
+      "score": "-4",
+      "hole": "15",
       "profile_url": "https://www.espn.com/golf/player/_/id/6825/patrick-rodgers",
       "competitor_id": "6825"
     },
     "Stephan Jaeger": {
       "score": "-6",
-      "hole": "16",
+      "hole": "17",
       "profile_url": "https://www.espn.com/golf/player/_/id/6937/stephan-jaeger",
       "competitor_id": "6937"
     },
@@ -242,8 +242,8 @@
       "competitor_id": "7081"
     },
     "Keith Mitchell": {
-      "score": "-6",
-      "hole": "17",
+      "score": "-7",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/8906/keith-mitchell",
       "competitor_id": "8906"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779383123.1134927,
-  "last_score_refresh_attempt_at": 1779383428.5427003,
+  "last_score_refresh_at": 1779383430.697964,
+  "last_score_refresh_attempt_at": 1779383430.697964,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -364,10 +364,10 @@
     "Ben Polland": [],
     "Jhonattan Vegas": [
       "□",
-      "□",
       "P",
       "○",
-      "P"
+      "P",
+      "□"
     ],
     "Kurt Kitayama": [],
     "Adam Schenk": [
@@ -567,11 +567,11 @@
       "○"
     ],
     "Michael Thorbjornsen": [
-      "P",
       "○",
       "○",
       "○",
-      "○"
+      "○",
+      "P"
     ],
     "Cameron Young": [
       "□",
@@ -766,14 +766,14 @@
       "P",
       "P",
       "P",
-      "P",
+      "○",
       "○"
     ],
     "Stephan Jaeger": [
+      "○",
+      "○",
+      "○",
       "P",
-      "○",
-      "○",
-      "○",
       "P"
     ],
     "Adrien Saddier": [
@@ -792,11 +792,11 @@
     ],
     "Stewart Cink": [],
     "Keith Mitchell": [
-      "P",
       "○",
       "P",
       "○",
-      "P"
+      "P",
+      "○"
     ],
     "Sepp Straka": [],
     "Max Homa": [],
