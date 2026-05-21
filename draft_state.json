@@ -159,7 +159,7 @@
     },
     "John Parry": {
       "score": "-1",
-      "hole": "15",
+      "hole": "16",
       "profile_url": "https://www.espn.com/golf/player/_/id/4671/john-parry",
       "competitor_id": "4671"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779405962.575775,
-  "last_score_refresh_attempt_at": 1779406510.747346,
+  "last_score_refresh_at": 1779406512.2225826,
+  "last_score_refresh_attempt_at": 1779406512.2225826,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -648,8 +648,8 @@
       "P"
     ],
     "John Parry": [
-      "□",
       "○",
+      "P",
       "P",
       "P",
       "P"
