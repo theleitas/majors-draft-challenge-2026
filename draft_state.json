@@ -93,7 +93,7 @@
     },
     "Sungjae Im": {
       "score": "-1",
-      "hole": "1",
+      "hole": "2",
       "profile_url": "https://www.espn.com/golf/player/_/id/11382/sungjae-im",
       "competitor_id": "11382"
     },
@@ -122,14 +122,14 @@
       "competitor_id": "1407"
     },
     "Billy Horschel": {
-      "score": "N/A",
-      "hole": "1:54 PM",
+      "score": "E",
+      "hole": "1",
       "profile_url": "https://www.espn.com/golf/player/_/id/1651/billy-horschel",
       "competitor_id": "1651"
     },
     "Chris Kirk": {
       "score": "E",
-      "hole": "1",
+      "hole": "2",
       "profile_url": "https://www.espn.com/golf/player/_/id/3449/chris-kirk",
       "competitor_id": "3449"
     },
@@ -177,13 +177,13 @@
     },
     "Rasmus Neergaard-Petersen": {
       "score": "-4",
-      "hole": "13",
+      "hole": "14",
       "profile_url": "https://www.espn.com/golf/player/_/id/4858859/rasmus-neergaard-petersen",
       "competitor_id": "4858859"
     },
     "Joe Highsmith": {
-      "score": "N/A",
-      "hole": "1:54 PM",
+      "score": "+1",
+      "hole": "1",
       "profile_url": "https://www.espn.com/golf/player/_/id/4868733/joe-highsmith",
       "competitor_id": "4868733"
     },
@@ -194,14 +194,14 @@
       "competitor_id": "4921329"
     },
     "William Mouw": {
-      "score": "N/A",
-      "hole": "1:54 PM",
+      "score": "E",
+      "hole": "1",
       "profile_url": "https://www.espn.com/golf/player/_/id/5076025/william-mouw",
       "competitor_id": "5076025"
     },
     "Jordan Spieth": {
       "score": "E",
-      "hole": "1",
+      "hole": "2",
       "profile_url": "https://www.espn.com/golf/player/_/id/5467/jordan-spieth",
       "competitor_id": "5467"
     },
@@ -230,8 +230,8 @@
       "competitor_id": "6937"
     },
     "Adrien Saddier": {
-      "score": "-3",
-      "hole": "14",
+      "score": "-4",
+      "hole": "15",
       "profile_url": "https://www.espn.com/golf/player/_/id/6962/adrien-saddier",
       "competitor_id": "6962"
     },
@@ -254,8 +254,8 @@
       "competitor_id": "9221"
     },
     "Christiaan Bezuidenhout": {
-      "score": "-2",
-      "hole": "16",
+      "score": "-3",
+      "hole": "17",
       "profile_url": "https://www.espn.com/golf/player/_/id/9243/christiaan-bezuidenhout",
       "competitor_id": "9243"
     },
@@ -272,14 +272,14 @@
       "competitor_id": "9506"
     },
     "Taylor Pendrith": {
-      "score": "N/A",
-      "hole": "1:54 PM",
+      "score": "E",
+      "hole": "1",
       "profile_url": "https://www.espn.com/golf/player/_/id/9658/taylor-pendrith",
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779386880.9620802,
-  "last_score_refresh_attempt_at": 1779387246.864073,
+  "last_score_refresh_at": 1779387248.494129,
+  "last_score_refresh_attempt_at": 1779387248.494129,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -436,7 +436,9 @@
     ],
     "Travis Smyth": [],
     "Robert MacIntyre": [],
-    "Sungjae Im": [],
+    "Sungjae Im": [
+      "P"
+    ],
     "Max McGreevy": [],
     "Rico Hoey": [
       "P",
@@ -482,10 +484,10 @@
     ],
     "Chris Kirk": [
       "P",
-      "P",
       "○",
       "P",
-      "□"
+      "□",
+      "P"
     ],
     "Rory McIlroy": [
       "○",
@@ -655,8 +657,8 @@
     "Rasmus Neergaard-Petersen": [
       "P",
       "P",
-      "P",
       "○",
+      "P",
       "P"
     ],
     "Joe Highsmith": [],
@@ -714,8 +716,8 @@
       "P",
       "P",
       "P",
-      "P",
-      "○"
+      "○",
+      "P"
     ],
     "Andrew Putnam": [
       "○",
@@ -784,7 +786,7 @@
     "Adrien Saddier": [
       "P",
       "P",
-      "P",
+      "○",
       "○",
       "○"
     ],
@@ -833,10 +835,10 @@
     ],
     "Christiaan Bezuidenhout": [
       "P",
-      "P",
       "○",
       "P",
-      "P"
+      "P",
+      "○"
     ],
     "Scottie Scheffler": [
       "○",
