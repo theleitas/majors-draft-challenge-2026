@@ -116,8 +116,8 @@
       "competitor_id": "11393"
     },
     "Daniel Brown": {
-      "score": "-1",
-      "hole": "17",
+      "score": "-2",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/1407/daniel-brown",
       "competitor_id": "1407"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779406817.0097232,
-  "last_score_refresh_attempt_at": 1779407175.2777476,
+  "last_score_refresh_at": 1779407176.6690865,
+  "last_score_refresh_attempt_at": 1779407176.6690865,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -477,8 +477,8 @@
     "Y.E. Yang": [],
     "Daniel Brown": [
       "○",
-      "○",
       "P",
+      "○",
       "○",
       "○"
     ],
