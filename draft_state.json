@@ -81,7 +81,7 @@
     },
     "Wyndham Clark": {
       "score": "-1",
-      "hole": "3",
+      "hole": "4",
       "profile_url": "https://www.espn.com/golf/player/_/id/11119/wyndham-clark",
       "competitor_id": "11119"
     },
@@ -152,8 +152,8 @@
       "competitor_id": "4566443"
     },
     "Chandler Blanchet": {
-      "score": "N/A",
-      "hole": "9:39 AM",
+      "score": "E",
+      "hole": "1",
       "profile_url": "https://www.espn.com/golf/player/_/id/4618114/chandler-blanchet",
       "competitor_id": "4618114"
     },
@@ -189,7 +189,7 @@
     },
     "Michael Brennan": {
       "score": "E",
-      "hole": "4",
+      "hole": "5",
       "profile_url": "https://www.espn.com/golf/player/_/id/4921329/michael-brennan",
       "competitor_id": "4921329"
     },
@@ -225,7 +225,7 @@
     },
     "Stephan Jaeger": {
       "score": "-2",
-      "hole": "3",
+      "hole": "4",
       "profile_url": "https://www.espn.com/golf/player/_/id/6937/stephan-jaeger",
       "competitor_id": "6937"
     },
@@ -248,14 +248,14 @@
       "competitor_id": "8906"
     },
     "Haotong Li": {
-      "score": "N/A",
-      "hole": "9:39 AM",
+      "score": "-1",
+      "hole": "1",
       "profile_url": "https://www.espn.com/golf/player/_/id/9221/haotong-li",
       "competitor_id": "9221"
     },
     "Christiaan Bezuidenhout": {
-      "score": "-1",
-      "hole": "2",
+      "score": "E",
+      "hole": "3",
       "profile_url": "https://www.espn.com/golf/player/_/id/9243/christiaan-bezuidenhout",
       "competitor_id": "9243"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779371416.5861218,
-  "last_score_refresh_attempt_at": 1779371745.8115501,
+  "last_score_refresh_at": 1779371747.6632807,
+  "last_score_refresh_attempt_at": 1779371747.6632807,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -400,6 +400,7 @@
       "P"
     ],
     "Wyndham Clark": [
+      "P",
       "P",
       "P"
     ],
@@ -643,7 +644,7 @@
     "Matt McCarty": [],
     "Michael Brennan": [
       "□",
-      "□",
+      "P",
       "P",
       "P",
       "P"
@@ -744,11 +745,11 @@
       "○"
     ],
     "Stephan Jaeger": [
-      "□",
       "P",
       "○",
       "P",
-      "○"
+      "○",
+      "P"
     ],
     "Adrien Saddier": [],
     "Si Woo Kim": [
@@ -794,7 +795,8 @@
       "P"
     ],
     "Christiaan Bezuidenhout": [
-      "○"
+      "○",
+      "□"
     ],
     "Scottie Scheffler": [
       "P",
