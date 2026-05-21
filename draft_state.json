@@ -74,8 +74,8 @@
       "competitor_id": "10372"
     },
     "Max Greyserman": {
-      "score": "+1",
-      "hole": "2",
+      "score": "+3",
+      "hole": "3",
       "profile_url": "https://www.espn.com/golf/player/_/id/11101/max-greyserman",
       "competitor_id": "11101"
     },
@@ -110,8 +110,8 @@
       "competitor_id": "11385"
     },
     "Garrick Higgo": {
-      "score": "E",
-      "hole": "2",
+      "score": "-1",
+      "hole": "3",
       "profile_url": "https://www.espn.com/golf/player/_/id/11393/garrick-higgo",
       "competitor_id": "11393"
     },
@@ -123,13 +123,13 @@
     },
     "Billy Horschel": {
       "score": "E",
-      "hole": "2",
+      "hole": "3",
       "profile_url": "https://www.espn.com/golf/player/_/id/1651/billy-horschel",
       "competitor_id": "1651"
     },
     "Chris Kirk": {
-      "score": "E",
-      "hole": "3",
+      "score": "+1",
+      "hole": "4",
       "profile_url": "https://www.espn.com/golf/player/_/id/3449/chris-kirk",
       "competitor_id": "3449"
     },
@@ -177,7 +177,7 @@
     },
     "Rasmus Neergaard-Petersen": {
       "score": "-5",
-      "hole": "15",
+      "hole": "16",
       "profile_url": "https://www.espn.com/golf/player/_/id/4858859/rasmus-neergaard-petersen",
       "competitor_id": "4858859"
     },
@@ -231,7 +231,7 @@
     },
     "Adrien Saddier": {
       "score": "-4",
-      "hole": "16",
+      "hole": "17",
       "profile_url": "https://www.espn.com/golf/player/_/id/6962/adrien-saddier",
       "competitor_id": "6962"
     },
@@ -273,13 +273,13 @@
     },
     "Taylor Pendrith": {
       "score": "E",
-      "hole": "2",
+      "hole": "3",
       "profile_url": "https://www.espn.com/golf/player/_/id/9658/taylor-pendrith",
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779388662.514961,
-  "last_score_refresh_attempt_at": 1779389031.2911716,
+  "last_score_refresh_at": 1779389032.910311,
+  "last_score_refresh_attempt_at": 1779389032.910311,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -399,10 +399,10 @@
       "P"
     ],
     "Max Greyserman": [
-      "P",
       "○",
       "P",
       "P",
+      "□",
       "□"
     ],
     "Wyndham Clark": [
@@ -451,7 +451,8 @@
       "○"
     ],
     "Garrick Higgo": [
-      "P"
+      "P",
+      "○"
     ],
     "Jesse Droemer": [],
     "Brandt Snedeker": [],
@@ -467,6 +468,7 @@
       "P"
     ],
     "Billy Horschel": [
+      "P",
       "P"
     ],
     "Jason Day": [],
@@ -490,11 +492,11 @@
       "□"
     ],
     "Chris Kirk": [
-      "○",
       "P",
       "□",
       "P",
-      "P"
+      "P",
+      "□"
     ],
     "Rory McIlroy": [
       "○",
@@ -666,11 +668,11 @@
       "P"
     ],
     "Rasmus Neergaard-Petersen": [
-      "P",
       "○",
       "P",
       "P",
-      "○"
+      "○",
+      "P"
     ],
     "Joe Highsmith": [
       "P"
@@ -799,10 +801,10 @@
       "○"
     ],
     "Adrien Saddier": [
+      "○",
+      "○",
+      "○",
       "P",
-      "○",
-      "○",
-      "○",
       "P"
     ],
     "Si Woo Kim": [
