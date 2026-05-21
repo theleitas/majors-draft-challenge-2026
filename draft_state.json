@@ -92,14 +92,14 @@
       "competitor_id": "11253"
     },
     "Sungjae Im": {
-      "score": "E",
-      "hole": "3",
+      "score": "-1",
+      "hole": "4",
       "profile_url": "https://www.espn.com/golf/player/_/id/11382/sungjae-im",
       "competitor_id": "11382"
     },
     "Max McGreevy": {
       "score": "E",
-      "hole": "2",
+      "hole": "3",
       "profile_url": "https://www.espn.com/golf/player/_/id/11383/max-mcgreevy",
       "competitor_id": "11383"
     },
@@ -152,8 +152,8 @@
       "competitor_id": "4566443"
     },
     "Chandler Blanchet": {
-      "score": "E",
-      "hole": "16",
+      "score": "-1",
+      "hole": "17",
       "profile_url": "https://www.espn.com/golf/player/_/id/4618114/chandler-blanchet",
       "competitor_id": "4618114"
     },
@@ -170,8 +170,8 @@
       "competitor_id": "4837368"
     },
     "Ryo Hisatsune": {
-      "score": "E",
-      "hole": "4",
+      "score": "-2",
+      "hole": "5",
       "profile_url": "https://www.espn.com/golf/player/_/id/4858572/ryo-hisatsune",
       "competitor_id": "4858572"
     },
@@ -183,7 +183,7 @@
     },
     "Joe Highsmith": {
       "score": "+1",
-      "hole": "2",
+      "hole": "3",
       "profile_url": "https://www.espn.com/golf/player/_/id/4868733/joe-highsmith",
       "competitor_id": "4868733"
     },
@@ -194,14 +194,14 @@
       "competitor_id": "4921329"
     },
     "William Mouw": {
-      "score": "-1",
-      "hole": "2",
+      "score": "-2",
+      "hole": "3",
       "profile_url": "https://www.espn.com/golf/player/_/id/5076025/william-mouw",
       "competitor_id": "5076025"
     },
     "Jordan Spieth": {
-      "score": "-1",
-      "hole": "3",
+      "score": "E",
+      "hole": "4",
       "profile_url": "https://www.espn.com/golf/player/_/id/5467/jordan-spieth",
       "competitor_id": "5467"
     },
@@ -249,7 +249,7 @@
     },
     "Haotong Li": {
       "score": "-3",
-      "hole": "16",
+      "hole": "17",
       "profile_url": "https://www.espn.com/golf/player/_/id/9221/haotong-li",
       "competitor_id": "9221"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779389032.910311,
-  "last_score_refresh_attempt_at": 1779389420.1138825,
+  "last_score_refresh_at": 1779389421.5165434,
+  "last_score_refresh_attempt_at": 1779389421.5165434,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -438,9 +438,11 @@
     "Robert MacIntyre": [],
     "Sungjae Im": [
       "P",
-      "□"
+      "□",
+      "○"
     ],
     "Max McGreevy": [
+      "P",
       "P"
     ],
     "Rico Hoey": [
@@ -627,7 +629,7 @@
       "P",
       "P",
       "P",
-      "P"
+      "○"
     ],
     "John Parry": [],
     "Chris Gotterup": [
@@ -665,7 +667,8 @@
     "Ryo Hisatsune": [
       "P",
       "P",
-      "P"
+      "P",
+      "○"
     ],
     "Rasmus Neergaard-Petersen": [
       "○",
@@ -675,6 +678,7 @@
       "P"
     ],
     "Joe Highsmith": [
+      "P",
       "P"
     ],
     "David Puig": [
@@ -697,6 +701,7 @@
     "Jared Jones": [],
     "Ryan Gerard": [],
     "William Mouw": [
+      "○",
       "○"
     ],
     "Aldrich Potgieter": [
@@ -731,10 +736,10 @@
     "Russell Henley": [],
     "Jordan Spieth": [
       "P",
-      "P",
       "○",
       "P",
-      "○"
+      "○",
+      "□"
     ],
     "Andrew Putnam": [
       "○",
