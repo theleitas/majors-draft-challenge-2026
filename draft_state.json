@@ -92,8 +92,8 @@
       "competitor_id": "11253"
     },
     "Sungjae Im": {
-      "score": "-1",
-      "hole": "4",
+      "score": "-2",
+      "hole": "5",
       "profile_url": "https://www.espn.com/golf/player/_/id/11382/sungjae-im",
       "competitor_id": "11382"
     },
@@ -111,7 +111,7 @@
     },
     "Garrick Higgo": {
       "score": "-1",
-      "hole": "3",
+      "hole": "4",
       "profile_url": "https://www.espn.com/golf/player/_/id/11393/garrick-higgo",
       "competitor_id": "11393"
     },
@@ -128,8 +128,8 @@
       "competitor_id": "1651"
     },
     "Chris Kirk": {
-      "score": "+1",
-      "hole": "4",
+      "score": "E",
+      "hole": "5",
       "profile_url": "https://www.espn.com/golf/player/_/id/3449/chris-kirk",
       "competitor_id": "3449"
     },
@@ -158,8 +158,8 @@
       "competitor_id": "4618114"
     },
     "John Parry": {
-      "score": "N/A",
-      "hole": "2:49 PM",
+      "score": "E",
+      "hole": "1",
       "profile_url": "https://www.espn.com/golf/player/_/id/4671/john-parry",
       "competitor_id": "4671"
     },
@@ -200,8 +200,8 @@
       "competitor_id": "5076025"
     },
     "Jordan Spieth": {
-      "score": "E",
-      "hole": "4",
+      "score": "-1",
+      "hole": "5",
       "profile_url": "https://www.espn.com/golf/player/_/id/5467/jordan-spieth",
       "competitor_id": "5467"
     },
@@ -249,7 +249,7 @@
     },
     "Haotong Li": {
       "score": "-3",
-      "hole": "17",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/9221/haotong-li",
       "competitor_id": "9221"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779389726.1085656,
-  "last_score_refresh_attempt_at": 1779390227.227354,
+  "last_score_refresh_at": 1779390228.7348342,
+  "last_score_refresh_attempt_at": 1779390228.7348342,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -439,6 +439,7 @@
     "Sungjae Im": [
       "P",
       "□",
+      "○",
       "○"
     ],
     "Max McGreevy": [
@@ -454,7 +455,8 @@
     ],
     "Garrick Higgo": [
       "P",
-      "○"
+      "○",
+      "P"
     ],
     "Jesse Droemer": [],
     "Brandt Snedeker": [],
@@ -495,11 +497,11 @@
       "□"
     ],
     "Chris Kirk": [
-      "P",
       "□",
       "P",
       "P",
-      "□"
+      "□",
+      "○"
     ],
     "Rory McIlroy": [
       "○",
@@ -737,11 +739,11 @@
     ],
     "Russell Henley": [],
     "Jordan Spieth": [
-      "P",
       "○",
       "P",
       "○",
-      "□"
+      "□",
+      "○"
     ],
     "Andrew Putnam": [
       "○",
