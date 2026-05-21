@@ -105,7 +105,7 @@
     },
     "Rico Hoey": {
       "score": "-3",
-      "hole": "14",
+      "hole": "15",
       "profile_url": "https://www.espn.com/golf/player/_/id/11385/rico-hoey",
       "competitor_id": "11385"
     },
@@ -218,8 +218,8 @@
       "competitor_id": "6798"
     },
     "Patrick Rodgers": {
-      "score": "-4",
-      "hole": "16",
+      "score": "-3",
+      "hole": "17",
       "profile_url": "https://www.espn.com/golf/player/_/id/6825/patrick-rodgers",
       "competitor_id": "6825"
     },
@@ -255,7 +255,7 @@
     },
     "Christiaan Bezuidenhout": {
       "score": "-2",
-      "hole": "14",
+      "hole": "15",
       "profile_url": "https://www.espn.com/golf/player/_/id/9243/christiaan-bezuidenhout",
       "competitor_id": "9243"
     },
@@ -266,8 +266,8 @@
       "competitor_id": "9478"
     },
     "Jordan Smith": {
-      "score": "-4",
-      "hole": "14",
+      "score": "-5",
+      "hole": "15",
       "profile_url": "https://www.espn.com/golf/player/_/id/9506/jordan-smith",
       "competitor_id": "9506"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779384749.373589,
-  "last_score_refresh_attempt_at": 1779385237.6203504,
+  "last_score_refresh_at": 1779385239.1364703,
+  "last_score_refresh_attempt_at": 1779385239.1364703,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -438,11 +438,11 @@
     "Sungjae Im": [],
     "Max McGreevy": [],
     "Rico Hoey": [
-      "P",
       "○",
       "P",
       "P",
-      "○"
+      "○",
+      "P"
     ],
     "Garrick Higgo": [],
     "Jesse Droemer": [],
@@ -764,10 +764,10 @@
     ],
     "Patrick Rodgers": [
       "P",
+      "○",
+      "○",
       "P",
-      "○",
-      "○",
-      "P"
+      "□"
     ],
     "Stephan Jaeger": [
       "○",
@@ -830,8 +830,8 @@
       "P",
       "P",
       "P",
-      "P",
-      "○"
+      "○",
+      "P"
     ],
     "Scottie Scheffler": [
       "○",
@@ -848,11 +848,11 @@
       "○"
     ],
     "Jordan Smith": [
-      "P",
       "○",
       "○",
       "P",
-      "P"
+      "P",
+      "○"
     ],
     "Brian Campbell": [],
     "Maverick McNealy": [
