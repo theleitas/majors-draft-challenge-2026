@@ -63,7 +63,7 @@
     },
     "Jhonattan Vegas": {
       "score": "+3",
-      "hole": "16",
+      "hole": "17",
       "profile_url": "https://www.espn.com/golf/player/_/id/1030/jhonattan-vegas",
       "competitor_id": "1030"
     },
@@ -135,7 +135,7 @@
     },
     "Michael Thorbjornsen": {
       "score": "-7",
-      "hole": "16",
+      "hole": "17",
       "profile_url": "https://www.espn.com/golf/player/_/id/4425904/michael-thorbjornsen",
       "competitor_id": "4425904"
     },
@@ -176,8 +176,8 @@
       "competitor_id": "4858572"
     },
     "Rasmus Neergaard-Petersen": {
-      "score": "-3",
-      "hole": "11",
+      "score": "-4",
+      "hole": "12",
       "profile_url": "https://www.espn.com/golf/player/_/id/4858859/rasmus-neergaard-petersen",
       "competitor_id": "4858859"
     },
@@ -219,7 +219,7 @@
     },
     "Patrick Rodgers": {
       "score": "-4",
-      "hole": "15",
+      "hole": "16",
       "profile_url": "https://www.espn.com/golf/player/_/id/6825/patrick-rodgers",
       "competitor_id": "6825"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779384007.4961038,
-  "last_score_refresh_attempt_at": 1779384320.6315303,
+  "last_score_refresh_at": 1779384322.3142123,
+  "last_score_refresh_attempt_at": 1779384322.3142123,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -363,11 +363,11 @@
     "J.J. Spaun": [],
     "Ben Polland": [],
     "Jhonattan Vegas": [
-      "□",
       "P",
       "○",
       "P",
-      "□"
+      "□",
+      "P"
     ],
     "Kurt Kitayama": [],
     "Adam Schenk": [
@@ -570,7 +570,7 @@
       "○",
       "○",
       "○",
-      "○",
+      "P",
       "P"
     ],
     "Cameron Young": [
@@ -652,7 +652,7 @@
       "P",
       "P",
       "P",
-      "P"
+      "○"
     ],
     "Joe Highsmith": [],
     "David Puig": [
@@ -765,9 +765,9 @@
     "Patrick Rodgers": [
       "P",
       "P",
-      "P",
       "○",
-      "○"
+      "○",
+      "P"
     ],
     "Stephan Jaeger": [
       "○",
