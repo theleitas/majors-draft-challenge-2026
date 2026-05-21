@@ -117,7 +117,7 @@
     },
     "Daniel Brown": {
       "score": "+3",
-      "hole": "8",
+      "hole": "9",
       "profile_url": "https://www.espn.com/golf/player/_/id/1407/daniel-brown",
       "competitor_id": "1407"
     },
@@ -147,7 +147,7 @@
     },
     "Matti Schmid": {
       "score": "-2",
-      "hole": "11",
+      "hole": "12",
       "profile_url": "https://www.espn.com/golf/player/_/id/4566443/matti-schmid",
       "competitor_id": "4566443"
     },
@@ -159,19 +159,19 @@
     },
     "John Parry": {
       "score": "-1",
-      "hole": "7",
+      "hole": "8",
       "profile_url": "https://www.espn.com/golf/player/_/id/4671/john-parry",
       "competitor_id": "4671"
     },
     "Pierceson Coody": {
       "score": "-3",
-      "hole": "11",
+      "hole": "12",
       "profile_url": "https://www.espn.com/golf/player/_/id/4837368/pierceson-coody",
       "competitor_id": "4837368"
     },
     "Ryo Hisatsune": {
       "score": "-3",
-      "hole": "11",
+      "hole": "12",
       "profile_url": "https://www.espn.com/golf/player/_/id/4858572/ryo-hisatsune",
       "competitor_id": "4858572"
     },
@@ -183,7 +183,7 @@
     },
     "Joe Highsmith": {
       "score": "+1",
-      "hole": "10",
+      "hole": "11",
       "profile_url": "https://www.espn.com/golf/player/_/id/4868733/joe-highsmith",
       "competitor_id": "4868733"
     },
@@ -195,7 +195,7 @@
     },
     "William Mouw": {
       "score": "E",
-      "hole": "10",
+      "hole": "11",
       "profile_url": "https://www.espn.com/golf/player/_/id/5076025/william-mouw",
       "competitor_id": "5076025"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779396921.9126148,
-  "last_score_refresh_attempt_at": 1779397224.5961697,
+  "last_score_refresh_at": 1779397226.3956196,
+  "last_score_refresh_attempt_at": 1779397226.3956196,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -476,8 +476,8 @@
     "Y.E. Yang": [],
     "Daniel Brown": [
       "P",
-      "P",
       "□",
+      "P",
       "P",
       "P"
     ],
@@ -622,9 +622,9 @@
     "Jimmy Walker": [],
     "Keegan Bradley": [],
     "Matti Schmid": [
+      "○",
+      "○",
       "P",
-      "○",
-      "○",
       "P",
       "P"
     ],
@@ -647,11 +647,11 @@
       "P"
     ],
     "John Parry": [
-      "○",
       "□",
       "P",
       "P",
-      "○"
+      "○",
+      "P"
     ],
     "Chris Gotterup": [
       "P",
@@ -673,8 +673,8 @@
     "Tyler Collet": [],
     "Thomas Detry": [],
     "Pierceson Coody": [
-      "□",
       "○",
+      "P",
       "P",
       "P",
       "P"
@@ -688,9 +688,9 @@
       "P"
     ],
     "Ryo Hisatsune": [
-      "P",
       "□",
       "○",
+      "P",
       "P",
       "P"
     ],
@@ -704,9 +704,9 @@
     "Joe Highsmith": [
       "P",
       "P",
-      "P",
       "○",
-      "□"
+      "□",
+      "P"
     ],
     "David Puig": [
       "P",
@@ -728,10 +728,10 @@
     "Jared Jones": [],
     "Ryan Gerard": [],
     "William Mouw": [
-      "□",
       "P",
       "P",
       "□",
+      "P",
       "P"
     ],
     "Aldrich Potgieter": [
