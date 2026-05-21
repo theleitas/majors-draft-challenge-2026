@@ -92,8 +92,8 @@
       "competitor_id": "11253"
     },
     "Sungjae Im": {
-      "score": "-3",
-      "hole": "16",
+      "score": "-4",
+      "hole": "17",
       "profile_url": "https://www.espn.com/golf/player/_/id/11382/sungjae-im",
       "competitor_id": "11382"
     },
@@ -116,8 +116,8 @@
       "competitor_id": "11393"
     },
     "Daniel Brown": {
-      "score": "+2",
-      "hole": "13",
+      "score": "+1",
+      "hole": "14",
       "profile_url": "https://www.espn.com/golf/player/_/id/1407/daniel-brown",
       "competitor_id": "1407"
     },
@@ -129,7 +129,7 @@
     },
     "Chris Kirk": {
       "score": "-4",
-      "hole": "16",
+      "hole": "17",
       "profile_url": "https://www.espn.com/golf/player/_/id/3449/chris-kirk",
       "competitor_id": "3449"
     },
@@ -183,7 +183,7 @@
     },
     "Joe Highsmith": {
       "score": "+1",
-      "hole": "16",
+      "hole": "17",
       "profile_url": "https://www.espn.com/golf/player/_/id/4868733/joe-highsmith",
       "competitor_id": "4868733"
     },
@@ -201,7 +201,7 @@
     },
     "Jordan Spieth": {
       "score": "-3",
-      "hole": "16",
+      "hole": "17",
       "profile_url": "https://www.espn.com/golf/player/_/id/5467/jordan-spieth",
       "competitor_id": "5467"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779402346.963178,
-  "last_score_refresh_attempt_at": 1779402649.333716,
+  "last_score_refresh_at": 1779402650.6349432,
+  "last_score_refresh_attempt_at": 1779402650.6349432,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -439,10 +439,10 @@
     "Robert MacIntyre": [],
     "Sungjae Im": [
       "P",
-      "P",
       "□",
       "○",
-      "P"
+      "P",
+      "○"
     ],
     "Max McGreevy": [
       "P",
@@ -479,7 +479,7 @@
       "P",
       "P",
       "P",
-      "P",
+      "○",
       "○"
     ],
     "Billy Horschel": [
@@ -510,10 +510,10 @@
       "□"
     ],
     "Chris Kirk": [
-      "○",
       "P",
       "P",
       "○",
+      "P",
       "P"
     ],
     "Rory McIlroy": [
@@ -704,10 +704,10 @@
     ],
     "Joe Highsmith": [
       "P",
-      "P",
       "○",
       "P",
-      "□"
+      "□",
+      "P"
     ],
     "David Puig": [
       "P",
@@ -766,10 +766,10 @@
     ],
     "Russell Henley": [],
     "Jordan Spieth": [
-      "P",
       "□",
       "○",
       "○",
+      "P",
       "P"
     ],
     "Andrew Putnam": [
