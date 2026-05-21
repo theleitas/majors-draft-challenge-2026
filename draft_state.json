@@ -63,13 +63,13 @@
     },
     "Jhonattan Vegas": {
       "score": "-1",
-      "hole": "6",
+      "hole": "7",
       "profile_url": "https://www.espn.com/golf/player/_/id/1030/jhonattan-vegas",
       "competitor_id": "1030"
     },
     "Adam Schenk": {
-      "score": "E",
-      "hole": "6",
+      "score": "+1",
+      "hole": "7",
       "profile_url": "https://www.espn.com/golf/player/_/id/10372/adam-schenk",
       "competitor_id": "10372"
     },
@@ -81,7 +81,7 @@
     },
     "Wyndham Clark": {
       "score": "-3",
-      "hole": "7",
+      "hole": "8",
       "profile_url": "https://www.espn.com/golf/player/_/id/11119/wyndham-clark",
       "competitor_id": "11119"
     },
@@ -141,7 +141,7 @@
     },
     "Steven Fisk": {
       "score": "-2",
-      "hole": "6",
+      "hole": "7",
       "profile_url": "https://www.espn.com/golf/player/_/id/4426182/steven-fisk",
       "competitor_id": "4426182"
     },
@@ -219,7 +219,7 @@
     },
     "Patrick Rodgers": {
       "score": "-2",
-      "hole": "5",
+      "hole": "6",
       "profile_url": "https://www.espn.com/golf/player/_/id/6825/patrick-rodgers",
       "competitor_id": "6825"
     },
@@ -237,7 +237,7 @@
     },
     "Si Woo Kim": {
       "score": "-4",
-      "hole": "8",
+      "hole": "9",
       "profile_url": "https://www.espn.com/golf/player/_/id/7081/si-woo-kim",
       "competitor_id": "7081"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779374747.2639785,
-  "last_score_refresh_attempt_at": 1779375316.230366,
+  "last_score_refresh_at": 1779375318.0535245,
+  "last_score_refresh_attempt_at": 1779375318.0535245,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -363,11 +363,11 @@
     "J.J. Spaun": [],
     "Ben Polland": [],
     "Jhonattan Vegas": [
-      "○",
       "P",
       "□",
       "P",
-      "○"
+      "○",
+      "P"
     ],
     "Kurt Kitayama": [],
     "Adam Schenk": [
@@ -375,7 +375,7 @@
       "P",
       "P",
       "P",
-      "P"
+      "□"
     ],
     "J.T. Poston": [],
     "Matt Wallace": [],
@@ -406,9 +406,9 @@
     ],
     "Wyndham Clark": [
       "P",
+      "○",
+      "○",
       "P",
-      "○",
-      "○",
       "P"
     ],
     "Jordan Gumberg": [],
@@ -584,10 +584,10 @@
       "P"
     ],
     "Steven Fisk": [
-      "○",
       "P",
       "P",
       "○",
+      "P",
       "P"
     ],
     "Jimmy Walker": [],
@@ -762,7 +762,8 @@
       "○",
       "P",
       "P",
-      "○"
+      "○",
+      "P"
     ],
     "Stephan Jaeger": [
       "P",
@@ -776,10 +777,10 @@
     ],
     "Si Woo Kim": [
       "P",
-      "P",
       "○",
       "P",
-      "○"
+      "○",
+      "P"
     ],
     "Stewart Cink": [],
     "Keith Mitchell": [
