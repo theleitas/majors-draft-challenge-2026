@@ -99,7 +99,7 @@
     },
     "Max McGreevy": {
       "score": "-2",
-      "hole": "10",
+      "hole": "11",
       "profile_url": "https://www.espn.com/golf/player/_/id/11383/max-mcgreevy",
       "competitor_id": "11383"
     },
@@ -147,7 +147,7 @@
     },
     "Matti Schmid": {
       "score": "-2",
-      "hole": "12",
+      "hole": "13",
       "profile_url": "https://www.espn.com/golf/player/_/id/4566443/matti-schmid",
       "competitor_id": "4566443"
     },
@@ -165,7 +165,7 @@
     },
     "Pierceson Coody": {
       "score": "-3",
-      "hole": "12",
+      "hole": "13",
       "profile_url": "https://www.espn.com/golf/player/_/id/4837368/pierceson-coody",
       "competitor_id": "4837368"
     },
@@ -183,7 +183,7 @@
     },
     "Joe Highsmith": {
       "score": "+1",
-      "hole": "11",
+      "hole": "12",
       "profile_url": "https://www.espn.com/golf/player/_/id/4868733/joe-highsmith",
       "competitor_id": "4868733"
     },
@@ -195,7 +195,7 @@
     },
     "William Mouw": {
       "score": "E",
-      "hole": "11",
+      "hole": "12",
       "profile_url": "https://www.espn.com/golf/player/_/id/5076025/william-mouw",
       "competitor_id": "5076025"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779397834.5066679,
-  "last_score_refresh_attempt_at": 1779398140.9828315,
+  "last_score_refresh_at": 1779398142.623257,
+  "last_score_refresh_attempt_at": 1779398142.623257,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -444,11 +444,11 @@
       "P"
     ],
     "Max McGreevy": [
-      "○",
       "□",
       "P",
       "P",
-      "○"
+      "○",
+      "P"
     ],
     "Rico Hoey": [
       "○",
@@ -623,7 +623,7 @@
     "Keegan Bradley": [],
     "Matti Schmid": [
       "○",
-      "○",
+      "P",
       "P",
       "P",
       "P"
@@ -673,7 +673,7 @@
     "Tyler Collet": [],
     "Thomas Detry": [],
     "Pierceson Coody": [
-      "○",
+      "P",
       "P",
       "P",
       "P",
@@ -703,9 +703,9 @@
     ],
     "Joe Highsmith": [
       "P",
-      "P",
       "○",
       "□",
+      "P",
       "P"
     ],
     "David Puig": [
@@ -729,8 +729,8 @@
     "Ryan Gerard": [],
     "William Mouw": [
       "P",
-      "P",
       "□",
+      "P",
       "P",
       "P"
     ],
