@@ -206,8 +206,8 @@
       "competitor_id": "5467"
     },
     "Emiliano Grillo": {
-      "score": "N/A",
-      "hole": "8:00 AM",
+      "score": "E",
+      "hole": "1",
       "profile_url": "https://www.espn.com/golf/player/_/id/5882/emiliano-grillo",
       "competitor_id": "5882"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779364803.0826685,
-  "last_score_refresh_attempt_at": 1779366025.6145773,
+  "last_score_refresh_at": 1779366027.2593265,
+  "last_score_refresh_attempt_at": 1779366027.2593265,
   "text_updates": {
     "enabled": false,
     "twilio": {
