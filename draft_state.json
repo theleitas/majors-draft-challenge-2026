@@ -99,13 +99,13 @@
     },
     "Max McGreevy": {
       "score": "E",
-      "hole": "1",
+      "hole": "2",
       "profile_url": "https://www.espn.com/golf/player/_/id/11383/max-mcgreevy",
       "competitor_id": "11383"
     },
     "Rico Hoey": {
-      "score": "-3",
-      "hole": "17",
+      "score": "-4",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/11385/rico-hoey",
       "competitor_id": "11385"
     },
@@ -147,13 +147,13 @@
     },
     "Matti Schmid": {
       "score": "+2",
-      "hole": "3",
+      "hole": "4",
       "profile_url": "https://www.espn.com/golf/player/_/id/4566443/matti-schmid",
       "competitor_id": "4566443"
     },
     "Chandler Blanchet": {
       "score": "E",
-      "hole": "15",
+      "hole": "16",
       "profile_url": "https://www.espn.com/golf/player/_/id/4618114/chandler-blanchet",
       "competitor_id": "4618114"
     },
@@ -165,13 +165,13 @@
     },
     "Pierceson Coody": {
       "score": "-1",
-      "hole": "3",
+      "hole": "4",
       "profile_url": "https://www.espn.com/golf/player/_/id/4837368/pierceson-coody",
       "competitor_id": "4837368"
     },
     "Ryo Hisatsune": {
       "score": "E",
-      "hole": "3",
+      "hole": "4",
       "profile_url": "https://www.espn.com/golf/player/_/id/4858572/ryo-hisatsune",
       "competitor_id": "4858572"
     },
@@ -249,7 +249,7 @@
     },
     "Haotong Li": {
       "score": "-3",
-      "hole": "15",
+      "hole": "16",
       "profile_url": "https://www.espn.com/golf/player/_/id/9221/haotong-li",
       "competitor_id": "9221"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779388198.9900265,
-  "last_score_refresh_attempt_at": 1779388661.0712512,
+  "last_score_refresh_at": 1779388662.514961,
+  "last_score_refresh_attempt_at": 1779388662.514961,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -440,13 +440,15 @@
       "P",
       "□"
     ],
-    "Max McGreevy": [],
+    "Max McGreevy": [
+      "P"
+    ],
     "Rico Hoey": [
-      "P",
       "○",
       "P",
       "P",
-      "P"
+      "P",
+      "○"
     ],
     "Garrick Higgo": [
       "P"
@@ -603,8 +605,8 @@
     "Matti Schmid": [
       "P",
       "P",
-      "P",
       "□",
+      "P",
       "P"
     ],
     "Marco Penge": [],
@@ -647,6 +649,7 @@
     "Thomas Detry": [],
     "Pierceson Coody": [
       "P",
+      "P",
       "P"
     ],
     "Mark Geddes": [],
@@ -658,6 +661,7 @@
       "P"
     ],
     "Ryo Hisatsune": [
+      "P",
       "P",
       "P"
     ],
