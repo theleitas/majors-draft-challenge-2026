@@ -75,7 +75,7 @@
     },
     "Max Greyserman": {
       "score": "E",
-      "hole": "16",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/11101/max-greyserman",
       "competitor_id": "11101"
     },
@@ -92,14 +92,14 @@
       "competitor_id": "11253"
     },
     "Sungjae Im": {
-      "score": "-4",
-      "hole": "17",
+      "score": "-3",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/11382/sungjae-im",
       "competitor_id": "11382"
     },
     "Max McGreevy": {
       "score": "-3",
-      "hole": "15",
+      "hole": "17",
       "profile_url": "https://www.espn.com/golf/player/_/id/11383/max-mcgreevy",
       "competitor_id": "11383"
     },
@@ -111,25 +111,25 @@
     },
     "Garrick Higgo": {
       "score": "-2",
-      "hole": "17",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/11393/garrick-higgo",
       "competitor_id": "11393"
     },
     "Daniel Brown": {
-      "score": "+1",
-      "hole": "14",
+      "score": "E",
+      "hole": "16",
       "profile_url": "https://www.espn.com/golf/player/_/id/1407/daniel-brown",
       "competitor_id": "1407"
     },
     "Billy Horschel": {
       "score": "-1",
-      "hole": "16",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/1651/billy-horschel",
       "competitor_id": "1651"
     },
     "Chris Kirk": {
       "score": "-4",
-      "hole": "17",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/3449/chris-kirk",
       "competitor_id": "3449"
     },
@@ -183,7 +183,7 @@
     },
     "Joe Highsmith": {
       "score": "+1",
-      "hole": "17",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/4868733/joe-highsmith",
       "competitor_id": "4868733"
     },
@@ -194,14 +194,14 @@
       "competitor_id": "4921329"
     },
     "William Mouw": {
-      "score": "E",
-      "hole": "17",
+      "score": "+2",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/5076025/william-mouw",
       "competitor_id": "5076025"
     },
     "Jordan Spieth": {
       "score": "-3",
-      "hole": "17",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/5467/jordan-spieth",
       "competitor_id": "5467"
     },
@@ -272,14 +272,14 @@
       "competitor_id": "9506"
     },
     "Taylor Pendrith": {
-      "score": "-3",
-      "hole": "16",
+      "score": "-4",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/9658/taylor-pendrith",
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779403275.7447407,
-  "last_score_refresh_attempt_at": 1779404416.536619,
+  "last_score_refresh_at": 1779404418.1946564,
+  "last_score_refresh_attempt_at": 1779404418.1946564,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -438,17 +438,17 @@
     "Travis Smyth": [],
     "Robert MacIntyre": [],
     "Sungjae Im": [
-      "P",
       "□",
       "○",
       "P",
-      "○"
+      "○",
+      "□"
     ],
     "Max McGreevy": [
       "P",
-      "P",
-      "P",
       "○",
+      "P",
+      "P",
       "P"
     ],
     "Rico Hoey": [
@@ -477,17 +477,17 @@
     "Y.E. Yang": [],
     "Daniel Brown": [
       "P",
-      "P",
-      "P",
       "○",
+      "○",
+      "P",
       "○"
     ],
     "Billy Horschel": [
       "○",
       "P",
-      "○",
+      "□",
       "P",
-      "□"
+      "P"
     ],
     "Jason Day": [],
     "Padraig Harrington": [
@@ -511,8 +511,8 @@
     ],
     "Chris Kirk": [
       "P",
-      "P",
       "○",
+      "P",
       "P",
       "P"
     ],
@@ -703,10 +703,10 @@
       "P"
     ],
     "Joe Highsmith": [
-      "P",
       "○",
       "P",
       "□",
+      "P",
       "P"
     ],
     "David Puig": [
@@ -733,7 +733,7 @@
       "P",
       "P",
       "P",
-      "P"
+      "□"
     ],
     "Aldrich Potgieter": [
       "P",
@@ -766,9 +766,9 @@
     ],
     "Russell Henley": [],
     "Jordan Spieth": [
-      "□",
       "○",
       "○",
+      "P",
       "P",
       "P"
     ],
@@ -924,11 +924,11 @@
     ],
     "Ryan Lenahan": [],
     "Taylor Pendrith": [
-      "P",
-      "○",
       "○",
       "□",
-      "P"
+      "P",
+      "P",
+      "○"
     ],
     "Jon Rahm": [
       "P",
