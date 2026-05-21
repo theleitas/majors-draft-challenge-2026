@@ -99,7 +99,7 @@
     },
     "Max McGreevy": {
       "score": "-1",
-      "hole": "7",
+      "hole": "8",
       "profile_url": "https://www.espn.com/golf/player/_/id/11383/max-mcgreevy",
       "competitor_id": "11383"
     },
@@ -183,7 +183,7 @@
     },
     "Joe Highsmith": {
       "score": "E",
-      "hole": "7",
+      "hole": "8",
       "profile_url": "https://www.espn.com/golf/player/_/id/4868733/joe-highsmith",
       "competitor_id": "4868733"
     },
@@ -195,7 +195,7 @@
     },
     "William Mouw": {
       "score": "-1",
-      "hole": "7",
+      "hole": "8",
       "profile_url": "https://www.espn.com/golf/player/_/id/5076025/william-mouw",
       "competitor_id": "5076025"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779393877.3029757,
-  "last_score_refresh_attempt_at": 1779394240.482841,
+  "last_score_refresh_at": 1779394241.9705677,
+  "last_score_refresh_attempt_at": 1779394241.9705677,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -445,10 +445,10 @@
     ],
     "Max McGreevy": [
       "P",
-      "P",
       "○",
       "○",
-      "□"
+      "□",
+      "P"
     ],
     "Rico Hoey": [
       "○",
@@ -701,8 +701,8 @@
     ],
     "Joe Highsmith": [
       "P",
-      "P",
       "○",
+      "P",
       "P",
       "P"
     ],
@@ -726,10 +726,10 @@
     "Jared Jones": [],
     "Ryan Gerard": [],
     "William Mouw": [
-      "○",
       "P",
       "P",
       "□",
+      "P",
       "P"
     ],
     "Aldrich Potgieter": [
