@@ -75,7 +75,7 @@
     },
     "Max Greyserman": {
       "score": "E",
-      "hole": "11",
+      "hole": "12",
       "profile_url": "https://www.espn.com/golf/player/_/id/11101/max-greyserman",
       "competitor_id": "11101"
     },
@@ -93,13 +93,13 @@
     },
     "Sungjae Im": {
       "score": "-3",
-      "hole": "12",
+      "hole": "13",
       "profile_url": "https://www.espn.com/golf/player/_/id/11382/sungjae-im",
       "competitor_id": "11382"
     },
     "Max McGreevy": {
       "score": "-2",
-      "hole": "11",
+      "hole": "12",
       "profile_url": "https://www.espn.com/golf/player/_/id/11383/max-mcgreevy",
       "competitor_id": "11383"
     },
@@ -129,7 +129,7 @@
     },
     "Chris Kirk": {
       "score": "-3",
-      "hole": "12",
+      "hole": "13",
       "profile_url": "https://www.espn.com/golf/player/_/id/3449/chris-kirk",
       "competitor_id": "3449"
     },
@@ -159,7 +159,7 @@
     },
     "John Parry": {
       "score": "-1",
-      "hole": "8",
+      "hole": "9",
       "profile_url": "https://www.espn.com/golf/player/_/id/4671/john-parry",
       "competitor_id": "4671"
     },
@@ -183,7 +183,7 @@
     },
     "Joe Highsmith": {
       "score": "+1",
-      "hole": "12",
+      "hole": "13",
       "profile_url": "https://www.espn.com/golf/player/_/id/4868733/joe-highsmith",
       "competitor_id": "4868733"
     },
@@ -195,13 +195,13 @@
     },
     "William Mouw": {
       "score": "E",
-      "hole": "12",
+      "hole": "13",
       "profile_url": "https://www.espn.com/golf/player/_/id/5076025/william-mouw",
       "competitor_id": "5076025"
     },
     "Jordan Spieth": {
-      "score": "-2",
-      "hole": "12",
+      "score": "-1",
+      "hole": "13",
       "profile_url": "https://www.espn.com/golf/player/_/id/5467/jordan-spieth",
       "competitor_id": "5467"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779398680.7165055,
-  "last_score_refresh_attempt_at": 1779399317.3805387,
+  "last_score_refresh_at": 1779399318.9076142,
+  "last_score_refresh_attempt_at": 1779399318.9076142,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -399,8 +399,8 @@
       "P"
     ],
     "Max Greyserman": [
-      "P",
       "○",
+      "P",
       "P",
       "P",
       "P"
@@ -444,10 +444,10 @@
       "P"
     ],
     "Max McGreevy": [
-      "□",
       "P",
       "P",
       "○",
+      "P",
       "P"
     ],
     "Rico Hoey": [
@@ -510,10 +510,10 @@
     ],
     "Chris Kirk": [
       "○",
-      "○",
       "P",
       "□",
-      "○"
+      "○",
+      "P"
     ],
     "Rory McIlroy": [
       "○",
@@ -647,10 +647,10 @@
       "P"
     ],
     "John Parry": [
-      "□",
       "P",
       "P",
       "○",
+      "P",
       "P"
     ],
     "Chris Gotterup": [
@@ -702,9 +702,9 @@
       "P"
     ],
     "Joe Highsmith": [
-      "P",
       "○",
       "□",
+      "P",
       "P",
       "P"
     ],
@@ -728,8 +728,8 @@
     "Jared Jones": [],
     "Ryan Gerard": [],
     "William Mouw": [
-      "P",
       "□",
+      "P",
       "P",
       "P",
       "P"
@@ -765,11 +765,11 @@
     ],
     "Russell Henley": [],
     "Jordan Spieth": [
-      "P",
       "○",
       "P",
       "□",
-      "P"
+      "P",
+      "□"
     ],
     "Andrew Putnam": [
       "○",
