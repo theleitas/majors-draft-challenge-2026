@@ -62,8 +62,8 @@
       "competitor_id": "10058"
     },
     "Jhonattan Vegas": {
-      "score": "+1",
-      "hole": "11",
+      "score": "+3",
+      "hole": "12",
       "profile_url": "https://www.espn.com/golf/player/_/id/1030/jhonattan-vegas",
       "competitor_id": "1030"
     },
@@ -134,8 +134,8 @@
       "competitor_id": "3449"
     },
     "Michael Thorbjornsen": {
-      "score": "-3",
-      "hole": "11",
+      "score": "-4",
+      "hole": "12",
       "profile_url": "https://www.espn.com/golf/player/_/id/4425904/michael-thorbjornsen",
       "competitor_id": "4425904"
     },
@@ -242,8 +242,8 @@
       "competitor_id": "7081"
     },
     "Keith Mitchell": {
-      "score": "-4",
-      "hole": "13",
+      "score": "-5",
+      "hole": "14",
       "profile_url": "https://www.espn.com/golf/player/_/id/8906/keith-mitchell",
       "competitor_id": "8906"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779379834.7136538,
-  "last_score_refresh_attempt_at": 1779380152.0025089,
+  "last_score_refresh_at": 1779380153.55711,
+  "last_score_refresh_attempt_at": 1779380153.55711,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -364,9 +364,9 @@
     "Ben Polland": [],
     "Jhonattan Vegas": [
       "P",
-      "P",
       "□",
       "P",
+      "□",
       "□"
     ],
     "Kurt Kitayama": [],
@@ -571,7 +571,7 @@
       "P",
       "P",
       "P",
-      "P"
+      "○"
     ],
     "Cameron Young": [
       "□",
@@ -792,11 +792,11 @@
     ],
     "Stewart Cink": [],
     "Keith Mitchell": [
-      "○",
       "P",
       "□",
       "○",
-      "P"
+      "P",
+      "○"
     ],
     "Sepp Straka": [],
     "Max Homa": [],
