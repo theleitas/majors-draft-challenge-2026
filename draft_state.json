@@ -57,7 +57,7 @@
   "player_results": {
     "Davis Riley": {
       "score": "-1",
-      "hole": "3",
+      "hole": "4",
       "profile_url": "https://www.espn.com/golf/player/_/id/10058/davis-riley",
       "competitor_id": "10058"
     },
@@ -81,7 +81,7 @@
     },
     "Wyndham Clark": {
       "score": "-1",
-      "hole": "2",
+      "hole": "3",
       "profile_url": "https://www.espn.com/golf/player/_/id/11119/wyndham-clark",
       "competitor_id": "11119"
     },
@@ -189,7 +189,7 @@
     },
     "Michael Brennan": {
       "score": "E",
-      "hole": "3",
+      "hole": "4",
       "profile_url": "https://www.espn.com/golf/player/_/id/4921329/michael-brennan",
       "competitor_id": "4921329"
     },
@@ -206,8 +206,8 @@
       "competitor_id": "5467"
     },
     "Emiliano Grillo": {
-      "score": "-3",
-      "hole": "5",
+      "score": "-4",
+      "hole": "6",
       "profile_url": "https://www.espn.com/golf/player/_/id/5882/emiliano-grillo",
       "competitor_id": "5882"
     },
@@ -218,8 +218,8 @@
       "competitor_id": "6798"
     },
     "Patrick Rodgers": {
-      "score": "E",
-      "hole": "1",
+      "score": "-1",
+      "hole": "2",
       "profile_url": "https://www.espn.com/golf/player/_/id/6825/patrick-rodgers",
       "competitor_id": "6825"
     },
@@ -254,8 +254,8 @@
       "competitor_id": "9221"
     },
     "Christiaan Bezuidenhout": {
-      "score": "E",
-      "hole": "1",
+      "score": "-1",
+      "hole": "2",
       "profile_url": "https://www.espn.com/golf/player/_/id/9243/christiaan-bezuidenhout",
       "competitor_id": "9243"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779370534.5999348,
-  "last_score_refresh_attempt_at": 1779370887.7508032,
+  "last_score_refresh_at": 1779370889.5007129,
+  "last_score_refresh_attempt_at": 1779370889.5007129,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -348,6 +348,7 @@
     ],
     "Davis Riley": [
       "P",
+      "P",
       "P"
     ],
     "Xander Schauffele": [
@@ -397,6 +398,7 @@
       "P"
     ],
     "Wyndham Clark": [
+      "P",
       "P"
     ],
     "Jordan Gumberg": [],
@@ -638,6 +640,7 @@
       "□",
       "□",
       "P",
+      "P",
       "P"
     ],
     "Jacob Bridgeman": [],
@@ -716,6 +719,7 @@
       "○",
       "○",
       "P",
+      "○",
       "○"
     ],
     "Garrett Sapp": [],
@@ -731,7 +735,9 @@
       "○",
       "○"
     ],
-    "Patrick Rodgers": [],
+    "Patrick Rodgers": [
+      "○"
+    ],
     "Stephan Jaeger": [
       "□",
       "P",
@@ -782,7 +788,9 @@
       "○",
       "P"
     ],
-    "Christiaan Bezuidenhout": [],
+    "Christiaan Bezuidenhout": [
+      "○"
+    ],
     "Scottie Scheffler": [
       "○",
       "P",
