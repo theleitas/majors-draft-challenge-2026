@@ -68,8 +68,8 @@
       "competitor_id": "1030"
     },
     "Adam Schenk": {
-      "score": "+1",
-      "hole": "15",
+      "score": "+2",
+      "hole": "16",
       "profile_url": "https://www.espn.com/golf/player/_/id/10372/adam-schenk",
       "competitor_id": "10372"
     },
@@ -140,14 +140,14 @@
       "competitor_id": "4425904"
     },
     "Steven Fisk": {
-      "score": "-3",
-      "hole": "15",
+      "score": "-2",
+      "hole": "16",
       "profile_url": "https://www.espn.com/golf/player/_/id/4426182/steven-fisk",
       "competitor_id": "4426182"
     },
     "Matti Schmid": {
-      "score": "N/A",
-      "hole": "1:32 PM",
+      "score": "+1",
+      "hole": "1",
       "profile_url": "https://www.espn.com/golf/player/_/id/4566443/matti-schmid",
       "competitor_id": "4566443"
     },
@@ -164,14 +164,14 @@
       "competitor_id": "4671"
     },
     "Pierceson Coody": {
-      "score": "N/A",
-      "hole": "1:32 PM",
+      "score": "-1",
+      "hole": "1",
       "profile_url": "https://www.espn.com/golf/player/_/id/4837368/pierceson-coody",
       "competitor_id": "4837368"
     },
     "Ryo Hisatsune": {
-      "score": "N/A",
-      "hole": "1:32 PM",
+      "score": "E",
+      "hole": "1",
       "profile_url": "https://www.espn.com/golf/player/_/id/4858572/ryo-hisatsune",
       "competitor_id": "4858572"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779385543.0884085,
-  "last_score_refresh_attempt_at": 1779385851.3596873,
+  "last_score_refresh_at": 1779385852.931848,
+  "last_score_refresh_attempt_at": 1779385852.931848,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -371,11 +371,11 @@
     ],
     "Kurt Kitayama": [],
     "Adam Schenk": [
-      "□",
       "○",
       "P",
       "P",
-      "P"
+      "P",
+      "□"
     ],
     "J.T. Poston": [],
     "Matt Wallace": [],
@@ -584,11 +584,11 @@
       "P"
     ],
     "Steven Fisk": [
-      "○",
       "P",
       "P",
       "P",
-      "P"
+      "P",
+      "□"
     ],
     "Jimmy Walker": [],
     "Keegan Bradley": [],
