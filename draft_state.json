@@ -105,7 +105,7 @@
     },
     "Rico Hoey": {
       "score": "-9",
-      "hole": "16",
+      "hole": "17",
       "profile_url": "https://www.espn.com/golf/player/_/id/11385/rico-hoey",
       "competitor_id": "11385"
     },
@@ -141,7 +141,7 @@
     },
     "Steven Fisk": {
       "score": "-9",
-      "hole": "17",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/4426182/steven-fisk",
       "competitor_id": "4426182"
     },
@@ -152,8 +152,8 @@
       "competitor_id": "4566443"
     },
     "Chandler Blanchet": {
-      "score": "-1",
-      "hole": "15",
+      "score": "+1",
+      "hole": "16",
       "profile_url": "https://www.espn.com/golf/player/_/id/4618114/chandler-blanchet",
       "competitor_id": "4618114"
     },
@@ -176,8 +176,8 @@
       "competitor_id": "4858572"
     },
     "Rasmus Neergaard-Petersen": {
-      "score": "-8",
-      "hole": "14",
+      "score": "-9",
+      "hole": "15",
       "profile_url": "https://www.espn.com/golf/player/_/id/4858859/rasmus-neergaard-petersen",
       "competitor_id": "4858859"
     },
@@ -218,8 +218,8 @@
       "competitor_id": "6798"
     },
     "Patrick Rodgers": {
-      "score": "-10",
-      "hole": "17",
+      "score": "-9",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/6825/patrick-rodgers",
       "competitor_id": "6825"
     },
@@ -230,8 +230,8 @@
       "competitor_id": "6937"
     },
     "Adrien Saddier": {
-      "score": "-7",
-      "hole": "13",
+      "score": "-8",
+      "hole": "14",
       "profile_url": "https://www.espn.com/golf/player/_/id/6962/adrien-saddier",
       "competitor_id": "6962"
     },
@@ -249,13 +249,13 @@
     },
     "Haotong Li": {
       "score": "-5",
-      "hole": "15",
+      "hole": "16",
       "profile_url": "https://www.espn.com/golf/player/_/id/9221/haotong-li",
       "competitor_id": "9221"
     },
     "Christiaan Bezuidenhout": {
-      "score": "-4",
-      "hole": "17",
+      "score": "-5",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/9243/christiaan-bezuidenhout",
       "competitor_id": "9243"
     },
@@ -266,8 +266,8 @@
       "competitor_id": "9478"
     },
     "Jordan Smith": {
-      "score": "-8",
-      "hole": "16",
+      "score": "-9",
+      "hole": "17",
       "profile_url": "https://www.espn.com/golf/player/_/id/9506/jordan-smith",
       "competitor_id": "9506"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779491556.9845786,
-  "last_score_refresh_attempt_at": 1779492301.537234,
+  "last_score_refresh_at": 1779492302.991057,
+  "last_score_refresh_attempt_at": 1779492302.991057,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -451,8 +451,8 @@
       "○"
     ],
     "Rico Hoey": [
-      "P",
       "○",
+      "P",
       "P",
       "P",
       "P"
@@ -613,9 +613,9 @@
       "P"
     ],
     "Steven Fisk": [
-      "P",
       "○",
       "□",
+      "P",
       "P",
       "P"
     ],
@@ -640,11 +640,11 @@
     "Jayden Schaper": [],
     "Casey Jarvis": [],
     "Chandler Blanchet": [
-      "P",
       "□",
       "□",
       "○",
-      "○"
+      "○",
+      "□"
     ],
     "John Parry": [
       "○",
@@ -695,10 +695,10 @@
       "P"
     ],
     "Rasmus Neergaard-Petersen": [
-      "P",
       "□",
       "P",
       "P",
+      "○",
       "○"
     ],
     "Joe Highsmith": [
@@ -823,10 +823,10 @@
     ],
     "Patrick Rodgers": [
       "○",
-      "○",
       "P",
       "P",
-      "P"
+      "P",
+      "□"
     ],
     "Stephan Jaeger": [
       "P",
@@ -836,10 +836,10 @@
       "P"
     ],
     "Adrien Saddier": [
+      "P",
+      "P",
+      "P",
       "○",
-      "P",
-      "P",
-      "P",
       "○"
     ],
     "Si Woo Kim": [
@@ -880,17 +880,17 @@
     ],
     "Haotong Li": [
       "□",
-      "□",
       "P",
       "□",
-      "○"
+      "○",
+      "P"
     ],
     "Christiaan Bezuidenhout": [
       "P",
       "P",
       "P",
       "P",
-      "P"
+      "○"
     ],
     "Scottie Scheffler": [
       "○",
@@ -909,9 +909,9 @@
     "Jordan Smith": [
       "P",
       "P",
-      "P",
       "○",
-      "□"
+      "□",
+      "○"
     ],
     "Brian Campbell": [],
     "Maverick McNealy": [
