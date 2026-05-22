@@ -57,7 +57,7 @@
   "player_results": {
     "Davis Riley": {
       "score": "E",
-      "hole": "3",
+      "hole": "4",
       "profile_url": "https://www.espn.com/golf/player/_/id/10058/davis-riley",
       "competitor_id": "10058"
     },
@@ -68,8 +68,8 @@
       "competitor_id": "1030"
     },
     "Adam Schenk": {
-      "score": "+4",
-      "hole": "2",
+      "score": "+3",
+      "hole": "3",
       "profile_url": "https://www.espn.com/golf/player/_/id/10372/adam-schenk",
       "competitor_id": "10372"
     },
@@ -105,7 +105,7 @@
     },
     "Rico Hoey": {
       "score": "-4",
-      "hole": "2:38 PM",
+      "hole": "1",
       "profile_url": "https://www.espn.com/golf/player/_/id/11385/rico-hoey",
       "competitor_id": "11385"
     },
@@ -140,8 +140,8 @@
       "competitor_id": "4425904"
     },
     "Steven Fisk": {
-      "score": "-2",
-      "hole": "2",
+      "score": "-3",
+      "hole": "3",
       "profile_url": "https://www.espn.com/golf/player/_/id/4426182/steven-fisk",
       "competitor_id": "4426182"
     },
@@ -189,7 +189,7 @@
     },
     "Michael Brennan": {
       "score": "-4",
-      "hole": "3",
+      "hole": "4",
       "profile_url": "https://www.espn.com/golf/player/_/id/4921329/michael-brennan",
       "competitor_id": "4921329"
     },
@@ -219,7 +219,7 @@
     },
     "Patrick Rodgers": {
       "score": "-4",
-      "hole": "2",
+      "hole": "3",
       "profile_url": "https://www.espn.com/golf/player/_/id/6825/patrick-rodgers",
       "competitor_id": "6825"
     },
@@ -266,8 +266,8 @@
       "competitor_id": "9478"
     },
     "Jordan Smith": {
-      "score": "-4",
-      "hole": "2:38 PM",
+      "score": "-5",
+      "hole": "1",
       "profile_url": "https://www.espn.com/golf/player/_/id/9506/jordan-smith",
       "competitor_id": "9506"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779476037.8866873,
-  "last_score_refresh_attempt_at": 1779476471.773346,
+  "last_score_refresh_at": 1779476473.460893,
+  "last_score_refresh_attempt_at": 1779476473.460893,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -372,11 +372,11 @@
     ],
     "Kurt Kitayama": [],
     "Adam Schenk": [
+      "□",
+      "□",
+      "□",
       "P",
-      "□",
-      "□",
-      "□",
-      "P"
+      "○"
     ],
     "J.T. Poston": [],
     "Matt Wallace": [],
@@ -613,11 +613,11 @@
       "P"
     ],
     "Steven Fisk": [
-      "P",
       "□",
       "P",
       "P",
-      "P"
+      "P",
+      "○"
     ],
     "Jimmy Walker": [],
     "Keegan Bradley": [],
@@ -718,10 +718,10 @@
     "Matt McCarty": [],
     "Michael Brennan": [
       "P",
-      "P",
       "○",
       "P",
-      "○"
+      "○",
+      "P"
     ],
     "Jacob Bridgeman": [],
     "Austin Hurt": [],
@@ -822,11 +822,11 @@
       "P"
     ],
     "Patrick Rodgers": [
-      "○",
       "P",
       "□",
       "P",
-      "○"
+      "○",
+      "P"
     ],
     "Stephan Jaeger": [
       "P",
