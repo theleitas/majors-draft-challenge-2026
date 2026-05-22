@@ -93,7 +93,7 @@
     },
     "Sungjae Im": {
       "score": "-3",
-      "hole": "8:33 AM",
+      "hole": "1",
       "profile_url": "https://www.espn.com/golf/player/_/id/11382/sungjae-im",
       "competitor_id": "11382"
     },
@@ -111,7 +111,7 @@
     },
     "Garrick Higgo": {
       "score": "-2",
-      "hole": "8:33 AM",
+      "hole": "1",
       "profile_url": "https://www.espn.com/golf/player/_/id/11393/garrick-higgo",
       "competitor_id": "11393"
     },
@@ -128,8 +128,8 @@
       "competitor_id": "1651"
     },
     "Chris Kirk": {
-      "score": "-4",
-      "hole": "8:33 AM",
+      "score": "-3",
+      "hole": "1",
       "profile_url": "https://www.espn.com/golf/player/_/id/3449/chris-kirk",
       "competitor_id": "3449"
     },
@@ -147,7 +147,7 @@
     },
     "Matti Schmid": {
       "score": "-1",
-      "hole": "1",
+      "hole": "2",
       "profile_url": "https://www.espn.com/golf/player/_/id/4566443/matti-schmid",
       "competitor_id": "4566443"
     },
@@ -165,13 +165,13 @@
     },
     "Pierceson Coody": {
       "score": "-3",
-      "hole": "1",
+      "hole": "2",
       "profile_url": "https://www.espn.com/golf/player/_/id/4837368/pierceson-coody",
       "competitor_id": "4837368"
     },
     "Ryo Hisatsune": {
       "score": "-4",
-      "hole": "1",
+      "hole": "2",
       "profile_url": "https://www.espn.com/golf/player/_/id/4858572/ryo-hisatsune",
       "competitor_id": "4858572"
     },
@@ -201,7 +201,7 @@
     },
     "Jordan Spieth": {
       "score": "-3",
-      "hole": "8:33 AM",
+      "hole": "1",
       "profile_url": "https://www.espn.com/golf/player/_/id/5467/jordan-spieth",
       "competitor_id": "5467"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779453681.3619678,
-  "last_score_refresh_attempt_at": 1779454553.9868371,
+  "last_score_refresh_at": 1779454555.4958963,
+  "last_score_refresh_attempt_at": 1779454555.4958963,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -624,8 +624,8 @@
     "Keegan Bradley": [],
     "Matti Schmid": [
       "P",
-      "P",
       "□",
+      "P",
       "P",
       "P"
     ],
@@ -674,8 +674,8 @@
     "Tyler Collet": [],
     "Thomas Detry": [],
     "Pierceson Coody": [
-      "○",
       "□",
+      "P",
       "P",
       "P",
       "P"
@@ -691,8 +691,8 @@
     "Ryo Hisatsune": [
       "P",
       "P",
-      "P",
       "○",
+      "P",
       "P"
     ],
     "Rasmus Neergaard-Petersen": [
