@@ -147,7 +147,7 @@
     },
     "Matti Schmid": {
       "score": "-1",
-      "hole": "8:22 AM",
+      "hole": "1",
       "profile_url": "https://www.espn.com/golf/player/_/id/4566443/matti-schmid",
       "competitor_id": "4566443"
     },
@@ -165,13 +165,13 @@
     },
     "Pierceson Coody": {
       "score": "-3",
-      "hole": "8:22 AM",
+      "hole": "1",
       "profile_url": "https://www.espn.com/golf/player/_/id/4837368/pierceson-coody",
       "competitor_id": "4837368"
     },
     "Ryo Hisatsune": {
       "score": "-4",
-      "hole": "8:22 AM",
+      "hole": "1",
       "profile_url": "https://www.espn.com/golf/player/_/id/4858572/ryo-hisatsune",
       "competitor_id": "4858572"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779452126.7985923,
-  "last_score_refresh_attempt_at": 1779453679.917835,
+  "last_score_refresh_at": 1779453681.3619678,
+  "last_score_refresh_attempt_at": 1779453681.3619678,
   "text_updates": {
     "enabled": false,
     "twilio": {
