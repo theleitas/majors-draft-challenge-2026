@@ -68,8 +68,8 @@
       "competitor_id": "1030"
     },
     "Adam Schenk": {
-      "score": "+3",
-      "hole": "11",
+      "score": "+2",
+      "hole": "12",
       "profile_url": "https://www.espn.com/golf/player/_/id/10372/adam-schenk",
       "competitor_id": "10372"
     },
@@ -87,7 +87,7 @@
     },
     "Rasmus Højgaard": {
       "score": "-7",
-      "hole": "14",
+      "hole": "15",
       "profile_url": "https://www.espn.com/golf/player/_/id/11253/rasmus-højgaard",
       "competitor_id": "11253"
     },
@@ -213,7 +213,7 @@
     },
     "Brooks Koepka": {
       "score": "-10",
-      "hole": "13",
+      "hole": "14",
       "profile_url": "https://www.espn.com/golf/player/_/id/6798/brooks-koepka",
       "competitor_id": "6798"
     },
@@ -236,14 +236,14 @@
       "competitor_id": "6962"
     },
     "Si Woo Kim": {
-      "score": "-16",
-      "hole": "13",
+      "score": "-17",
+      "hole": "14",
       "profile_url": "https://www.espn.com/golf/player/_/id/7081/si-woo-kim",
       "competitor_id": "7081"
     },
     "Keith Mitchell": {
       "score": "-13",
-      "hole": "14",
+      "hole": "15",
       "profile_url": "https://www.espn.com/golf/player/_/id/8906/keith-mitchell",
       "competitor_id": "8906"
     },
@@ -260,8 +260,8 @@
       "competitor_id": "9243"
     },
     "Scottie Scheffler": {
-      "score": "-12",
-      "hole": "13",
+      "score": "-13",
+      "hole": "14",
       "profile_url": "https://www.espn.com/golf/player/_/id/9478/scottie-scheffler",
       "competitor_id": "9478"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779485528.3306499,
-  "last_score_refresh_attempt_at": 1779485886.5965178,
+  "last_score_refresh_at": 1779485887.949656,
+  "last_score_refresh_attempt_at": 1779485887.949656,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -376,7 +376,7 @@
       "P",
       "P",
       "P",
-      "P"
+      "○"
     ],
     "J.T. Poston": [],
     "Matt Wallace": [],
@@ -421,10 +421,10 @@
       "P"
     ],
     "Rasmus Højgaard": [
+      "○",
+      "○",
+      "○",
       "P",
-      "○",
-      "○",
-      "○",
       "P"
     ],
     "Andrew Novak": [
@@ -815,11 +815,11 @@
     "David Lipsky": [],
     "Lucas Glover": [],
     "Brooks Koepka": [
-      "○",
       "P",
       "P",
       "○",
-      "○"
+      "○",
+      "P"
     ],
     "Patrick Rodgers": [
       "P",
@@ -845,17 +845,17 @@
     "Si Woo Kim": [
       "○",
       "○",
-      "○",
       "P",
+      "○",
       "○"
     ],
     "Stewart Cink": [],
     "Keith Mitchell": [
       "P",
       "P",
-      "P",
       "○",
-      "○"
+      "○",
+      "P"
     ],
     "Sepp Straka": [],
     "Max Homa": [],
@@ -893,8 +893,8 @@
       "□"
     ],
     "Scottie Scheffler": [
-      "○",
       "P",
+      "○",
       "○",
       "○",
       "○"
