@@ -93,7 +93,7 @@
     },
     "Sungjae Im": {
       "score": "-5",
-      "hole": "3",
+      "hole": "4",
       "profile_url": "https://www.espn.com/golf/player/_/id/11382/sungjae-im",
       "competitor_id": "11382"
     },
@@ -129,7 +129,7 @@
     },
     "Chris Kirk": {
       "score": "-4",
-      "hole": "3",
+      "hole": "4",
       "profile_url": "https://www.espn.com/golf/player/_/id/3449/chris-kirk",
       "competitor_id": "3449"
     },
@@ -195,13 +195,13 @@
     },
     "William Mouw": {
       "score": "+3",
-      "hole": "3",
+      "hole": "4",
       "profile_url": "https://www.espn.com/golf/player/_/id/5076025/william-mouw",
       "competitor_id": "5076025"
     },
     "Jordan Spieth": {
       "score": "-3",
-      "hole": "3",
+      "hole": "4",
       "profile_url": "https://www.espn.com/golf/player/_/id/5467/jordan-spieth",
       "competitor_id": "5467"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779456990.4010403,
-  "last_score_refresh_attempt_at": 1779457354.9971817,
+  "last_score_refresh_at": 1779457356.6749434,
+  "last_score_refresh_attempt_at": 1779457356.6749434,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -438,11 +438,11 @@
     "Travis Smyth": [],
     "Robert MacIntyre": [],
     "Sungjae Im": [
-      "P",
       "○",
       "□",
       "○",
-      "○"
+      "○",
+      "P"
     ],
     "Max McGreevy": [
       "P",
@@ -513,8 +513,8 @@
       "P",
       "P",
       "P",
-      "P",
-      "○"
+      "○",
+      "P"
     ],
     "Rory McIlroy": [
       "○",
@@ -730,10 +730,10 @@
     "Ryan Gerard": [],
     "William Mouw": [
       "P",
-      "P",
       "□",
       "P",
-      "□"
+      "□",
+      "P"
     ],
     "Aldrich Potgieter": [
       "P",
