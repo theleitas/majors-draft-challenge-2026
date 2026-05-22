@@ -69,7 +69,7 @@
     },
     "Adam Schenk": {
       "score": "+3",
-      "hole": "3",
+      "hole": "4",
       "profile_url": "https://www.espn.com/golf/player/_/id/10372/adam-schenk",
       "competitor_id": "10372"
     },
@@ -80,8 +80,8 @@
       "competitor_id": "11101"
     },
     "Wyndham Clark": {
-      "score": "-7",
-      "hole": "4",
+      "score": "-8",
+      "hole": "5",
       "profile_url": "https://www.espn.com/golf/player/_/id/11119/wyndham-clark",
       "competitor_id": "11119"
     },
@@ -176,8 +176,8 @@
       "competitor_id": "4858572"
     },
     "Rasmus Neergaard-Petersen": {
-      "score": "-5",
-      "hole": "3:00 PM",
+      "score": "-6",
+      "hole": "1",
       "profile_url": "https://www.espn.com/golf/player/_/id/4858859/rasmus-neergaard-petersen",
       "competitor_id": "4858859"
     },
@@ -206,8 +206,8 @@
       "competitor_id": "5467"
     },
     "Emiliano Grillo": {
-      "score": "-7",
-      "hole": "7",
+      "score": "-8",
+      "hole": "8",
       "profile_url": "https://www.espn.com/golf/player/_/id/5882/emiliano-grillo",
       "competitor_id": "5882"
     },
@@ -218,14 +218,14 @@
       "competitor_id": "6798"
     },
     "Patrick Rodgers": {
-      "score": "-4",
-      "hole": "3",
+      "score": "-5",
+      "hole": "4",
       "profile_url": "https://www.espn.com/golf/player/_/id/6825/patrick-rodgers",
       "competitor_id": "6825"
     },
     "Stephan Jaeger": {
       "score": "-9",
-      "hole": "4",
+      "hole": "5",
       "profile_url": "https://www.espn.com/golf/player/_/id/6937/stephan-jaeger",
       "competitor_id": "6937"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779477010.2629218,
-  "last_score_refresh_attempt_at": 1779477437.4456642,
+  "last_score_refresh_at": 1779477438.9942415,
+  "last_score_refresh_attempt_at": 1779477438.9942415,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -374,9 +374,9 @@
     "Adam Schenk": [
       "□",
       "□",
-      "□",
       "P",
-      "○"
+      "○",
+      "P"
     ],
     "J.T. Poston": [],
     "Matt Wallace": [],
@@ -406,10 +406,10 @@
       "○"
     ],
     "Wyndham Clark": [
-      "P",
       "□",
       "○",
       "P",
+      "○",
       "○"
     ],
     "Jordan Gumberg": [],
@@ -802,11 +802,11 @@
       "P"
     ],
     "Emiliano Grillo": [
-      "□",
       "P",
       "○",
       "P",
-      "P"
+      "P",
+      "○"
     ],
     "Garrett Sapp": [],
     "Andy Sullivan": [],
@@ -822,18 +822,18 @@
       "○"
     ],
     "Patrick Rodgers": [
-      "P",
       "□",
       "P",
       "○",
-      "P"
+      "P",
+      "○"
     ],
     "Stephan Jaeger": [
-      "P",
       "○",
       "P",
       "○",
-      "○"
+      "○",
+      "P"
     ],
     "Adrien Saddier": [
       "○",
