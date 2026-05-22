@@ -99,7 +99,7 @@
     },
     "Max McGreevy": {
       "score": "-3",
-      "hole": "1",
+      "hole": "2",
       "profile_url": "https://www.espn.com/golf/player/_/id/11383/max-mcgreevy",
       "competitor_id": "11383"
     },
@@ -111,7 +111,7 @@
     },
     "Garrick Higgo": {
       "score": "-4",
-      "hole": "3",
+      "hole": "4",
       "profile_url": "https://www.espn.com/golf/player/_/id/11393/garrick-higgo",
       "competitor_id": "11393"
     },
@@ -146,8 +146,8 @@
       "competitor_id": "4426182"
     },
     "Matti Schmid": {
-      "score": "-2",
-      "hole": "3",
+      "score": "-3",
+      "hole": "4",
       "profile_url": "https://www.espn.com/golf/player/_/id/4566443/matti-schmid",
       "competitor_id": "4566443"
     },
@@ -164,14 +164,14 @@
       "competitor_id": "4671"
     },
     "Pierceson Coody": {
-      "score": "-4",
-      "hole": "3",
+      "score": "-5",
+      "hole": "4",
       "profile_url": "https://www.espn.com/golf/player/_/id/4837368/pierceson-coody",
       "competitor_id": "4837368"
     },
     "Ryo Hisatsune": {
       "score": "-5",
-      "hole": "3",
+      "hole": "4",
       "profile_url": "https://www.espn.com/golf/player/_/id/4858572/ryo-hisatsune",
       "competitor_id": "4858572"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779456242.251615,
-  "last_score_refresh_attempt_at": 1779456648.084308,
+  "last_score_refresh_at": 1779456649.8893251,
+  "last_score_refresh_attempt_at": 1779456649.8893251,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -445,7 +445,7 @@
       "○"
     ],
     "Max McGreevy": [
-      "○",
+      "P",
       "P",
       "P",
       "P",
@@ -461,9 +461,9 @@
     "Garrick Higgo": [
       "P",
       "P",
-      "P",
       "○",
-      "○"
+      "○",
+      "P"
     ],
     "Jesse Droemer": [],
     "Brandt Snedeker": [],
@@ -623,10 +623,10 @@
     "Jimmy Walker": [],
     "Keegan Bradley": [],
     "Matti Schmid": [
-      "□",
       "P",
       "P",
       "P",
+      "○",
       "○"
     ],
     "Marco Penge": [],
@@ -677,7 +677,7 @@
       "P",
       "P",
       "P",
-      "P",
+      "○",
       "○"
     ],
     "Mark Geddes": [],
@@ -689,11 +689,11 @@
       "P"
     ],
     "Ryo Hisatsune": [
-      "P",
       "○",
       "P",
       "P",
-      "○"
+      "○",
+      "P"
     ],
     "Rasmus Neergaard-Petersen": [
       "P",
