@@ -176,8 +176,8 @@
       "competitor_id": "4858572"
     },
     "Rasmus Neergaard-Petersen": {
-      "score": "-7",
-      "hole": "13",
+      "score": "-8",
+      "hole": "14",
       "profile_url": "https://www.espn.com/golf/player/_/id/4858859/rasmus-neergaard-petersen",
       "competitor_id": "4858859"
     },
@@ -230,8 +230,8 @@
       "competitor_id": "6937"
     },
     "Adrien Saddier": {
-      "score": "-6",
-      "hole": "12",
+      "score": "-7",
+      "hole": "13",
       "profile_url": "https://www.espn.com/golf/player/_/id/6962/adrien-saddier",
       "competitor_id": "6962"
     },
@@ -255,7 +255,7 @@
     },
     "Christiaan Bezuidenhout": {
       "score": "-4",
-      "hole": "16",
+      "hole": "17",
       "profile_url": "https://www.espn.com/golf/player/_/id/9243/christiaan-bezuidenhout",
       "competitor_id": "9243"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779490541.6827147,
-  "last_score_refresh_attempt_at": 1779491021.5470166,
+  "last_score_refresh_at": 1779491022.855341,
+  "last_score_refresh_attempt_at": 1779491022.855341,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -696,10 +696,10 @@
     ],
     "Rasmus Neergaard-Petersen": [
       "P",
-      "P",
       "□",
       "P",
-      "P"
+      "P",
+      "○"
     ],
     "Joe Highsmith": [
       "○",
@@ -836,11 +836,11 @@
       "P"
     ],
     "Adrien Saddier": [
-      "P",
       "○",
       "P",
       "P",
-      "P"
+      "P",
+      "○"
     ],
     "Si Woo Kim": [
       "○",
@@ -886,7 +886,7 @@
       "□"
     ],
     "Christiaan Bezuidenhout": [
-      "○",
+      "P",
       "P",
       "P",
       "P",
