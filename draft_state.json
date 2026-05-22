@@ -74,8 +74,8 @@
       "competitor_id": "10372"
     },
     "Max Greyserman": {
-      "score": "-5",
-      "hole": "12",
+      "score": "-6",
+      "hole": "13",
       "profile_url": "https://www.espn.com/golf/player/_/id/11101/max-greyserman",
       "competitor_id": "11101"
     },
@@ -111,19 +111,19 @@
     },
     "Garrick Higgo": {
       "score": "-5",
-      "hole": "12",
+      "hole": "13",
       "profile_url": "https://www.espn.com/golf/player/_/id/11393/garrick-higgo",
       "competitor_id": "11393"
     },
     "Daniel Brown": {
-      "score": "-4",
-      "hole": "9",
+      "score": "-5",
+      "hole": "10",
       "profile_url": "https://www.espn.com/golf/player/_/id/1407/daniel-brown",
       "competitor_id": "1407"
     },
     "Billy Horschel": {
       "score": "E",
-      "hole": "12",
+      "hole": "13",
       "profile_url": "https://www.espn.com/golf/player/_/id/1651/billy-horschel",
       "competitor_id": "1651"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779466365.818886,
-  "last_score_refresh_attempt_at": 1779466768.6443827,
+  "last_score_refresh_at": 1779466770.0421972,
+  "last_score_refresh_attempt_at": 1779466770.0421972,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -399,11 +399,11 @@
       "P"
     ],
     "Max Greyserman": [
-      "○",
       "P",
       "P",
       "P",
-      "P"
+      "P",
+      "○"
     ],
     "Wyndham Clark": [
       "○",
@@ -458,9 +458,9 @@
       "○"
     ],
     "Garrick Higgo": [
-      "P",
       "○",
       "□",
+      "P",
       "P",
       "P"
     ],
@@ -475,18 +475,18 @@
     ],
     "Y.E. Yang": [],
     "Daniel Brown": [
-      "P",
       "○",
       "P",
       "P",
+      "○",
       "○"
     ],
     "Billy Horschel": [
       "P",
-      "P",
       "□",
       "○",
-      "□"
+      "□",
+      "P"
     ],
     "Jason Day": [],
     "Padraig Harrington": [
