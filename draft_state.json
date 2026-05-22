@@ -56,8 +56,8 @@
   },
   "player_results": {
     "Davis Riley": {
-      "score": "-1",
-      "hole": "1:43 PM",
+      "score": "E",
+      "hole": "1",
       "profile_url": "https://www.espn.com/golf/player/_/id/10058/davis-riley",
       "competitor_id": "10058"
     },
@@ -116,8 +116,8 @@
       "competitor_id": "11393"
     },
     "Daniel Brown": {
-      "score": "-5",
-      "hole": "15",
+      "score": "-6",
+      "hole": "16",
       "profile_url": "https://www.espn.com/golf/player/_/id/1407/daniel-brown",
       "competitor_id": "1407"
     },
@@ -159,7 +159,7 @@
     },
     "John Parry": {
       "score": "-7",
-      "hole": "15",
+      "hole": "16",
       "profile_url": "https://www.espn.com/golf/player/_/id/4671/john-parry",
       "competitor_id": "4671"
     },
@@ -189,7 +189,7 @@
     },
     "Michael Brennan": {
       "score": "-3",
-      "hole": "1:43 PM",
+      "hole": "1",
       "profile_url": "https://www.espn.com/golf/player/_/id/4921329/michael-brennan",
       "competitor_id": "4921329"
     },
@@ -206,14 +206,14 @@
       "competitor_id": "5467"
     },
     "Emiliano Grillo": {
-      "score": "-7",
-      "hole": "2",
+      "score": "-6",
+      "hole": "3",
       "profile_url": "https://www.espn.com/golf/player/_/id/5882/emiliano-grillo",
       "competitor_id": "5882"
     },
     "Brooks Koepka": {
       "score": "-8",
-      "hole": "1:43 PM",
+      "hole": "1",
       "profile_url": "https://www.espn.com/golf/player/_/id/6798/brooks-koepka",
       "competitor_id": "6798"
     },
@@ -236,8 +236,8 @@
       "competitor_id": "6962"
     },
     "Si Woo Kim": {
-      "score": "-7",
-      "hole": "1:43 PM",
+      "score": "-8",
+      "hole": "1",
       "profile_url": "https://www.espn.com/golf/player/_/id/7081/si-woo-kim",
       "competitor_id": "7081"
     },
@@ -261,7 +261,7 @@
     },
     "Scottie Scheffler": {
       "score": "-5",
-      "hole": "1:43 PM",
+      "hole": "1",
       "profile_url": "https://www.espn.com/golf/player/_/id/9478/scottie-scheffler",
       "competitor_id": "9478"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779472645.1042116,
-  "last_score_refresh_attempt_at": 1779473116.1508222,
+  "last_score_refresh_at": 1779473118.120399,
+  "last_score_refresh_attempt_at": 1779473118.120399,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -475,11 +475,11 @@
     ],
     "Y.E. Yang": [],
     "Daniel Brown": [
-      "□",
       "○",
       "P",
       "P",
-      "P"
+      "P",
+      "○"
     ],
     "Billy Horschel": [
       "○",
@@ -647,11 +647,11 @@
       "P"
     ],
     "John Parry": [
-      "P",
       "○",
       "P",
       "○",
-      "○"
+      "○",
+      "P"
     ],
     "Chris Gotterup": [
       "P",
@@ -802,11 +802,11 @@
       "P"
     ],
     "Emiliano Grillo": [
-      "○",
       "P",
       "□",
       "○",
-      "P"
+      "P",
+      "□"
     ],
     "Garrett Sapp": [],
     "Andy Sullivan": [],
