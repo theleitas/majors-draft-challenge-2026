@@ -81,13 +81,13 @@
     },
     "Wyndham Clark": {
       "score": "-5",
-      "hole": "1:54 PM",
+      "hole": "1",
       "profile_url": "https://www.espn.com/golf/player/_/id/11119/wyndham-clark",
       "competitor_id": "11119"
     },
     "Rasmus Højgaard": {
       "score": "-1",
-      "hole": "1",
+      "hole": "2",
       "profile_url": "https://www.espn.com/golf/player/_/id/11253/rasmus-højgaard",
       "competitor_id": "11253"
     },
@@ -117,7 +117,7 @@
     },
     "Daniel Brown": {
       "score": "-6",
-      "hole": "16",
+      "hole": "17",
       "profile_url": "https://www.espn.com/golf/player/_/id/1407/daniel-brown",
       "competitor_id": "1407"
     },
@@ -225,7 +225,7 @@
     },
     "Stephan Jaeger": {
       "score": "-7",
-      "hole": "1:54 PM",
+      "hole": "1",
       "profile_url": "https://www.espn.com/golf/player/_/id/6937/stephan-jaeger",
       "competitor_id": "6937"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779473118.120399,
-  "last_score_refresh_attempt_at": 1779473451.343734,
+  "last_score_refresh_at": 1779473452.6931596,
+  "last_score_refresh_attempt_at": 1779473452.6931596,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -421,11 +421,11 @@
       "P"
     ],
     "Rasmus Højgaard": [
-      "□",
       "P",
       "P",
       "P",
-      "○"
+      "○",
+      "P"
     ],
     "Andrew Novak": [
       "□",
@@ -475,11 +475,11 @@
     ],
     "Y.E. Yang": [],
     "Daniel Brown": [
+      "P",
+      "P",
+      "P",
       "○",
-      "P",
-      "P",
-      "P",
-      "○"
+      "P"
     ],
     "Billy Horschel": [
       "○",
