@@ -207,7 +207,7 @@
     },
     "Emiliano Grillo": {
       "score": "-7",
-      "hole": "5",
+      "hole": "6",
       "profile_url": "https://www.espn.com/golf/player/_/id/5882/emiliano-grillo",
       "competitor_id": "5882"
     },
@@ -218,8 +218,8 @@
       "competitor_id": "6798"
     },
     "Patrick Rodgers": {
-      "score": "-3",
-      "hole": "1",
+      "score": "-4",
+      "hole": "2",
       "profile_url": "https://www.espn.com/golf/player/_/id/6825/patrick-rodgers",
       "competitor_id": "6825"
     },
@@ -255,7 +255,7 @@
     },
     "Christiaan Bezuidenhout": {
       "score": "-3",
-      "hole": "1",
+      "hole": "2",
       "profile_url": "https://www.espn.com/golf/player/_/id/9243/christiaan-bezuidenhout",
       "competitor_id": "9243"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779475332.0958893,
-  "last_score_refresh_attempt_at": 1779475633.0910497,
+  "last_score_refresh_at": 1779475634.4791546,
+  "last_score_refresh_attempt_at": 1779475634.4791546,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -802,11 +802,11 @@
       "P"
     ],
     "Emiliano Grillo": [
-      "○",
       "P",
       "□",
       "P",
-      "○"
+      "○",
+      "P"
     ],
     "Garrett Sapp": [],
     "Andy Sullivan": [],
@@ -823,10 +823,10 @@
     ],
     "Patrick Rodgers": [
       "○",
-      "○",
       "P",
       "□",
-      "P"
+      "P",
+      "○"
     ],
     "Stephan Jaeger": [
       "P",
@@ -886,10 +886,10 @@
       "P"
     ],
     "Christiaan Bezuidenhout": [
-      "○",
       "P",
       "P",
       "○",
+      "P",
       "P"
     ],
     "Scottie Scheffler": [
