@@ -62,8 +62,8 @@
       "competitor_id": "10058"
     },
     "Jhonattan Vegas": {
-      "score": "+1",
-      "hole": "11",
+      "score": "E",
+      "hole": "12",
       "profile_url": "https://www.espn.com/golf/player/_/id/1030/jhonattan-vegas",
       "competitor_id": "1030"
     },
@@ -81,13 +81,13 @@
     },
     "Wyndham Clark": {
       "score": "-10",
-      "hole": "12",
+      "hole": "13",
       "profile_url": "https://www.espn.com/golf/player/_/id/11119/wyndham-clark",
       "competitor_id": "11119"
     },
     "Rasmus Højgaard": {
       "score": "-7",
-      "hole": "13",
+      "hole": "14",
       "profile_url": "https://www.espn.com/golf/player/_/id/11253/rasmus-højgaard",
       "competitor_id": "11253"
     },
@@ -135,13 +135,13 @@
     },
     "Michael Thorbjornsen": {
       "score": "-6",
-      "hole": "11",
+      "hole": "12",
       "profile_url": "https://www.espn.com/golf/player/_/id/4425904/michael-thorbjornsen",
       "competitor_id": "4425904"
     },
     "Steven Fisk": {
-      "score": "-8",
-      "hole": "11",
+      "score": "-9",
+      "hole": "12",
       "profile_url": "https://www.espn.com/golf/player/_/id/4426182/steven-fisk",
       "competitor_id": "4426182"
     },
@@ -177,7 +177,7 @@
     },
     "Rasmus Neergaard-Petersen": {
       "score": "-8",
-      "hole": "8",
+      "hole": "9",
       "profile_url": "https://www.espn.com/golf/player/_/id/4858859/rasmus-neergaard-petersen",
       "competitor_id": "4858859"
     },
@@ -206,8 +206,8 @@
       "competitor_id": "5467"
     },
     "Emiliano Grillo": {
-      "score": "-10",
-      "hole": "15",
+      "score": "-9",
+      "hole": "16",
       "profile_url": "https://www.espn.com/golf/player/_/id/5882/emiliano-grillo",
       "competitor_id": "5882"
     },
@@ -225,7 +225,7 @@
     },
     "Stephan Jaeger": {
       "score": "-10",
-      "hole": "12",
+      "hole": "13",
       "profile_url": "https://www.espn.com/golf/player/_/id/6937/stephan-jaeger",
       "competitor_id": "6937"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779485220.955243,
-  "last_score_refresh_attempt_at": 1779485527.0195758,
+  "last_score_refresh_at": 1779485528.3306499,
+  "last_score_refresh_attempt_at": 1779485528.3306499,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -367,7 +367,7 @@
       "P",
       "P",
       "P",
-      "P",
+      "○",
       "○"
     ],
     "Kurt Kitayama": [],
@@ -409,8 +409,8 @@
       "P",
       "P",
       "P",
-      "P",
-      "○"
+      "○",
+      "P"
     ],
     "Jordan Gumberg": [],
     "Nicolai Højgaard": [
@@ -421,11 +421,11 @@
       "P"
     ],
     "Rasmus Højgaard": [
-      "○",
       "P",
       "○",
       "○",
-      "○"
+      "○",
+      "P"
     ],
     "Andrew Novak": [
       "□",
@@ -598,8 +598,8 @@
     "Michael Thorbjornsen": [
       "P",
       "P",
-      "P",
       "□",
+      "P",
       "P"
     ],
     "Cameron Young": [
@@ -614,7 +614,7 @@
     ],
     "Steven Fisk": [
       "P",
-      "P",
+      "○",
       "○",
       "○",
       "○"
@@ -696,8 +696,8 @@
     ],
     "Rasmus Neergaard-Petersen": [
       "P",
-      "P",
       "○",
+      "P",
       "P",
       "P"
     ],
@@ -802,11 +802,11 @@
       "P"
     ],
     "Emiliano Grillo": [
-      "○",
       "P",
       "□",
       "○",
-      "P"
+      "P",
+      "□"
     ],
     "Garrett Sapp": [],
     "Andy Sullivan": [],
@@ -829,11 +829,11 @@
       "P"
     ],
     "Stephan Jaeger": [
-      "□",
       "P",
       "P",
       "○",
-      "○"
+      "○",
+      "P"
     ],
     "Adrien Saddier": [
       "○",
