@@ -242,8 +242,8 @@
       "competitor_id": "7081"
     },
     "Keith Mitchell": {
-      "score": "-8",
-      "hole": "1",
+      "score": "-7",
+      "hole": "2",
       "profile_url": "https://www.espn.com/golf/player/_/id/8906/keith-mitchell",
       "competitor_id": "8906"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779472316.0955744,
-  "last_score_refresh_attempt_at": 1779472643.6397264,
+  "last_score_refresh_at": 1779472645.1042116,
+  "last_score_refresh_attempt_at": 1779472645.1042116,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -851,11 +851,11 @@
     ],
     "Stewart Cink": [],
     "Keith Mitchell": [
-      "○",
       "P",
       "○",
       "P",
-      "○"
+      "○",
+      "□"
     ],
     "Sepp Straka": [],
     "Max Homa": [],
