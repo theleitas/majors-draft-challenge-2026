@@ -152,8 +152,8 @@
       "competitor_id": "4566443"
     },
     "Chandler Blanchet": {
-      "score": "+1",
-      "hole": "17",
+      "score": "E",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/4618114/chandler-blanchet",
       "competitor_id": "4618114"
     },
@@ -231,7 +231,7 @@
     },
     "Adrien Saddier": {
       "score": "-6",
-      "hole": "16",
+      "hole": "17",
       "profile_url": "https://www.espn.com/golf/player/_/id/6962/adrien-saddier",
       "competitor_id": "6962"
     },
@@ -249,7 +249,7 @@
     },
     "Haotong Li": {
       "score": "-5",
-      "hole": "17",
+      "hole": "F",
       "profile_url": "https://www.espn.com/golf/player/_/id/9221/haotong-li",
       "competitor_id": "9221"
     },
@@ -278,8 +278,8 @@
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779493832.782143,
-  "last_score_refresh_attempt_at": 1779494366.7679434,
+  "last_score_refresh_at": 1779494367.9491637,
+  "last_score_refresh_attempt_at": 1779494367.9491637,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -640,11 +640,11 @@
     "Jayden Schaper": [],
     "Casey Jarvis": [],
     "Chandler Blanchet": [
-      "□",
       "○",
       "○",
       "□",
-      "P"
+      "P",
+      "○"
     ],
     "John Parry": [
       "○",
@@ -836,11 +836,11 @@
       "P"
     ],
     "Adrien Saddier": [
-      "P",
       "○",
       "○",
       "□",
-      "□"
+      "□",
+      "P"
     ],
     "Si Woo Kim": [
       "○",
@@ -879,9 +879,9 @@
       "P"
     ],
     "Haotong Li": [
-      "P",
       "□",
       "○",
+      "P",
       "P",
       "P"
     ],
