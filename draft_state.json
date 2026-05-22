@@ -75,7 +75,7 @@
     },
     "Max Greyserman": {
       "score": "-5",
-      "hole": "9",
+      "hole": "10",
       "profile_url": "https://www.espn.com/golf/player/_/id/11101/max-greyserman",
       "competitor_id": "11101"
     },
@@ -93,7 +93,7 @@
     },
     "Sungjae Im": {
       "score": "-7",
-      "hole": "10",
+      "hole": "11",
       "profile_url": "https://www.espn.com/golf/player/_/id/11382/sungjae-im",
       "competitor_id": "11382"
     },
@@ -117,19 +117,19 @@
     },
     "Daniel Brown": {
       "score": "-3",
-      "hole": "7",
+      "hole": "8",
       "profile_url": "https://www.espn.com/golf/player/_/id/1407/daniel-brown",
       "competitor_id": "1407"
     },
     "Billy Horschel": {
-      "score": "-2",
-      "hole": "9",
+      "score": "-1",
+      "hole": "10",
       "profile_url": "https://www.espn.com/golf/player/_/id/1651/billy-horschel",
       "competitor_id": "1651"
     },
     "Chris Kirk": {
       "score": "-5",
-      "hole": "10",
+      "hole": "11",
       "profile_url": "https://www.espn.com/golf/player/_/id/3449/chris-kirk",
       "competitor_id": "3449"
     },
@@ -164,14 +164,14 @@
       "competitor_id": "4671"
     },
     "Pierceson Coody": {
-      "score": "-8",
-      "hole": "11",
+      "score": "-7",
+      "hole": "12",
       "profile_url": "https://www.espn.com/golf/player/_/id/4837368/pierceson-coody",
       "competitor_id": "4837368"
     },
     "Ryo Hisatsune": {
       "score": "-7",
-      "hole": "11",
+      "hole": "12",
       "profile_url": "https://www.espn.com/golf/player/_/id/4858572/ryo-hisatsune",
       "competitor_id": "4858572"
     },
@@ -273,13 +273,13 @@
     },
     "Taylor Pendrith": {
       "score": "-8",
-      "hole": "9",
+      "hole": "10",
       "profile_url": "https://www.espn.com/golf/player/_/id/9658/taylor-pendrith",
       "competitor_id": "9658"
     }
   },
-  "last_score_refresh_at": 1779463736.1901944,
-  "last_score_refresh_attempt_at": 1779464160.7795036,
+  "last_score_refresh_at": 1779464162.64648,
+  "last_score_refresh_attempt_at": 1779464162.64648,
   "text_updates": {
     "enabled": false,
     "twilio": {
@@ -399,10 +399,10 @@
       "P"
     ],
     "Max Greyserman": [
-      "P",
       "○",
       "P",
       "○",
+      "P",
       "P"
     ],
     "Wyndham Clark": [
@@ -437,11 +437,11 @@
     "Travis Smyth": [],
     "Robert MacIntyre": [],
     "Sungjae Im": [
-      "P",
       "○",
       "○",
       "□",
-      "○"
+      "○",
+      "P"
     ],
     "Max McGreevy": [
       "P",
@@ -477,8 +477,8 @@
     "Daniel Brown": [
       "P",
       "P",
-      "P",
       "○",
+      "P",
       "P"
     ],
     "Billy Horschel": [
@@ -486,7 +486,7 @@
       "P",
       "P",
       "P",
-      "P"
+      "□"
     ],
     "Jason Day": [],
     "Padraig Harrington": [
@@ -509,8 +509,8 @@
       "□"
     ],
     "Chris Kirk": [
-      "P",
       "○",
+      "P",
       "P",
       "P",
       "P"
@@ -673,11 +673,11 @@
     "Tyler Collet": [],
     "Thomas Detry": [],
     "Pierceson Coody": [
-      "P",
       "○",
       "○",
       "P",
-      "P"
+      "P",
+      "□"
     ],
     "Mark Geddes": [],
     "Justin Thomas": [
@@ -690,9 +690,9 @@
     "Ryo Hisatsune": [
       "P",
       "P",
-      "P",
       "○",
-      "○"
+      "○",
+      "P"
     ],
     "Rasmus Neergaard-Petersen": [
       "P",
@@ -923,10 +923,10 @@
     ],
     "Ryan Lenahan": [],
     "Taylor Pendrith": [
-      "P",
       "○",
       "P",
       "○",
+      "P",
       "P"
     ],
     "Jon Rahm": [
