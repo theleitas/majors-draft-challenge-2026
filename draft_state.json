@@ -567,7 +567,7 @@
     }
   },
   "last_score_refresh_at": 1781637626.3409612,
-  "last_score_refresh_attempt_at": 1781637626.3409612,
+  "last_score_refresh_attempt_at": 1781637984.69922,
   "text_updates": {
     "enabled": false,
     "twilio": {
